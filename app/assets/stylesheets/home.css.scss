@@ -105,15 +105,16 @@ input.loginForm {
 }
 
 .loginButton {
-  width: 120;
-  height: 50px;
-  background: green;
+  width: 140px;
+  height: 40px;
+  background: #3672E1;
   color: white;
   border-radius: 5px;
+  border-style: none;
+  box-shadow: 3px, 3px, 3px, 3px;
   cursor: pointer;
   text-align: center;
   font-size: 20px;
-  line-height: 250%;
   margin: 10px auto 30px auto;
 }
 
