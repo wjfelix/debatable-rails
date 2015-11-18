@@ -1,3 +1,791 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+body {
+  font-family: 'Open Sans', arial;
+  margin: 0px;
+}
+
+body#background {
+  background-color: #252525;
+}
+
+.mainLogo {
+  padding: 50px;
+}
+
+.centerPage {
+  width: 1000px;
+  margin: auto;
+  text-align: center;
+}
+
+body#debate {
+  background: url('background.png');
+  margin: 0px;
+}
+
+body#zone {
+  background: url('football_background.png');
+  margin: 0px;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -200px;
+  margin-left: -350px;
+  padding-top: 40px;
+  width: 700px;
+  height: 400px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+input#debateId {
+  width: 250px;
+  height: 50px;
+  margin:0px;
+  padding: 5px 10px;
+  font-size: 20px;
+  color: #444444;
+  text-align: center;
+}
+
+input.loginForm {
+  width: 300px;
+  height: 50px;
+  margin:10px;
+  padding: 5px 10px;
+  font-size: 20px;
+  color: #444444;
+  text-align: center;
+  border-radius: 8px;
+  border: solid 1px #09609d;
+}
+
+.timerButton {
+  width: 200;
+  height: 50px;
+  background: green;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 20px;
+  line-height: 250%;
+  margin: 25px auto;
+}
+
+.timerButtonGold {
+  width: 200;
+  height: 50px;
+  background: #FFD700;
+  color: #282828;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 20px;
+  line-height: 250%;
+  margin: 25px auto;
+}
+
+.timerButtonClose {
+  width: 200;
+  height: 50px;
+  background: #aaaaaa;
+  color: #282828;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 20px;
+  line-height: 250%;
+  margin: 25px auto;
+}
+
+.loginButton {
+  width: 120;
+  height: 50px;
+  background: green;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 20px;
+  line-height: 250%;
+  margin: 10px auto 30px auto;
+}
+
+.guestButton {
+  width: 200;
+  height: 50px;
+  background: #167dcf;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 20px;
+  line-height: 250%;
+  margin: 10px auto 30px auto;
+}
+
+.testButton {
+  width: 260;
+  height: 50px;
+  background: #167dcf;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 20px;
+  line-height: 250%;
+  margin: 10px auto 30px auto;
+}
+
+.newDebateButton {
+  width: 240;
+  height: 50px;
+  background: green;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 20px;
+  line-height: 250%;
+  margin: 30px auto 30px auto;
+}
+
+#joinButton {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -25px;
+  margin-left: -60px;
+  width: 120px;
+  height: 50px;
+  background: green;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 20px;
+  line-height: 250%;
+}
+
+.homeTitle {
+  color: #ddd;
+  padding: 10px;
+  font-size: 14px;
+  background-color: rgba(40,40,40,0.7);
+  text-transform: uppercase;
+}
+
+.homeSection {
+  margin: 50px 100px;
+  background-color: rgba(40,40,40,0.7);
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.homeSectionTitle {
+  color: #ddd;
+  font-size: 16px;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+}
+
+.homeSectionFooter {
+  min-height: 20px;
+  clear: both;
+}
+
+.homeSectionLine {
+  padding: 25px;
+  color: #ddd;
+  clear: both;
+}
+
+.listDebateTitle {
+  color: #ddd;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.listDebateDateTime {
+  color: #ddd;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.smallButton {
+  float: left;
+  width: 120;
+  background: green;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  line-height: 250%;
+  margin: 15px;
+  padding: 6px 8px;
+}
+
+.debateTitle {
+  color: #ddd;
+  text-align: center;
+  padding: 10px 100px;
+  font-size: 24px;
+  text-transform: uppercase;
+  background-color: rgba(0,0,0,0.6);
+}
+
+.debateTitleLight {
+  color: #ddd;
+  text-align: center;
+  padding: 10px 100px;
+  font-size: 24px;
+  text-transform: uppercase;
+  background-color: rgba(0,0,0,0.3);
+}
+
+#debateWindowA {
+  float: left;
+  margin: 50px;
+  background-color: rgba(40,40,40,0.7);
+  border-radius: 10px;
+}
+
+.streamWindow {
+  height: 180px;
+  width: 240px;
+  margin: 10px;
+}
+
+.testStreamWindow {
+  height: 300px;
+  width: 400px;
+  margin: 20px auto;
+}
+
+.streamWindowMedium {
+  min-height: 150px;
+  margin: auto;
+  display: inline-block;
+}
+
+.streamWindowSmall {
+  height: 300px;
+  width: 400px;
+}
+
+.debateWindowTitle {
+  text-align: center;
+  color: #ddd;
+  font-size: 16px;
+  text-transform: uppercase;
+  padding: 10px;
+  width: 240px;
+}
+
+.debateWindowTitleBig {
+  text-align: center;
+  color: #ddd;
+  font-size: 20px;
+  text-transform: uppercase;
+  padding: 10px;
+  width: 480px;
+}
+
+.debateWindowSubTitle {
+  color: #ddd;
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 10px;
+  text-align: center;
+
+
+}
+
+#debateWindowB {
+  float: right;
+  margin: 50px;
+  background-color: rgba(40,40,40,0.7);
+  border-radius: 10px;
+}
+
+#judgeWindow {
+  margin: 250px auto 25px auto;
+  background-color: rgba(40,40,40,0.7);
+  border-radius: 10px;
+  width: 320px;
+}
+
+#streamWindowJudge {
+  text-align: center;
+  height: 240px;
+  width: 320px;
+}
+
+#audience {
+  margin-left: 100px;
+  margin-top: 15px;
+  height: 90px;
+}
+
+.formDivider {
+  width: 70%;
+  margin-bottom: 30px;
+}
+
+.formLabel {
+  float: left;
+  width: 150px;
+  color: #ddd;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-align: right;
+  margin: 5px 10px 5px 25px;
+  padding-top: 14px;
+}
+
+.sectionRow {
+  clear: both;
+  margin-top: 10px;
+}
+
+input.formInputLong {
+  width: 700px;
+  height: 40px;
+  margin:10px;
+  padding: 5px 10px;
+  font-size: 16px;
+  color: #444444;
+}
+
+input.formInputShort {
+  width: 350px;
+  height: 40px;
+  margin:10px;
+  padding: 5px 10px;
+  font-size: 16px;
+  color: #444444;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+.mainContainer {
+  width: 1400px;
+  margin: auto;
+}
+
+.guestContainerLeft {
+  width: 160px;
+  min-height: 700px;
+  float: left;
+  background-color: rgba(40,40,40,0.7);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 0px 25px;
+}
+
+.guestContainerRight {
+  width: 160px;
+  min-height: 700px;
+  float: right;
+  background-color: rgba(40,40,40,0.7);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 0px 25px;
+}
+
+.debateContainer {
+  width: 1300px;
+  margin: 25px auto;
+  background-color: rgba(40,40,40,0.7);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.propContainer {
+  float: left;
+}
+
+.oppContainer {
+  float: right;
+}
+
+.score {
+  text-align: center;
+  font-size: 34px;
+  color: #ddd;
+  width: 100%;
+  height: 50px;
+}
+
+#propScore {
+  float: left;
+}
+
+#oppScore {
+  float: right;
+}
+
+.scoreCenter {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  top: -50px;
+}
+
+.judgeContainer {
+  width: 300px;
+  text-align: center;
+  width: 100%;
+}
+
+.XdebateWindowTitle {
+  text-align: center;
+  color: #ddd;
+  font-size: 16px;
+  text-transform: uppercase;
+  padding: 10px;
+}
+
+.XdebateWindowSubTitle {
+  color: #ddd;
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 20px;
+}
+
+#XdebateWindowB {
+  float: right;
+  margin: 50px;
+  background-color: rgba(40,40,40,0.7);
+  border-radius: 10px;
+}
+
+.modalBox {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -400px;
+  margin-left: -200px;
+  padding-top: 40px;
+  width: 400px;
+  height: 700px;
+  border-radius: 5px;
+  text-align: center;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 9999;
+  color: #ddd;
+}
+
+.modalBoxWide {
+  position: fixed;
+  top: 300px;
+  left: 50%;
+  margin-top: -250px;
+  margin-left: -450px;
+  padding-top: 40px;
+  width: 900px;
+  height: 500px;
+  border-radius: 5px;
+  text-align: center;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 9999;
+  color: #ddd;
+}
+
+.judgeControlCol {
+  display: inline-block;
+  width: 300px;
+}
+.debateHeader {
+  overflow: hidden;
+  text-align: center;
+}
+.debateBody {
+  overflow: hidden;
+}
+
+.judgeStream {
+  display: inline-block;
+}
+
+#judgeTimerContainer {
+  margin-top: 20px;
+}
+
+
+
+.nameTag {
+  z-index: 1000;
+  background-color: rgba(0,0,0,0.8);
+  color: #ddd;
+  text-transform: uppercase;
+  border-top-right-radius: 30px;
+}
+
+.nameS {
+  font-size: 10px;
+  padding: 4px 20px 4px 6px;
+}
+
+.nameM {
+  font-size: 12px;
+  padding: 5px 30px 5px 10px;
+}
+
+.nameL {
+  font-size: 15px;
+  padding: 8px 40px 8px 15px;
+}
+
+.speakerOn {
+  color: green;
+}
+
+.speakerOffBorder {
+  border-top: solid 6px rgba(0,0,0,0);
+}
+
+.speakerOnBorder {
+  border-top: solid 6px green;
+}
+
+.speakerWin {
+  color: #FFD700;
+}
+
+.speakerWinBorder {
+  border-top: solid 6px #FFD700;
+}
+
+.menuBar {
+  width: 100%;
+  background-color: #111;
+  color: white;
+  text-transform: uppercase;
+  font-size: 12px;
+  overflow: hidden;
+}
+
+#logoffButton {
+  padding: 10px;
+  float: right;
+  cursor: pointer;
+}
+
+.zoneContainer {
+  width: 1200px;
+  margin: 25px auto;
+  background-color: rgba(40,40,40,0.7);
+  border-radius: 10px;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.sparkVideoContainer {
+  width: 560px;
+  height: 315px;
+  margin: 15px 320px;
+}
+
+.leftBar {
+  width: 320px;
+  float: left;
+}
+
+.rightBar {
+  width: 320px;
+  float: right;
+}
+
+.sideBar {
+  width: 240px;
+  min-height: 315px;
+  margin: auto;
+  background-color: rgba(40,40,40,0.9);
+  border-radius: 10px;
+  padding: 20px;
+  color: #ddd;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.sideBarTitle {
+  color: #ddd;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.sideBarItem {
+  margin-bottom: 10px;
+}
+
+.testInfo {
+  width: 600px;
+  color: #ddd;
+  font-size: 16px;
+  padding: 10px;
+  margin: auto;
+}
+
+.fullBar {
+  width: 1000px;
+  margin: 50px auto;
+  background-color: rgba(40,40,40,0.9);
+  border-radius: 10px;
+  padding: 20px;
+  color: #ddd;
+  font-size: 14px;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.fullBarTitle {
+  color: #ddd;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.fullBarSectionLeft {
+  float: left;
+  width: 500px;
+}
+
+.fullBarSectionRight {
+  margin-left: 500px;
+}
+
+.fullBarSectionTitle {
+  text-align: center;
+  font-size: 16px;
+}
+
+.halfBarLeft {
+  width: 515px;
+  margin-left: 20px;
+  min-height: 315px;
+  background-color: rgba(40,40,40,0.9);
+  border-radius: 10px;
+  padding: 20px;
+  color: #ddd;
+  font-size: 14px;
+  text-transform: uppercase;
+  float: left;
+}
+
+.halfBarHalfSectionLeft {
+  float: left;
+  width: 245px;
+}
+
+.halfBarHalfSectionRight {
+  width: 245px;
+  margin: 10px 5px 10px 250px;
+}
+
+.halfBarRight {
+  width: 515px;
+  margin-left: 625px;
+  margin-right: 20px;
+  min-height: 315px;
+  background-color: rgba(40,40,40,0.9);
+  border-radius: 10px;
+  padding: 20px;
+  color: #ddd;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.halfBarTitle {
+  color: #ddd;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+
+
+.containerRow {
+  clear: both;
+  margin-bottom: 25px;
+  overflow: hidden;
+}
+
+.waitingCount {
+  font-size: 80px;
+}
+
+.comment {
+  overflow: hidden;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+.comment_pic {
+  float: left;
+}
+
+.comment_username {
+  margin-left: 60px;
+}
+
+.comment_text {
+  margin-left: 60px;
+  text-transform: none;
+}
+
+.challenge {
+  margin-left: 60px;
+  text-transform: uppercase;
+  color: #4dd418;
+  margin-top: 5px;
+  padding-left: 10px;
+}
+
+.fullBarCenterAction {
+  color: #4dd418;
+  text-align: center;
+  width: 100%;
+}
+
+input#adminPassword {
+  width: 250px;
+  height: 50px;
+  margin:0px;
+  padding: 5px 10px;
+  font-size: 20px;
+  color: #444444;
+  text-align: center;
+}
+
+td.formLabel {
+  color: white;
+  position: relative;
+  top: -6px;
+  width: 300px;
+}
+
+input.formField {
+  height: 30px;
+  width: 500px;
+  margin-left: 20px;
+  padding: 5px 10px;
+  font-size: 16px;
+  color: #444444;
+}
+
+.streamGuestWindow {
+  display: inline-block;
+}
