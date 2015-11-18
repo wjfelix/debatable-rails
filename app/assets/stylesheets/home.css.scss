@@ -7,11 +7,11 @@ body {
 }
 
 body#background {
-  background-color: #252525;
+  background-color: #555555;
 }
 
 .mainLogo {
-  padding: 50px;
+  padding: 20px;
 }
 
 .centerPage {
@@ -176,15 +176,21 @@ input.loginForm {
 .homeTitle {
   color: #ddd;
   padding: 10px;
-  font-size: 14px;
-  background-color: rgba(40,40,40,0.7);
-  text-transform: uppercase;
+  font-size: 30px;
+  font-family: inherit;
+  // background-color: rgba(40,40,40,0.7);
+  text-shadow: 1px 1px gray;
+  //text-transform: uppercase;
 }
 
 .homeSection {
-  margin: 50px 100px;
-  background-color: rgba(40,40,40,0.7);
-  border-radius: 10px;
+  //margin: 50px 50px;
+  //background-color: rgba(40,40,40,0.7);
+  background-color: inherit;
+  margin-top: 40px;
+  margin-left: 20%;
+  margin-right: 10%;
+  border-radius: 5px;
   padding: 15px;
 }
 
@@ -788,4 +794,26 @@ input.formField {
 
 .streamGuestWindow {
   display: inline-block;
+}
+
+.headerContainer {
+  border-radius: 3px;
+  box-shadow: 3px 3px 3px;
+  height: 100px;
+  background-color: #252525;
+}
+
+.footerContainer {
+  position: absolute;
+  bottom: 0;
+  border-radius: 1px;
+  // box-shadow: -3px -3px -3px;
+  height: 100px;
+  background-color: #252525;
+}
+
+.footerContent {
+  color: #ffffff;
+  font-size: 10px;
+  margin-left: 25%;
 }
