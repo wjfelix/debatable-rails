@@ -8,7 +8,7 @@ class CreateDebates < ActiveRecord::Migration
       t.string :tok_session_id, null: false
       t.boolean :public, null: false, default: false
       t.timestamps
-      t.foreign_key(:users)
+      t.references(:user)
     end
   end
 end

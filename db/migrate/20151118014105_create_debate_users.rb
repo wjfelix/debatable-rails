@@ -6,7 +6,7 @@ class CreateDebateUsers < ActiveRecord::Migration
       t.string :position_description
       t.integer :level, null: false, default: 0
       t.timestamps
-      t.foreign_key(:debates)
+      t.references(:debate)
     end
   end
 end
