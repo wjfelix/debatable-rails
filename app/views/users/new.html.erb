@@ -1,0 +1,8 @@
+<%= form_for(@user) do |f| %>
+<%= f.text_field(:firstname, {:placeholder => "First Name", :class => 'validate', :required => true}) %>
+<%= f.text_field(:lastname, {:placeholder => "Last Name", :class => 'validate', :required => true}) %>
+<%= f.text_field(:email, {:placeholder => "E-mail", :class => 'validate', :required => true}) %>
+<%= f.password_field(:password, {:placeholder => "Password", :class => 'validate', :required => true}) %>
+<%= f.password_field(:password_confirmation, {:placeholder => "Confirm Password", :class => 'validate', :required => true}) %>
+<%= f.submit("Create Account") %>
+<% end %>

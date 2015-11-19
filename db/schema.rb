@@ -37,10 +37,10 @@ ActiveRecord::Schema.define(version: 20151118014105) do
     t.string   "firstname",                       null: false
     t.string   "lastname",                        null: false
     t.string   "email",                           null: false
-    t.string   "school",                          null: false
+    t.string   "school"
     t.string   "password_digest",                 null: false
     t.boolean  "is_validated",    default: false, null: false
-    t.string   "validation_code",                 null: false
+    t.string   "validation_code"
     t.integer  "level",           default: 0,     null: false
     t.datetime "created_at"
     t.datetime "updated_at"

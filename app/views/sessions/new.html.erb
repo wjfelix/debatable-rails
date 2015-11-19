@@ -1,11 +1,13 @@
-<%= form_for(:session, url: login_path) do |f| %>
+<body id="background">
+  <div class="center">
+    <div class="loginContainer">
+    <%= form_for(:session, url: login_path) do |f| %>
 
-  <%= f.label(:username, 'Username') %>
-  <%= f.text_field(:username, {:class => 'validate', :required => true}) %>
-
-  <%= f.label(:password, 'Password') %>
-  <%= f.password_field(:password, {:class => 'validate', :required => true}) %>
-
-  <%= f.submit('Login', {:class => 'btn'}) %>
-
-<% end %>
+    <%= f.text_field(:username, {:placeholder => "Username", :class => 'validate', :required => true}) %>
+    <%= f.password_field(:password, {:placeholder => "Password", :class => 'validate', :required => true}) %>
+    <br />
+    <%= f.submit('Login', {:class => 'loginButton'}) %>
+    <% end %>
+  </div>
+  </div>
+</body>

@@ -10,6 +10,9 @@
     <div class="headerContainer">
       <%= render 'layouts/header' %>
     </div>
+    <% if !flash[:message].nil? %>
+      <%= flash[:message] %>
+    <% end %>
     <%= yield %>
     <div class="footerContainer">
       <%= render 'layouts/footer' %>

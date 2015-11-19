@@ -797,9 +797,10 @@ input.formField {
   display: inline-block;
 }
 
+
+// Garrick New Styles
 .headerContainer {
-  border-radius: 3px;
-  box-shadow: 3px 3px 3px;
+  box-shadow: 2px 2px 2px;
   height: 100px;
   background-color: #252525;
 }
@@ -817,4 +818,16 @@ input.formField {
   color: #ffffff;
   font-size: 10px;
   margin-left: 25%;
+}
+
+.loginContainer {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -250px;
+  width: 500px;
+  height: 200px;
+  padding: 30px;
+  border: solid 1px black;
 }
