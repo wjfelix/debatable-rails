@@ -1,2 +1,9 @@
-<h1>Debates#new</h1>
-<p>Find me in app/views/debates/new.html.erb</p>
+<%= form_for([@user, @debate]) do |f| %>
+  <%= f.text_field(:category, :placeholder => 'Category') %>
+  <%= f.text_field(:topic, :placeholder => 'Topic') %>
+  <%= f.text_field(:name, :placeholder => 'Debate Name') %>
+  <%= f.text_area(:description, :placeholder => 'Description') %>
+  <%= f.text_field(:type, :placeholder => 'Debate Type') %>
+  <%= f.check_box(:public) %>
+  <%= f.submit %>
+<% end %>
