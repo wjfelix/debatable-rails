@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151118014105) do
+ActiveRecord::Schema.define(version: 20151121213842) do
+
+  create_table "debate_invites", force: true do |t|
+    t.string   "invite_email",   null: false
+    t.string   "invite_message"
+    t.integer  "debate_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "debate_users", force: true do |t|
     t.boolean  "is_judge",             default: false, null: false
@@ -23,8 +31,10 @@ ActiveRecord::Schema.define(version: 20151118014105) do
   end
 
   create_table "debates", force: true do |t|
-    t.integer  "owner_id",                       null: false
+    t.string   "category",                       null: false
     t.string   "topic",                          null: false
+    t.string   "name",                           null: false
+    t.string   "description"
     t.string   "type",                           null: false
     t.string   "tok_session_id",                 null: false
     t.boolean  "public",         default: false, null: false
