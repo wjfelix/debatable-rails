@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     if @user
       if !@user.is_validated
         flash[:success] = false
-        flash[:message] = "You have not validated your account!" << @user.is_validated.to_s
+        flash[:message] = "You have not validated your account!"
 
         redirect_to login_path
       elsif @user.authenticate(params[:session][:password])
@@ -23,12 +23,12 @@ class SessionsController < ApplicationController
         else
           redirect_to home_news_path
         end
-      end
-    else
-      flash[:success] = false
-      flash[:message] = "Incorrect Username or Password"
+      else
+        flash[:success] = false
+        flash[:message] = "Incorrect Username or Password"
 
-      redirect_to login_path
+        redirect_to login_path
+      end
     end
   end
 
