@@ -6,10 +6,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+
     if @user.save
+      UserMailer.email_validation(@user)
       flash[:success] = true
       flash[:message] = "Account successfully created! Check your E-mail for a verification link"
-      redirect_to user_path(@user)
+      redirect_to root_url
     else
       flash[:success] = false
       flash[:message] = "You have not completed the required fields!"
@@ -18,6 +20,27 @@ class UsersController < ApplicationController
   end
 
   def show
+  end
+
+  def validate_email
+    user = User.find_by_validation_code(params[:id])
+
+    if user
+      user.is_validated = true
+      if user.save
+        flash[:success] = true
+        flash[:message] = "E-mail successfully verified, Thanks for registering!"
+        redirect_to login_path
+      else
+        flash[:succes] = false
+        flash[:message] = "There was an error verifying your account!"
+        redirect_to root
+      end
+    else
+      flash[:success] = false
+      flash[:message] = "Sorry, that user does not exist!"
+      redirect_to login_path
+    end
   end
 
   private

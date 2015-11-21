@@ -1,0 +1,4 @@
+
+Thank you for joining debatable, <%= @user.firstname %>!
+Click on the link below to validate your account
+    <%= user_validate_email_url(@user.validation_code) %>

@@ -4,18 +4,25 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by_email(params[:session][:email])
+    @user = User.find_by_email(params[:session][:username])
 
-    if @user && @user.authenticate(params[:session][:password])
-      session[:user_id] = @user.id
+    if @user
+      if !@user.is_validated
+        flash[:success] = false
+        flash[:message] = "You have not validated your account!" << @user.is_validated.to_s
 
-      flash[:success] = true
-      flash[:message] = "Successfully logged in!"
+        redirect_to login_path
+      elsif @user.authenticate(params[:session][:password])
+        session[:user_id] = @user.id
 
-      if session[:return_route]
-        redirect_to session[:return_route]
-      else
-        redirect_to '/'
+        flash[:success] = true
+        flash[:message] = "Successfully logged in!"
+
+        if session[:return_route]
+          redirect_to session[:return_route]
+        else
+          redirect_to home_news_path
+        end
       end
     else
       flash[:success] = false
