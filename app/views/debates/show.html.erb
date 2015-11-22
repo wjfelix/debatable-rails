@@ -1,8 +1,6 @@
-<h1>Debates#show</h1>
-<p>Find me in app/views/debates/show.html.erb</p>
 <html>
   <body>
-    <div id="videobox"></div>
+    <div class="videobox"></div>
     <script type="text/javascript" src="https://static.opentok.com/v2/js/opentok.min.js"></script>
 
     <%= javascript_tag do %>
@@ -20,7 +18,7 @@
       function sessionConnectedHandler(event) {
         session.publish("videobox")
       };
-      
+
     <% end %>
   </body>
 </html>

@@ -1,10 +1,11 @@
 class DebatesController < ApplicationController
 
   require 'opentok'
-  before_filter :config_opentok, :except => [:index, :show, :destroy]
+  OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+  before_filter :config_opentok, :except => [:index, :destroy]
 
   def index
-    @debates = Debates.find_by_user(session[:user_id])
+    @debates = Debate.find(params[:user_id])
   end
 
   def new
@@ -14,6 +15,7 @@ class DebatesController < ApplicationController
 
   def create
     config_opentok
+
     session = @opentok.create_session
     params[:debate][:tok_session_id] = session.session_id
 
@@ -23,7 +25,7 @@ class DebatesController < ApplicationController
     if @new_debate.save
       flash[:success] = true
       flash[:message] = "Successfully created new debate!"
-      redirect_to debate_show_path(@new_debate)
+      redirect_to user_debate_path(:id => @new_debate.id)
     else
       flash[:success] = false
       flash[:message] = "Failed to create Debate!"
@@ -33,7 +35,7 @@ class DebatesController < ApplicationController
 
   def show
     @debate = Debate.find(params[:id])
-    @tok_token = @opentok.generate_token(@room.tok_session_id).to_s
+    @tok_token = @opentok.generate_token(@debate.tok_session_id).to_s
   end
 
   def join
@@ -60,6 +62,6 @@ class DebatesController < ApplicationController
   end
 
   def debate_params
-    params.require(:debate).permit(:category, :topic, :name, :description, :type)
+    params.require(:debate).permit(:category, :topic, :name, :description, :debate_style, :public)
   end
 end
