@@ -1,0 +1,17 @@
+<h1>Creating new Debate...</h1>
+<%= javascript_tag do %>
+  function joinDebate(event) {
+    var apiKey = '45241592';
+    var tokSessionId = '<%= j @debate.tok_session_id %>';
+    var token = '<%= j @tok_token %>';
+
+    var session = TB.initSession(tokSessionId);
+
+    //session.addEventListener("sessionConnected", sessionConnectedHandler);
+    session.connect(apiKey, token);
+
+    //function sessionConnectedHandler(event) {
+    //  session.publish("videobox")
+    //};
+  };
+<% end %>

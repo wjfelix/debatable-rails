@@ -25,7 +25,8 @@ class DebatesController < ApplicationController
     if @new_debate.save
       flash[:success] = true
       flash[:message] = "Successfully created new debate!"
-      redirect_to user_debate_path(:id => @new_debate.id)
+      # redirect_to user_debate_path(:id => @new_debate.id)
+      self.join
     else
       flash[:success] = false
       flash[:message] = "Failed to create Debate!"
@@ -35,19 +36,37 @@ class DebatesController < ApplicationController
 
   def show
     @debate = Debate.find(params[:id])
-    @tok_token = @opentok.generate_token(@debate.tok_session_id).to_s
+    # @tok_token = @opentok.generate_token(@debate.tok_session_id).to_s
+    @debate_users = Debate.debate_users
+  end
+
+  def invite
   end
 
   def join
-    @user = User.find(params[:session][:user_id])
-    @debate = Debate.find(params[:id])
-    @debate_invite = DebateInvites.find(:invite_email => @user.email)
+    @user = User.find(session[:user_id])
+    # @debate = Debate.find(params[:id])
+    # @debate_invite = DebateInvites.find(:invite_email => @user.email)
 
-    if @user && @debate_invite
-      @tok_token = @opentok.generate_token(@debate.tok_session_id).to_s
-      flash[:success] = true
-      flash[:message] = "Successfully joined debate!"
-      redirect_to debates_show_path(@debate)
+    if @user 
+      @debate_user = DebateUser.new
+      if @new_debate && @user.id == @new_debate.user_id
+        # If the user created a new debate, Generate a new
+        # OpenTok session and DebateUser (The owner) and then
+        # redirect to the showpath of the debate
+
+        @tok_token = @opentok.generate_token(@new_debate.tok_session_id).to_s
+        render 'new_debate'
+      else
+        # If the user did NOT create the debate, create a new
+        # DebateUser and join the existing OpenTok session
+        # By generating a token through javascript
+
+        flash[:success] = true
+        flash[:message] = "Successfully joined debate!"
+        render 'join'
+        # redirect_to debates_show_path(@debate)
+      end
     end
   end
 
@@ -55,6 +74,12 @@ class DebatesController < ApplicationController
   end
 
   private
+  def get_sessions
+    @debate_users = @debate.debate_users
+    # var session = TB.initSession(@debate.tok_session_id)
+
+  end
+
   def config_opentok
     if @opentok.nil?
       @opentok = OpenTok::OpenTok.new '45241592', 'b099560439c52ed195d79cb7c15fbae1d9b33f1e'
