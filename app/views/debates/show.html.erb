@@ -12,7 +12,7 @@
 
       var session = TB.initSession(tokSessionId);
 
-      session.addEventListener("sessionConnected, sessionConnectedHandler");
+      session.addEventListener("sessionConnected", sessionConnectedHandler);
       session.connect(apiKey, token);
 
       function sessionConnectedHandler(event) {
