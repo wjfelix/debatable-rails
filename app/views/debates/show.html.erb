@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 <html>
   <body>
     <div class="videobox"></div>
@@ -13,23 +5,22 @@
     <%= javascript_tag do %>
       alert("test")
 
-      function joinDebate(event) {
-        var apiKey = '45241592';
-        var tokSessionId = '<%= j @debate.tok_session_id %>';
-        var token = '<%= j @tok_token %>';
+      var apiKey = '45241592';
+      var tokSessionId = '<%= j @debate.tok_session_id %>';
+      var token = '<%= j @tok_token %>';
 
-        var session = TB.initSession(tokSessionId);
+      var session = TB.initSession(tokSessionId);
 
-        session.addEventListener("sessionConnected", sessionConnectedHandler);
-        session.connect(apiKey, token);
+      session.addEventListener("sessionConnected", sessionConnectedHandler);
+      session.connect(apiKey, token);
 
-        function sessionConnectedHandler(event) {
-          session.publish("videobox")
-        };
-      };
-
+      function sessionConnectedHandler(event) {
+        session.publish("videobox")
+      }
     <% end %>
 
-    <button onclick="joinDebate()">Join Debate</button>
+    <% if @user && @user.id != @debate.user_id %>
+      <%= button_to 'Join Debate', join_path, :method => "get" %>
+    <% end %>
   </body>
 </html>

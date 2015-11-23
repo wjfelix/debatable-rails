@@ -9,24 +9,21 @@ class DebatesController < ApplicationController
   end
 
   def new
-    @user = User.find(params[:user_id])
     @debate = Debate.new
   end
 
   def create
     config_opentok
 
-    session = @opentok.create_session
-    params[:debate][:tok_session_id] = session.session_id
-
-    @new_debate = Debate.new(debate_params)
-    @new_debate.tok_session_id = params[:debate][:tok_session_id]
-
-    if @new_debate.save
+    @debate = Debate.new(debate_params)
+    @user = User.find(session[:user_id])
+    if @debate.save
+      # @new_debate.debate_users.create
+      # Hold off on creating debate_users, not sure yet if we need it
       flash[:success] = true
       flash[:message] = "Successfully created new debate!"
-      # redirect_to user_debate_path(:id => @new_debate.id)
-      self.join
+      @tok_token = @opentok.generate_token(@debate.tok_session_id)
+      redirect_to user_debate_path(:id => @debate.id)
     else
       flash[:success] = false
       flash[:message] = "Failed to create Debate!"
@@ -34,40 +31,22 @@ class DebatesController < ApplicationController
     end
   end
 
+  def join
+    render 'show'
+  end
+
   def show
+    # Only allow to join if we are currently logged in
+    if session[:user_id]
+      @user = User.find(session[:user_id])
+    end
+
     @debate = Debate.find(params[:id])
     # @tok_token = @opentok.generate_token(@debate.tok_session_id).to_s
-    @debate_users = Debate.debate_users
+    @debate_users = @debate.debate_users
   end
 
   def invite
-  end
-
-  def join
-    @user = User.find(session[:user_id])
-    # @debate = Debate.find(params[:id])
-    # @debate_invite = DebateInvites.find(:invite_email => @user.email)
-
-    if @user 
-      @debate_user = DebateUser.new
-      if @new_debate && @user.id == @new_debate.user_id
-        # If the user created a new debate, Generate a new
-        # OpenTok session and DebateUser (The owner) and then
-        # redirect to the showpath of the debate
-
-        @tok_token = @opentok.generate_token(@new_debate.tok_session_id).to_s
-        render 'new_debate'
-      else
-        # If the user did NOT create the debate, create a new
-        # DebateUser and join the existing OpenTok session
-        # By generating a token through javascript
-
-        flash[:success] = true
-        flash[:message] = "Successfully joined debate!"
-        render 'join'
-        # redirect_to debates_show_path(@debate)
-      end
-    end
   end
 
   def destroy
