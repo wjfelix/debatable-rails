@@ -3,7 +3,7 @@ class DebatesController < ApplicationController
   require 'opentok'
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
   before_filter :config_opentok, :except => [:index, :destroy]
-  before_filter :find_user, :except => [:index, :new]
+  before_filter :find_user, :except => [:create, :new]
 
   def index
     @debates = Debate.find(params[:user_id])
@@ -15,9 +15,9 @@ class DebatesController < ApplicationController
   end
 
   def create
-    config_opentok
-
+    @user = User.find(params[:user_id])
     @debate = @user.debates.build(debate_params)
+    @debate_user = DebateUser.new()
     if @debate.save
       # @new_debate.debate_users.create
       # Hold off on creating debate_users, not sure yet if we need it
@@ -32,14 +32,20 @@ class DebatesController < ApplicationController
   end
 
   def join
-    render 'show'
   end
 
   def show
+    config_opentok
     # Only allow to join if we are currently logged in
     @debate = Debate.find(params[:id])
     if session[:user_id]
+      #Find DebateUser object here
+
+
+      #Generate token type based on debate user
       @tok_token = @opentok.generate_token(@debate.tok_session_id)
+      flash[:success] = true
+      flash[:message] = "Connected to Debate! Make sure to enable your microphone"
     else
       flash[:success] = false
       flash[:message] = "You must be signed in to use this feature!"
@@ -54,11 +60,6 @@ class DebatesController < ApplicationController
   end
 
   private
-  def get_sessions
-    @debate_users = @debate.debate_users
-    # var session = TB.initSession(@debate.tok_session_id)
-
-  end
 
   def config_opentok
     if @opentok.nil?
