@@ -23,7 +23,9 @@ ActiveRecord::Schema.define(version: 20151121213842) do
 
   create_table "debate_users", force: true do |t|
     t.boolean  "is_judge",             default: false, null: false
+    t.boolean  "is_connected",         default: false, null: false
     t.string   "position_description"
+    t.string   "tok_session"
     t.integer  "level",                default: 0,     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -35,7 +37,7 @@ ActiveRecord::Schema.define(version: 20151121213842) do
     t.string   "topic",                          null: false
     t.string   "name",                           null: false
     t.string   "description"
-    t.string   "type",                           null: false
+    t.string   "debate_style",                   null: false
     t.string   "tok_session_id",                 null: false
     t.boolean  "public",         default: false, null: false
     t.datetime "created_at"
@@ -44,14 +46,14 @@ ActiveRecord::Schema.define(version: 20151121213842) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "firstname",                       null: false
-    t.string   "lastname",                        null: false
-    t.string   "email",                           null: false
+    t.string   "firstname",                      null: false
+    t.string   "lastname",                       null: false
+    t.string   "email",                          null: false
     t.string   "school"
-    t.string   "password_digest",                 null: false
-    t.boolean  "is_validated",    default: false, null: false
+    t.string   "password_digest",                null: false
+    t.boolean  "is_validated",    default: true, null: false
     t.string   "validation_code"
-    t.integer  "level",           default: 0,     null: false
+    t.integer  "level",           default: 0,    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

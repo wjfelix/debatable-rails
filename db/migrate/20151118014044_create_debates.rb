@@ -8,9 +8,9 @@ class CreateDebates < ActiveRecord::Migration
 
       t.string :name, null: false
       t.string :description
-      t.string :type, null: false
+      t.string :debate_style, null: false
       t.string :tok_session_id, null: false
-      
+
       t.boolean :public, null: false, default: false
       t.timestamps
       t.references(:user)

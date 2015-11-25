@@ -4,6 +4,12 @@ class SessionsController < ApplicationController
   end
 
   def create
+    if session[:user_id]
+      flash[:success] = false
+      flash[:message] = "Already logged in! Press the 'Logout' button to sign in with a different account"
+      redirect_to home_news_path
+    end
+
     @user = User.find_by_email(params[:session][:username])
 
     if @user

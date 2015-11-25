@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
-    if params[:session]
-      redirect_to home_news
+    if session[:user_id]
+      redirect_to home_news_path
     end
   end
 

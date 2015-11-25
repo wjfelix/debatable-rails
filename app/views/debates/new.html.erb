@@ -1,4 +1,4 @@
-<%= form_for([@user, @debate]) do |f| %>
+<%= form_for [@user, @debate] do |f| %>
   <%= f.text_field(:category, :placeholder => 'Category') %>
   <%= f.text_field(:topic, :placeholder => 'Topic') %>
   <%= f.text_field(:name, :placeholder => 'Debate Name') %>

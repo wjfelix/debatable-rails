@@ -3,26 +3,26 @@ class DebatesController < ApplicationController
   require 'opentok'
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
   before_filter :config_opentok, :except => [:index, :destroy]
+  before_filter :find_user, :except => [:index, :new]
 
   def index
     @debates = Debate.find(params[:user_id])
   end
 
   def new
+    @user = User.find(params[:user_id])
     @debate = Debate.new
   end
 
   def create
     config_opentok
 
-    @debate = Debate.new(debate_params)
-    @user = User.find(session[:user_id])
+    @debate = @user.debates.build(debate_params)
     if @debate.save
       # @new_debate.debate_users.create
       # Hold off on creating debate_users, not sure yet if we need it
       flash[:success] = true
       flash[:message] = "Successfully created new debate!"
-      @tok_token = @opentok.generate_token(@debate.tok_session_id)
       redirect_to user_debate_path(:id => @debate.id)
     else
       flash[:success] = false
@@ -37,13 +37,14 @@ class DebatesController < ApplicationController
 
   def show
     # Only allow to join if we are currently logged in
-    if session[:user_id]
-      @user = User.find(session[:user_id])
-    end
-
     @debate = Debate.find(params[:id])
-    # @tok_token = @opentok.generate_token(@debate.tok_session_id).to_s
-    @debate_users = @debate.debate_users
+    if session[:user_id]
+      @tok_token = @opentok.generate_token(@debate.tok_session_id)
+    else
+      flash[:success] = false
+      flash[:message] = "You must be signed in to use this feature!"
+      redirect_to login_path
+    end
   end
 
   def invite
@@ -67,5 +68,9 @@ class DebatesController < ApplicationController
 
   def debate_params
     params.require(:debate).permit(:category, :topic, :name, :description, :debate_style, :public)
+  end
+
+  def find_user
+    @user = User.find(session[:user_id])
   end
 end
