@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151121213842) do
+ActiveRecord::Schema.define(version: 20151125055133) do
+
+  create_table "categories", force: true do |t|
+    t.string   "category_name", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "debate_invites", force: true do |t|
     t.string   "invite_email",   null: false
@@ -33,7 +39,6 @@ ActiveRecord::Schema.define(version: 20151121213842) do
   end
 
   create_table "debates", force: true do |t|
-    t.string   "category",                       null: false
     t.string   "topic",                          null: false
     t.string   "name",                           null: false
     t.string   "description"
@@ -43,6 +48,7 @@ ActiveRecord::Schema.define(version: 20151121213842) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "category_id"
   end
 
   create_table "users", force: true do |t|

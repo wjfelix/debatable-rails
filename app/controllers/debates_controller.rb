@@ -12,6 +12,7 @@ class DebatesController < ApplicationController
   def new
     @user = User.find(params[:user_id])
     @debate = Debate.new
+    @categories = Category.all
   end
 
   def create
@@ -68,7 +69,7 @@ class DebatesController < ApplicationController
   end
 
   def debate_params
-    params.require(:debate).permit(:category, :topic, :name, :description, :debate_style, :public)
+    params.require(:debate).permit(:category_id, :topic, :name, :description, :debate_style, :public)
   end
 
   def find_user

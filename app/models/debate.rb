@@ -3,7 +3,9 @@ class Debate < ActiveRecord::Base
 	OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 	before_create :save_tok_session_id
+
 	belongs_to :user
+	belongs_to :category
 	has_many :debate_users
 	has_many :debate_invites
 

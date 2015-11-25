@@ -3,7 +3,6 @@ class CreateDebates < ActiveRecord::Migration
     create_table :debates do |t|
 
       # Sports -> NFL, Politics -> Minimum Wage
-      t.string :category, null: false
       t.string :topic, null: false
 
       t.string :name, null: false
@@ -14,6 +13,7 @@ class CreateDebates < ActiveRecord::Migration
       t.boolean :public, null: false, default: false
       t.timestamps
       t.references(:user)
+      t.references(:category)
     end
   end
 end
