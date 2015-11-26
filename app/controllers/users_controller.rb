@@ -20,6 +20,14 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
+    @debates = @user.debates
+  end
+
+  def edit
+  end
+
+  def update
   end
 
   def validate_email

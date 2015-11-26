@@ -18,7 +18,6 @@ class DebatesController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     @debate = @user.debates.build(debate_params)
-    @debate_user = DebateUser.new()
     if @debate.save
       # @new_debate.debate_users.create
       # Hold off on creating debate_users, not sure yet if we need it
@@ -32,13 +31,11 @@ class DebatesController < ApplicationController
     end
   end
 
-  def join
-  end
-
   def show
     config_opentok
     # Only allow to join if we are currently logged in
     @debate = Debate.find(params[:id])
+    @debate_user = @debate.debate_users.where(:)
     if session[:user_id]
       #Find DebateUser object here
 
@@ -61,7 +58,6 @@ class DebatesController < ApplicationController
   end
 
   private
-
   def config_opentok
     if @opentok.nil?
       @opentok = OpenTok::OpenTok.new '45241592', 'b099560439c52ed195d79cb7c15fbae1d9b33f1e'
