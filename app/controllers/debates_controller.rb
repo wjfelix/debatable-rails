@@ -45,6 +45,23 @@ class DebatesController < ApplicationController
       @tok_token = @opentok.generate_token(@debate.tok_session_id)
       flash[:success] = true
       flash[:message] = "Connected to Debate! Make sure to enable your microphone"
+      #Redirect to the appropriate paths per debate style
+      # QnA
+      if @debate.debate_style == 1
+        render 'question_answer'
+      elsif @debate.debate_style == 2
+        render 'one_versus_one'
+      elsif @debate.debate_style == 3
+        render 'two_versus_two'
+      elsif @debate.debate_style == 4
+        render 'three_versus_three'
+      elsif @debate.debate_style == 5
+        render 'four_versus_four'
+      elsif @debate.debate_style == 6
+        render 'firetalk'
+      elsif
+        render 'discussion_freetalk'
+      end
     else
       flash[:success] = false
       flash[:message] = "You must be signed in to use this feature!"
