@@ -13,6 +13,7 @@ class DebatesController < ApplicationController
     @user = User.find(params[:user_id])
     @debate = Debate.new
     @categories = Category.all
+    @debate_styles = DebateStyles.all
   end
 
   def create
@@ -35,7 +36,7 @@ class DebatesController < ApplicationController
     config_opentok
     # Only allow to join if we are currently logged in
     @debate = Debate.find(params[:id])
-    @debate_user = @debate.debate_users.where(:)
+    #@debate_user = @debate.debate_users.where(:)
     if session[:user_id]
       #Find DebateUser object here
 
@@ -65,7 +66,7 @@ class DebatesController < ApplicationController
   end
 
   def debate_params
-    params.require(:debate).permit(:category_id, :topic, :name, :description, :debate_style, :public)
+    params.require(:debate).permit(:category_id, :debate_style_id, :topic, :name, :description, :public)
   end
 
   def find_user

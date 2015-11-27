@@ -13,3 +13,7 @@ categories = Category.create([{ category_name: 'Sports'}, { category_name: 'Poli
   { category_name: 'Wildlife'}, {category_name: 'Pets'},
   { category_name: 'Food'}, { category_name: 'Travel'},
   { category_name: 'Cars'}, {category_name: 'Philosophy'}])
+
+styles = DebateStyles.create([{ debate_style: 'Q n A'}, { debate_style: '1 v 1'},
+  { debate_style: '2 v 2'}, { debate_style: '3 v 3'}, {debate_style: '4 v 4'},
+  { debate_style: 'Firetalk'}, { debate_style: 'Discussion/Freetalk'}])

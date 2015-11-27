@@ -22,6 +22,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @debates = @user.debates
+    @posts = @user.posts
   end
 
   def edit

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125055133) do
+ActiveRecord::Schema.define(version: 20151126235324) do
 
   create_table "categories", force: true do |t|
     t.string   "category_name", null: false
@@ -23,6 +23,12 @@ ActiveRecord::Schema.define(version: 20151125055133) do
     t.string   "invite_email",   null: false
     t.string   "invite_message"
     t.integer  "debate_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "debate_styles", force: true do |t|
+    t.string   "debate_style", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -39,16 +45,23 @@ ActiveRecord::Schema.define(version: 20151125055133) do
   end
 
   create_table "debates", force: true do |t|
-    t.string   "topic",                          null: false
-    t.string   "name",                           null: false
+    t.string   "topic",                           null: false
+    t.string   "name",                            null: false
     t.string   "description"
-    t.string   "debate_style",                   null: false
-    t.string   "tok_session_id",                 null: false
-    t.boolean  "public",         default: false, null: false
+    t.string   "tok_session_id",                  null: false
+    t.boolean  "public",          default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "category_id"
+    t.integer  "debate_style_id"
+  end
+
+  create_table "posts", force: true do |t|
+    t.integer  "endorsements"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "users", force: true do |t|

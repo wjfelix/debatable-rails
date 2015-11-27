@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
 	before_create :validate_code
 	has_many :debates
-	has_many :debate_users, through: :debates
+	has_many :debate_users
+	has_many :posts
 	has_secure_password
 	validates :password, presence: true, confirmation: true, length: { minimum: 7 }
 

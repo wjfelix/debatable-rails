@@ -6,6 +6,7 @@ class Debate < ActiveRecord::Base
 
 	belongs_to :user
 	belongs_to :category
+	belongs_to :debate_style
 	has_many :debate_users
 	has_many :debate_invites
 
