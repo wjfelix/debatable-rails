@@ -40,11 +40,11 @@ class DebatesController < ApplicationController
     if session[:user_id]
       #Find DebateUser object here
 
-
       #Generate token type based on debate user
       @tok_token = @opentok.generate_token(@debate.tok_session_id)
       flash[:success] = true
       flash[:message] = "Connected to Debate! Make sure to enable your microphone"
+
       #Redirect to the appropriate paths per debate style
       # QnA
       if @debate.debate_style == 1
@@ -67,6 +67,12 @@ class DebatesController < ApplicationController
       flash[:message] = "You must be signed in to use this feature!"
       redirect_to login_path
     end
+  end
+
+  #View to redirect incoming debaters, create new debate_user, update description
+  #and find appropriate debate with references,
+  def join
+    # redirect_to show_debates_path()
   end
 
   def invite
