@@ -34,6 +34,8 @@ class DebatesController < ApplicationController
 
   def show
     config_opentok
+    @messages = Message.all
+    @message = Message.create!(params[:message])
     # Only allow to join if we are currently logged in
     @debate = Debate.find(params[:id])
     #@debate_user = @debate.debate_users.where(:)
