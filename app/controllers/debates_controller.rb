@@ -34,8 +34,6 @@ class DebatesController < ApplicationController
 
   def show
     config_opentok
-    @messages = Message.all
-    @message = Message.create!(params[:message])
     # Only allow to join if we are currently logged in
     @debate = Debate.find(params[:id])
     #@debate_user = @debate.debate_users.where(:)
@@ -49,19 +47,19 @@ class DebatesController < ApplicationController
 
       #Redirect to the appropriate paths per debate style
       # QnA
-      if @debate.debate_style == 1
+      if @debate.debate_style_id == 1
         render 'question_answer'
-      elsif @debate.debate_style == 2
+      elsif @debate.debate_style_id == 2
         render 'one_versus_one'
-      elsif @debate.debate_style == 3
+      elsif @debate.debate_style_id == 3
         render 'two_versus_two'
-      elsif @debate.debate_style == 4
+      elsif @debate.debate_style_id == 4
         render 'three_versus_three'
-      elsif @debate.debate_style == 5
+      elsif @debate.debate_style_id == 5
         render 'four_versus_four'
-      elsif @debate.debate_style == 6
+      elsif @debate.debate_style_id == 6
         render 'firetalk'
-      elsif
+      else
         render 'discussion_freetalk'
       end
     else
@@ -74,7 +72,7 @@ class DebatesController < ApplicationController
   #View to redirect incoming debaters, create new debate_user, update description
   #and find appropriate debate with references,
   def join
-    # redirect_to show_debates_path()
+    # redirect_to show_debates_path()?
   end
 
   def invite

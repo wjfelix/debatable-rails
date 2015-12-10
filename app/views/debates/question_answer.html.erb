@@ -6,9 +6,14 @@
     <div class="descriptionBox">
       <%= @debate.description %>
     </div>
+
+    <!--
+      Here is where we will decide where to put the Q n A stuff, probably style two different boxes?
+    -- >
     <div class="answerBox"></div>
     <div class="questionBox"></div>
-    <script type="text/javascript" src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+
+    <% javascript_include_tag "opentok.min.js" %>
     <%= javascript_tag do %>
       alert('<%= @debate.tok_session_id %>');
       var apiKey = '45241592';

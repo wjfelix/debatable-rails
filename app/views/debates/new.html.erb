@@ -1,9 +1,1 @@
-<%= form_for [@user, @debate] do |f| %>
-  <%= f.collection_select(:category_id, @categories, :id, :category_name) %>
-  <%= f.collection_select(:debate_style_id, @debate_styles, :id, :debate_style) %>
-  <%= f.text_field(:topic, :placeholder => 'Topic') %>
-  <%= f.text_field(:name, :placeholder => 'Debate Name') %>
-  <%= f.text_area(:description, :placeholder => 'Description') %>
-  <%= f.check_box(:public) %>
-  <%= f.submit %>
-<% end %>
+<%= render 'form' %>
