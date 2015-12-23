@@ -1,19 +1,25 @@
 <%= form_for [@user, @debate] do |f| %>
-  <%= f.collection_select(:category_id, @categories, :id, :category_name) %>
-  <%= f.collection_select(:debate_style_id, @debate_styles, :id, :debate_style) %>
-  <%= f.text_field(:topic, :placeholder => 'Topic') %>
-  <%= f.text_field(:name, :placeholder => 'Debate Name') %>
+  <%= f.collection_select(:category_id, @categories, :id, :category_name, :required => true) %>
+  <%= f.collection_select(:debate_style_id, @debate_styles, :id, :debate_style, :required => true) %>
+  <%= f.text_field(:topic, :placeholder => 'Topic', :required => true) %>
+  <%= f.text_field(:name, :placeholder => 'Debate Name', :required => true) %>
   <%= f.text_area(:description, :placeholder => 'Description') %>
   <%= f.label('Public') %>
   <%= f.check_box(:public) %>
+  <br />
+  <br />
 
-  <%= Debater Invites %>
+  <%= 'Debater Invites' %>
   <%= f.fields_for :debater_invites do |debater_invites_form| %>
-  <%= debater_invites_form.text_field(:user_name, :placeholder => 'Debater name or e-mail') %>
+  <%= render 'debater_invites_fields', f: debater_invites_form %>
   <% end %>
+  <br />
 
-  <%= Moderator Invites %>
+  <%= 'Moderator Invites' %>
   <%= f.fields_for :moderator_invites do |moderator_invites_form| %>
+  <fieldset>
   <%= moderator_invites_form.text_field(:user_name, :placeholder => 'Moderator name or e-mail') %>
+  </fieldset>
+  <% end %>
   <%= f.submit %>
 <% end %>

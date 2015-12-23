@@ -11,6 +11,9 @@ class Debate < ActiveRecord::Base
 	has_many :debater_invites
 	has_many :moderator_invites
 
+	accepts_nested_attributes_for :debater_invites
+	accepts_nested_attributes_for :moderator_invites
+	
 	private
 	def save_tok_session_id
 		opentok = OpenTok::OpenTok.new '45241592', 'b099560439c52ed195d79cb7c15fbae1d9b33f1e'

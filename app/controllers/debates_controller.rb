@@ -14,6 +14,10 @@ class DebatesController < ApplicationController
     @debate = Debate.new
     @categories = Category.all
     @debate_styles = DebateStyles.all
+
+    @debate.debater_invites.build
+    @debate.moderator_invites.build
+    # Adjust number of @debater_invites based on debate style
   end
 
   def create
@@ -21,8 +25,6 @@ class DebatesController < ApplicationController
     @debate = @user.debates.build(debate_params)
 
     if @debate.save
-      # @new_debate.debate_users.create
-      # Hold off on creating debate_users, not sure yet if we need it
       flash[:success] = true
       flash[:message] = "Successfully created new debate!"
       redirect_to user_debate_path(:id => @debate.id)
@@ -43,7 +45,7 @@ class DebatesController < ApplicationController
       if @debate.debate_style_id == 1
         render 'question_answer'
       elsif @debate.debate_style_id == 2
-        render 'one_versus_one'
+        render '1v1'
       elsif @debate.debate_style_id == 3
         render 'two_versus_two'
       elsif @debate.debate_style_id == 4
@@ -82,16 +84,12 @@ class DebatesController < ApplicationController
   end
 
   def debate_params
-    params.require(:debate).permit(:category_id, :debate_style_id, :topic, :name, :description, :public)
+    params.require(:debate).permit(:category_id, :debate_style_id, :topic, :name, :description, :public,
+                                   :debater_invites_attributes => [:user_name, :invite_message],
+                                   :moderator_invites_attributes => [:user_name, :invite_message])
   end
 
   def find_user
     @user = User.find(session[:user_id])
-  end
-
-  def invite_user(username)
-  end
-
-  def invite_moderator(moderator)
   end
 end
