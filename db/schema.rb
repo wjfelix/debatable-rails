@@ -11,18 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151126235324) do
+ActiveRecord::Schema.define(version: 20151223031856) do
 
   create_table "categories", force: true do |t|
     t.string   "category_name", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "debate_invites", force: true do |t|
-    t.string   "invite_email",   null: false
-    t.string   "invite_message"
-    t.integer  "debate_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -44,6 +36,15 @@ ActiveRecord::Schema.define(version: 20151126235324) do
     t.integer  "debate_id"
   end
 
+  create_table "debater_invites", force: true do |t|
+    t.string   "invite_message"
+    t.string   "user_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "debate_id"
+    t.integer  "user_id"
+  end
+
   create_table "debates", force: true do |t|
     t.string   "topic",                           null: false
     t.string   "name",                            null: false
@@ -55,6 +56,15 @@ ActiveRecord::Schema.define(version: 20151126235324) do
     t.integer  "user_id"
     t.integer  "category_id"
     t.integer  "debate_style_id"
+  end
+
+  create_table "moderator_invites", force: true do |t|
+    t.string   "invite_message"
+    t.string   "user_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "debate_id"
+    t.integer  "user_id"
   end
 
   create_table "posts", force: true do |t|

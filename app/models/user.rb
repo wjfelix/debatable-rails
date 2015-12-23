@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
 	has_many :debates
 	has_many :debate_users
 	has_many :posts
+	has_many :debater_invites
+	has_many :moderator_invites
+	
 	has_secure_password
 	validates :password, presence: true, confirmation: true, length: { minimum: 7 }
 

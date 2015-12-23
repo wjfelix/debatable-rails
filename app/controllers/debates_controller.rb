@@ -19,6 +19,7 @@ class DebatesController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     @debate = @user.debates.build(debate_params)
+
     if @debate.save
       # @new_debate.debate_users.create
       # Hold off on creating debate_users, not sure yet if we need it
@@ -33,20 +34,12 @@ class DebatesController < ApplicationController
   end
 
   def show
-    config_opentok
-    # Only allow to join if we are currently logged in
     @debate = Debate.find(params[:id])
-    #@debate_user = @debate.debate_users.where(:)
     if session[:user_id]
-      #Find DebateUser object here
-
-      #Generate token type based on debate user
       @tok_token = @opentok.generate_token(@debate.tok_session_id)
       flash[:success] = true
       flash[:message] = "Connected to Debate! Make sure to enable your microphone"
 
-      #Redirect to the appropriate paths per debate style
-      # QnA
       if @debate.debate_style_id == 1
         render 'question_answer'
       elsif @debate.debate_style_id == 2
@@ -94,5 +87,11 @@ class DebatesController < ApplicationController
 
   def find_user
     @user = User.find(session[:user_id])
+  end
+
+  def invite_user(username)
+  end
+
+  def invite_moderator(moderator)
   end
 end

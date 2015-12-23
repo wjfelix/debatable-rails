@@ -8,7 +8,8 @@ class Debate < ActiveRecord::Base
 	belongs_to :category
 	belongs_to :debate_style
 	has_many :debate_users
-	has_many :debate_invites
+	has_many :debater_invites
+	has_many :moderator_invites
 
 	private
 	def save_tok_session_id
