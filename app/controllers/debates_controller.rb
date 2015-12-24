@@ -37,6 +37,7 @@ class DebatesController < ApplicationController
     end
 
     if @debate.save
+      # if we're the owner, go ahead and generate token now
       flash[:success] = true
       flash[:message] = "Successfully created new debate!"
       redirect_to user_debate_path(:id => @debate.id)
@@ -48,16 +49,24 @@ class DebatesController < ApplicationController
   end
 
   def show
+    # render but don't connect current user
     @debate = Debate.find(params[:id])
+
     if session[:user_id]
-      @tok_token = @opentok.generate_token(@debate.tok_session_id)
-      flash[:success] = true
-      flash[:message] = "Connected to Debate! Make sure to enable your microphone"
+      
+      #subscriber role for onlookers!
+      if (session[:user_id] == @debate.user_id)
+        @tok_token = @opentok.generate_token(@debate.tok_session_id, :role => :publisher)
+      else
+        @tok_token = @opentok.generate_token(@debate.tok_session_id, :role => :subscriber)
+      end
+      # flash[:success] = true
+      # flash[:message] = "Connected to Debate! Make sure to enable your microphone"
 
       if @debate.debate_style_id == 1
         render 'question_answer'
       elsif @debate.debate_style_id == 2
-        render '1v1'
+        render 'one_versus_one'
       elsif @debate.debate_style_id == 3
         render 'two_versus_two'
       elsif @debate.debate_style_id == 4
@@ -76,10 +85,10 @@ class DebatesController < ApplicationController
     end
   end
 
-  #View to redirect incoming debaters, create new debate_user, update description
-  #and find appropriate debate with references,
   def join
-    # redirect_to show_debates_path()?
+    # accept invitation, assign role to tok token, create new debate_user, and
+    # redirect to the debate show path (not as a spectator)
+    @debate = Debate.find(params[:id])
   end
 
   def invite
@@ -96,7 +105,7 @@ class DebatesController < ApplicationController
   end
 
   def debate_params
-    params.require(:debate).permit(:category_id, :debate_style_id, :topic, :name, :description, :public,
+    params.require(:debate).permit(:category_id, :debate_style_id, :topic, :name, :description, :public, :size,
                                    :debater_invites_attributes => [:user_name, :invite_message],
                                    :moderator_invites_attributes => [:user_name, :invite_message])
   end

@@ -1,12 +1,12 @@
 <%= form_for [@user, @debate] do |f| %>
   <%= f.collection_select(:category_id, @categories, :id, :category_name, :required => true) %>
-  <%= f.collection_select(:debate_style_id, @debate_styles, :id, :debate_style, :required => true) %>
+  <%= f.collection_select(:debate_style_id, @debate_styles, :id, :debate_style, {:required => true}, {:class => 'debate_dropdown_style'}) %>
   <%= f.text_field(:topic, :placeholder => 'Topic', :required => true) %>
   <%= f.text_field(:name, :placeholder => 'Debate Name', :required => true) %>
   <%= f.text_area(:description, :placeholder => 'Description') %>
+  <%= f.hidden_field(:size, :value => 1, :class => 'debate_size_style') %>
   <%= f.label('Public') %>
   <%= f.check_box(:public) %>
-  <br />
   <br />
 
   <%= 'Debater Invites' %>
