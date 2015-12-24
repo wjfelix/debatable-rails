@@ -24,6 +24,18 @@ class DebatesController < ApplicationController
     @user = User.find(params[:user_id])
     @debate = @user.debates.build(debate_params)
 
+    # maybe helper method?
+    @debate.moderator_invites.each do |moderator_invite|
+      @user = User.find_by(:email => moderator_invite.user_name)
+      if @user.nil?
+        flash[:success] = false
+        flash[:message] = "Failed to create Debate! Unknown user " << moderator_invite.user_name
+        redirect_to new_user_debate_path and return
+      else
+        moderator_invite.user_id = @user.id
+      end
+    end
+
     if @debate.save
       flash[:success] = true
       flash[:message] = "Successfully created new debate!"
