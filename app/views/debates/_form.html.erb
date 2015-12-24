@@ -10,16 +10,15 @@
   <br />
 
   <%= 'Debater Invites' %>
-  <%= f.fields_for :debater_invites do |debater_invites_form| %>
-  <%= render 'debater_invites_fields', f: debater_invites_form %>
+  <%= f.fields_for :debater_invites do |debater_invite_form| %>
+  <%= render 'debater_invite_fields', f: debater_invite_form %>
   <% end %>
   <br />
 
   <%= 'Moderator Invites' %>
-  <%= f.fields_for :moderator_invites do |moderator_invites_form| %>
-  <fieldset>
-  <%= moderator_invites_form.text_field(:user_name, :placeholder => 'Moderator name or e-mail') %>
-  </fieldset>
+  <%= f.fields_for :moderator_invites do |moderator_invite_form| %>
+  <%= render 'moderator_invite_fields', f: moderator_invite_form %>
   <% end %>
+  <%= link_to_add_moderator_fields "Add Moderator", f, :moderator_invites %>
   <%= f.submit %>
 <% end %>
