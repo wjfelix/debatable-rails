@@ -29,7 +29,7 @@ class DebatesController < ApplicationController
       @user = User.find_by(:email => moderator_invite.user_name)
       if @user.nil?
         flash[:success] = false
-        flash[:message] = "Failed to create Debate! Unknown user " << moderator_invite.user_name
+        flash[:message] = "Failed to create Debate! Unknown user: " << moderator_invite.user_name
         redirect_to new_user_debate_path and return
       else
         moderator_invite.user_id = @user.id
@@ -52,11 +52,16 @@ class DebatesController < ApplicationController
     # render but don't connect current user
     @debate = Debate.find(params[:id])
 
+    #good way to find invites for joiners? not sure
+    #@debater_invite = DebaterInvite.find(params[:debater_invite_id])
+    #@moderator_invite = ModeratorInvite.find(params[:moderator_invite_id])
+
     if session[:user_id]
-      
       #subscriber role for onlookers!
-      if (session[:user_id] == @debate.user_id)
+      if (session[:user_id] == @debate.user_id || @debater_invite)
         @tok_token = @opentok.generate_token(@debate.tok_session_id, :role => :publisher)
+      elsif @moderator_invite
+        @tok_token = @opentok.generate_token(@debate.tok_session_id, :role => :moderator)
       else
         @tok_token = @opentok.generate_token(@debate.tok_session_id, :role => :subscriber)
       end
@@ -86,12 +91,9 @@ class DebatesController < ApplicationController
   end
 
   def join
-    # accept invitation, assign role to tok token, create new debate_user, and
+    # accept invitation, create new debate_user, and
     # redirect to the debate show path (not as a spectator)
     @debate = Debate.find(params[:id])
-  end
-
-  def invite
   end
 
   def destroy
