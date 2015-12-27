@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151223031856) do
+ActiveRecord::Schema.define(version: 20151226123755) do
 
   create_table "categories", force: true do |t|
     t.string   "category_name", null: false
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20151223031856) do
     t.string   "name",                            null: false
     t.string   "description"
     t.string   "tok_session_id",                  null: false
+    t.integer  "size",            default: 0,     null: false
     t.boolean  "public",          default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -59,11 +60,18 @@ ActiveRecord::Schema.define(version: 20151223031856) do
   end
 
   create_table "moderator_invites", force: true do |t|
-    t.string   "invite_message"
+    t.string   "invite_message", default: "Hello, I'd like you to moderate my debate!"
     t.string   "user_name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "debate_id"
+    t.integer  "user_id"
+  end
+
+  create_table "notifications", force: true do |t|
+    t.boolean  "seen"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "user_id"
   end
 

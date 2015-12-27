@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
 	has_many :posts
 	has_many :debater_invites
 	has_many :moderator_invites
-	
+	has_many :notifications
+
 	has_secure_password
 	validates :password, presence: true, confirmation: true, length: { minimum: 7 }
 

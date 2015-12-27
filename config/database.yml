@@ -14,7 +14,7 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
-  password: sucksforyou2
+  password: PomfPoniesEveryday 
   host: localhost
 
 development:
@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: debatable-rails_production
-  username: debatable-rails
-  password: <%= ENV['DEBATABLE-RAILS_DATABASE_PASSWORD'] %>
+  username: root 
+  password: PomfPoniesEveryday 
