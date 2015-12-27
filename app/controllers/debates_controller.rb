@@ -18,6 +18,11 @@ class DebatesController < ApplicationController
     @debate.debater_invites.build
     @debate.moderator_invites.build
     # Adjust number of @debater_invites based on debate style
+    if session[:user_id].nil?
+      flash[:success] = false
+      flash[:message] = "Failed to create Debate!"
+      redirect_to new_debate_path
+    end
   end
 
   def create
@@ -29,7 +34,7 @@ class DebatesController < ApplicationController
       @user = User.find_by(:email => moderator_invite.user_name)
       if @user.nil?
         flash[:success] = false
-        flash[:message] = "Failed to create Debate! Unknown user: " << moderator_invite.user_name
+        flash[:message] = "Failed to create Debate! Unknown user: #{moderator_invite.user_name}"
         redirect_to new_user_debate_path and return
       else
         moderator_invite.user_id = @user.id
@@ -40,7 +45,10 @@ class DebatesController < ApplicationController
       # if we're the owner, go ahead and generate token now
       flash[:success] = true
       flash[:message] = "Successfully created new debate!"
-      redirect_to user_debate_path(:id => @debate.id)
+      respond_to do |format|
+        format.html {redirect_to user_debate_path(:id => @debate.id)}
+        format.js
+      end
     else
       flash[:success] = false
       flash[:message] = "Failed to create Debate!"
@@ -67,7 +75,6 @@ class DebatesController < ApplicationController
       end
       # flash[:success] = true
       # flash[:message] = "Connected to Debate! Make sure to enable your microphone"
-
       if @debate.debate_style_id == 1
         render 'question_answer'
       elsif @debate.debate_style_id == 2
