@@ -1,11 +1,11 @@
 <div class="mainLogo">
   <%= link_to image_tag("debatable_logo_white_small.png"), root_path %>
 </div>
-  <% if session[:user_id] != nil %>
-    <%= button_to "Logout", logout_path, :method => "get" %>
-    <div class="invites">
-      <% @user.moderator_invites.each do |m| %>
+<% if session[:user_id] != nil %>
+  <%= button_to "Logout", logout_path, :method => "get" %>
+  <div class="invites">
+    <% @user.moderator_invites.each do |m| %>
       <%= m.invite_message %>
-      <% end %>
-    </div>
     <% end %>
+  </div>
+<% end %>

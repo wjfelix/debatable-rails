@@ -1,0 +1,6 @@
+// Push JavaScript notifications for every moderator invite
+<% @debate.moderator_invites.each do |moderator_invite| %>
+  <% broadcast "/invitations/#{moderator_invite.user_id}" do %>
+    $('#invites').append('<%= moderator_invite.invite_message %>');
+  <% end %>
+<% end %>

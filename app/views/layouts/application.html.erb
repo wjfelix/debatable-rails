@@ -6,6 +6,16 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'http://localhost:9292/faye.js' %>
   <%= csrf_meta_tags %>
+
+  <% # TODO: find workaround for unobtrusive solution %>
+  <script>
+    $(function() {
+      var faye = new Faye.Client('http://localhost:9292/faye');
+      faye.subscribe("/invitations/new/#{session[:user_id]}", function(data) {
+        eval(data);
+      });
+    });
+  </script>
 </head>
 <body>
     <div class="headerContainer">
