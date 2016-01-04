@@ -14,6 +14,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -282,7 +283,6 @@ th {
   font-style: normal;
   font-weight: normal;
   line-height: 1;
-  text-align: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -6762,3 +6762,93 @@ button.close {
   }
 }
 body { padding-top: 70px; }
+/* line 46, C:/Sites/debatable-rails/app/assets/stylesheets/debates.css.scss */
+#videobox {
+  max-width: 800px;
+  max-height: 600px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* line 54, C:/Sites/debatable-rails/app/assets/stylesheets/debates.css.scss */
+#videobox object {
+  float: left;
+}
+
+/* line 58, C:/Sites/debatable-rails/app/assets/stylesheets/debates.css.scss */
+#ownerbox {
+  max-width: 800px;
+  max-height: 600px;
+  margin-left: 50%;
+}
+
+/* line 65, C:/Sites/debatable-rails/app/assets/stylesheets/debates.css.scss */
+#ownerbox object {
+  float: right;
+}
+/* line 17, C:/Sites/debatable-rails/app/assets/stylesheets/sessions.css.scss */
+.centerPage {
+  width: 1000px;
+  margin: auto;
+  text-align: center;
+}
+
+/* line 23, C:/Sites/debatable-rails/app/assets/stylesheets/sessions.css.scss */
+input.loginForm {
+  width: 300px;
+  height: 50px;
+  margin: 10px;
+  padding: 5px 10px;
+  font-size: 20px;
+  color: #444444;
+  text-align: center;
+  border-radius: 8px;
+  border: solid 1px #09609d;
+}
+
+/* line 35, C:/Sites/debatable-rails/app/assets/stylesheets/sessions.css.scss */
+.loginContainer {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -250px;
+  width: 500px;
+  height: 200px;
+  padding: 30px;
+  border: solid 1px black;
+}
+
+/* line 47, C:/Sites/debatable-rails/app/assets/stylesheets/sessions.css.scss */
+.loginButton {
+  width: 140px;
+  height: 40px;
+  background: #3672E1;
+  color: white;
+  border-radius: 5px;
+  border-style: none;
+  box-shadow: 3px, 3px, 3px, 3px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 20px;
+  margin: 10px auto 30px auto;
+}
+/* This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *
+ *
+ *
+ */
+ *
+ *
+ * @import "bootstrap-sprockets"
+ * @import "bootstrap" */
