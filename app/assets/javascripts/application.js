@@ -11,6 +11,14 @@
 // about supported directives.
 //
 //= require jquery
+
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap-sprockets
 //= require_tree .
+$(function() {
+  var faye = new Faye.Client('http://localhost:9292/faye');
+  faye.subscribe('/invitations/new', function(data) {
+    alert(data);
+  });
+});

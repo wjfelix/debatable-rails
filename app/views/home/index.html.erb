@@ -1,9 +1,18 @@
-<body id="background">
-  <div class="homeSection">
-    <div class="homeTitle">
-      <h1>Welcome to Debatable!</h1>
-    </div>
-    <%= button_to "Login", login_path, {:class => "loginButton", :method => "get"} %>
-    <%= button_to "Create Account", new_user_path, {:class => "loginButton", :method => "get"} %>
+<div class="jumbotron">
+<div class="container">
+	<h1>Welcome to Debatable!</h1>
+	<h2>Our Mission:</h2>
+	<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean iaculis nisl vitae metus gravida suscipit. Aliquam dui quam, viverra ac nisi at, fermentum blandit nunc. Aenean tincidunt leo quis varius ultrices. Donec efficitur odio a metus posuere, sit amet molestie nunc luctus. Donec pharetra pretium eleifend. Donec quis tortor vel quam viverra semper. Donec vestibulum sed ipsum et pellentesque.</p>
+	<h3>About the Team:</h3>
+</div>
+</div>
+
+<div>
+      <div>
+    <%= button_to "Login", login_path, {:class => "btn btn-default", :method => "get"} %>
+</div>
+</br>
+    <div>
+    <%= button_to "Signup", new_user_path, {:class => "btn btn-default", :method => "get"} %>
+</div>
   </div>
-</body>

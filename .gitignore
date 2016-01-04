@@ -17,3 +17,8 @@
 
 # Ignore database config
 /config/database.yml
+app/assets/stylesheets/custom.css.scss
+*.scss
+config/database.yml
+*.erb
+app/assets/stylesheets/debates.css.scss

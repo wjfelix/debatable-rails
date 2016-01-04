@@ -1,13 +1,24 @@
-<body id="background">
-  <div class="center">
-    <div class="loginContainer">
-    <%= form_for(:session, url: login_path) do |f| %>
+<form class="form-horizontal">
+<div class="form-group">
+<label class="control-label col-sm-2">Username</label>
+<div class ="col-sm-5">
+  <%= form_for(:session, url: login_path) do |f| %>
+    <%= f.text_field(:username, {:placeholder => "Username", :class => 'form-control', :required => true}) %>
+</div>
+</div>
+<div class="form-group">
+<label class="control-label col-sm-2">Password</label>
+<div class="col-sm-5">
+    <%= f.password_field(:password, {:placeholder => "Password", :class => 'form-control', :required => true}) %>
+</div>
+</div>
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-5">
+    <%= f.submit('Login', {:class => 'btn btn-default'}) %>
+  </div>
 
-    <%= f.text_field(:username, {:placeholder => "Username", :class => 'validate', :required => true}) %>
-    <%= f.password_field(:password, {:placeholder => "Password", :class => 'validate', :required => true}) %>
-    <br />
-    <%= f.submit('Login', {:class => 'loginButton'}) %>
+</div>
+
     <% end %>
-  </div>
-  </div>
-</body>
+
+</form>
