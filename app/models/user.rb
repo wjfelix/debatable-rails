@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 	before_create :validate_code
 	has_many :debates
 	has_many :debate_users
+	has_many :firetalk_users
 	has_many :posts
 	has_many :debater_invites
 	has_many :moderator_invites

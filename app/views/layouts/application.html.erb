@@ -11,8 +11,8 @@
   <script>
     $(function() {
       var faye = new Faye.Client('http://localhost:9292/faye');
-      faye.subscribe("/invitations/new/#{session[:user_id]}", function(data) {
-        eval(data);
+      faye.subscribe("/invitations/new", function(data) {
+        alert(data);
       });
     });
   </script>
