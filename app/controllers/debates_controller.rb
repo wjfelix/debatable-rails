@@ -67,7 +67,7 @@ class DebatesController < ApplicationController
     if session[:user_id]
       #subscriber role for onlookers!
       if (session[:user_id] == @debate.user_id || @debater_invite)
-        @tok_token = @opentok.generate_token(@debate.tok_session_id, :role => :publisher)
+        @tok_token = @opentok.generate_token(@debate.tok_session_id, :role => :moderator)
       elsif @moderator_invite
         @tok_token = @opentok.generate_token(@debate.tok_session_id, :role => :moderator)
       else

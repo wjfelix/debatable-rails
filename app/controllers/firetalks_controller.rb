@@ -1,0 +1,2 @@
+class FiretalksController < ApplicationController
+end

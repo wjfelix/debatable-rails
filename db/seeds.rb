@@ -16,4 +16,4 @@ categories = Category.create([{ category_name: 'Sports'}, { category_name: 'Poli
 
 styles = DebateStyles.create([{ debate_style: 'Q n A'}, { debate_style: '1 v 1'},
   { debate_style: '2 v 2'}, { debate_style: '3 v 3'}, {debate_style: '4 v 4'},
-  { debate_style: 'Firetalk'}, { debate_style: 'Discussion/Freetalk'}])
+  { debate_style: 'Discussion/Freetalk'}])

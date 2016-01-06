@@ -6,11 +6,24 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'http://localhost:9292/faye.js' %>
   <%= csrf_meta_tags %>
+<<<<<<< HEAD
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= favicon_link_tag 'favicon.png' %>
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300italic' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+=======
+
+  <% # TODO: find workaround for unobtrusive solution %>
+  <script>
+    $(function() {
+      var faye = new Faye.Client('http://localhost:9292/faye');
+      faye.subscribe("/invitations/new", function(data) {
+        alert(data);
+      });
+    });
+  </script>
+>>>>>>> refs/remotes/rhenvar/master
 </head>
 <body>
   <div class="container">
