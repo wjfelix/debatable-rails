@@ -11,6 +11,7 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300italic' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+<<<<<<< HEAD
   <script>
     $(function() {
       var faye = new Faye.Client('http://localhost:9292/faye');
@@ -19,6 +20,8 @@
       });
     });
   </script>
+=======
+>>>>>>> refs/remotes/rhenvar/master
 </head>
 <body>
   <div class="container">
@@ -31,16 +34,13 @@
     <div class="container">
     <div class="row">
       <div class="col-xs-12">
+        <% if !flash[:message].nil? %>
+          <%= flash[:message] %>
+        <% end %>
       <%= yield %>
     </div>
     </div>
   </div>
-    <% if !flash[:message].nil? %>
-      <%= flash[:message] %>
-    <% end %>
-
-    
       <%= render 'layouts/footer' %>
-
 </body>
 </html>
