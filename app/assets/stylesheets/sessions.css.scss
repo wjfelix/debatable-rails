@@ -1,3 +1,59 @@
 // Place all the styles related to the sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+//RELATES TO FOLLOWING
+
+//  new.html.erb
+//#background
+//.center
+//.loginContainer
+
+
+//body#background {
+//  background-color: #555555;
+//}
+.centerPage {
+  width: 1000px;
+  margin: auto;
+  text-align: center;
+}
+
+input.loginForm {
+  width: 300px;
+  height: 50px;
+  margin:10px;
+  padding: 5px 10px;
+  font-size: 20px;
+  color: #444444;
+  text-align: center;
+  border-radius: 8px;
+  border: solid 1px #09609d;
+}
+
+.loginContainer {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -250px;
+  width: 500px;
+  height: 200px;
+  padding: 30px;
+  border: solid 1px black;
+}
+
+.loginButton {
+  width: 140px;
+  height: 40px;
+  background: #3672E1;
+  color: white;
+  border-radius: 5px;
+  border-style: none;
+  box-shadow: 3px, 3px, 3px, 3px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 20px;
+  margin: 10px auto 30px auto;
+}
