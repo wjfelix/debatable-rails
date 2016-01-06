@@ -1,98 +1,100 @@
 <body data-spy="scroll">
 	<a name="mission"></a>
-<div class="jumbotron">
-<div class="container">
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-10 text-center">
-	<h1><%= image_tag("chitchat_logo_white_60.png", :class => "text-center")%>
-		<strong>Welcome to Debatable!</strong>
-	</h1>
-</div>
-<div class="col-md-1"></div>
-</div>
-<!--
-<hr>
-<hr>
--->
-<div class="row">
-	<div class="col-md-1"></div>
-	<div class="col-md-10">
-	<h3>
-		<span class="glyphicon glyphicon-forward" aria-hidden="true"></span><em>
-		Our Mission:</em></h3>
-	<div class="text-justify">
-	<blockquote>
-		<p>
-			Here at debatable we want to give people the stage that allows them to share their opinions and be understood by their community. Debatable is a live video debating social media platform that bridges face to face conversation and social media interaction. We want everyone to bring their passion to our platform come <strong>February 20th</strong> at launch!
-		</p>
-	</blockquote>
-</div>
-</div>
-<div class="col-md-1"></div>
-</div>
+	<div class="jumbotron">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-10 text-center">
+					<h1><%= image_tag("chitchat_logo_white_60.png", :class => "text-center")%>
+						<strong>Welcome to Debatable!</strong>
+					</h1>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+			<!--
+			<hr>
+			<hr>
+		-->
 		<div class="row">
-			<div class="col-md-12 text-center">
-				<h2>Beta Coming Soon!</h2>
-</div>
-</div>
-</div>
-</div>
-</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<h3>
+					<span class="glyphicon glyphicon-forward" aria-hidden="true"></span><em>
+						Our Mission:</em></h3>
+						<div class="text-justify">
+							<blockquote>
+								<p>
+									Here at debatable we want to give people the stage that allows them to share their opinions and be understood by their community. Debatable is a live video debating social media platform that bridges face to face conversation and social media interaction. We want everyone to bring their passion to our platform come <strong>February 20th</strong> at launch!
+								</p>
+							</blockquote>
+						</div>
+					</div>
+					<div class="col-md-1"></div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<h2>Beta Coming Soon!</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <a name="connect"></a>
 <div class="jumbotron">
 	<div class="container">
 
 		<div class="row">
-		<div class="container text-center">
-		<h3><strong>Stay connected and be the first to use Debatable!</strong></h3>
-</div>
-</div>
-</br>
-<div class="row">
-	<div class="col-md-3"></div>
-	<div class="col-md-6">
-		<h4 class="text-center">
-		Sign up for our newsletter:</h4>
-	</div>
-	<div class="col-md-3"></div>
-</div>
-
+			<div class="container text-center">
+				<h3><strong>Stay connected and be the first to use Debatable!</strong></h3>
+			</div>
+		</div>
+	</br>
 	<div class="row">
-	<div class="col-md-3"></div>
-	<div class="col-md-6">
-<div class="form-group">
-<input type="email" class="form-control" placeholder="Email">
-</div>
-</div>
-<div class="col-md-3"></div>
-</div>
-<div class="row">
-	<div class="col-md-5"></div>
-<div class="col-md-2 text-center">
-<button type="submit" class="btn btn-default">Submit</button>
-</div>
-<div class="col-md-5"></div>
-</div>
-</br>
-<div class="row">
-	<div class="col-md-5"></div>
-<div class="col-md-2">		
-		<h3 class="text-center"><strong>Follow us!
-		</strong></h3>
-</div>
-		
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<h4 class="text-center">
+				Sign up for our newsletter:</h4>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+
+		<%= form_for @newslettersubscription, :url => subscribe_path do |f| %>
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<%= f.text_field :email, :placeholder => "Email", :class => "form-control" %>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-5"></div>
+			<div class="col-md-2 text-center">
+				<%= f.submit 'Submit', :class => "btn btn-default" %>
+			</div>
+			<div class="col-md-5"></div>
+		</div>
+		<% end %>
+	</br>
+	<div class="row">
+		<div class="col-md-5"></div>
+		<div class="col-md-2">
+			<h3 class="text-center"><strong>Follow us!
+			</strong></h3>
+		</div>
+
 		<div class="col-md-5"></div>
 
-</div>
-<div class="row">
-	<div class="col-md-5"></div>
-	<div class="col-md-1">
-		<%= link_to image_tag("facebook_small.png", :class => "img-responsive") %>
+	</div>
+	<div class="row">
+		<div class="col-md-5"></div>
+		<div class="col-md-1">
+			<%= link_to image_tag("facebook_small.png", :class => "img-responsive") %>
 		</div>
 		<div class="col-md-1">
-		<%= link_to image_tag("twitter_small.png", :class => "img-responsive") %>
+			<%= link_to image_tag("twitter_small.png", :class => "img-responsive") %>
 		</div>
 		<div class="col-md-5"></div>
 	</div>
@@ -103,85 +105,85 @@
 <div class="jumbotron">
 	<div class="container">
 		<div class="container">
-<div class="row">
-	<div class="col-md-6">
-	<h2>What to expect:</h2>
+			<div class="row">
+				<div class="col-md-6">
+					<h2>What to expect:</h2>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+
+		</br>
+
+		<div class="row">
+			<div class="col-md-1">
+			</div>
+			<div class="col-md-8">
+				<h3><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+					Debate, from anywhere.
+				</h3>
+				<blockquote>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet, quam vel tincidunt faucibus, tortor eros dapibus elit, non posuere massa turpis ullamcorper tortor.
+				</blockquote>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+
+	</br>
+
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-8">
+			<h3><span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+				Firetalk
+			</h3>
+			<blockquote>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet, quam vel tincidunt faucibus, tortor eros dapibus elit, non posuere massa turpis ullamcorper tortor.
+			</blockquote>
+		</div>
+		<div class="col-md-3"></div>
 	</div>
-<div class="col-md-3"></div>	
+
+</br>
+
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="col-md-8">
+		<h3><span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
+			Moderation
+		</h3>
+		<blockquote>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet, quam vel tincidunt faucibus, tortor eros dapibus elit, non posuere massa turpis ullamcorper tortor.
+		</blockquote>
+	</div>
+	<div class="col-md-3"></div>
 </div>
 
 </br>
 
-	<div class="row">
-	<div class="col-md-1">
-	</div>
-	<div class="col-md-8">
-	<h3><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-	Debate, from anywhere. 
-	</h3>
-	<blockquote>
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet, quam vel tincidunt faucibus, tortor eros dapibus elit, non posuere massa turpis ullamcorper tortor.
-	</blockquote>
-	</div>
-	<div class="col-md-3"></div>
-	</div>
-
-</br>
-
-	<div class="row">
+<div class="row">
 	<div class="col-md-1"></div>
 	<div class="col-md-8">
-	<h3><span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
-	Firetalk 
-	</h3>
-	<blockquote>
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet, quam vel tincidunt faucibus, tortor eros dapibus elit, non posuere massa turpis ullamcorper tortor.
-	</blockquote>
+		<h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+			Social Media
+		</h3>
+		<blockquote>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet, quam vel tincidunt faucibus, tortor eros dapibus elit, non posuere massa turpis ullamcorper tortor.
+		</blockquote>
 	</div>
 	<div class="col-md-3"></div>
-	</div>
-
-</br>
-
-	<div class="row">
-	<div class="col-md-1"></div>
-	<div class="col-md-8">
-	<h3><span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
-	Moderation
-	</h3>
-	<blockquote>
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet, quam vel tincidunt faucibus, tortor eros dapibus elit, non posuere massa turpis ullamcorper tortor.
-	</blockquote>
-	</div>
-	<div class="col-md-3"></div>
-	</div>
-
-</br>
-
-	<div class="row">
-	<div class="col-md-1"></div>
-	<div class="col-md-8">
-	<h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-	Social Media
-	</h3>
-	<blockquote>
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet, quam vel tincidunt faucibus, tortor eros dapibus elit, non posuere massa turpis ullamcorper tortor.
-	</blockquote>
-	</div>
-	<div class="col-md-3"></div>
-	</div>
+</div>
 
 </br>
 
 <div class="row">
 	<div class="col-md-1"></div>
 	<div class="col-md-8">
-	<h3><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
-	Save Debates
-	</h3>
-	<blockquote>
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet, quam vel tincidunt faucibus, tortor eros dapibus elit, non posuere massa turpis ullamcorper tortor.
-	</blockquote>
+		<h3><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
+			Save Debates
+		</h3>
+		<blockquote>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet, quam vel tincidunt faucibus, tortor eros dapibus elit, non posuere massa turpis ullamcorper tortor.
+		</blockquote>
 	</div>
 	<div class="col-md-3"></div>
 
@@ -193,109 +195,109 @@
 <a name="about"></a>
 <div class="jumbotron">
 	<div class="container">
-		
+
 		<div class="container">
 			<div class="row">
-			<div class="col-md-1">
-</div>
-			<div class="col-md-10">
-	<h2 class="text-center">The Team:</h2>
-</div>
-			<div class="col-md-1">
-</div>
-</div>
-		<div class="row">
-			<div class="col-md-2"></div>
-			<div class="col-md-8">
-		<%= image_tag("debatableteampic.png", :class => "img-thumbnail img-responsive") %>
+				<div class="col-md-1">
+				</div>
+				<div class="col-md-10">
+					<h2 class="text-center">The Team:</h2>
+				</div>
+				<div class="col-md-1">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<%= image_tag("debatableteampic.png", :class => "img-thumbnail img-responsive") %>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-10"><hr></div>
+				<div class="col-md-1"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-sm-6 col-md-2">
+					<div class="thumbnail">
+						<div class="center-block img-thumbnail">
+							<div class="text-center">
+								<span style="font-size:4em;" class="glyphicon glyphicon-tint" aria-hidden="true"></span>
+							</div>
+						</div>
+						<div class="caption text-center">
+							<h4>William <br>Felix</h4>
+							<h5>Front-end Developer and Co-Founder</h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-2">
+					<div class="thumbnail">
+						<div class="center-block img-thumbnail">
+							<div class="text-center">
+								<span style="font-size:4em;" class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+							</div>
+						</div>
+						<div class="caption text-center">
+							<h4>Garrick<br> Król</h4>
+							<h5>Senior Developer and Co-Founder</h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-2">
+					<div class="thumbnail">
+						<div class="center-block img-thumbnail">
+							<div class="text-center">
+								<span style="font-size:4em;" class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+							</div>
+						</div>
+						<div class="caption text-center">
+							<h4>Brandon<br> Prinz</h4>
+							<h5>CEO and Founder<br>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</h5>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-6 col-md-2">
+					<div class="thumbnail">
+						<div class="center-block img-thumbnail">
+							<div class="text-center">
+								<span style="font-size:4em;" class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
+							</div>
+						</div>
+						<div class="caption text-center">
+							<h4>Dane<br> Halverson</h4>
+							<h5>CCO and Co-Founder<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-2">
+					<div class="thumbnail">
+						<div class="center-block img-thumbnail">
+							<div class="text-center">
+								<span style="font-size:4em;" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+							</div>
+						</div>
+						<div class="caption text-center">
+							<h4>Marielle<br> Trumbauer</h4>
+							<h5>Head of Finance and Co-Founder</h5>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-1"></div>
+			</div>
+			<div class="container text-center">
+				<h3>
+					Contact us at <u>contact@debatable.com</u>
+				</h3>
+			</div>
+		</div>
 	</div>
-	<div class="col-md-2"></div>
-</div>
-<div class="row">
-	<div class="col-md-1"></div>
-	<div class="col-md-10"><hr></div>
-	<div class="col-md-1"></div>
-</div>
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-sm-6 col-md-2">
-    		<div class="thumbnail">
-	<div class="center-block img-thumbnail">
-    				<div class="text-center">
-	<span style="font-size:4em;" class="glyphicon glyphicon-tint" aria-hidden="true"></span>
-</div>
-</div>
-	<div class="caption text-center">
-        <h4>William <br>Felix</h4>
-        <h5>Front-end Developer and Co-Founder</h5>
-</div>
-</div>
-</div>
-<div class="col-sm-6 col-md-2">
-    		<div class="thumbnail">
-	<div class="center-block img-thumbnail">
-    				<div class="text-center">
-	<span style="font-size:4em;" class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-</div>
-</div>
-	<div class="caption text-center">
-        <h4>Garrick<br> Król</h4>
-        <h5>Senior Developer and Co-Founder</h5>
-</div>
-</div>
-</div>
-		<div class="col-sm-6 col-md-2">
-    		<div class="thumbnail">
-	<div class="center-block img-thumbnail">
-    				<div class="text-center">
-	<span style="font-size:4em;" class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
-</div>
-</div>
-	<div class="caption text-center">
-        <h4>Brandon<br> Prinz</h4>
-        <h5>CEO and Founder<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    </h5>
-</div>
-</div>
-</div>
-
-<div class="col-sm-6 col-md-2">
-    		<div class="thumbnail">
-    			<div class="center-block img-thumbnail">
-    				<div class="text-center">
-	<span style="font-size:4em;" class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
-</div>
-</div>
-	<div class="caption text-center">
-        <h4>Dane<br> Halverson</h4>
-        <h5>CCO and Co-Founder<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
-</div>
-</div>
-</div>
-<div class="col-sm-6 col-md-2">
-    		<div class="thumbnail">
-	<div class="center-block img-thumbnail">
-    				<div class="text-center">
-	<span style="font-size:4em;" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
-</div>
-</div>
-	<div class="caption text-center">
-        <h4>Marielle<br> Trumbauer</h4>
-        <h5>Head of Finance and Co-Founder</h5>
-</div>
-</div>
-</div>
-
-<div class="col-md-1"></div>
-</div>
-		<div class="container text-center">
-			<h3>
-			Contact us at <u>contact@debatable.com</u>
-		</h3>
-</div>
-</div>
-</div>
 </body>
 
 
@@ -305,12 +307,12 @@
 
 <!--
 <div>
-      <div>
-    <%= button_to "Login", login_path, {:class => "btn btn-default", :method => "get"} %>
+<div>
+<%= button_to "Login", login_path, {:class => "btn btn-default", :method => "get"} %>
 </div>
 </br>
-    <div>
-    <%= button_to "Signup", new_user_path, {:class => "btn btn-default", :method => "get"} %>
+<div>
+<%= button_to "Signup", new_user_path, {:class => "btn btn-default", :method => "get"} %>
 </div>
-  </div>
+</div>
 -->
