@@ -15,12 +15,13 @@
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
-  font-family: sans-serif;
+  font-family: 'Roboto Slab', serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
 body {
   margin: 0;
+  position: relative;
 }
 article,
 aside,
@@ -1089,7 +1090,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Roboto Slab', serif;
   font-size: 14px;
   line-height: 1.42857143;
   color: #333333;
@@ -1136,7 +1137,7 @@ img {
   border-radius: 6px;
 }
 .img-thumbnail {
-  padding: 4px;
+  padding: 10px;
   line-height: 1.42857143;
   background-color: #ffffff;
   border: 1px solid #dddddd;
@@ -1179,15 +1180,18 @@ hr {
 [role="button"] {
   cursor: pointer;
 }
+
 h1,
 h2,
 h3,
+.h1,
+.h2,
+.h3 {
+  font-family: 'Lobster', cursive;
+}
 h4,
 h5,
 h6,
-.h1,
-.h2,
-.h3,
 .h4,
 .h5,
 .h6 {
@@ -4507,7 +4511,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-color: #e7e7e7;
 }
 .navbar-default .navbar-brand {
-  color: #777777;
+  color: #337ab7;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
@@ -4518,7 +4522,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #777777;
 }
 .navbar-default .navbar-nav > li > a {
-  color: #777777;
+  color: #337ab7;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
@@ -6520,8 +6524,8 @@ button.close {
 }
 .center-block {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 0 auto;
+  margin-right: 0 auto;
 }
 .pull-right {
   float: right !important;
@@ -6762,3 +6766,6 @@ button.close {
   }
 }
 body { padding-top: 70px; }
+
+
+http://localhost:3000/
