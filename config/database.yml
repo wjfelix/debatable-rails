@@ -14,7 +14,11 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
+<<<<<<< HEAD
   password: rooty
+=======
+  password: sucksforyou2
+>>>>>>> refs/remotes/rhenvar/master
   host: localhost
 
 development:
@@ -50,5 +54,5 @@ test:
 production:
   <<: *default
   database: debatable-rails_production
-  username: root 
-  password: PomfPoniesEveryday 
+  username: root
+  password: sucksforyou2

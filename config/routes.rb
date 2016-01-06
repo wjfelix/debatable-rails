@@ -17,5 +17,6 @@ Rails.application.routes.draw do
   resources :users do
     get :validate_email
     resources :debates
+    resources :firetalks
   end
 end
