@@ -14,11 +14,7 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
-<<<<<<< HEAD
   password: rooty
-=======
-  password: sucksforyou2
->>>>>>> refs/remotes/rhenvar/master
   host: localhost
 
 development:
