@@ -1,3 +1,6 @@
 <div class="newdebatebutton">
-	<%= button_to "New Debate", new_user_debate_path(@user), {:class => "loginButton", :method => "get"} %>
+	<%= button_to "New Debate", new_user_debate_path(@user), {:class => 'loginButton', :method => 'get'} %>
+</div>
+<div class="newfiretalkbutton">
+	<%= button_to "New Firetalk", new_user_firetalk_path(@user), :method => 'get' %>
 </div>

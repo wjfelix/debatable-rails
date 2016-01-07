@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 	before_create :validate_code
 	has_many :debates
+	has_many :firetalks
 	has_many :debate_users
 	has_many :firetalk_users
 	has_many :posts

@@ -60,8 +60,9 @@ ActiveRecord::Schema.define(version: 20160106065138) do
   end
 
   create_table "firetalk_debaters", force: true do |t|
-    t.integer  "points",               default: 0, null: false
+    t.integer  "points",               default: 3, null: false
     t.string   "position_description"
+    t.string   "email",                            null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "firetalk_id"
@@ -72,7 +73,7 @@ ActiveRecord::Schema.define(version: 20160106065138) do
     t.string   "topic",                   null: false
     t.string   "name",                    null: false
     t.string   "description"
-    t.integer  "rounds",      default: 4, null: false
+    t.integer  "rounds",      default: 5, null: false
     t.integer  "seconds",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
