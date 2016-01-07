@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   get '/join', to: 'debates#join'
 
   post '/login', to: 'sessions#create'
-
   post '/subscribe', to: 'home#save_subscription'
 
   resources :users do
