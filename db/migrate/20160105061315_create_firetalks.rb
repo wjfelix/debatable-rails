@@ -6,6 +6,7 @@ class CreateFiretalks < ActiveRecord::Migration
 
       t.string :name, null: false
       t.string :description
+      t.string :tok_session_id, null: false
       t.integer :rounds, null: false, default: 5
       t.integer :seconds, null: false
       t.timestamps

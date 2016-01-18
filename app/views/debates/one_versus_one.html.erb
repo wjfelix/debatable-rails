@@ -58,4 +58,25 @@ function streamDestroyedHandler(event) {
   connected--;
 }
 
+function sendSignal() {
+  session.signal({
+     type: "foo",
+     data: "hello"
+     },
+     function(error) {
+     	if (error) {
+          alert("error " + error.message);
+     	} else {
+     	  alert("sent");
+     	}
+     });
+}
+
+session.on("signal", function(event) {
+     alert("Signal Sent from connection: " + event.id);
+     alert("Signal Data " + event.data);
+});
+
 <% end %>
+
+<button onclick="sendSignal()">Send Signal</button> 
