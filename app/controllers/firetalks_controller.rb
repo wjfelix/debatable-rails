@@ -7,12 +7,20 @@ class FiretalksController < ApplicationController
   def new
     @user = User.find(params[:user_id])
     @firetalk = Firetalk.new
-    @firetalk_user = FiretalkDebater.new
+    @firetalk.firetalk_debaters.build
   end
 
   def create
     @user = User.find(params[:user_id])
     @firetalk = Firetalk.new(firetalk_params)
+    @firetalk.firetalk_debaters.each do |firetalk_debater|
+      @find_user = User.find_by_email(firetalk_debater.email)
+      if @find_user
+        firetalk_debater.user_id = @find_user.id
+        firetalk_debater.save
+      end
+    end
+
     if @firetalk.save
       flash[:success] = true
       flash[:message] = "Successfully created new Firetalk!"
@@ -26,15 +34,18 @@ class FiretalksController < ApplicationController
 
   def show
     @firetalk = Firetalk.find(params[:id])
-    # NOT YET if @firetalk.public
+    @firetalk_debaters = @firetalk.firetalk_debaters
     @user = User.find(session[:user_id])
-    @firetalk.firetalk_debaters.each do |firetalk_debater|
-      if firetalk_debater.email == @user.email
-      # Some fancy js shit, maybe just generate publisher role...
-        @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :publisher, :data => @user.email)
-      end
+    # If owner
+    if @firetalk.user_id == @user.id
+      @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :moderator, :data => '0')
+    # If invited
+    elsif is_invited(@user.email)
+      @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :publisher, :data => '0')
+    # If voter
+    else
+      @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :subscriber)
     end
-    @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :subscriber, :data => @user.id)
   end
 
   def join
@@ -42,7 +53,7 @@ class FiretalksController < ApplicationController
 
   private
   def firetalk_params
-    params.require(:firetalk).permit(:topic, :name, :description, :rounds, :seconds,
+    params.require(:firetalk).permit(:topic, :name, :description, :rounds, :seconds, :user_id,
                                       :firetalk_debaters_attributes => [:email])
   end
 
@@ -50,5 +61,14 @@ class FiretalksController < ApplicationController
     if @opentok.nil?
       @opentok = OpenTok::OpenTok.new '45241592', 'b099560439c52ed195d79cb7c15fbae1d9b33f1e'
     end
+  end
+
+  def is_invited(email)
+    @firetalk_debaters.each do |firetalk_debater|
+      if firetalk_debater.email == email
+        return true
+      end
+    end
+    return false
   end
 end

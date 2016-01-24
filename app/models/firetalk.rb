@@ -7,7 +7,6 @@ class Firetalk < ActiveRecord::Base
   belongs_to :user
   has_many :firetalk_debaters
   accepts_nested_attributes_for :firetalk_debaters
-  validates_associated :firetalk_debaters
 
   private
   def save_tok_session_id
