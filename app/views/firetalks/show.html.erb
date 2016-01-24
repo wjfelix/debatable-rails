@@ -1,0 +1,202 @@
+<script type="text/javascript" src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+<div class="firetalk_owner_box"></div>
+<div class="firetalk_moderator_box"></div>
+<%= 'FIRETALK SHOW VIEW' %>
+
+<div id="clock">30</div>
+<div id="pointsLeft">3</div>
+
+<div id="speakerOnePoints">0</div>
+<div id="speakerTwoPoints">0</div>
+<div id="speakerThreePoints">0</div>
+<div id="speakerThreePoints">0</div>
+<div id="speakerFourPoints">0</div>
+<div id="speakerFivePoints">0</div>
+<div id="speakerSixPoints">0</div>
+
+<%= javascript_tag do %>
+var apiKey = '45241592';
+var sessionId = "<%= j @firetalk.tok_session_id %>";
+var token = "<%= j @tok_token %>";
+var debateId = "<%= j @firetalk.id.to_s %>";
+var userId = "<%= j @user.id.to_s %>";
+
+var session;
+var connected = 0;
+
+// starting number of points
+var votingPoints = 3;
+
+// connecting logic
+TB.setLogLevel(TB.DEBUG);
+var session = TB.initSession(sessionId);
+var totalStreams = [];
+
+session.addEventListener('sessionConnected', sessionConnectedHandler);
+session.addEventListener('streamCreated', streamCreatedHandler);
+session.addEventListener('streamDestroyed', streamDestroyedHandler);
+session.connect(apiKey, token);
+
+var publisher;
+function sessionConnectedHandler(event) {
+    publisher = TB.initPublisher(apiKey, 'videobox');
+    session.publish(publisher);
+
+    // Subscribe to streams that were in the session when we connected
+    subscribeToStreams(event.streams);
+}
+
+function streamCreatedHandler(event) {
+    subscribeToStreams(event.streams);
+}
+
+function subscribeToStreams(streams) {
+  for (var i = 0; i < streams.length; i++) {
+    // Make sure we don’t subscribe to ourself
+    if (streams[i].connection.connectionId == session.connection.connectionId) {
+      return;
+    }
+    // Create the div to put the subscriber element in to
+    var div = document.createElement('div');
+    div.setAttribute('id', 'stream' + streams[i].streamId);
+    document.body.appendChild(div);
+
+    // Subscribe to the stream
+    session.subscribe(streams[i], div.id);
+  }
+}
+
+function streamDestroyedHandler(event) {
+  connected--;
+}
+
+// BROADCAST SIGNAL EVENTS
+$('#speakerOnePoints').click(function() {
+  session.signal(
+    {
+      data:  totalStreams[0].connectionId,
+      type: "voteSpeakerOne"
+    },
+    function(error) {
+      if (error) {
+        alert(error.message);
+      }
+    }
+  );
+});
+
+// LISTENER SIGNAL EVENTS
+
+// Listener SpeakerOneUpvote
+session.on(
+  "signal:voteSpeakerOne", function(event) {
+    var newPoints = incrementStream(event.data);
+    $('#speakerOnePoints').html(newPoints);
+  }
+)
+
+function incrementStream(connectionId) {
+  alert(totalStreams.length);
+  for (var i = 0; i < totalStreams.length; i++) {
+    alert(totalStreams[i].connectionId);
+    if (String(totalStreams[i].connectionId) == String(connectionId)) {
+      totalStreams[i].data = parseInt(totalStreams[i].data) + 1;
+      return parseInt(totalStreams[i].data);
+    }
+  }
+  return 0;
+}
+
+// Get whoever connected and add to list
+session.on(
+  "connectionCreated", function(event) {
+    totalStreams.push(event.connection);
+  }
+);
+
+// Listen to ourselves if we lose
+session.on(
+  "signal:disconnect", function(event) {
+    session.disconnect();
+  }
+);
+
+session.on(
+  "signal:decrementClock", function(event) {
+    var currentTime = $('#clock');
+    currentTime.html(event.data);
+});
+
+session.on(
+  "signal:resetTimer", function(event) {
+  currentTime.html(30);
+});
+
+// Recieving Points
+<% end %>
+
+<% if session[:user_id].to_s == params[:user_id].to_s %>
+  <%= javascript_tag do %>
+  function startFiretalk() {
+    $('#startFiretalk').hide();
+    // OWNER LOGIC (Clock every second, muting people, etc.)
+    // WRAP IN START FUNCTION, EXECUTE ON CLICK
+
+    var rounds = 5;
+    var speakers = 6;
+    var currentSpeaker = 1;
+    var timer = null;
+    alert('working OWNER');
+
+
+    // loop through connections and rounds and do this a bunch of times
+    if (!timer) {
+      timer = setInterval(clockwork, 1000);
+    }
+
+    function clockwork() {
+      var currentTimeLeft = parseInt($('#clock').text(), 10);
+      if (currentTimeLeft > 0) {
+        var newTime = currentTimeLeft - 1;
+        session.signal( {
+          data: newTime,
+          type: "decrementClock"
+        },
+        function(error) {
+          if (error) {
+            alert("Failed to update clock, who the fuck knows");
+          }
+        });
+      }
+      else {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    function dropLowest() {
+      var lowestConnection = totalStreams[0];
+      for (var i = 1; i < totalStreams.length; i++) {
+        var lowestConnectionPoints = parseInt(lowestConnection.data);
+        var compareConnectionPoints = parseInt(totalStreams[i].data);
+        if (compareConnectionPoints < lowestConnectionPoints) {
+          lowestCommection = totalStreams[i];
+        }
+      }
+      session.signal(
+        {
+          to: lowestConnection,
+          type: "disconnect"
+        },
+        function(error) {
+          console.log("signal error (" + error.code + "): " + error.message);
+        }
+      );
+    }
+  }
+  <% end %>
+<% end %>
+
+<% if @user.id == @firetalk.user_id %>
+  <button onclick="startFiretalk()" id="startFiretalk">Start Firetalk</button>
+<% end %>
