@@ -20,9 +20,8 @@ var sessionId = "<%= j @firetalk.tok_session_id %>";
 var token = "<%= j @tok_token %>";
 var debateId = "<%= j @firetalk.id.to_s %>";
 var userId = "<%= j @user.id.to_s %>";
-
+var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
 var session;
-var connected = 0;
 
 // starting number of points
 var votingPoints = 3;
@@ -85,6 +84,21 @@ $('#speakerOnePoints').click(function() {
   );
 });
 
+$('#speakerTwoPoints').click(function() {
+  alert(totalStreams[1].connectionId);
+  session.signal(
+    {
+      data:  totalStreams[1].connectionId,
+      type: "voteSpeakerTwo"
+    },
+    function(error) {
+      if (error) {
+        alert(error.message);
+      }
+    }
+  );
+});
+
 // LISTENER SIGNAL EVENTS
 
 // Listener SpeakerOneUpvote
@@ -93,15 +107,21 @@ session.on(
     var newPoints = incrementStream(event.data);
     $('#speakerOnePoints').html(newPoints);
   }
-)
+);
+
+session.on(
+  "signal:voteSpeakerTwo", function(event) {
+    var newPoints = incrementStream(event.data);
+    $('#speakerTwoPoints').html(newPoints);
+  }
+);
 
 function incrementStream(connectionId) {
-  alert(totalStreams.length);
   for (var i = 0; i < totalStreams.length; i++) {
-    alert(totalStreams[i].connectionId);
     if (String(totalStreams[i].connectionId) == String(connectionId)) {
-      totalStreams[i].data = parseInt(totalStreams[i].data) + 1;
-      return parseInt(totalStreams[i].data);
+      var data = totalStreams[i].data.split("|");
+      totalStreams[i].data = parseInt(data[0]) + 1 + "|" + data[1];
+      return parseInt(data[0]) + 1;
     }
   }
   return 0;
@@ -110,7 +130,9 @@ function incrementStream(connectionId) {
 // Get whoever connected and add to list
 session.on(
   "connectionCreated", function(event) {
-    totalStreams.push(event.connection);
+    var connection = event.connection;
+    var emailAndPoints = connection.data.split("|");
+    totalStreams[parseInt(debatersJson[emailAndPoints[1]])] = connection;
   }
 );
 
