@@ -1,24 +1,111 @@
-<%= form_for [@user, @debate] do |f| %>
-  <%= f.collection_select(:category_id, @categories, :id, :category_name, :required => true) %>
-  <%= f.collection_select(:debate_style_id, @debate_styles, :id, :debate_style, {:required => true}, {:class => 'debate_dropdown_style'}) %>
-  <%= f.text_field(:topic, :placeholder => 'Topic', :required => true) %>
-  <%= f.text_field(:name, :placeholder => 'Debate Name', :required => true) %>
-  <%= f.text_area(:description, :placeholder => 'Description') %>
-  <%= f.hidden_field(:size, :value => 1, :class => 'debate_size_style') %>
-  <%= f.label('Public') %>
-  <%= f.check_box(:public) %>
-  <br />
+<div class="container">
+  <div class="row">
 
-  <%= 'Debater Invites' %>
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6 text-center">
+      <h2>
+      New Debate
+    </h2>
+    </div>
+
+    <div class="col-md-3"></div>
+
+  </div>
+<div class="row">
+<%= form_for [@user, @debate] do |f| %>
+<div class="col-md-3"></div>
+<div class="col-md-3">
+  <div class="row">
+<h4>
+What are you debating?
+</h4>
+</div>
+  <div class="row">
+    <%= f.collection_select(:category_id, @categories, :id, :category_name, :required => true) %>
+  </div>
+<div class="row">
+  <h4>
+What style?
+</h4>
+</div>
+  <div class="row">
+    <%= f.collection_select(:debate_style_id, @debate_styles, :id, :debate_style, {:required => true}, {:class => 'debate_dropdown_style'}) %>
+  </div>
+<div class="row">
+  <h4>
+Topic
+</h4>
+</div>
+  <div class="row">
+    <%= f.text_field(:topic, :placeholder => 'Topic', :required => true) %>
+  </div>
+<div class="row">
+  <h4>
+Debate Name
+</h4>
+</div>
+  <div class="row">
+    <%= f.text_field(:name, :placeholder => 'Debate Name', :required => true) %>
+  </div>
+<div class="row">
+  <h4>
+Description
+</h4>
+</div>
+  <div class="row">
+    <%= f.text_area(:description, :placeholder => 'Description') %>
+  </div>
+  <div class="row">
+<h4>
+    <%= f.label('Public') %>
+    
+  <%= f.check_box(:public) %></h4>
+</div> 
+
+  <%= f.hidden_field(:size, :value => 1, :class => 'debate_size_style') %>
+
+</div>
+<div class="col-md-3">
+
+  <div class="row">
+    <h4>
+    Invite Debaters:
+  </h4>
+  </div>
+
+  <div class="row">
   <%= f.fields_for :debater_invites do |debater_invite_form| %>
   <%= render 'debater_invite_fields', f: debater_invite_form %>
   <% end %>
-  <br />
+</div>
 
-  <%= 'Moderator Invites' %>
+  <div class="row">
+    <h4>
+    Invite Moderators:
+  </h4>
+  </div>
+
+<div class="row">
   <%= f.fields_for :moderator_invites do |moderator_invite_form| %>
   <%= render 'moderator_invite_fields', f: moderator_invite_form %>
   <% end %>
+</div>
+
+<div class="row">
+  <h4>
   <%= link_to_add_moderator_fields "Add Moderator", f, :moderator_invites %>
-  <%= f.submit %>
+</h4>
+</div>
+
+  <div class="row">
+    <h4>
+    <%= f.submit %>
+  </h4>
+  </div>
+</div>
+
+<div class="col-md-3"></div>
 <% end %>
+</div>
+</div>
