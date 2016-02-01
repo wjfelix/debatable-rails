@@ -10,6 +10,7 @@
   <%= favicon_link_tag 'favicon.png' %>
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Karla' rel='stylesheet' type='text/css'>
   <script>
     $(function() {
       var faye = new Faye.Client('http://localhost:9292/faye');
@@ -18,6 +19,7 @@
       });
     });
   </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -27,16 +29,12 @@
     </div>
     </div>
   </div>
-    <div class="container">
-    <div class="row">
-      <div class="col-xs-12 text-center">
+        <div class="text-center">
         <% if !flash[:message].nil? %>
           <%= flash[:message] %>
         <% end %>
+      </div>
       <%= yield %>
-    </div>
-    </div>
-  </div>
       <%= render 'layouts/footer' %>
 </body>
 </html>
