@@ -1,20 +1,13 @@
 <!--
 <nav class="navbar navbar-default navbar-static-top navbar-inverse" role="navigation">
-    <div class="container-fluid">
+    <div class="container">
         <div class="navbar-header">
 
     <div class="navbar-brand">
-     <%= link_to image_tag("chitchat_nav_white.png"), root_path %>
+     <%= link_to image_tag("debatable_logo_white_extra_small.png"), root_path %>
     </div>
-        <div class="nav navbar-brand text-center" id="center-vertical-debatable-nav">
-    <strong>
-        <%= nav_link 'Debatable', root_path %>
-    </strong>
-</div>
-</div>
-
     
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav">
             <li>
                  <% if session[:user_id] != nil %>
       <%= nav_link 'Logout', logout_path %>
@@ -22,7 +15,6 @@
       <%= nav_link 'Login', login_path %>
     <% end %>
             </li>
-            <!--
             <li>
             <% if session[:user_id] != nil %>
         <%= button_to "Logout", logout_path, :method => "get" %>
@@ -33,18 +25,14 @@
     </li>
 
         </ul>
-
-
     </div>
+</div>
 </nav>
     
 <% end %>
     <% end %>
-
 -->
-
-<a name="home"></a>
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<a name="home"></a><nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
 
@@ -52,11 +40,9 @@
      <%= link_to image_tag("chitchat_nav_white.png"), root_path %>
     </div>
         <ul class="nav navbar-nav">
-            <div class="navbar-brand">
-        <li class="text-primary text-center" id="center-vertical-debatable-nav">
-    <strong><%= nav_link 'Debatable', root_path %></strong>
+        <li>
+            <a href="#home text-primary"><strong>debatable</strong></a>
     </li>
-</div>
     </ul>
 </div>
 <p class="navbar-text hidden-sm hidden-xs">
@@ -66,13 +52,15 @@
     </p>
         <ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">
             
-            <li>
-<% if session[:user_id] != nil %>
-      <%= nav_link 'Logout', logout_path %>
-    <% else %>
-      <%= nav_link 'Login', login_path %>
-    <% end %>
-            </li>
+            <li> <a href="#mission">mission</a>
+    </li>
+            <li> <a href="#connect">connect</a>
+    </li>
+
+            <li><a href="#features">features</a>
+    </li>
+             <li><a href="#about">about</a>
+    </li>
 
 </ul>
 

@@ -1,18 +1,8 @@
-<div class="row">
+<div class="moderator_invite_form">
+  <fieldset>
     <%= f.text_field(:user_name, :placeholder => 'Moderator name or e-mail', :required => true) %>
-</div>
-<div class="row">
-	<h4>
-	Message:
-</h4>
-	</div>
-<div class="row">
     <%= f.text_area(:invite_message, :placeholder => "Hi, I'd like you to moderate my debate") %>
-</div>
-
- <div class="row">
-    
-    <h4><%= f.hidden_field :_destroy %>
+    <%= f.hidden_field :_destroy %>
     <%= link_to 'Remove Moderator', '#', class: "remove_moderator_fields" %>
-</h4>
+  </fieldset>
 </div>
