@@ -15,7 +15,7 @@
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Karla', sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -1090,7 +1090,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Karla', sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
   color: #333333;
@@ -4287,7 +4287,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-brand {
   float: left;
-  padding: 10px 10px;
+  padding: 10px 20px;
   font-size: 18px;
   line-height: 20px;
   height: 30px;
@@ -6767,5 +6767,7 @@ button.close {
 }
 body { padding-top: 70px; }
 
+#center-vertical-debatable-nav {
+  padding-top: 5px;
 
-http://localhost:3000/
+}
