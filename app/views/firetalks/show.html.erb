@@ -1,10 +1,16 @@
 <script type="text/javascript" src="https://static.opentok.com/v2/js/opentok.min.js"></script>
-<div class="firetalk_owner_box"></div>
-<div class="firetalk_moderator_box"></div>
+
 <%= 'FIRETALK SHOW VIEW' %>
 
 <div id="clock">30</div>
 <div id="pointsLeft">3</div>
+
+<div id="speaker1Box" style="border: 1px solid;"></div>
+<div id="speaker2Box"></div>
+<div id="speaker3Box"></div>
+<div id="speaker4Box"></div>
+<div id="speaker5Box"></div>
+<div id="speaker6Box"></div>
 
 <div id="speakerOnePoints">0</div>
 <div id="speakerTwoPoints">0</div>
@@ -18,8 +24,7 @@
 var apiKey = '45241592';
 var sessionId = "<%= j @firetalk.tok_session_id %>";
 var token = "<%= j @tok_token %>";
-var debateId = "<%= j @firetalk.id.to_s %>";
-var userId = "<%= j @user.id.to_s %>";
+var myEmail = "<%= j @user.email %>"
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
 var session;
 
@@ -30,6 +35,7 @@ var votingPoints = 3;
 TB.setLogLevel(TB.DEBUG);
 var session = TB.initSession(sessionId);
 var totalStreams = [];
+var audioSubscribers = [];
 
 session.addEventListener('sessionConnected', sessionConnectedHandler);
 session.addEventListener('streamCreated', streamCreatedHandler);
@@ -38,7 +44,8 @@ session.connect(apiKey, token);
 
 var publisher;
 function sessionConnectedHandler(event) {
-    publisher = TB.initPublisher(apiKey, 'videobox');
+    var speakerNumber = parseInt(debatersJson[myEmail] + 1);
+    publisher = OT.initPublisher(apiKey, "speaker" + speakerNumber + "Box");
     session.publish(publisher);
 
     // Subscribe to streams that were in the session when we connected
@@ -58,10 +65,15 @@ function subscribeToStreams(streams) {
     // Create the div to put the subscriber element in to
     var div = document.createElement('div');
     div.setAttribute('id', 'stream' + streams[i].streamId);
-    document.body.appendChild(div);
+
+    var connection = streams[i].connection;
+    var email = connection.data.split("|")[1];
+    var speakerNumber = parseInt(debatersJson[email]) + 1;
+    document.getElementById("speaker" + speakerNumber + "Box").appendChild(div);
 
     // Subscribe to the stream
-    session.subscribe(streams[i], div.id);
+    var subscriber = session.subscribe(streams[i], div.id);
+    audioSubscribers.push(subscriber);
   }
 }
 
@@ -85,7 +97,6 @@ $('#speakerOnePoints').click(function() {
 });
 
 $('#speakerTwoPoints').click(function() {
-  alert(totalStreams[1].connectionId);
   session.signal(
     {
       data:  totalStreams[1].connectionId,
@@ -132,6 +143,9 @@ session.on(
   "connectionCreated", function(event) {
     var connection = event.connection;
     var emailAndPoints = connection.data.split("|");
+
+    // JSON points email => Speaker number
+    // totalStreams puts people in the right order by speaker number
     totalStreams[parseInt(debatersJson[emailAndPoints[1]])] = connection;
   }
 );
@@ -164,45 +178,118 @@ session.on(
     // OWNER LOGIC (Clock every second, muting people, etc.)
     // WRAP IN START FUNCTION, EXECUTE ON CLICK
 
-    var rounds = 5;
-    var speakers = 6;
-    var currentSpeaker = 1;
+    var playersAlive [];
+    for (var i = 0; i < totalStreams.length; i++) {
+      playersAlive[i] = totalStreams[i].connectionId;
+    }
     var timer = null;
-    alert('working OWNER');
-
 
     // loop through connections and rounds and do this a bunch of times
     if (!timer) {
       timer = setInterval(clockwork, 1000);
     }
+    var currentSpeakerIndex = 0;
+    var currentRound = 1;
 
     function clockwork() {
-      var currentTimeLeft = parseInt($('#clock').text(), 10);
-      if (currentTimeLeft > 0) {
-        var newTime = currentTimeLeft - 1;
-        session.signal( {
-          data: newTime,
-          type: "decrementClock"
-        },
-        function(error) {
-          if (error) {
-            alert("Failed to update clock, who the fuck knows");
+      // if the current index is still alive...
+      if (playersAlive[currentSpeakerIndex]) {
+
+        // Clock logic
+        var currentTimeLeft = parseInt($('#clock').text(), 10);
+        // Timer Still going
+        if (currentTimeLeft > 0) {
+          var newTime = currentTimeLeft - 1;
+
+          // Lets stick these in helper methods...
+          session.signal({
+            data: newTime,
+            type: "decrementClock"
+          },
+          function(error) {
+            if (error) {
+              alert("Failed to update clock, who the fuck knows");
+            }
+          });
+        }
+        // Timer Ended (30 seconds up!)
+        else {
+          // unmute next person, mute everyone else and reset clock to 30 sec (another signal func)
+          // if the round is over (bool var?) disconnect the lowest session
+          // if we've got a winner, stop everything
+
+
+          // If we have reached the last speaker in the round
+          if (isLastSpeakerAlive(currentSpeakerIndex)) {
+            currentRound++;
+            dropLowest();
+            playersAlive[lowestPointsIndex()] = null;
+
+            if (currentRound == 6) {
+              // Do some winner logic
+              clearInterval(timer);
+              timer = null;
+            }
+
+            // otherwise increment the round and do it again!
+            else {
+              session.signal({
+                type: "nextRound"
+              },
+              function(error) {
+                if (error) {
+                  alert("Failed to tell everyone to increment round...");
+                }
+              });
+            }
           }
-        });
+          else {
+            // Move on to the next index
+            currentSpeakerIndex++;
+          }
+        }
       }
+      // Find the next speaker who isn't dead
       else {
-        clearInterval(timer);
-        timer = null;
+        currentSpeakerIndex++;
       }
+    }
+
+    // Checks if the given index is the last speaker alive
+    // or that the rest of the elements after it are null
+    function isLastSpeakerAlive(index) {
+      if (index == 5) {
+        return true;
+      }
+      for (var i = index + 1; i < playersAlive.length; i++) {
+        if (playersAlive[i]) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function lowestPointsIndex() {
+      var lowestIndex = 0;
+      var lowestConnection = totalStreams[0];
+      for (var i = 0; i < totalStreams.length; i++) {
+        var lowestConnectionPoints = parseInt(lowestConnection.data.split("|")[0]);
+        var compareConnectionPoints = parseInt(totalStreams[i].data.split("|")[0]);
+        if (compareConnectionPoints < lowestConnectionPoints) {
+          lowestConnection = totalStreams[i];
+          lowestIndex = i;
+        }
+      }
+      return lowestIndex;
     }
 
     function dropLowest() {
       var lowestConnection = totalStreams[0];
       for (var i = 1; i < totalStreams.length; i++) {
-        var lowestConnectionPoints = parseInt(lowestConnection.data);
-        var compareConnectionPoints = parseInt(totalStreams[i].data);
+        var lowestConnectionPoints = parseInt(lowestConnection.data.split("|")[0]);
+        var compareConnectionPoints = parseInt(totalStreams[i].data.split("|")[0]);
         if (compareConnectionPoints < lowestConnectionPoints) {
-          lowestCommection = totalStreams[i];
+          lowestConnection = totalStreams[i];
         }
       }
       session.signal(
