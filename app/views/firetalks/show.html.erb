@@ -164,7 +164,8 @@ session.on(
       }
       for (var i = 0; i < totalSessions.length; i++) {
         if (totalSessions[i].connection.connectionId == event.data) {
-          $('#speaker' + i + 'Box').hide();
+          var number = i + 1;
+          $('#speaker' + number + 'Box').hide();
         }
       }
     }
@@ -178,7 +179,7 @@ session.on(
 
 session.on(
   "signal:resetTimer", function(event) {
-  $('#clock').html("30");
+  $('#clock').html("10");
 });
 
 session.on(
@@ -200,7 +201,7 @@ session.on(
 
 session.on(
   "signal:nextRound", function(event) {
-    var currentRound = $('roundNumber');
+    var currentRound = $('#roundNumber');
     currentRound.html(event.data);
   }
 )
@@ -355,12 +356,13 @@ session.on(
     }
 
     function dropLowest() {
+      alert("dropping lowest...");
       var lowestConnection = totalSessions[0].connection;
       for (var i = 1; i < totalSessions.length; i++) {
         var lowestConnectionPoints = parseInt(lowestConnection.data.split("|")[0]);
         var compareConnectionPoints = parseInt(totalSessions[i].connection.data.split("|")[0]);
         if (compareConnectionPoints < lowestConnectionPoints) {
-          lowestConnection = totalSessions[i];
+          lowestConnection = totalSessions[i].connection;
         }
       }
       session.signal(
