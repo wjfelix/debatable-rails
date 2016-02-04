@@ -2,8 +2,10 @@
 
 <%= 'FIRETALK SHOW VIEW' %>
 
-<div id="clock">30</div>
+<div id="clock">10</div>
 <div id="pointsLeft">3</div>
+<p>ROUND NUMBER</p>
+<div id="roundNumber">1</div>
 
 <div id="speaker1Box" style="border: 1px solid;"></div>
 <div id="speaker2Box"></div>
@@ -26,7 +28,6 @@ var sessionId = "<%= j @firetalk.tok_session_id %>";
 var token = "<%= j @tok_token %>";
 var myEmail = "<%= j @user.email %>"
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
-var session;
 
 // starting number of points
 var votingPoints = 3;
@@ -34,17 +35,18 @@ var votingPoints = 3;
 // connecting logic
 TB.setLogLevel(TB.DEBUG);
 var session = TB.initSession(sessionId);
-var totalStreams = [];
+var totalSessions = [];
 var audioSubscribers = [];
 
 session.addEventListener('sessionConnected', sessionConnectedHandler);
 session.addEventListener('streamCreated', streamCreatedHandler);
-session.addEventListener('streamDestroyed', streamDestroyedHandler);
 session.connect(apiKey, token);
 
 var publisher;
+var speakerNumber;
+
 function sessionConnectedHandler(event) {
-    var speakerNumber = parseInt(debatersJson[myEmail] + 1);
+    speakerNumber = parseInt(debatersJson[myEmail] + 1);
     publisher = OT.initPublisher(apiKey, "speaker" + speakerNumber + "Box");
     session.publish(publisher);
 
@@ -59,33 +61,28 @@ function streamCreatedHandler(event) {
 function subscribeToStreams(streams) {
   for (var i = 0; i < streams.length; i++) {
     // Make sure we don’t subscribe to ourself
-    if (streams[i].connection.connectionId == session.connection.connectionId) {
-      return;
+    if (streams[i].connection.connectionId != session.connection.connectionId) {
+      // Create the div to put the subscriber element in to
+      var div = document.createElement('div');
+      div.setAttribute('id', 'stream' + streams[i].streamId);
+
+      var connection = streams[i].connection;
+      var email = connection.data.split("|")[1];
+      var newSpeakerNumber = parseInt(debatersJson[email]) + 1;
+      document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
+
+      // Subscribe to the stream
+      var subscriber = session.subscribe(streams[i], div.id);
+      audioSubscribers.push(subscriber);
     }
-    // Create the div to put the subscriber element in to
-    var div = document.createElement('div');
-    div.setAttribute('id', 'stream' + streams[i].streamId);
-
-    var connection = streams[i].connection;
-    var email = connection.data.split("|")[1];
-    var speakerNumber = parseInt(debatersJson[email]) + 1;
-    document.getElementById("speaker" + speakerNumber + "Box").appendChild(div);
-
-    // Subscribe to the stream
-    var subscriber = session.subscribe(streams[i], div.id);
-    audioSubscribers.push(subscriber);
   }
-}
-
-function streamDestroyedHandler(event) {
-  connected--;
 }
 
 // BROADCAST SIGNAL EVENTS
 $('#speakerOnePoints').click(function() {
   session.signal(
     {
-      data:  totalStreams[0].connectionId,
+      data: totalSessions[0].connection.connectionId,
       type: "voteSpeakerOne"
     },
     function(error) {
@@ -99,7 +96,7 @@ $('#speakerOnePoints').click(function() {
 $('#speakerTwoPoints').click(function() {
   session.signal(
     {
-      data:  totalStreams[1].connectionId,
+      data:  totalSessions[1].connection.connectionId,
       type: "voteSpeakerTwo"
     },
     function(error) {
@@ -110,7 +107,7 @@ $('#speakerTwoPoints').click(function() {
   );
 });
 
-// LISTENER SIGNAL EVENTS
+// LISTENER EVENTS
 
 // Listener SpeakerOneUpvote
 session.on(
@@ -120,6 +117,7 @@ session.on(
   }
 );
 
+// Listener SpeakerTwoUpvote
 session.on(
   "signal:voteSpeakerTwo", function(event) {
     var newPoints = incrementStream(event.data);
@@ -127,11 +125,12 @@ session.on(
   }
 );
 
+// Stores the points of the connection locally and returns the value
 function incrementStream(connectionId) {
-  for (var i = 0; i < totalStreams.length; i++) {
-    if (String(totalStreams[i].connectionId) == String(connectionId)) {
-      var data = totalStreams[i].data.split("|");
-      totalStreams[i].data = parseInt(data[0]) + 1 + "|" + data[1];
+  for (var i = 0; i < totalSessions.length; i++) {
+    if (String(totalSessions[i].connection.connectionId) == String(connectionId)) {
+      var data = totalSessions[i].connection.data.split("|");
+      totalSessions[i].connection.data = parseInt(data[0]) + 1 + "|" + data[1];
       return parseInt(data[0]) + 1;
     }
   }
@@ -141,21 +140,35 @@ function incrementStream(connectionId) {
 // Get whoever connected and add to list
 session.on(
   "connectionCreated", function(event) {
-    var connection = event.connection;
-    var emailAndPoints = connection.data.split("|");
+    var emailAndPoints = event.connection.data.split("|");
 
     // JSON points email => Speaker number
-    // totalStreams puts people in the right order by speaker number
-    totalStreams[parseInt(debatersJson[emailAndPoints[1]])] = connection;
+    // totalSessions puts people in the right order by speaker number
+    totalSessions[parseInt(debatersJson[emailAndPoints[1]])] = event;
   }
 );
 
 // Listen to ourselves if we lose
 session.on(
   "signal:disconnect", function(event) {
-    session.disconnect();
-  }
-);
+    alert("disconnecting " + event.data);
+    if (session.connection.connectionId == event.data) {
+      session.unpublish(publisher);
+    }
+    else {
+      for (var i = 0; i < audioSubscribers.length; i++) {
+        // either kill video or just kill audio
+        if (audioSubscribers[i].stream.connection.connectionId == event.data) {
+          audioSubscribers[i].setAudioVolume(0);
+        }
+      }
+      for (var i = 0; i < totalSessions.length; i++) {
+        if (totalSessions[i].connection.connectionId == event.data) {
+          $('#speaker' + i + 'Box').hide();
+        }
+      }
+    }
+  });
 
 session.on(
   "signal:decrementClock", function(event) {
@@ -165,93 +178,151 @@ session.on(
 
 session.on(
   "signal:resetTimer", function(event) {
-  currentTime.html(30);
+  $('#clock').html("30");
 });
 
-// Recieving Points
+session.on(
+  "signal:nextSpeaker", function(event) {
+    for (var i = 0; i < audioSubscribers.length; i++) {
+      if (audioSubscribers[i].stream.connection.connectionId == event.data) {
+        audioSubscribers[i].setAudioVolume(100);
+      }
+      else {
+        audioSubscribers[i].setAudioVolume(0);
+      }
+      if (event.data == session.connection.connectionId) {
+        document.getElementById('speaker' + speakerNumber + 'Box').style.backgroundColor = "red";
+        alert("you are speaking now!");
+      }
+    }
+  }
+);
+
+session.on(
+  "signal:nextRound", function(event) {
+    var currentRound = $('roundNumber');
+    currentRound.html(event.data);
+  }
+)
 <% end %>
 
 <% if session[:user_id].to_s == params[:user_id].to_s %>
   <%= javascript_tag do %>
   function startFiretalk() {
     $('#startFiretalk').hide();
+
     // OWNER LOGIC (Clock every second, muting people, etc.)
     // WRAP IN START FUNCTION, EXECUTE ON CLICK
 
-    var playersAlive [];
-    for (var i = 0; i < totalStreams.length; i++) {
-      playersAlive[i] = totalStreams[i].connectionId;
+    // Players alive is an array containing the connectionIds of all debaters
+    // throughout the firetalk we will nullify the connections that are dropped
+    // each round, and keep track of the next speaker (connectionId) in line
+    var playersAlive = [];
+    for (var i = 0; i < totalSessions.length; i++) {
+      playersAlive[i] = totalSessions[i].connection.connectionId;
     }
-    var timer = null;
 
-    // loop through connections and rounds and do this a bunch of times
+    // OWNER START SPEAKING
+    session.signal({
+      type: "nextSpeaker",
+      data: session.connection.connectionId
+    },
+    function(error) {
+      if (error) {
+        alert("There was an error starting the firetalk with owner");
+      }
+    });
+
+    var timer = null;
     if (!timer) {
       timer = setInterval(clockwork, 1000);
     }
-    var currentSpeakerIndex = 0;
+
+    var totalRounds = 2;
     var currentRound = 1;
+    var currentSpeakerIndex = 0;
 
+    // Firetalk logic function
+    // First speaker (owner) is ALREADY speaking when this method is called
     function clockwork() {
-      // if the current index is still alive...
-      if (playersAlive[currentSpeakerIndex]) {
+      // Clock logic
+      var currentTimeLeft = parseInt($('#clock').text(), 10);
 
-        // Clock logic
-        var currentTimeLeft = parseInt($('#clock').text(), 10);
-        // Timer Still going
-        if (currentTimeLeft > 0) {
-          var newTime = currentTimeLeft - 1;
+      // Timer Still going
+      if (currentTimeLeft > 0) {
+        var newTime = currentTimeLeft - 1;
 
-          // Lets stick these in helper methods...
+        // Lets stick these in helper methods
+        session.signal({
+          data: newTime,
+          type: "decrementClock"
+        },
+        function(error) {
+          if (error) {
+            alert("Failed to update clock, who the fuck knows");
+          }
+        });
+      }
+      // Timer Ended (30 seconds up!)
+      else {
+        // unmute next person, mute everyone else and reset clock to 30 sec (another signal func)
+        // if the round is over (bool var?) disconnect the lowest session
+        // if we've got a winner, stop everything
+        session.signal({
+          type: "resetTimer"
+        }, function(error) {
+          if (error) {
+            alert("Failed to reset clock");
+          }
+        });
+
+        // If we have reached the last speaker (a.k.a it's time for a new round)
+        if (isLastSpeakerAlive(currentSpeakerIndex)) {
+          alert("reached the last speaker at the end of the timer, current round is" + currentRound);
+          // Go back to the beginning of our list at the end of the round
+          currentSpeakerIndex = 0;
+
+          // otherwise increment the round and do it again!
+          // and drop the lowest dude
+          currentRound++;
+          dropLowest();
+          playersAlive[lowestPointsIndex()] = null;
           session.signal({
-            data: newTime,
-            type: "decrementClock"
+            type: "nextRound",
+            data: currentRound
           },
           function(error) {
             if (error) {
-              alert("Failed to update clock, who the fuck knows");
+              alert("Failed to tell everyone to increment round...");
             }
           });
+          // If it's the end of the firetalk
+          if (currentRound == totalRounds) {
+            alert("END OF FIRETALK");
+            // Do some winner logic
+            clearInterval(timer);
+            timer = null;
+          }
         }
-        // Timer Ended (30 seconds up!)
+        // There are still more people left to speak (guaranteed)
         else {
-          // unmute next person, mute everyone else and reset clock to 30 sec (another signal func)
-          // if the round is over (bool var?) disconnect the lowest session
-          // if we've got a winner, stop everything
-
-
-          // If we have reached the last speaker in the round
-          if (isLastSpeakerAlive(currentSpeakerIndex)) {
-            currentRound++;
-            dropLowest();
-            playersAlive[lowestPointsIndex()] = null;
-
-            if (currentRound == 6) {
-              // Do some winner logic
-              clearInterval(timer);
-              timer = null;
-            }
-
-            // otherwise increment the round and do it again!
-            else {
+          currentSpeakerIndex++;
+          for (var i = currentSpeakerIndex; i < playersAlive.length; i++) {
+            var connectionId = playersAlive[i];
+            if (connectionId) {
               session.signal({
-                type: "nextRound"
+                type: "nextSpeaker",
+                data: connectionId
               },
               function(error) {
                 if (error) {
-                  alert("Failed to tell everyone to increment round...");
+                  alert("There was an error unmuting the next speaker");
                 }
               });
+              break;
             }
           }
-          else {
-            // Move on to the next index
-            currentSpeakerIndex++;
-          }
         }
-      }
-      // Find the next speaker who isn't dead
-      else {
-        currentSpeakerIndex++;
       }
     }
 
@@ -271,12 +342,12 @@ session.on(
 
     function lowestPointsIndex() {
       var lowestIndex = 0;
-      var lowestConnection = totalStreams[0];
-      for (var i = 0; i < totalStreams.length; i++) {
+      var lowestConnection = totalSessions[0].connection;
+      for (var i = 0; i < totalSessions.length; i++) {
         var lowestConnectionPoints = parseInt(lowestConnection.data.split("|")[0]);
-        var compareConnectionPoints = parseInt(totalStreams[i].data.split("|")[0]);
+        var compareConnectionPoints = parseInt(totalSessions[i].connection.data.split("|")[0]);
         if (compareConnectionPoints < lowestConnectionPoints) {
-          lowestConnection = totalStreams[i];
+          lowestConnection = totalSessions[i];
           lowestIndex = i;
         }
       }
@@ -284,18 +355,18 @@ session.on(
     }
 
     function dropLowest() {
-      var lowestConnection = totalStreams[0];
-      for (var i = 1; i < totalStreams.length; i++) {
+      var lowestConnection = totalSessions[0].connection;
+      for (var i = 1; i < totalSessions.length; i++) {
         var lowestConnectionPoints = parseInt(lowestConnection.data.split("|")[0]);
-        var compareConnectionPoints = parseInt(totalStreams[i].data.split("|")[0]);
+        var compareConnectionPoints = parseInt(totalSessions[i].connection.data.split("|")[0]);
         if (compareConnectionPoints < lowestConnectionPoints) {
-          lowestConnection = totalStreams[i];
+          lowestConnection = totalSessions[i];
         }
       }
       session.signal(
         {
-          to: lowestConnection,
-          type: "disconnect"
+          type: "disconnect",
+          data: lowestConnection.connectionId
         },
         function(error) {
           console.log("signal error (" + error.code + "): " + error.message);
