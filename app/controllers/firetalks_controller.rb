@@ -8,7 +8,9 @@ class FiretalksController < ApplicationController
   def new
     @user = User.find(params[:user_id])
     @firetalk = Firetalk.new
-    @firetalk.firetalk_debaters.build
+    2.times do
+      @firetalk.firetalk_debaters.build
+    end
   end
 
   def create
@@ -16,18 +18,17 @@ class FiretalksController < ApplicationController
     @firetalk = Firetalk.new(firetalk_params)
 
     #adding ourselves (owner)
+    @owner = @firetalk.firetalk_debaters.build(:firetalk_id => @firetalk.id, :email => @user.email, :user_id => @user.id)
+    @owner.save
     @firetalk.firetalk_debaters.each do |firetalk_debater|
-      @find_user = User.find_by_email(firetalk_debater.email)
-      if @find_user
-        firetalk_debater.user_id = @find_user.id
-        firetalk_debater.save
-      else
+      user = User.find_by_email(firetalk_debater.email)
+      if !user
         flash[:success] = false
-        flash[:message] = "Unknown user #{firetalk_debater.email}"
+        flash[:message] = "Failed to create Firetalk, no such user #{user.email}"
         redirect_to new_user_firetalk_path
       end
+      firetalk_debater.user_id = user.id
     end
-
 
     if @firetalk.save
       flash[:success] = true

@@ -6,7 +6,7 @@
   <%= f.text_field :rounds, :value => 5 %>
   <%= f.text_field :seconds %>
   <%= f.fields_for :firetalk_debaters do |ff| %>
-    <%= ff.text_field :email, :placeholder => "invite debater" %>
+    <%= ff.text_field(:email, :placeholder => 'Debater Email', :required => true) %>
   <% end %>
   <%= f.submit %>
 <% end %>
