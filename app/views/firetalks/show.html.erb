@@ -36,10 +36,10 @@ var votingPoints = 3;
 TB.setLogLevel(TB.DEBUG);
 var session = TB.initSession(sessionId);
 var totalSessions = [];
-var audioSubscribers = [];
 
 session.addEventListener('sessionConnected', sessionConnectedHandler);
 session.addEventListener('streamCreated', streamCreatedHandler);
+session.addEventListener('streamPropertyChanged', streamPropertyChangedHandler)
 session.connect(apiKey, token);
 
 var publisher;
@@ -61,21 +61,25 @@ function streamCreatedHandler(event) {
 function subscribeToStreams(streams) {
   for (var i = 0; i < streams.length; i++) {
     // Make sure we don’t subscribe to ourself
-    if (streams[i].connection.connectionId != session.connection.connectionId) {
-      // Create the div to put the subscriber element in to
-      var div = document.createElement('div');
-      div.setAttribute('id', 'stream' + streams[i].streamId);
-
-      var connection = streams[i].connection;
-      var email = connection.data.split("|")[1];
-      var newSpeakerNumber = parseInt(debatersJson[email]) + 1;
-      document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
-
-      // Subscribe to the stream
-      var subscriber = session.subscribe(streams[i], div.id);
-      audioSubscribers.push(subscriber);
+    if (streams[i].connection.connectionId == session.connection.connectionId) {
+      return;
     }
+    // Create the div to put the subscriber element in to
+    var div = document.createElement('div');
+    div.setAttribute('id', 'stream' + streams[i].streamId);
+
+    var connection = streams[i].connection;
+    var email = connection.data.split("|")[1];
+    var newSpeakerNumber = parseInt(debatersJson[email]) + 1;
+    document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
+
+    // Subscribe to the stream
+    session.subscribe(streams[i], div.id);
   }
+}
+
+function streamPropertyChangedHandler() {
+
 }
 
 // BROADCAST SIGNAL EVENTS
@@ -151,23 +155,8 @@ session.on(
 // Listen to ourselves if we lose
 session.on(
   "signal:disconnect", function(event) {
-    alert("disconnecting " + event.data);
     if (session.connection.connectionId == event.data) {
       session.unpublish(publisher);
-    }
-    else {
-      for (var i = 0; i < audioSubscribers.length; i++) {
-        // either kill video or just kill audio
-        if (audioSubscribers[i].stream.connection.connectionId == event.data) {
-          audioSubscribers[i].setAudioVolume(0);
-        }
-      }
-      for (var i = 0; i < totalSessions.length; i++) {
-        if (totalSessions[i].connection.connectionId == event.data) {
-          var number = i + 1;
-          $('#speaker' + number + 'Box').hide();
-        }
-      }
     }
   });
 
@@ -183,18 +172,13 @@ session.on(
 });
 
 session.on(
-  "signal:nextSpeaker", function(event) {
-    for (var i = 0; i < audioSubscribers.length; i++) {
-      if (audioSubscribers[i].stream.connection.connectionId == event.data) {
-        audioSubscribers[i].setAudioVolume(100);
-      }
-      else {
-        audioSubscribers[i].setAudioVolume(0);
-      }
-      if (event.data == session.connection.connectionId) {
-        document.getElementById('speaker' + speakerNumber + 'Box').style.backgroundColor = "red";
-        alert("you are speaking now!");
-      }
+  "signal:adjustAudio", function(event) {
+    if (event.data == session.connection.connectionId) {
+      alert("your turn to speak");
+      publisher.publishAudio(true);
+    }
+    else {
+      publisher.publishAudio(false);
     }
   }
 );
@@ -204,13 +188,37 @@ session.on(
     var currentRound = $('#roundNumber');
     currentRound.html(event.data);
   }
-)
+);
+
+session.on(
+  "signal:removeButtons", function(event) {
+    var myIndex = parseInt(debatersJson[myEmail]);
+    $('button.OT_edge-bar-item.OT_mute.OT_mode-auto').each(function(index) {
+      if (myIndex == index) {
+        $(this).hide();
+      }
+    });
+  }
+);
+
+session.on(
+  "signal:unmuteAll", function(event) {
+    publisher.publishAudio(true);
+  }
+);
 <% end %>
 
 <% if session[:user_id].to_s == params[:user_id].to_s %>
   <%= javascript_tag do %>
   function startFiretalk() {
     $('#startFiretalk').hide();
+    session.signal({
+      type: "removeButtons"
+      }, function(error) {
+        if (error) {
+          alert("couldn't tell people to fix buttons");
+        }
+    });
 
     // OWNER LOGIC (Clock every second, muting people, etc.)
     // WRAP IN START FUNCTION, EXECUTE ON CLICK
@@ -220,12 +228,14 @@ session.on(
     // each round, and keep track of the next speaker (connectionId) in line
     var playersAlive = [];
     for (var i = 0; i < totalSessions.length; i++) {
-      playersAlive[i] = totalSessions[i].connection.connectionId;
+      if (totalSessions[i]) {
+        playersAlive[i] = totalSessions[i].connection.connectionId;
+      }
     }
 
     // OWNER START SPEAKING
     session.signal({
-      type: "nextSpeaker",
+      type: "adjustAudio",
       data: session.connection.connectionId
     },
     function(error) {
@@ -239,7 +249,7 @@ session.on(
       timer = setInterval(clockwork, 1000);
     }
 
-    var totalRounds = 3;
+    var totalRounds = 2;
     var currentRound = 1;
     var currentSpeakerIndex = 0;
 
@@ -260,7 +270,7 @@ session.on(
         },
         function(error) {
           if (error) {
-            alert("Failed to update clock, who the fuck knows");
+            alert("Failed to update clock, who knows");
           }
         });
       }
@@ -300,6 +310,13 @@ session.on(
           // If it's the end of the firetalk
           if (currentRound == totalRounds) {
             alert("END OF FIRETALK");
+            session.signal({
+              type: "unmuteAll"
+            },  function(error) {
+              if (error) {
+                alert("failed to unmute all");
+              }
+            });
             // Do some winner logic
             clearInterval(timer);
             timer = null;
@@ -312,13 +329,12 @@ session.on(
             var connectionId = playersAlive[i];
             if (connectionId) {
               session.signal({
-                type: "nextSpeaker",
+                type: "adjustAudio",
                 data: connectionId
-              },
-              function(error) {
-                if (error) {
-                  alert("There was an error unmuting the next speaker");
-                }
+              }, function(error) {
+                  if (error) {
+                    alert("cant send unmute ");
+                  }
               });
               break;
             }

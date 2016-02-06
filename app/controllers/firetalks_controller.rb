@@ -8,7 +8,7 @@ class FiretalksController < ApplicationController
   def new
     @user = User.find(params[:user_id])
     @firetalk = Firetalk.new
-    2.times do
+    1.times do
       @firetalk.firetalk_debaters.build
     end
   end
@@ -49,8 +49,7 @@ class FiretalksController < ApplicationController
     # Hash to map debater email to ID so we can convert
     # to json and properly bind points to debaters in show view
     firetalk_debaters_hash = {}
-    firetalk_debaters_hash[User.find(@firetalk.user_id).email] = 0
-    index = 1
+    index = 0
     @firetalk_debaters.each do |firetalk_debater|
       firetalk_debaters_hash[firetalk_debater.email] = index
       index = index + 1
