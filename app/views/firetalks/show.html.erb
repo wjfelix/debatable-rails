@@ -87,36 +87,61 @@ function streamPropertyChangedHandler() {
 
 }
 
+function decrementVote() {
+  session.signal({
+    to: session.connection,
+    type: "decrementVote",
+    data: votingPoints - 1
+  }, function(error) {
+    if (error) {
+      alert("error decrementing votes");
+    }
+  });
+}
+
 // BROADCAST SIGNAL EVENTS
 $('#speakerOnePoints').click(function() {
-  session.signal(
-    {
-      data: totalSessions[0].connection.connectionId,
-      type: "voteSpeakerOne"
-    },
-    function(error) {
-      if (error) {
-        alert(error.message);
+  if (parseInt(document.getElementById("pointsLeft").innerHTML) > 0) {
+    session.signal(
+      {
+        data: totalSessions[0].connection.connectionId,
+        type: "voteSpeakerOne"
+      },
+      function(error) {
+        if (error) {
+          alert(error.message);
+        }
       }
-    }
-  );
+    );
+    decrementVote();
+  }
 });
 
 $('#speakerTwoPoints').click(function() {
-  session.signal(
-    {
-      data:  totalSessions[1].connection.connectionId,
-      type: "voteSpeakerTwo"
-    },
-    function(error) {
-      if (error) {
-        alert(error.message);
+  if (parseInt(document.getElementById("pointsLeft").innerHTML) > 0) {
+    session.signal(
+      {
+        data:  totalSessions[1].connection.connectionId,
+        type: "voteSpeakerTwo"
+      },
+      function(error) {
+        if (error) {
+          alert(error.message);
+        }
       }
-    }
-  );
+    );
+    decrementVote();
+  }
 });
 
 // LISTENER EVENTS
+
+session.on(
+  "signal:decrementVote", function(event) {
+    document.getElementById('pointsLeft').innerHTML = event.data;
+    votingPoints = votingPoints - 1;
+  }
+);
 
 // Listener SpeakerOneUpvote
 session.on(
@@ -127,6 +152,11 @@ session.on(
 );
 
 // Listener SpeakerTwoUpvote
+
+session.on(
+  "signal:decrementVote", function(event) {
+    document.getElementById("pointsLeft").innerHTML = event.data;
+  });
 session.on(
   "signal:voteSpeakerTwo", function(event) {
     var newPoints = incrementStream(event.data);
