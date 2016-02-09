@@ -7,8 +7,11 @@
 <p>ROUND NUMBER</p>
 <div id="roundNumber">1</div>
 
+<span>Speaker One</span>
 <div id="speaker1Box" style="border: 1px solid;"></div>
+<span>Speaker Two</span>
 <div id="speaker2Box"></div>
+<span>Speaker Three</span>
 <div id="speaker3Box"></div>
 <div id="speaker4Box"></div>
 <div id="speaker5Box"></div>
@@ -49,6 +52,8 @@ function sessionConnectedHandler(event) {
     speakerNumber = parseInt(debatersJson[myEmail] + 1);
     publisher = OT.initPublisher(apiKey, "speaker" + speakerNumber + "Box");
     session.publish(publisher);
+    var id = document.createTextNode(String(session.connection.connectionId));
+    document.body.appendChild(id);
 
     // Subscribe to streams that were in the session when we connected
     subscribeToStreams(event.streams);
@@ -249,7 +254,7 @@ session.on(
       timer = setInterval(clockwork, 1000);
     }
 
-    var totalRounds = 2;
+    var totalRounds = 3;
     var currentRound = 1;
     var currentSpeakerIndex = 0;
 
@@ -289,7 +294,7 @@ session.on(
 
         // If we have reached the last speaker (a.k.a it's time for a new round)
         if (isLastSpeakerAlive(currentSpeakerIndex)) {
-          alert("reached the last speaker at the end of the timer, current round is" + currentRound);
+          alert("reached the last speaker at the end of the timer, current round is " + currentRound);
           // Go back to the beginning of our list at the end of the round
           currentSpeakerIndex = 0;
 
@@ -297,7 +302,6 @@ session.on(
           // and drop the lowest dude
           currentRound++;
           dropLowest();
-          playersAlive[lowestPointsIndex()] = null;
           session.signal({
             type: "nextRound",
             data: currentRound
@@ -321,9 +325,21 @@ session.on(
             clearInterval(timer);
             timer = null;
           }
+          else {
+            // unmute first person in list
+            session.signal({
+              type: "adjustAudio",
+              data: firstSpeakerAlive()
+            }, function(error) {
+                if (error) {
+                  alert("cant send unmute ");
+                }
+            });
+          }
         }
         // There are still more people left to speak (guaranteed)
         else {
+          // unmute next speaker
           currentSpeakerIndex++;
           for (var i = currentSpeakerIndex; i < playersAlive.length; i++) {
             var connectionId = playersAlive[i];
@@ -339,6 +355,15 @@ session.on(
               break;
             }
           }
+        }
+      }
+    }
+
+    // returns connectionId of the first speaker in the list
+    function firstSpeakerAlive() {
+      for (var i = 0; i < playersAlive.length; i++) {
+        if (playersAlive[i] != null) {
+          return playersAlive[i];
         }
       }
     }
@@ -359,35 +384,37 @@ session.on(
 
     function lowestPointsIndex() {
       var lowestIndex = 0;
-      var lowestConnection = totalSessions[0].connection;
+      var lowestConnectionId = firstSpeakerAlive();
+      var lowestConnection;
       for (var i = 0; i < totalSessions.length; i++) {
-        var lowestConnectionPoints = parseInt(lowestConnection.data.split("|")[0]);
-        var compareConnectionPoints = parseInt(totalSessions[i].connection.data.split("|")[0]);
-        if (compareConnectionPoints < lowestConnectionPoints) {
-          lowestConnection = totalSessions[i];
-          lowestIndex = i;
+        if (totalSessions[i].connection.connectionId == lowestConnectionId) {
+          lowestConnection = totalSessions[i].connection;
+        }
+      }
+      for (var i = 0; i < playersAlive.length; i++) {
+        if (playersAlive[i]) {
+          var connection = totalSessions[i].connection;
+          if (parseInt(connection.data.split("|")[0]) < parseInt(lowestConnection.data.split("|")[0])) {
+            lowestIndex = i;
+            lowestConnection = connection;
+          }
         }
       }
       return lowestIndex;
     }
 
     function dropLowest() {
-      alert("dropping lowest...");
-      var lowestConnection = totalSessions[0].connection;
-      for (var i = 1; i < totalSessions.length; i++) {
-        var lowestConnectionPoints = parseInt(lowestConnection.data.split("|")[0]);
-        var compareConnectionPoints = parseInt(totalSessions[i].connection.data.split("|")[0]);
-        if (compareConnectionPoints < lowestConnectionPoints) {
-          lowestConnection = totalSessions[i].connection;
-        }
-      }
+      alert("dropping lowest");
+      var index = lowestPointsIndex();
+      playersAlive[index] = null;
+      var lowestConnection = totalSessions[index].connection;
       session.signal(
         {
           type: "disconnect",
           data: lowestConnection.connectionId
         },
         function(error) {
-          console.log("signal error (" + error.code + "): " + error.message);
+          console.log("signal error");
         }
       );
     }
