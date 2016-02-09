@@ -43,7 +43,15 @@
 
 -->
 
-<a name="home"></a>
+
+
+
+<!-- WITH BOOTSTRAP-->
+
+
+
+
+<!--<a name="home"></a>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -78,3 +86,119 @@
 
 </div>
 </nav>
+-->
+
+
+<<a name="home"></a>
+<nav class="navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+
+    <div class="navbar-brand">
+     
+    </div>
+        <ul class="nav navbar-nav">
+            <div class="navbar-brand">
+        <li class="text-primary text-center" id="center-vertical-debatable-nav">
+    <strong><%= nav_link 'Debatable', root_path %></strong>
+    </li>
+</div>
+    </ul>
+</div>
+<p class="navbar-text hidden-sm hidden-xs">
+    <em>
+        Beta Launch: February 20th
+</em>
+    </p>
+        <ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">
+            
+            <li>
+<% if session[:user_id] != nil %>
+      <%= nav_link 'Logout', logout_path %>
+    <% else %>
+      <%= nav_link 'Login', login_path %>
+    <% end %>
+            </li>
+
+</ul>
+
+</div>
+</nav>
+-->
+<!--
+
+<nav class="navbar">
+
+
+
+  <div class="navbar-left">
+
+    <div class="navbar-item">
+    <%= link_to image_tag("chitchat_nav_white.png"), root_path %>
+</div>
+
+<div class="navbar-item">
+    <%= nav_link 'Debatable', root_path %>
+</div>
+
+  </div>
+
+
+
+
+  <div class="navbar-right">
+    <div class="navbar-item">
+<% if session[:user_id] != nil %>
+      <%= nav_link 'Logout', logout_path %>
+    <% else %>
+      <%= nav_link 'Login', login_path %>
+    <% end %>
+  </div>
+</div>
+
+
+</nav>
+
+
+
+<!--
+
+
+<header class="header">
+  <div class="container">
+    <!-- Left side 
+    <div class="header-left">
+      <a class="header-item" href="#">
+        <img src="images/bulma.png" alt="Logo">
+      </a>
+      <a class="header-tab" href="#">
+        Tab
+      </a>
+      <a class="header-tab is-active" href="#">
+        Active tab
+      </a>
+    </div>
+
+    <!-- Hamburger menu (on mobile)
+    <span class="header-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+
+    <!-- Right side 
+    <div class="header-right header-menu">
+      <span class="header-item">
+        <a href="#">Nav item</a>
+      </span>
+      <span class="header-item">
+        <a href="#">Other nav item</a>
+      </span>
+      <span class="header-item">
+        <a class="button" href="#">Button</a>
+      </span>
+    </div>
+  </div>
+</header>
+
+-->
