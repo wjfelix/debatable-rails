@@ -11,6 +11,7 @@
     <div class="col-md-3">
 <%= form_for [@user, @firetalk] do |f| %>
   <%= f.hidden_field :user_id, :value => @user.id %>
+<<<<<<< HEAD
   <div class="row">
     <h4>
     Topic:
@@ -83,3 +84,15 @@
 
 </div>
 </div>
+=======
+  <%= f.text_field :topic %>
+  <%= f.text_field :name %>
+  <%= f.text_field :description %>
+  <%= f.text_field :rounds, :value => 5 %>
+  <%= f.text_field :seconds %>
+  <%= f.fields_for :firetalk_debaters do |ff| %>
+    <%= ff.text_field(:email, :placeholder => 'Debater Email', :required => true) %>
+  <% end %>
+  <%= f.submit %>
+<% end %>
+>>>>>>> refs/remotes/rhenvar/master
