@@ -6,10 +6,8 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'http://localhost:9292/faye.js' %>
   <%= csrf_meta_tags %>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= favicon_link_tag 'favicon.png' %>
-  <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Karla' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <script>
@@ -23,18 +21,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 </head>
 <body>
-  <div class="container">
-   <div class="row">
-    <div class="col-md-12">
+<div class="navbar">
       <%= render 'layouts/header' %>
     </div>
-    </div>
-  </div>
-        <div class="text-center">
+
         <% if !flash[:message].nil? %>
           <%= flash[:message] %>
         <% end %>
-      </div>
       <%= yield %>
       <%= render 'layouts/footer' %>
 </body>

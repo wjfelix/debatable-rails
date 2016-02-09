@@ -1,45 +1,36 @@
-<div class="container">
-  <div class="row">
 
-<div class="col-md-2"></div>
+<div class="home-container">
 
-<div class="col-md-8">
-<div class="jumbotron">
-	<div class="container text-center">
-		
-<div class="row">
-  <h2>Login</h2>
+<div class="home-left">
+  .
 </div>
-  <!--  <div class="row">  
-<label class="control-label">Username</label>
-</div>-->
+
 <div class="row">
+  <div class="col-50">
+  <h2 class="center-h">Login</h2>
+
 
   <%= form_for(:session, url: login_path) do |f| %>
-    <%= f.text_field(:email, {:placeholder => "Email", :required => true}) %>
-  </div>
+    <%= f.text_field(:email, {:placeholder => "Email", :required => true, :class => "forms"}) %>
 
-<!--<div class="row">
-<label class="control-label">Password</label>
-</div>-->
+    </br>
+  </br>
 
-<div class="row">
-
-    <%= f.password_field(:password, {:placeholder => "Password", :required => true}) %>
-  </div>
-</br>
-    <div class="row">
-
-    <%= f.submit('Login', {:class => 'btn btn-default'}) %>
-</div>
-
+    <%= f.password_field(:password, {:placeholder => "Password", :required => true, :class => "forms"}) %>
+    </br>
+  </br>
+    <%= f.submit('Login') %>
     <% end %>
-
 </div>
-</div>
-</div>
-<div class="col-md-2">
 </div>
 
-</div>
+
+
+
+<div class="home-right"></div>
+
+
+
+
+
 </div>

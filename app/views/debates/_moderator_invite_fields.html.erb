@@ -1,5 +1,5 @@
 <div class="row">
-    <%= f.text_field(:user_name, :placeholder => 'Moderator name or e-mail', :required => true) %>
+    <%= f.text_field(:user_name, :placeholder => 'Moderator name or e-mail', :required => true, :class => "forms") %>
 </div>
 <div class="row">
 	<h4>
@@ -7,7 +7,7 @@
 </h4>
 	</div>
 <div class="row">
-    <%= f.text_area(:invite_message, :placeholder => "Hi, I'd like you to moderate my debate") %>
+    <%= f.text_area(:invite_message, :placeholder => "Hi, I'd like you to moderate my debate", :class => "forms") %>
 </div>
 
  <div class="row">

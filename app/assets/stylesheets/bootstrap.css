@@ -14,7 +14,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-html {
+/*html {
   font-family: 'Karla', sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -197,9 +197,9 @@ table {
 td,
 th {
   padding: 0;
-}
+}/
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
-@media print {
+/*@media print {
   *,
   *:before,
   *:after {
@@ -6770,4 +6770,4 @@ body { padding-top: 70px; }
 #center-vertical-debatable-nav {
   padding-top: 5px;
 
-}
+}*/

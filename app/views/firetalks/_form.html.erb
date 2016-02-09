@@ -1,98 +1,37 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6 text-center"><h2>New Firetalk</h2></div>
-    <div class="col-md-3"></div>
-   
- </div>
-</br>
-  <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-3">
+<div class="home-left">
+  .</div>
+
+
+    <div class="row center-50">
+  <h2 class="center-h">New Firetalk</h2>
+  </br>
+
 <%= form_for [@user, @firetalk] do |f| %>
   <%= f.hidden_field :user_id, :value => @user.id %>
-<<<<<<< HEAD
-  <div class="row">
-    <h4>
-    Topic:
-  </h4>
-  </div>
-
-  <div class="row"><%= f.text_field :topic %>
-  </div>
-<div class="row">
-  <h4>
-  Name:
-  </h4>
-  </div>
-
-  <div class="row"><%= f.text_field :name %>
-  </div>
-  <div class="row">
-    <h4>
-    Description:
-    </h4>
-  </div>
-
-  <div class="row"><%= f.text_field :description %>
-  </div>
-  <div class="row">
-    <h4>
-    Rounds:
-    </h4>
-  </div>
-
-  <div class="row"><%= f.text_field :rounds, :value => 5 %>
-  </div>
-  <div class="row">
-    <h4>
-    Seconds per turn:
-    </h4>
-  </div>
-  <div class="row">
-   <%= f.text_field :seconds %>
-  </div>
-</div>
-
-<div class="col-md-3">
-
- <div class="row">
-  <h4>
-    Invite Debaters:
-    </h4>
-  </div>
-
-  <div class="row">
-    <%= f.fields_for :firetalk_debaters do |ff| %>
-    <%= ff.text_field :email, :placeholder => "invite debater" %> <% end %>
-  </div>
-
-
-</div>
-<div class="col-md-3"></div>
-</div>
-</br>
-</br>
-
-<div class="row">
-  <div class="col-md-3"></div>
-  <div class="col-md-6 text-center">
-     <%= f.submit %><% end %>
-  </div>
-  <div class="col-md-3"></div>
-
-
-</div>
-</div>
-=======
-  <%= f.text_field :topic %>
-  <%= f.text_field :name %>
-  <%= f.text_field :description %>
-  <%= f.text_field :rounds, :value => 5 %>
-  <%= f.text_field :seconds %>
+  <h3>Topic</h3>
+  <%= f.text_field(:topic, :placeholder => 'Topic', :class => "forms") %>
+  </br>
+  <h3>Title</h3>
+  <%= f.text_field(:name, :placeholder => 'Title', :class => "forms") %>
+  </br>
+  <h3>Description</h3>
+  <%= f.text_field(:description, :placeholder => 'Description', :class => "forms") %>
+  </br>
+  <h3>Number of Rounds</h3>
+  <%= f.text_field(:rounds, :placeholder => '# of rounds', :value => 5, :class => "forms") %>
+  </br>
+  <h3>Seconds per Round</h3>
+  <%= f.text_field(:seconds, :placeholder => 'Seconds per round', :class => "forms") %>
+  </br>
+  <h3>Invite Debaters</h3>
   <%= f.fields_for :firetalk_debaters do |ff| %>
-    <%= ff.text_field(:email, :placeholder => 'Debater Email', :required => true) %>
+    <%= ff.text_field(:email, :placeholder => 'Debater Email', :required => true, :class => "forms") %>
   <% end %>
+</br>
   <%= f.submit %>
 <% end %>
->>>>>>> refs/remotes/rhenvar/master
+</div>
+
+<div class="home-right">
+  .
+</div>
