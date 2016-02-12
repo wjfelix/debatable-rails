@@ -1,0 +1,12 @@
+<!--
+Here is the firetalk debater partial,
+basically it'll look something like "user has participated in a firetalk!"
+-->
+
+<% user = User.find(obj.user_id) %>
+<% firetalk = Firetalk.find(obj.firetalk_id) %>
+
+<%= "#{user.firstname} has participated in a firetalk!" %>
+<%= "#{firetalk.topic} was the topic of the firetalk" %>
+
+<%= obj.position_description %>

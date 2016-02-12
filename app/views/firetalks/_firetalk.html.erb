@@ -1,0 +1,11 @@
+<!--
+Firetalk partial, rendering a @firetalk object will
+effectively inject this html page
+-->
+<% user = User.find(obj.user_id) %>
+<%= "#{user.firstname} created a firetalk" %>
+
+<!-- firetalk topic, name and description -->
+<%= obj.topic %>
+<%= obj.name %>
+<%= obj.description %>

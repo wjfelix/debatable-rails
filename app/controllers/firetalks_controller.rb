@@ -45,26 +45,31 @@ class FiretalksController < ApplicationController
     @firetalk = Firetalk.find(params[:id])
     @firetalk_debaters = @firetalk.firetalk_debaters
     @user = User.find(session[:user_id])
+    @my_firetalk_debater = FiretalkDebater.where(:user_id => @user.id, :firetalk_id => @firetalk.id)
 
-    # Hash to map debater email to ID so we can convert
-    # to json and properly bind points to debaters in show view
-    firetalk_debaters_hash = {}
-    index = 0
-    @firetalk_debaters.each do |firetalk_debater|
-      firetalk_debaters_hash[firetalk_debater.email] = index
-      index = index + 1
-    end
-    @firetalk_json = firetalk_debaters_hash.to_json
+    respond_to do |format|
+      # Hash to map debater email to ID so we can convert
+      # to json and properly bind points to debaters in show view
+      firetalk_debaters_hash = {}
+      index = 0
+      @firetalk_debaters.each do |firetalk_debater|
+        firetalk_debaters_hash[firetalk_debater.email] = index
+        index = index + 1
+      end
+      @firetalk_json = firetalk_debaters_hash.to_json
 
-    # If owner
-    if @firetalk.user_id == @user.id
-      @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :moderator, :data => "0|#{@user.email}")
-    # If invited
-    elsif is_invited(@user.email)
-      @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :publisher, :data => "0|#{@user.email}")
-    # If voter
-    else
-      @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :subscriber)
+      # If owner
+      if @firetalk.user_id == @user.id
+        @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :moderator, :data => "0|#{@user.email}")
+      # If invited
+      elsif is_invited(@user.email)
+        @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :publisher, :data => "0|#{@user.email}")
+      # If voter
+      else
+        @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :subscriber)
+      end
+      format.html
+      format.json { render json: @my_firetalk_debater }
     end
   end
 
