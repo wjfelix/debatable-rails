@@ -1,1 +1,28 @@
-<h1>Hooray it worked</h1>
+<%= "USERS#SHOW" %>
+
+<!--
+Here is all the profile activity ordered by date created
+The render method you see is rendering a partial. For every iteration of the loop,
+it will render the corresponding partials:
+  Firetalk: /firetalks/_firetalk.html.erb
+  FiretalkDebater: /firetalk_debaters/_firetalk_debater.html.erb
+  and so on for debates and posts
+-->
+
+<% @total.each do |obj| %>
+  <% if obj %>
+    <%= render(:partial => obj, :locals => {:obj => obj}) %>
+  <% end %>
+<% end %>
+
+<br />
+
+<!-- Here is where the user information will be printed -->
+<%= "USER INFO HERE" %>
+<%= @user.firstname %>
+<%= @user.lastname %>
+<%= @user.school %>
+
+<!-- just a thought, maybe keep track of how much they have participated? -->
+<% total_debate_instances = @debates.length + @firetalks.length + @firetalk_debaters.length %>
+<%= "Total debates: " + total_debate_instances.to_s %>

@@ -21,8 +21,25 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @total = []
     @debates = @user.debates
+    @firetalks = @user.firetalks
+    @firetalk_debaters = FiretalkDebater.where(:user_id => @user.id)
+
     @posts = @user.posts
+    @debates.each do |debate|
+      @total.push(debate)
+    end
+    @firetalks.each do |firetalk|
+      @total.push(firetalk)
+    end
+    @firetalk_debaters.each do |firetalk_debater|
+      @total.push(firetalk_debater)
+    end
+    @posts.each do |post|
+      @total.push(post)
+    end
+    @total.sort_by! { |model| model.created_at.to_date}
   end
 
   def edit
