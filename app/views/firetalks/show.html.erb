@@ -1,32 +1,91 @@
 <script type="text/javascript" src="https://static.opentok.com/v2/js/opentok.min.js"></script>
-<<<<<<< HEAD
-=======
 
-<%= 'FIRETALK SHOW VIEW' %>
 
-<div id="clock">10</div>
+
+
+
+<div class="firetalk-container">
+
+<div class="firetalk-row-1">
+
+
+
+  <div class="firetalk-sidebar">
+
+    <div id="clock">10</div>
 <div id="pointsLeft">3</div>
 <p>ROUND NUMBER</p>
 <div id="roundNumber">1</div>
 
-<span>Speaker One</span>
-<div id="speaker1Box" style="border: 1px solid;"></div>
-<span>Speaker Two</span>
-<div id="speaker2Box"></div>
-<span>Speaker Three</span>
-<div id="speaker3Box"></div>
-<div id="speaker4Box"></div>
-<div id="speaker5Box"></div>
-<div id="speaker6Box"></div>
+  </div>
 
+
+
+  <div class="firetalk-main">
+
+    <div class="speakerbox">
+      <%= image_tag("videoboxpix.png", :style => "height:198px;width:264px;")%>
+      <span>Speaker One</span>
+<div id="speaker1Box" class="videobox"></div>
 <div id="speakerOnePoints">0</div>
+    </div>
+
+    <div class="speakerbox">
+      <span>Speaker Two</span>
+<div id="speaker2Box" class="videobox"></div>
 <div id="speakerTwoPoints">0</div>
+    </div>
+
+    <div class="speakerbox">
+      <%= image_tag("videoboxpix.png", :style => "height:198px;width:264px;")%>
+      <span>Speaker Three</span>
+<div id="speaker3Box" class="videobox"></div>
+
 <div id="speakerThreePoints">0</div>
-<div id="speakerThreePoints">0</div>
-<div id="speakerFourPoints">0</div>
-<div id="speakerFivePoints">0</div>
-<div id="speakerSixPoints">0</div>
->>>>>>> refs/remotes/rhenvar/master
+    </div>
+
+    <div class="speakerbox">
+      <%= image_tag("videoboxpix.png", :style => "height:198px;width:264px;")%>
+      <div id="speaker4Box" class="videobox"></div>
+      <div id="speakerFourPoints">0</div>
+    </div>
+
+    <div class="speakerbox">
+      <%= image_tag("videoboxpix.png", :style => "height:198px;width:264px;")%>
+      <div id="speaker5Box" class="videobox"></div>
+      <div id="speakerFivePoints">0</div>
+    </div>
+
+    <div class="speakerbox">
+      <%= image_tag("videoboxpix.png", :style => "height:198px;width:264px;")%>
+      <div id="speaker6Box" class="videobox"></div>
+      <div id="speakerSixPoints">0</div>
+    </div>
+
+
+
+
+
+
+
+
+
+  </div>
+
+
+
+  <div class="firetalk-bottom-bar">
+
+  </div>
+
+
+
+</div>
+
+
+  </div>
+
+
 
 <%= javascript_tag do %>
 var apiKey = '45241592';
@@ -454,37 +513,3 @@ session.on(
   }
   <% end %>
 <% end %>
-
-
-
-
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-2">
-
-<% if @user.id == @firetalk.user_id %>
-  <button onclick="startFiretalk()" id="startFiretalk">Start Firetalk</button>
-<% end %>
-<div class="firetalk_owner_box"></div>
-<div class="firetalk_moderator_box"></div>
-<%= 'FIRETALK SHOW VIEW' %>
-
-<div id="clock">30</div>
-<div id="pointsLeft">3</div>
-
-<div id="speakerOnePoints">0</div>
-<div id="speakerTwoPoints">0</div>
-<div id="speakerThreePoints">0</div>
-<div id="speakerThreePoints">0</div>
-<div id="speakerFourPoints">0</div>
-<div id="speakerFivePoints">0</div>
-<div id="speakerSixPoints">0</div>
-    </div>
-
-<div class="col-md-10">
-<div id="videobox"></div>
-
-</div>
-</div>
-</div>

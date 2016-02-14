@@ -1,23 +1,20 @@
-<div class="home-container">
+<div class="section" id="toppad">
 
 
-<div class="home-left">
+
+<div class="col span_2_of_10">
+
+
 	<%= button_to "New Debate", new_user_debate_path(@user), {:class => 'loginButton', :method => 'get'} %>
 
 	<%= button_to "New Firetalk", new_user_firetalk_path(@user), :method => 'get' %>
+
+
 </div>
 
+<div class="col span_7_of_10" id="center-col">
 
 
-<!--HOME CENTER BLOCK-->
-
-<div class="home-center">
-
-
-	
-
-
-	<div class="home-section">
 	<h2>
 		<strong><%= image_tag("chitchat_nav_white.png", :class => "text-center")%>
 			Welcome to Debatable!
@@ -35,37 +32,13 @@
 		</p>
 	</blockquote>
 
-</div>
-
-
-
-
-
-<div class="home-section">
-
-
-
-
 
 </div>
 
+<div class="col span_1_of_10"></div>
 
 
 
-
-
-</div>
-
-
-
-
-
-
-
-<div class="home-right">
-</div>
-
-</div>
 </div>
 
 

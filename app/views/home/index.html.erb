@@ -1,23 +1,44 @@
 
-	<div class="home-container">
+	<div class="section" id="toppad">
 
 
-<div class="home-left">
-	.
+<div class="col span_2_of_10">
+	<div class="section">
+
+		<div class="col span_1_of_10"></div>
+
+
+		<div class="col span_8_of_10">
+			<div class="float-right">
+	<%= button_to "Login", login_path, {:method => "get"} %>
+	<br>
+	<%= button_to "Signup", new_user_path, {:method => "get"} %>
+	</div>
+
+
+		</div>
+
+
+		<div class="col span_1_of_10"></div>
+
+
+
+	</div>
+
 </div>
 
 
 
 <!--HOME CENTER BLOCK-->
 
-<div class="home-center">
+<div class="col span_7_of_10" id="center-col">
 
 
 	
 
 
-	<div class="home-section">
-	<h2>
+	<div class="home-section-1">
+		<h2>
 		<strong><%= image_tag("chitchat_nav_white.png", :class => "text-center")%>
 			Welcome to Debatable!
 		</strong>
@@ -38,7 +59,7 @@
 
 
 
-</div>
+	</div>
 
 
 
@@ -47,60 +68,60 @@
 
 
 
-<div class="home-section">
+	<div class="home-section-1">
 
-	<h2>We're here to help you speak your mind.</h2>
+		<h2>We're here to help you speak your mind.</h2>
 		</br>
 
-	<h3>
-	Debates
-	</h3>
-	<blockquote>
-	Debate and discuss any topic face-to-face with whoever you want whether they live across the globe or across the nation.
-	</blockquote>
+		<h3>
+		Debates
+		</h3>
+		<blockquote>
+		Debate and discuss any topic face-to-face with whoever you want whether they live across the globe or across the nation.
+		</blockquote>
 
 
-	<h3>
-	Firetalk 
-	</h3>
-	<blockquote>
-	Battle your friends with your words as you fight through rounds of elimination in a fast-paced debatable game.
-	</blockquote>
+		<h3>
+		Firetalk 
+		</h3>
+		<blockquote>
+		Battle your friends with your words as you fight through rounds of elimination in a fast-paced debatable game.
+		</blockquote>
 
 
 
-	<h3>
-	Moderation
-	</h3>
-	<blockquote>
-	With the option of adding a moderator, you will be able to ensure there is a neutral participant, as well as keep the discussion on-topic.
-	</blockquote>
+		<h3>
+		Moderation
+		</h3>
+		<blockquote>
+		With the option of adding a moderator, you will be able to ensure there is a neutral participant, as well as keep the discussion on-topic.
+		</blockquote>
 	
 
-	<h3>
-	Social Media
-	</h3>
-	<blockquote>
-	Engage in a true social atmosphere centered on intelligent debate and discussion. Where every status update can turn into the next big debate or firetalk; debatable truly brings the town hall to the web.
-	</blockquote>
+		<h3>
+		Social Media
+		</h3>
+		<blockquote>
+		Engage in a true social atmosphere centered on intelligent debate and discussion. Where every status update can turn into the next big debate or firetalk; debatable truly brings the town hall to the web.
+		</blockquote>
 	
 
 
 
-	<h3>
-	Share Debates
-	</h3>
-	<blockquote>
-	Share debates on Facebook, Twitter, and other existing social media to show the world what you have been up to.
-	</blockquote>
+		<h3>
+		Share Debates
+		</h3>
+		<blockquote>
+		Share debates on Facebook, Twitter, and other existing social media to show the world what you have been up to.
+		</blockquote>
 
 
 
-</div>
+	</div>	
 
 
 
-<div class="home-section">
+	<div class="home-section-1">
 
 
 	<h2 class="text-center">The Team:</h2>
@@ -127,26 +148,18 @@
 		</h3>
 
 
+	</div>
 </div>
 
 
 
 
 
-</div>
 
 
+<div class="col span_1_of_10">
 
 
-
-
-
-<div class="home-right">
-<div class="home-right-buttons">
-<%= button_to "Login", login_path, {:method => "get"} %>
-<br>
-<%= button_to "Signup", new_user_path, {:method => "get"} %>
-</div>
 </div>
 
 </div>
