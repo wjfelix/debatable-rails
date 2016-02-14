@@ -7,92 +7,64 @@
 <p>ROUND NUMBER</p>
 <div id="roundNumber">1</div>
 
+<span>Speaker One</span>
 <div id="speaker1Box" class="speakerBox"></div>
+<span>Speaker Two</span>
 <div id="speaker2Box" class="speakerBox"></div>
+<span>Speaker Three</span>
 <div id="speaker3Box" class="speakerBox"></div>
 <div id="speaker4Box" class="speakerBox"></div>
 <div id="speaker5Box" class="speakerBox"></div>
 <div id="speaker6Box" class="speakerBox"></div>
 
-<div id="speakerOnePoints" class="points">0</div>
-<div id="speakerTwoPoints" class="points">0</div>
-<div id="speakerThreePoints" class="points">0</div>
-<div id="speakerFourPoints" class="points">0</div>
-<div id="speakerFivePoints" class="points">0</div>
-<div id="speakerSixPoints" class="points">0</div>
+<div id="speakerOnePoints" class="speakerPoints">0</div>
+<div id="speakerTwoPoints" class="speakerPoints">0</div>
+<div id="speakerThreePoints" class="speakerPoints">0</div>
+<div id="speakerThreePoints" class="speakerPoints">0</div>
+<div id="speakerFourPoints" class="speakerPoints">0</div>
+<div id="speakerFivePoints" class="speakerPoints">0</div>
+<div id="speakerSixPoints" class="speakerPoints">0</div>
 
 <%= javascript_tag do %>
-
 var apiKey = '45241592';
 var sessionId = "<%= j @firetalk.tok_session_id %>";
 var token = "<%= j @tok_token %>";
 var myEmail = "<%= j @user.email %>"
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
 
-var totalSessions = [];
-var session = TB.initSession(sessionId);
-var speakerNumber = parseInt(debatersJson[myEmail] + 1);
-var publisher = OT.initPublisher(apiKey, "speaker" + speakerNumber + "Box");
+// starting number of points
 var votingPoints = 3;
 
-window.onload = function() {
-  setup();
-};
+// connecting logic
+TB.setLogLevel(TB.DEBUG);
+var session = TB.initSession(sessionId);
+var totalSessions = [];
 
-function setup() {
-  // connecting logic
-  TB.setLogLevel(TB.DEBUG);
 
-  session.addEventListener('sessionConnected', sessionConnectedHandler);
-  session.addEventListener('streamCreated', streamCreatedHandler);
-  session.addEventListener('streamPropertyChanged', streamPropertyChangedHandler)
-  session.connect(apiKey, token);
-
-  var totalPoints = $('.points');
-  for (var i = 0; i < totalPoints.length; i++) {
-    totalPoints[i].style.visibility = "hidden";
-  }
+var totalPoints = $('.speakerPoints');
+for (var i = 0; i < totalPoints.length; i++) {
+  totalPoints[i].style.visibility = "hidden";
 }
+
+session.addEventListener('sessionConnected', sessionConnectedHandler);
+session.addEventListener('streamCreated', streamCreatedHandler);
+session.addEventListener('streamPropertyChanged', streamPropertyChangedHandler)
+session.connect(apiKey, token);
+
+var publisher;
+var speakerNumber;
 
 function sessionConnectedHandler(event) {
-    session.publish(publisher);
-    var id = document.createTextNode(String(session.connection.connectionId));
-    document.body.appendChild(id);
+  var myDiv = document.createElement('div');
+  speakerNumber = parseInt(debatersJson[myEmail] + 1);
+  publisher = OT.initPublisher(apiKey, myDiv);
+  document.getElementById("speaker" + speakerNumber + "Box").appendChild(myDiv);
+  session.publish(publisher);
+  var id = document.createTextNode(String(session.connection.connectionId));
+  document.body.appendChild(id);
 
-    // Subscribe to streams that were in the session when we connected
-    subscribeToStreams(event.streams);
-}
-
-// try out hovering stuff here?
-var totalBoxes = $('.speakerBox');
-alert(totalBoxes.length);
-for (var i = 0; i < totalBoxes.length; i++) {
-  totalBoxes[i].onmouseover = hover;
-  totalBoxes[i].onmouseout = unhover;
-}
-
-function hover() {
-  // make an ajax request, a div that follows the cursor, and publish to that div
-  var box = this;
-  var ajax = new XMLHttpRequest();
-  ajax.onload = function() {
-    var data = JSON.parse(this.responseText);
-    var infoBox = document.createElement('div');
-    infoBox.classList.add("sampleClass");
-    infoBox.style.height = "100px";
-    infoBox.style.width = "200px";
-    infoBox.innerHTML = data[0]["position_description"] + " <br /> " + data[0]["email"];
-    box.appendChild(infoBox);
-  };
-  ajax.open("GET", "<%= j user_firetalk_path(:id => @firetalk.id).to_s << '.json' %>", true);
-  ajax.send();
-}
-
-function unhover() {
-  var hoverInfo = document.querySelectorAll("sampleClass");
-  for (var i = 0; i < hoverInfo.length; i++) {
-    this.removeChild(hoverInfo[i]);
-  }
+  // Subscribe to streams that were in the session when we connected
+  subscribeToStreams(event.streams);
 }
 
 function streamCreatedHandler(event) {
@@ -120,9 +92,9 @@ function subscribeToStreams(streams) {
 }
 
 function streamPropertyChangedHandler() {
+
 }
 
-// BROADCAST SIGNAL EVENTS
 function decrementVote() {
   session.signal({
     to: session.connection,
@@ -135,8 +107,9 @@ function decrementVote() {
   });
 }
 
+// BROADCAST SIGNAL EVENTS
 $('#speakerOnePoints').click(function() {
-  if (parseInt(document.getElementById("pointsLeft").innerHTML) > 0) {
+  if (votingPoints > 0) {
     session.signal(
       {
         data: totalSessions[0].connection.connectionId,
@@ -153,7 +126,7 @@ $('#speakerOnePoints').click(function() {
 });
 
 $('#speakerTwoPoints').click(function() {
-  if (parseInt(document.getElementById("pointsLeft").innerHTML) > 0) {
+  if (votingPoints > 0) {
     session.signal(
       {
         data:  totalSessions[1].connection.connectionId,
@@ -168,9 +141,9 @@ $('#speakerTwoPoints').click(function() {
     decrementVote();
   }
 });
-// and so on and so forth until speaker 6...
 
 // LISTENER EVENTS
+
 session.on(
   "signal:decrementVote", function(event) {
     document.getElementById('pointsLeft').innerHTML = event.data;
@@ -187,13 +160,17 @@ session.on(
 );
 
 // Listener SpeakerTwoUpvote
+
+session.on(
+  "signal:decrementVote", function(event) {
+    document.getElementById("pointsLeft").innerHTML = event.data;
+  });
 session.on(
   "signal:voteSpeakerTwo", function(event) {
     var newPoints = incrementStream(event.data);
     $('#speakerTwoPoints').html(newPoints);
   }
 );
-
 
 // Stores the points of the connection locally and returns the value
 function incrementStream(connectionId) {
@@ -239,8 +216,26 @@ session.on(
 
 session.on(
   "signal:adjustAudio", function(event) {
+    var email;
+    for (var i = 0; i < totalSessions.length; i++) {
+      if (totalSessions[i].connection.connectionId == event.data) {
+        email = totalSessions[i].connection.data.split("|")[1];
+      }
+    }
+    var nowSpeaking = parseInt(debatersJson[email]);
+    var totalSpeakerBoxes = $('.speakerBox');
+    for (var i = 0; i < totalSpeakerBoxes.length; i++) {
+      if (i == nowSpeaking) {
+        totalSpeakerBoxes[i].style.backgroundColor = "green";
+      }
+      else {
+        totalSpeakerBoxes[i].style.backgroundColor = "red";
+      }
+    }
+    // Don't worry about this, it's just muting stuff
     if (event.data == session.connection.connectionId) {
       alert("your turn to speak");
+      //$("#speaker" + speakerNumber + "Box").css("background-color", "green");
       publisher.publishAudio(true);
     }
     else {
@@ -272,22 +267,41 @@ session.on(
     publisher.publishAudio(true);
   }
 );
+
+session.on(
+  "signal:showPoints", function(event) {
+    var points = $('.speakerPoints');
+    for (var i = 0; i < points.length; i++) {
+      points[i].style.visibility = 'visible';
+    }
+  }
+)
+
+session.on(
+  "signal:newPoints", function(error) {
+    var newPoints = parseInt(error.data);
+    votingPoints = newPoints;
+    document.getElementById("pointsLeft").innerHTML = votingPoints;
+  }
+)
 <% end %>
 
 <% if session[:user_id].to_s == params[:user_id].to_s %>
   <%= javascript_tag do %>
+
+  function showPoints() {
+    session.signal({
+      type: "showPoints"
+    }, function(error) {
+      if (error) {
+        alert("couldn't show points");
+      }
+    });
+  }
+
   function startFiretalk() {
     $('#startFiretalk').hide();
-    var totalPoints = $('.points');
-    for (var i = 0; i < totalPoints.length; i++) {
-      totalPoints[i].style.visibility = "visible";
-    }
-
-    var totalPoints = document.querySelectorAll('points');
-    for (var i = 0; i < totalPoints; i++) {
-      totalPoints[i].show();
-    }
-
+    showPoints();
     session.signal({
       type: "removeButtons"
       }, function(error) {
@@ -295,13 +309,6 @@ session.on(
           alert("couldn't tell people to fix buttons");
         }
     });
-    session.signal({
-      type: "showVotes"
-    }, function(error) {
-      if (error) {
-      }
-    }
-    );
 
     // OWNER LOGIC (Clock every second, muting people, etc.)
     // WRAP IN START FUNCTION, EXECUTE ON CLICK
@@ -316,65 +323,16 @@ session.on(
       }
     }
 
-
     // OWNER START SPEAKING
-    adjustAudio(session.connection.connectionId);
-
-    function decrementClock(newTime) {
-      session.signal({
-        data: newTime,
-        type: "decrementClock"
-      },
-      function(error) {
-        if (error) {
-          alert("Failed to update clock, who knows");
-        }
-      });
-    }
-
-    function resetTimer() {
-      session.signal({
-        type: "resetTimer"
-      }, function(error) {
-        if (error) {
-          alert("Failed to reset clock");
-        }
-      });
-    }
-
-    function nextRound(currentRound) {
-      session.signal({
-        type: "nextRound",
-        data: currentRound
-      },
-      function(error) {
-        if (error) {
-          alert("Failed to tell everyone to increment round...");
-        }
-      });
-    }
-
-    function newPoints(points) {
-      session.signal({
-        type:"decrementVote",
-        data: points
-      }, function(error) {
-        if (error) {
-
-        }
-      });
-    }
-
-    function adjustAudio(connectionId) {
-      session.signal(
-        {
-          type: "adjustAudio",
-          data: connectionId
-        }, function(error) {
-          if (error) {};
-        }
-      )
-    }
+    session.signal({
+      type: "adjustAudio",
+      data: session.connection.connectionId
+    },
+    function(error) {
+      if (error) {
+        alert("There was an error starting the firetalk with owner");
+      }
+    });
 
     var timer = null;
     if (!timer) {
@@ -394,14 +352,30 @@ session.on(
       // Timer Still going
       if (currentTimeLeft > 0) {
         var newTime = currentTimeLeft - 1;
-        decrementClock(newTime);
+
+        // Lets stick these in helper methods
+        session.signal({
+          data: newTime,
+          type: "decrementClock"
+        },
+        function(error) {
+          if (error) {
+            alert("Failed to update clock, who knows");
+          }
+        });
       }
       // Timer Ended (30 seconds up!)
       else {
         // unmute next person, mute everyone else and reset clock to 30 sec (another signal func)
         // if the round is over (bool var?) disconnect the lowest session
         // if we've got a winner, stop everything
-        resetTimer();
+        session.signal({
+          type: "resetTimer"
+        }, function(error) {
+          if (error) {
+            alert("Failed to reset clock");
+          }
+        });
 
         // If we have reached the last speaker (a.k.a it's time for a new round)
         if (isLastSpeakerAlive(currentSpeakerIndex)) {
@@ -413,9 +387,24 @@ session.on(
           // and drop the lowest dude
           currentRound++;
           dropLowest();
-          nextRound(currentRound);
-          newPoints(totalRounds - currentRound);
+          session.signal({
+            type: "nextRound",
+            data: currentRound
+          },
+          function(error) {
+            if (error) {
+              alert("Failed to tell everyone to increment round...");
+            }
+          });
 
+          session.signal({
+            type: "newPoints",
+            data: totalRounds - currentRound
+          }, function(error) {
+            if (error) {
+              alert("failed to update voter points");
+            }
+          });
           // If it's the end of the firetalk
           if (currentRound == totalRounds) {
             alert("END OF FIRETALK");
@@ -432,7 +421,14 @@ session.on(
           }
           else {
             // unmute first person in list
-            adjustAudio(firstSpeakerAlive());
+            session.signal({
+              type: "adjustAudio",
+              data: firstSpeakerAlive()
+            }, function(error) {
+                if (error) {
+                  alert("cant send unmute ");
+                }
+            });
           }
         }
         // There are still more people left to speak (guaranteed)
@@ -442,7 +438,14 @@ session.on(
           for (var i = currentSpeakerIndex; i < playersAlive.length; i++) {
             var connectionId = playersAlive[i];
             if (connectionId) {
-              adjustAudio(connectionId);
+              session.signal({
+                type: "adjustAudio",
+                data: connectionId
+              }, function(error) {
+                  if (error) {
+                    alert("cant send unmute ");
+                  }
+              });
               break;
             }
           }
