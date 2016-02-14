@@ -2,7 +2,7 @@
 
 <%= 'FIRETALK SHOW VIEW' %>
 
-<div id="clock">25</div>
+<div id="clock">10</div>
 <div id="pointsLeft">3</div>
 <p>ROUND NUMBER</p>
 <div id="roundNumber">1</div>
@@ -31,9 +31,6 @@ var sessionId = "<%= j @firetalk.tok_session_id %>";
 var token = "<%= j @tok_token %>";
 var myEmail = "<%= j @user.email %>"
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
-
-// starting number of points
-var votingPoints = 3;
 
 // connecting logic
 TB.setLogLevel(TB.DEBUG);
@@ -96,20 +93,19 @@ function streamPropertyChangedHandler() {
 }
 
 function decrementVote() {
-  session.signal({
-    to: session.connection,
-    type: "decrementVote",
-    data: votingPoints - 1
-  }, function(error) {
-    if (error) {
-      alert("error decrementing votes");
-    }
-  });
+  var points = document.getElementById("pointsLeft");
+  var left = points.innerHTML;
+  points.innerHTML = parseInt(left) - 1;
+}
+
+function getPoints() {
+  return parseInt(document.getElementById('pointsLeft').innerHTML);
 }
 
 // BROADCAST SIGNAL EVENTS
 $('#speakerOnePoints').click(function() {
-  if (votingPoints > 0) {
+  if (hasPointsLeft()) {
+    decrementVote();
     session.signal(
       {
         data: totalSessions[0].connection.connectionId,
@@ -121,12 +117,11 @@ $('#speakerOnePoints').click(function() {
         }
       }
     );
-    decrementVote();
   }
 });
 
 $('#speakerTwoPoints').click(function() {
-  if (votingPoints > 0) {
+  if (hasPointsLeft()) {
     session.signal(
       {
         data:  totalSessions[1].connection.connectionId,
@@ -142,12 +137,27 @@ $('#speakerTwoPoints').click(function() {
   }
 });
 
-// LISTENER EVENTS
+function hasPointsLeft() {
+  var points = parseInt(document.getElementById("pointsLeft").innerHTML);
+  return points > 0;
+}
 
+// LISTENER EVENTS
+session.on(
+  "signal:winnerColor", function(event) {
+    var email;
+    for (var i = 0; i < totalSessions.length; i++) {
+      if (totalSessions[i].connection.connectionId == event.data) {
+        email = totalSessions[i].connection.data.split("|")[1];
+      }
+    }
+    speakerIndex = parseInt(debatersJson[email]) + 1;
+    document.getElementById('speaker' + speakerIndex + 'Box').style.backgroundColor = "yellow";
+  }
+);
 session.on(
   "signal:decrementVote", function(event) {
     document.getElementById('pointsLeft').innerHTML = event.data;
-    votingPoints = votingPoints - 1;
   }
 );
 
@@ -161,10 +171,6 @@ session.on(
 
 // Listener SpeakerTwoUpvote
 
-session.on(
-  "signal:decrementVote", function(event) {
-    document.getElementById("pointsLeft").innerHTML = event.data;
-  });
 session.on(
   "signal:voteSpeakerTwo", function(event) {
     var newPoints = incrementStream(event.data);
@@ -199,9 +205,37 @@ session.on(
 session.on(
   "signal:disconnect", function(event) {
     if (session.connection.connectionId == event.data) {
-      session.unpublish(publisher);
+      // Instead of just unpublishing, permanently mute and set style to black
+      alert("sending drop color signal");
+      publisher.publishAudio(false);
+      document.getElementById('speaker' + speakerNumber + 'Box').style.backgroundColor = "black";
+
+      session.signal({
+        type: 'dropColor',
+        data: session.connection.connectionId
+      }, function(error) {
+        if (error) {
+          console.log("problem changing colors");
+        }
+      }
+    );
     }
-  });
+  }
+);
+
+session.on(
+  "signal:dropColor", function(event) {
+    var email;
+    for (var i = 0; i < totalSessions.length; i++) {
+      if (totalSessions[i].connection.connectionId == event.data) {
+        email = totalSessions[i].connection.data.split("|")[1];
+      }
+    }
+    var debaterIndex = parseInt(debatersJson[email]);
+    debaterIndex++;
+    document.getElementById('speaker' + debaterIndex + 'Box').style.backgroundColor = "black";
+  }
+);
 
 session.on(
   "signal:decrementClock", function(event) {
@@ -211,7 +245,7 @@ session.on(
 
 session.on(
   "signal:resetTimer", function(event) {
-  $('#clock').html("25");
+  $('#clock').html("10");
 });
 
 session.on(
@@ -228,7 +262,7 @@ session.on(
       if (i == nowSpeaking) {
         totalSpeakerBoxes[i].style.backgroundColor = "green";
       }
-      else {
+      else if (totalSpeakerBoxes[i].style.backgroundColor != "black"){
         totalSpeakerBoxes[i].style.backgroundColor = "red";
       }
     }
@@ -278,10 +312,9 @@ session.on(
 )
 
 session.on(
-  "signal:newPoints", function(error) {
-    var newPoints = parseInt(error.data);
-    votingPoints = newPoints;
-    document.getElementById("pointsLeft").innerHTML = votingPoints;
+  "signal:newPoints", function(event) {
+    var newPoints = parseInt(event.data);
+    document.getElementById("pointsLeft").innerHTML = newPoints;
   }
 )
 <% end %>
@@ -408,6 +441,7 @@ session.on(
           // If it's the end of the firetalk
           if (currentRound == totalRounds) {
             alert("END OF FIRETALK");
+            /*
             session.signal({
               type: "unmuteAll"
             },  function(error) {
@@ -415,7 +449,19 @@ session.on(
                 alert("failed to unmute all");
               }
             });
+            */
             // Do some winner logic
+
+            var winningConnectionId = firstSpeakerAlive();
+
+            session.signal({
+              type: "winnerColor",
+              data: winningConnectionId
+            }, function(error) {
+              if (error) {
+                alert("couldn't set winner color");
+              }
+            });
             clearInterval(timer);
             timer = null;
           }
