@@ -26,3 +26,8 @@ it will render the corresponding partials:
 <!-- just a thought, maybe keep track of how much they have participated? -->
 <% total_debate_instances = @debates.length + @firetalks.length + @firetalk_debaters.length %>
 <%= "Total debates: " + total_debate_instances.to_s %>
+
+<%= session[:user_id].to_s + " " + @user.id.to_s %>
+<% if session[:user_id] == @user.id %>
+  <%= link_to("Reset Password", '/change_password') %>
+<% end %>
