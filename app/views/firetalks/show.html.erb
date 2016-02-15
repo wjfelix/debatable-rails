@@ -31,6 +31,7 @@ var sessionId = "<%= j @firetalk.tok_session_id %>";
 var token = "<%= j @tok_token %>";
 var myEmail = "<%= j @user.email %>"
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
+var isDebater = "<%= @is_debater %>"
 
 // connecting logic
 TB.setLogLevel(TB.DEBUG);
@@ -56,7 +57,9 @@ function sessionConnectedHandler(event) {
   speakerNumber = parseInt(debatersJson[myEmail] + 1);
   publisher = OT.initPublisher(apiKey, myDiv);
   document.getElementById("speaker" + speakerNumber + "Box").appendChild(myDiv);
-  session.publish(publisher);
+  if (isDebater) {
+    session.publish(publisher);
+  }
   var id = document.createTextNode(String(session.connection.connectionId));
   document.body.appendChild(id);
 

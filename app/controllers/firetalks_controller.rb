@@ -46,6 +46,16 @@ class FiretalksController < ApplicationController
     @firetalk_debaters = @firetalk.firetalk_debaters
     @user = User.find(session[:user_id])
     @my_firetalk_debater = FiretalkDebater.where(:user_id => @user.id, :firetalk_id => @firetalk.id)
+    @is_debater = false;
+    if (session[:user_id] == @user.id)
+      @is_debater = true;
+    else
+      @firetalk_debaters.each do |debater|
+        if (session[:user_id] == debater.user_id)
+          @is_debater = true
+        end
+      end
+    end
 
     respond_to do |format|
       # Hash to map debater email to ID so we can convert
