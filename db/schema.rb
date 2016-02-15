@@ -70,10 +70,12 @@ ActiveRecord::Schema.define(version: 20160106065138) do
   end
 
   create_table "firetalks", force: true do |t|
-    t.string   "topic",          null: false
-    t.string   "name",           null: false
+    t.string   "topic",                      null: false
+    t.string   "name",                       null: false
     t.string   "description"
-    t.string   "tok_session_id", null: false
+    t.string   "tok_session_id",             null: false
+    t.integer  "rounds",         default: 5, null: false
+    t.integer  "seconds",                    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"

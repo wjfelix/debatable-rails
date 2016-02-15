@@ -22,7 +22,9 @@
 
   <%= form_for [@user, @firetalk] do |f| %>
   <%= f.hidden_field :user_id, :value => @user.id %>
-<<<<<<< HEAD
+
+
+
   <h3>Topic</h3>
   <%= f.text_field(:topic, :placeholder => 'Topic', :class => "forms") %>
   <hr>
@@ -32,26 +34,20 @@
   
   <h3>Description</h3>
   <%= f.text_field(:description, :placeholder => 'Description', :class => "forms") %>
-  <hr>
-  
-  <h3>Number of Rounds</h3>
-  <%= f.text_field(:rounds, :placeholder => '# of rounds', :value => 5, :class => "forms") %>
-  <hr>
-  
-  <h3>Seconds per Round</h3>
-  <%= f.text_field(:seconds, :placeholder => 'Seconds per round', :class => "forms") %>
-  
+  <hr>  
 
 </div>
 
 
     <div class="col span_4_of_10">
   <h3>Invite Debaters</h3>
-=======
+
+
   <%= f.text_field :topic %>
   <%= f.text_field :name %>
   <%= f.text_field :description %>
->>>>>>> refs/remotes/rhenvar/master
+
+
   <%= f.fields_for :firetalk_debaters do |ff| %>
     <%= ff.text_field(:email, :placeholder => 'Debater Email', :required => true, :class => "forms") %>
   <% end %>
