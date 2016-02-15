@@ -314,7 +314,6 @@ session.on(
   "signal:disconnect", function(event) {
     if (session.connection.connectionId == event.data) {
       // Instead of just unpublishing, permanently mute and set style to black
-      alert("sending drop color signal");
       publisher.publishAudio(false);
       document.getElementById('speaker' + speakerNumber + 'Box').style.backgroundColor = "black";
 
@@ -327,7 +326,6 @@ session.on(
           }
         }
       );
-      alert(speakerNumber);
       session.signal({
         type: 'hideLoserButton',
         data: speakerNumber
@@ -344,7 +342,7 @@ session.on(
 session.on(
   "signal:hideLoserButton", function(event) {
     var loserNumber = parseInt(event.data);
-    $('#speaker' + loserNumber + 'Points').hide();
+    $('#speaker' + loserNumber + 'Points').unbind();
   }
 );
 
@@ -395,7 +393,6 @@ session.on(
     // Don't worry about this, it's just muting stuff
     if (event.data == session.connection.connectionId) {
       //$("#speaker" + speakerNumber + "Box").css("background-color", "green");
-      alert("your turn to speak");
       publisher.publishAudio(true);
     }
     else {
@@ -447,6 +444,8 @@ session.on(
 
 <% if session[:user_id].to_s == params[:user_id].to_s %>
   <%= javascript_tag do %>
+  var playersAlive = [];
+  var currentSpeakerIndex = 0;
   window.onload = function() {
     $('#startFiretalk').on('click', function() {
       startFiretalk();
@@ -479,7 +478,6 @@ session.on(
     // Players alive is an array containing the connectionIds of all debaters
     // throughout the firetalk we will nullify the connections that are dropped
     // each round, and keep track of the next speaker (connectionId) in line
-    var playersAlive = [];
     for (var i = 0; i < totalSessions.length; i++) {
       if (totalSessions[i]) {
         playersAlive[i] = totalSessions[i].connection.connectionId;
@@ -504,7 +502,6 @@ session.on(
 
     var totalRounds = 3;
     var currentRound = 1;
-    var currentSpeakerIndex = 0;
 
     // Firetalk logic function
     // First speaker (owner) is ALREADY speaking when this method is called
@@ -542,13 +539,12 @@ session.on(
 
         // If we have reached the last speaker (a.k.a it's time for a new round)
         if (isLastSpeakerAlive(currentSpeakerIndex)) {
-          // Go back to the beginning of our list at the end of the round
-          currentSpeakerIndex = 0;
-
-          // otherwise increment the round and do it again!
           // and drop the lowest dude
           currentRound++;
           dropLowest();
+          // Go back to the beginning of our list at the end of the round
+          currentSpeakerIndex = firstIndexAlive();
+
           session.signal({
             type: "nextRound",
             data: currentRound
@@ -618,6 +614,7 @@ session.on(
                     alert("cant send unmute ");
                   }
               });
+              currentSpeakerIndex = i;
               break;
             }
           }
@@ -630,6 +627,14 @@ session.on(
       for (var i = 0; i < playersAlive.length; i++) {
         if (playersAlive[i] != null) {
           return playersAlive[i];
+        }
+      }
+    }
+
+    function firstIndexAlive() {
+      for (var i = 0; i < playersAlive.length; i++) {
+        if (playersAlive[i]) {
+          return i;
         }
       }
     }
@@ -649,7 +654,7 @@ session.on(
     }
 
     function lowestPointsIndex() {
-      var lowestIndex = 0;
+      var lowestIndex = playersAlive.indexOf(firstSpeakerAlive());
       var lowestConnectionId = firstSpeakerAlive();
       var lowestConnection;
       for (var i = 0; i < totalSessions.length; i++) {
@@ -658,7 +663,7 @@ session.on(
         }
       }
       for (var i = 0; i < playersAlive.length; i++) {
-        if (playersAlive[i]) {
+        if (playersAlive[i] != null) {
           var connection = totalSessions[i].connection;
           if (parseInt(connection.data.split("|")[0]) < parseInt(lowestConnection.data.split("|")[0])) {
             lowestIndex = i;
@@ -670,10 +675,10 @@ session.on(
     }
 
     function dropLowest() {
-      alert("dropping lowest");
       var index = lowestPointsIndex();
       playersAlive[index] = null;
       var lowestConnection = totalSessions[index].connection;
+      alert("dropping " + lowestConnection.connectionId);
       session.signal(
         {
           type: "disconnect",
