@@ -2,106 +2,180 @@
 
 
 
-
-
-<div class="firetalk-container">
-
-<div class="firetalk-row-1">
+<div class="section" id="toppad">
 
 
 
-  <div class="firetalk-sidebar">
-
-    <div id="clock">10</div>
-<div id="pointsLeft">3</div>
-<p>ROUND NUMBER</p>
-<div id="roundNumber">1</div>
-
-<<<<<<< HEAD
-  </div>
+<div class="col span_2_of_10">
 
 
+</div>
 
-  <div class="firetalk-main">
-
-    <div class="speakerbox">
-      <%= image_tag("videoboxpix.png", :style => "height:198px;width:264px;")%>
-      <span>Speaker One</span>
-<div id="speaker1Box" class="videobox"></div>
-<div id="speakerOnePoints">0</div>
-    </div>
-
-    <div class="speakerbox">
-      <span>Speaker Two</span>
-<div id="speaker2Box" class="videobox"></div>
-<div id="speakerTwoPoints">0</div>
-    </div>
-
-    <div class="speakerbox">
-      <%= image_tag("videoboxpix.png", :style => "height:198px;width:264px;")%>
-      <span>Speaker Three</span>
-<div id="speaker3Box" class="videobox"></div>
-
-<div id="speakerThreePoints">0</div>
-    </div>
-
-    <div class="speakerbox">
-      <%= image_tag("videoboxpix.png", :style => "height:198px;width:264px;")%>
-      <div id="speaker4Box" class="videobox"></div>
-      <div id="speakerFourPoints">0</div>
-    </div>
-
-    <div class="speakerbox">
-      <%= image_tag("videoboxpix.png", :style => "height:198px;width:264px;")%>
-      <div id="speaker5Box" class="videobox"></div>
-      <div id="speakerFivePoints">0</div>
-    </div>
-
-    <div class="speakerbox">
-      <%= image_tag("videoboxpix.png", :style => "height:198px;width:264px;")%>
-      <div id="speaker6Box" class="videobox"></div>
-      <div id="speakerSixPoints">0</div>
-    </div>
+<div class="col span_7_of_10" id="center-col">
 
 
 
 
+<div class="section">
+
+
+<div class="firetalktopbar-container">
+
+  <ul>
+
+    <li><% if @user.id == @firetalk.user_id %>
+  <button onclick="startFiretalk()" id="startFiretalk">Start Firetalk</button>
+<% end %></li>
+
+    <li class="firetalktopbar margleft"> Time:</li>
+    <li id="clock" class="firetalktopbar">10</li>
+
+    <li class="firetalktopbar centerhor">Your Votes Left:</li>
+
+    <li id="pointsLeft" class="firetalktopbar centerhor">3</li>
+
+    <li id="roundNumber" class="firetalktopbar float-right">1</li>
+
+    <li class="firetalktopbar float-right">Round:</li>
+
+    
+
+</ul>
+
+</div>
+
+</div>
+
+
+<div class="section group">
+
+<div class="col span_10_of_10">
+
+
+
+  <div class="col span_3_of_10">
+
+<div id="speaker1Box" class="speakerBox float-left"></div>
+<div id="speakerOnePoints" class="points float-right">0</div>
+
+</div>
+
+
+
+ <div class="col span_3_of_10">
+
+  <div id="speaker2Box" class="speakerBox">
+<%= image_tag("picpix.jpg", :class => "text-center")%>
+</div>
+
+<div class=""></div>
+
+<div id="speakerTwoPoints" class="points">0</div>
+
+</div>
 
 
 
 
 
-  </div>
+ <div class="col span_3_of_10">
+
+  <div id="speaker3Box" class="speakerBox">
+<%= image_tag("picpix.jpg", :class => "text-center")%>
+
+</div>
+<div id="speakerThreePoints" class="points">0</div>
+
+</div>
 
 
 
-  <div class="firetalk-bottom-bar">
 
-  </div>
+
+ <div class="col span_3_of_10">
+
+
+  <div id="speaker4Box" class="speakerBox">
+<%= image_tag("picpix.jpg", :class => "text-center")%>
+
+</div>
+<div id="speakerFourPoints" class="points">0</div>
+
+
+</div>
+
+
+
+
+
+ <div class="col span_3_of_10">
+
+  <div id="speaker5Box" class="speakerBox">
+<%= image_tag("picpix.jpg", :class => "text-center")%>
+
+</div>
+<div id="speakerFivePoints" class="points">0</div>
+
+</div>
+
+
+
+
+ <div class="col span_3_of_10">
+
+
+  <div id="speaker6Box" class="speakerBox publisherOptions">
+<%= image_tag("picpix.jpg", :class => "text-center")%>
+
+</div>
+<div id="speakerSixPoints" class="points">0</div>
+
+</div>
+
+
 
 
 
 </div>
 
 
-  </div>
+</div>
 
 
-=======
-<div id="speaker1Box" class="speakerBox"></div>
-<div id="speaker2Box" class="speakerBox"></div>
-<div id="speaker3Box" class="speakerBox"></div>
-<div id="speaker4Box" class="speakerBox"></div>
-<div id="speaker5Box" class="speakerBox"></div>
-<div id="speaker6Box" class="speakerBox"></div>
+<div class="section">
 
-<div id="speakerOnePoints" class="points">0</div>
-<div id="speakerTwoPoints" class="points">0</div>
-<div id="speakerThreePoints" class="points">0</div>
-<div id="speakerFourPoints" class="points">0</div>
-<div id="speakerFivePoints" class="points">0</div>
-<div id="speakerSixPoints" class="points">0</div>
->>>>>>> refs/remotes/rhenvar/master
+</div>
+
+
+<div class="section">
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<div class="col span_1_of_10"></div>
+
+
+
+</div>
+
+
+
+
+
+<!================================-->
+
+
+<!LOCAL JAVASCRIPT-->
+
+<!================================-->
+
 
 <%= javascript_tag do %>
 
@@ -111,10 +185,17 @@ var token = "<%= j @tok_token %>";
 var myEmail = "<%= j @user.email %>"
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
 
+
+var publisherOptions = {
+  insertMode: 'append',
+  width: '100%',
+  height: '100%'
+};
+
 var totalSessions = [];
 var session = TB.initSession(sessionId);
 var speakerNumber = parseInt(debatersJson[myEmail] + 1);
-var publisher = OT.initPublisher(apiKey, "speaker" + speakerNumber + "Box");
+var publisher = OT.initPublisher(apiKey, "speaker" + speakerNumber + "Box", publisherOptions);
 var votingPoints = 3;
 
 window.onload = function() {
@@ -145,12 +226,17 @@ function sessionConnectedHandler(event) {
     subscribeToStreams(event.streams);
 }
 
+
+
+
+
+
 // try out hovering stuff here?
-var totalBoxes = $('.speakerBox');
-alert(totalBoxes.length);
+var totalBoxes = $('#CHOOSE A SPEAKER BOX');
+// alert(totalBoxes.length);
 for (var i = 0; i < totalBoxes.length; i++) {
   totalBoxes[i].onmouseover = hover;
-  totalBoxes[i].onmouseout = unhover;
+  totalBoxes[i].onmouseleave = unhover;
 }
 
 function hover() {
@@ -176,6 +262,10 @@ function unhover() {
     this.removeChild(hoverInfo[i]);
   }
 }
+
+
+
+
 
 function streamCreatedHandler(event) {
     subscribeToStreams(event.streams);

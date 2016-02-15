@@ -285,6 +285,69 @@ li {
 }
 
 
+#videobox {
+  max-width: 800px;
+  max-height: 600px;
+
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#videobox object {
+  float: left;
+}
+
+#ownerbox {
+  max-width: 800px;
+  max-height: 600px;
+
+  margin-left: 50%;
+}
+
+#ownerbox object {
+  float: right;
+}
+
+.speakerBox{
+	float: left;
+	margin: 0 auto;
+	height: 150px;
+	width: 200px;
+}
+
+.firetalktopbar {
+	font-size: 2em;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.firetalktopbar-container {
+	border-width: 2px;
+	border-style: solid;
+	border-color: #f2f2f2;
+	background-color: #ffffff;
+}
+
+#roundNumber {
+	padding-right: 20px;
+}
+
+.margleft {
+	padding-left: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*  GRID OF TEN   ============================================================================= */
 
 
