@@ -7,23 +7,33 @@
 <p>ROUND NUMBER</p>
 <div id="roundNumber">1</div>
 
+<%= @firetalk.description %>
+<%= @firetalk.name %>
+<%= @firetalk.topic %>
+
+<!--
+All users are stored in the @users array
+the fields you can print are email, firstname, and lastname
+-->
 <span>Speaker One</span>
+<%= @users[0].email %>
 <div id="speaker1Box" class="speakerBox"></div>
 <span>Speaker Two</span>
+<%= @users[1].email %>
 <div id="speaker2Box" class="speakerBox"></div>
 <span>Speaker Three</span>
+<%= @users[2].email %>
 <div id="speaker3Box" class="speakerBox"></div>
 <div id="speaker4Box" class="speakerBox"></div>
 <div id="speaker5Box" class="speakerBox"></div>
 <div id="speaker6Box" class="speakerBox"></div>
 
-<div id="speakerOnePoints" class="speakerPoints">0</div>
-<div id="speakerTwoPoints" class="speakerPoints">0</div>
-<div id="speakerThreePoints" class="speakerPoints">0</div>
-<div id="speakerThreePoints" class="speakerPoints">0</div>
-<div id="speakerFourPoints" class="speakerPoints">0</div>
-<div id="speakerFivePoints" class="speakerPoints">0</div>
-<div id="speakerSixPoints" class="speakerPoints">0</div>
+<div id="speaker1Points" class="speakerPoints">0</div>
+<div id="speaker2Points" class="speakerPoints">0</div>
+<div id="speaker3Points" class="speakerPoints">0</div>
+<div id="speaker4Points" class="speakerPoints">0</div>
+<div id="speaker5Points" class="speakerPoints">0</div>
+<div id="speaker6Points" class="speakerPoints">0</div>
 
 <%= javascript_tag do %>
 var apiKey = '45241592';
@@ -106,7 +116,7 @@ function getPoints() {
 }
 
 // BROADCAST SIGNAL EVENTS
-$('#speakerOnePoints').click(function() {
+$('#speaker1Points').click(function() {
   if (hasPointsLeft()) {
     decrementVote();
     session.signal(
@@ -123,7 +133,7 @@ $('#speakerOnePoints').click(function() {
   }
 });
 
-$('#speakerTwoPoints').click(function() {
+$('#speaker2Points').click(function() {
   if (hasPointsLeft()) {
     session.signal(
       {
@@ -140,7 +150,7 @@ $('#speakerTwoPoints').click(function() {
   }
 });
 
-$('#speakerThreePoints').click(function() {
+$('#speaker3Points').click(function() {
   if (hasPointsLeft()) {
     session.signal(
       {
@@ -157,7 +167,7 @@ $('#speakerThreePoints').click(function() {
   }
 });
 
-$('#speakerFourPoints').click(function() {
+$('#speaker4Points').click(function() {
   if (hasPointsLeft()) {
     session.signal(
       {
@@ -174,7 +184,7 @@ $('#speakerFourPoints').click(function() {
   }
 });
 
-$('#speakerFivePoints').click(function() {
+$('#speaker5Points').click(function() {
   if (hasPointsLeft()) {
     session.signal(
       {
@@ -191,7 +201,7 @@ $('#speakerFivePoints').click(function() {
   }
 });
 
-$('#speakerSixPoints').click(function() {
+$('#speaker6Points').click(function() {
   if (hasPointsLeft()) {
     session.signal(
       {
@@ -236,7 +246,7 @@ session.on(
 session.on(
   "signal:voteSpeakerOne", function(event) {
     var newPoints = incrementStream(event.data);
-    $('#speakerOnePoints').html(newPoints);
+    $('#speaker1Points').html(newPoints);
   }
 );
 
@@ -244,35 +254,35 @@ session.on(
 session.on(
   "signal:voteSpeakerTwo", function(event) {
     var newPoints = incrementStream(event.data);
-    $('#speakerTwoPoints').html(newPoints);
+    $('#speaker2Points').html(newPoints);
   }
 );
 
 session.on(
   "signal:voteSpeakerThree", function(event) {
     var newPoints = incrementStream(event.data);
-    $('#speakerThreePoints').html(newPoints);
+    $('#speaker3Points').html(newPoints);
   }
 );
 
 session.on(
   "signal:voteSpeakerFour", function(event) {
     var newPoints = incrementStream(event.data);
-    $('#speakerFourPoints').html(newPoints);
+    $('#speaker4Points').html(newPoints);
   }
 );
 
 session.on(
   "signal:voteSpeakerFive", function(event) {
     var newPoints = incrementStream(event.data);
-    $('#speakerFivePoints').html(newPoints);
+    $('#speaker5Points').html(newPoints);
   }
 );
 
 session.on(
   "signal:voteSpeakerSix", function(event) {
     var newPoints = incrementStream(event.data);
-    $('#speakerSixPoints').html(newPoints);
+    $('#speaker6Points').html(newPoints);
   }
 );
 
@@ -304,21 +314,40 @@ session.on(
   "signal:disconnect", function(event) {
     if (session.connection.connectionId == event.data) {
       // Instead of just unpublishing, permanently mute and set style to black
+      alert("sending drop color signal");
       publisher.publishAudio(false);
       document.getElementById('speaker' + speakerNumber + 'Box').style.backgroundColor = "black";
 
       session.signal({
         type: 'dropColor',
         data: session.connection.connectionId
-      }, function(error) {
-        if (error) {
-          console.log("problem changing colors");
+        }, function(error) {
+          if (error) {
+            console.log("problem changing colors");
+          }
         }
-      }
-    );
+      );
+      alert(speakerNumber);
+      session.signal({
+        type: 'hideLoserButton',
+        data: speakerNumber
+        }, function(error) {
+          if (error) {
+            console.log("problem hiding button");
+          }
+        }
+      );
     }
   }
 );
+
+session.on(
+  "signal:hideLoserButton", function(event) {
+    var loserNumber = parseInt(event.data);
+    $('#speaker' + loserNumber + 'Points').hide();
+  }
+);
+
 
 session.on(
   "signal:dropColor", function(event) {
@@ -366,6 +395,7 @@ session.on(
     // Don't worry about this, it's just muting stuff
     if (event.data == session.connection.connectionId) {
       //$("#speaker" + speakerNumber + "Box").css("background-color", "green");
+      alert("your turn to speak");
       publisher.publishAudio(true);
     }
     else {
@@ -550,7 +580,6 @@ session.on(
             // Do some winner logic
 
             var winningConnectionId = firstSpeakerAlive();
-
             session.signal({
               type: "winnerColor",
               data: winningConnectionId
@@ -641,6 +670,7 @@ session.on(
     }
 
     function dropLowest() {
+      alert("dropping lowest");
       var index = lowestPointsIndex();
       playersAlive[index] = null;
       var lowestConnection = totalSessions[index].connection;

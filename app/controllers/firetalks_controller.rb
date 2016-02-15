@@ -44,6 +44,9 @@ class FiretalksController < ApplicationController
   def show
     @firetalk = Firetalk.find(params[:id])
     @firetalk_debaters = @firetalk.firetalk_debaters
+
+    @users = []
+
     @user = User.find(session[:user_id])
     @my_firetalk_debater = FiretalkDebater.where(:user_id => @user.id, :firetalk_id => @firetalk.id)
     @is_debater = false;
@@ -64,6 +67,7 @@ class FiretalksController < ApplicationController
       index = 0
       @firetalk_debaters.each do |firetalk_debater|
         firetalk_debaters_hash[firetalk_debater.email] = index
+        @users[index] = User.find(firetalk_debater.user_id)
         index = index + 1
       end
       @firetalk_json = firetalk_debaters_hash.to_json
