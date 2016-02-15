@@ -364,6 +364,14 @@ li {
 	margin: 0% auto;
 }
 
+.navlogo{
+	margin-top: 6px;
+}
+
+.navlogo1{
+	height:15px;
+}
+
 @media screen 1160px breaks firetalk ui
 
 

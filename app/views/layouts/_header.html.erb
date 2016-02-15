@@ -5,21 +5,10 @@
 <div  class="col span_8_of_10">
 
   <ul>
-    <li>
-      <%= link_to image_tag("debatable-logo-new-small.svg"), root_path %>
+    <li class="navlogo">
+      <%= link_to image_tag("debatable-logo.png", :class => "navlogo1"), root_path %>
    </li>
 
-  <li>
-    <strong>
-     <%= nav_link 'Debatable', root_path %> 
-   </strong>
-   </li>
-
-  <li>
-    <em> 
-      Beta Launch: February 20th
-    </em>
-  </li>
 <ul class="float-right">
   <li>
     <% if session[:user_id] != nil %>

@@ -1,6 +1,5 @@
 <script type="text/javascript" src="https://static.opentok.com/v2/js/opentok.min.js"></script>
 
-<<<<<<< HEAD
 
 
 <div class="section" id="toppad">
@@ -108,7 +107,7 @@
 
 <!================================-->
 
-=======
+<!--
 <%= 'FIRETALK SHOW VIEW' %>
 
 <div id="clock">25</div>
@@ -133,7 +132,10 @@
 <div id="speakerFourPoints" class="speakerPoints">0</div>
 <div id="speakerFivePoints" class="speakerPoints">0</div>
 <div id="speakerSixPoints" class="speakerPoints">0</div>
->>>>>>> refs/remotes/rhenvar/master
+
+-->
+
+
 
 <%= javascript_tag do %>
 var apiKey = '45241592';
@@ -142,7 +144,6 @@ var token = "<%= j @tok_token %>";
 var myEmail = "<%= j @user.email %>"
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
 
-<<<<<<< HEAD
 
 var publisherOptions = {
   insertMode: 'append',
@@ -154,9 +155,9 @@ var totalSessions = [];
 var session = TB.initSession(sessionId);
 var speakerNumber = parseInt(debatersJson[myEmail] + 1);
 var publisher = OT.initPublisher(apiKey, "speaker" + speakerNumber + "Box", publisherOptions);
-=======
+
 // starting number of points
->>>>>>> refs/remotes/rhenvar/master
+
 var votingPoints = 3;
 
 // connecting logic
@@ -170,10 +171,6 @@ for (var i = 0; i < totalPoints.length; i++) {
   totalPoints[i].style.visibility = "hidden";
 }
 
-<<<<<<< HEAD
-
-
-
 
 
 // try out hovering stuff here?
@@ -183,12 +180,11 @@ for (var i = 0; i < totalBoxes.length; i++) {
   totalBoxes[i].onmouseover = hover;
   totalBoxes[i].onmouseleave = unhover;
 }
-=======
+
 session.addEventListener('sessionConnected', sessionConnectedHandler);
 session.addEventListener('streamCreated', streamCreatedHandler);
 session.addEventListener('streamPropertyChanged', streamPropertyChangedHandler)
 session.connect(apiKey, token);
->>>>>>> refs/remotes/rhenvar/master
 
 var publisher;
 var speakerNumber;
@@ -196,7 +192,7 @@ var speakerNumber;
 function sessionConnectedHandler(event) {
   var myDiv = document.createElement('div');
   speakerNumber = parseInt(debatersJson[myEmail] + 1);
-  publisher = OT.initPublisher(apiKey, myDiv);
+  publisher = OT.initPublisher(apiKey, myDiv, , publisherOptions);
   document.getElementById("speaker" + speakerNumber + "Box").appendChild(myDiv);
   session.publish(publisher);
   var id = document.createTextNode(String(session.connection.connectionId));
@@ -354,11 +350,8 @@ session.on(
 
 session.on(
   "signal:resetTimer", function(event) {
-<<<<<<< HEAD
-  $('#clock').html("30");
-=======
+
   $('#clock').html("25");
->>>>>>> refs/remotes/rhenvar/master
 });
 
 session.on(
