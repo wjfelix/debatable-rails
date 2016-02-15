@@ -3,166 +3,98 @@
 
 
 <div class="section" id="toppad">
-
-
-
-<div class="col span_2_of_10">
-
-
-</div>
-
-<div class="col span_7_of_10" id="center-col">
-
-
-
-
-<div class="section">
-
-
-<div class="firetalktopbar-container">
-
-  <ul>
-
-    <li><% if @user.id == @firetalk.user_id %>
-  <button onclick="startFiretalk()" id="startFiretalk">Start Firetalk</button>
-<% end %></li>
-
-    <li class="firetalktopbar margleft"> Time:</li>
-    <li id="clock" class="firetalktopbar">10</li>
-
-    <li class="firetalktopbar centerhor">Your Votes Left:</li>
-
-    <li id="pointsLeft" class="firetalktopbar centerhor">3</li>
-
-    <li id="roundNumber" class="firetalktopbar float-right">1</li>
-
-    <li class="firetalktopbar float-right">Round:</li>
-
-    
-
-</ul>
-
-</div>
-
-</div>
-
-
-<div class="section group">
-
-<div class="col span_10_of_10">
-
-
-
-  <div class="col span_3_of_10">
-
-<div id="speaker1Box" class="speakerBox float-left"></div>
-<div id="speakerOnePoints" class="points float-right">0</div>
-
-</div>
-
-
-
- <div class="col span_3_of_10">
-
-  <div id="speaker2Box" class="speakerBox">
-<%= image_tag("picpix.jpg", :class => "text-center")%>
-</div>
-
-<div class=""></div>
-
-<div id="speakerTwoPoints" class="points">0</div>
-
-</div>
-
-
-
-
-
- <div class="col span_3_of_10">
-
-  <div id="speaker3Box" class="speakerBox">
-<%= image_tag("picpix.jpg", :class => "text-center")%>
-
-</div>
-<div id="speakerThreePoints" class="points">0</div>
-
-</div>
-
-
-
-
-
- <div class="col span_3_of_10">
-
-
-  <div id="speaker4Box" class="speakerBox">
-<%= image_tag("picpix.jpg", :class => "text-center")%>
-
-</div>
-<div id="speakerFourPoints" class="points">0</div>
-
-
-</div>
-
-
-
-
-
- <div class="col span_3_of_10">
-
-  <div id="speaker5Box" class="speakerBox">
-<%= image_tag("picpix.jpg", :class => "text-center")%>
-
-</div>
-<div id="speakerFivePoints" class="points">0</div>
-
-</div>
-
-
-
-
- <div class="col span_3_of_10">
-
-
-  <div id="speaker6Box" class="speakerBox publisherOptions">
-<%= image_tag("picpix.jpg", :class => "text-center")%>
-
-</div>
-<div id="speakerSixPoints" class="points">0</div>
-
-</div>
-
-
-
-
-
-</div>
-
-
-</div>
-
-
-<div class="section">
-
-</div>
-
-
-<div class="section">
-</div>
-
-
-
-
-
-
-
-
-</div>
-
-<div class="col span_1_of_10"></div>
-
-
-
+  <div class="col span_2_of_10">
+  </div>
+  <div class="col span_7_of_10" id="center-col-ft">
+    <div class="section group firetalktopbar-container">
+      <div class="col span_1_of_10">
+        <% if @user.id == @firetalk.user_id %>
+        <button onclick="startFiretalk()" id="startFiretalk">Start Firetalk</button>
+        <% end %>
+      </div>
+      <div class="col span_3_of_10">
+        <span class="margleft"> 
+          Time:
+        </span>
+        <span id="clock" class="">
+          30
+        </span>
+      </div>
+
+      <div class="col span_3_of_10">
+        <span class="centerhor">Your Votes Left:</span>
+        <span id="pointsLeft" class="centerhor">3</span>
+      </div>
+
+      <div class="col span_3_of_10">
+        <span id="roundNumber" class="float-right">1</span>
+        <span class="float-right">Round:</span>
+      </div>
+    </div>
+
+    <div class="section">
+
+        <div class="col span_1_of_3">
+
+
+          <div id="speaker1Box" class="speakerBox"></div>
+
+          <div class="speaker-options">
+            <div id="speakerOnePoints" class="points">0</div>
+            
+            <%= image_tag("infobutton.svg", :class =>"infobutton")%>
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="col span_1_of_3">
+          <div id="speaker2Box" class="speakerBox">
+            <%= image_tag("picpix.jpg", :class => "imgclear")%>
+          </div>
+          <div id="speakerTwoPoints" class="points">0</div>
+        </div>
+
+
+       
+        <div class="col span_1_of_3">
+          <div id="speaker3Box" class="speakerBox">
+            <%= image_tag("picpix.jpg", :class => "imgclear")%>
+          </div>
+          <div id="speakerThreePoints" class="points">0</div>
+        </div>
+      </div>
+
+      <div class="section">
+       
+        <div class="col span_1_of_3">
+          <div id="speaker4Box" class="speakerBox">
+            <%= image_tag("picpix.jpg", :class => "imgclear")%>
+          </div>
+          <div id="speakerFourPoints" class="points">0</div>
+        </div>
+       
+        <div class="col span_1_of_3">
+          <div id="speaker5Box" class="speakerBox">
+            <%= image_tag("picpix.jpg", :class => "imgclear")%>
+          </div>
+          <div id="speakerFivePoints" class="points">0</div>
+        </div>
+        
+        <div class="col span_1_of_3">
+          <div id="speaker6Box" class="speakerBox">
+            <%= image_tag("picpix.jpg", :class => "imgclear")%>
+          </div>
+          <div id="speakerSixPoints" class="points">0</div>
+        </div>
+
+    </div>
+  </div>
+  <div class="col span_1_of_10">
+  </div>
 </div>
 
 
@@ -170,7 +102,6 @@
 
 
 <!================================-->
-
 
 <!LOCAL JAVASCRIPT-->
 
@@ -279,7 +210,7 @@ function subscribeToStreams(streams) {
     }
     // Create the div to put the subscriber element in to
     var div = document.createElement('div');
-    div.setAttribute('id', 'stream' + streams[i].streamId);
+    div.setAttribute('id', 'stream' + streams[i].streamId, publisherOptions);
 
     var connection = streams[i].connection;
     var email = connection.data.split("|")[1];
@@ -406,7 +337,7 @@ session.on(
 
 session.on(
   "signal:resetTimer", function(event) {
-  $('#clock').html("10");
+  $('#clock').html("30");
 });
 
 session.on(

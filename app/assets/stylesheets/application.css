@@ -309,17 +309,14 @@ li {
 }
 
 .speakerBox{
-	float: left;
-	margin: 0 auto;
 	height: 150px;
 	width: 200px;
+	float: left;
 }
 
-.firetalktopbar {
-	font-size: 2em;
-	margin-left: 10px;
-	margin-right: 10px;
+.speakerBox object{
 }
+
 
 .firetalktopbar-container {
 	border-width: 2px;
@@ -336,6 +333,38 @@ li {
 	padding-left: 20px;
 }
 
+
+#center-col-ft{
+	background-color: #999999;
+	border-radius: 5px;
+	border-style: solid;
+	border-width: 1px;
+}
+
+.imgclear {
+	padding: 0;
+	margin: 0;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.points {
+	font-size: 2em;
+}
+
+.speaker-options{
+	float: left;
+	display: inline;
+	height: 150px;
+	width: 80px;
+	background-color: #cceeff;
+}
+
+.infobutton{
+	margin: 0% auto;
+}
+
+@media screen 1160px breaks firetalk ui
 
 
 
@@ -424,5 +453,36 @@ li {
 	}
 	.span_1_of_10 {
 		width: 100%; 
+	}
+}
+
+
+/*  GRID OF THREE   ============================================================================= */
+
+	
+.span_3_of_3 {
+	width: 100%; 
+}
+
+.span_2_of_3 {
+	width: 66.13%; 
+}
+
+.span_1_of_3 {
+	width: 32.26%; 
+}
+
+
+/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+
+@media only screen and (max-width: 480px) {
+	.span_3_of_3 {
+		width: 100%; 
+	}
+	.span_2_of_3 {
+		width: 100%; 
+	}
+	.span_1_of_3 {
+		width: 100%;
 	}
 }
