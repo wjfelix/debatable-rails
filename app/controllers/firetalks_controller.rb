@@ -24,7 +24,7 @@ class FiretalksController < ApplicationController
       user = User.find_by_email(firetalk_debater.email)
       if !user
         flash[:success] = false
-        flash[:message] = "Failed to create Firetalk, no such user #{user.email}"
+        flash[:message] = "Failed to create Firetalk, no such user"
         redirect_to new_user_firetalk_path
       end
       firetalk_debater.user_id = user.id
