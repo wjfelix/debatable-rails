@@ -1,0 +1,5 @@
+<%= form_for(@feedback, :url => feedbacks_new_path) do |f| %>
+<%= f.text_field(:name, {:placeholder => "Name (Optional)"}) %>
+<%= f.text_area(:feedback_content, {:placeholder => "Feedback", :required => true}) %>
+<%= f.submit("Submit Feedback") %>
+<% end %>

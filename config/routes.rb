@@ -7,6 +7,9 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  get '/feedbacks/new', to: 'feedbacks#new'
+  post '/feedbacks/new', to: 'feedbacks#create'
+  
   get 'home/news'
   get '/login', to: 'sessions#new'
   get '/logout', to: 'sessions#destroy'
@@ -26,4 +29,5 @@ Rails.application.routes.draw do
     resources :debates
     resources :firetalks
   end
+
 end
