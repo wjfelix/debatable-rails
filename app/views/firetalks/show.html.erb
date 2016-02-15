@@ -140,6 +140,74 @@ $('#speakerTwoPoints').click(function() {
   }
 });
 
+$('#speakerThreePoints').click(function() {
+  if (hasPointsLeft()) {
+    session.signal(
+      {
+        data:  totalSessions[2].connection.connectionId,
+        type: "voteSpeakerThree"
+      },
+      function(error) {
+        if (error) {
+          alert(error.message);
+        }
+      }
+    );
+    decrementVote();
+  }
+});
+
+$('#speakerFourPoints').click(function() {
+  if (hasPointsLeft()) {
+    session.signal(
+      {
+        data:  totalSessions[3].connection.connectionId,
+        type: "voteSpeakerFour"
+      },
+      function(error) {
+        if (error) {
+          alert(error.message);
+        }
+      }
+    );
+    decrementVote();
+  }
+});
+
+$('#speakerFivePoints').click(function() {
+  if (hasPointsLeft()) {
+    session.signal(
+      {
+        data:  totalSessions[4].connection.connectionId,
+        type: "voteSpeakerFive"
+      },
+      function(error) {
+        if (error) {
+          alert(error.message);
+        }
+      }
+    );
+    decrementVote();
+  }
+});
+
+$('#speakerSixPoints').click(function() {
+  if (hasPointsLeft()) {
+    session.signal(
+      {
+        data:  totalSessions[5].connection.connectionId,
+        type: "voteSpeakerSix"
+      },
+      function(error) {
+        if (error) {
+          alert(error.message);
+        }
+      }
+    );
+    decrementVote();
+  }
+});
+
 function hasPointsLeft() {
   var points = parseInt(document.getElementById("pointsLeft").innerHTML);
   return points > 0;
@@ -173,11 +241,38 @@ session.on(
 );
 
 // Listener SpeakerTwoUpvote
-
 session.on(
   "signal:voteSpeakerTwo", function(event) {
     var newPoints = incrementStream(event.data);
     $('#speakerTwoPoints').html(newPoints);
+  }
+);
+
+session.on(
+  "signal:voteSpeakerThree", function(event) {
+    var newPoints = incrementStream(event.data);
+    $('#speakerThreePoints').html(newPoints);
+  }
+);
+
+session.on(
+  "signal:voteSpeakerFour", function(event) {
+    var newPoints = incrementStream(event.data);
+    $('#speakerFourPoints').html(newPoints);
+  }
+);
+
+session.on(
+  "signal:voteSpeakerFive", function(event) {
+    var newPoints = incrementStream(event.data);
+    $('#speakerFivePoints').html(newPoints);
+  }
+);
+
+session.on(
+  "signal:voteSpeakerSix", function(event) {
+    var newPoints = incrementStream(event.data);
+    $('#speakerSixPoints').html(newPoints);
   }
 );
 
@@ -209,7 +304,6 @@ session.on(
   "signal:disconnect", function(event) {
     if (session.connection.connectionId == event.data) {
       // Instead of just unpublishing, permanently mute and set style to black
-      alert("sending drop color signal");
       publisher.publishAudio(false);
       document.getElementById('speaker' + speakerNumber + 'Box').style.backgroundColor = "black";
 
@@ -271,7 +365,6 @@ session.on(
     }
     // Don't worry about this, it's just muting stuff
     if (event.data == session.connection.connectionId) {
-      alert("your turn to speak");
       //$("#speaker" + speakerNumber + "Box").css("background-color", "green");
       publisher.publishAudio(true);
     }
@@ -324,6 +417,11 @@ session.on(
 
 <% if session[:user_id].to_s == params[:user_id].to_s %>
   <%= javascript_tag do %>
+  window.onload = function() {
+    $('#startFiretalk').on('click', function() {
+      startFiretalk();
+    });
+  };
 
   function showPoints() {
     session.signal({
@@ -334,7 +432,6 @@ session.on(
       }
     });
   }
-
   function startFiretalk() {
     $('#startFiretalk').hide();
     showPoints();
@@ -415,7 +512,6 @@ session.on(
 
         // If we have reached the last speaker (a.k.a it's time for a new round)
         if (isLastSpeakerAlive(currentSpeakerIndex)) {
-          alert("reached the last speaker at the end of the timer, current round is " + currentRound);
           // Go back to the beginning of our list at the end of the round
           currentSpeakerIndex = 0;
 
@@ -444,7 +540,6 @@ session.on(
           // If it's the end of the firetalk
           if (currentRound == totalRounds) {
             alert("END OF FIRETALK");
-            /*
             session.signal({
               type: "unmuteAll"
             },  function(error) {
@@ -452,7 +547,6 @@ session.on(
                 alert("failed to unmute all");
               }
             });
-            */
             // Do some winner logic
 
             var winningConnectionId = firstSpeakerAlive();
@@ -547,7 +641,6 @@ session.on(
     }
 
     function dropLowest() {
-      alert("dropping lowest");
       var index = lowestPointsIndex();
       playersAlive[index] = null;
       var lowestConnection = totalSessions[index].connection;
@@ -566,5 +659,5 @@ session.on(
 <% end %>
 
 <% if @user.id == @firetalk.user_id %>
-  <button onclick="startFiretalk()" id="startFiretalk">Start Firetalk</button>
+  <button id="startFiretalk">Start Firetalk</button>
 <% end %>
