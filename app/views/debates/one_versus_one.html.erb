@@ -1,18 +1,22 @@
 <script type="text/javascript" src="https://static.opentok.com/v2/js/opentok.min.js"></script>
-<div class="one_versus_one_owner_box"></div>
-<div class="one_versus_one_opponent_box"></div>
-<div class="one_versus_one_moderator_box"></div>
+<div id="ownerBox"></div>
+<div id="competitorBox"></div>
+<div id="moderatorBox"></div>
+<>
 <%= 'ONE V ONE VIEW' %>
 
 <%= javascript_tag do %>
 
-alert("<%= j @debate.tok_session_id %>");
 var apiKey = '45241592';
 var sessionId = "<%= j @debate.tok_session_id %>";
 var token = "<%= j @tok_token %>";
 var debateId = "<%= j @debate.id.to_s %>";
 var debateSize = "<%= j @debate.size.to_s %>";
 var userId = "<%= j @user.id.to_s %>";
+
+var isDebater = "<%= @debater %>";
+var isModerator = String("<%= @moderator %>");
+var isOwner = "<%= @owner %>";
 
 var session;
 var connected = 1;
@@ -26,11 +30,20 @@ session.connect(apiKey, token);
 
 var publisher;
 function sessionConnectedHandler(event) {
-    publisher = TB.initPublisher(apiKey, 'videobox');
+  if (isModerator == "true") {
+    publisher = TB.initPublisher(apiKey, 'moderatorBox');
     session.publish(publisher);
-
-    // Subscribe to streams that were in the session when we connected
-    subscribeToStreams(event.streams);
+  }
+  else if (isOwner == "true") {
+    publisher = TB.initPublisher(apiKey, 'ownerBox');
+    session.publish(publisher);
+  }
+  else if (isDebater == "true") {
+    publisher = TB.initPublisher(apiKey, 'competitorBox');
+    session.publish(publisher);
+  }
+  // Subscribe to streams that were in the session when we connected
+  subscribeToStreams(event.streams);
 }
 
 function streamCreatedHandler(event) {
@@ -47,8 +60,15 @@ function subscribeToStreams(streams) {
     // Create the div to put the subscriber element in to
     var div = document.createElement('div');
     div.setAttribute('id', 'stream' + streams[i].streamId);
-    document.body.appendChild(div);
-
+    if (streams[i].connection.data == "owner") {
+      document.getElementById('ownerBox').appendChild(div);
+    }
+    else if (streams[i].connection.data == "debater") {
+      document.getElementById('competitorBox').appendChild(div);
+    }
+    else if (streams[i].connection.data == "moderator") {
+      document.getElementById('moderatorBox').appendChild(div);
+    }
     // Subscribe to the stream
     session.subscribe(streams[i], div.id);
   }
@@ -78,5 +98,3 @@ session.on("signal", function(event) {
 });
 
 <% end %>
-
-<button onclick="sendSignal()">Send Signal</button> 

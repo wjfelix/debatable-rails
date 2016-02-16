@@ -41,6 +41,17 @@ class DebatesController < ApplicationController
       end
     end
 
+    @debate.debater_invites.each do |debater_invite|
+      @user = User.find_by(:email => debater_invite.user_name)
+      if @user.nil?
+        flash[:success] = false
+        flash[:message] = "Failed to create Debate! Unknown user: #{debater_invite.user_name}"
+        redirect_to new_user_debate_path and return
+      else
+        debater_invite.user_id = @user.id
+      end
+    end
+
     if @debate.save
       # if we're the owner, go ahead and generate token now
       flash[:success] = true
@@ -60,36 +71,31 @@ class DebatesController < ApplicationController
     # render but don't connect current user
     @debate = Debate.find(params[:id])
 
-    #good way to find invites for joiners? not sure
-    #@debater_invite = DebaterInvite.find(params[:debater_invite_id])
-    #@moderator_invite = ModeratorInvite.find(params[:moderator_invite_id])
+    @debater_invite = @debate.debater_invites[0]
+    @moderator_invite = @debate.moderator_invites[0]
+
+    @debater = session[:user_id] == @debater_invite.user_id
+    @owner = session[:user_id] == @debate.user_id
+    @moderator = session[:user_id] == @moderator_invite.user_id
 
     if session[:user_id]
       #subscriber role for onlookers!
-      if (session[:user_id] == @debate.user_id || @debater_invite)
-        @tok_token = @opentok.generate_token(@debate.tok_session_id, :role => :moderator)
+      if (@owner || @debater)
+        if @owner
+          @tok_token = @opentok.generate_token(@debate.tok_session_id, :role => :publisher, :data => "owner")
+        else
+          @tok_token = @opentok.generate_token(@debate.tok_session_id, :role => :publisher, :data => "debater")
+        end
       elsif @moderator_invite
-        @tok_token = @opentok.generate_token(@debate.tok_session_id, :role => :moderator)
+        @moderator = true
+        @tok_token = @opentok.generate_token(@debate.tok_session_id, :role => :moderator, :data => "moderator")
       else
+        @publisher = false
         @tok_token = @opentok.generate_token(@debate.tok_session_id, :role => :subscriber)
       end
       # flash[:success] = true
       # flash[:message] = "Connected to Debate! Make sure to enable your microphone"
-      if @debate.debate_style_id == 1
-        render 'question_answer'
-      elsif @debate.debate_style_id == 2
-        render 'one_versus_one'
-      elsif @debate.debate_style_id == 3
-        render 'two_versus_two'
-      elsif @debate.debate_style_id == 4
-        render 'three_versus_three'
-      elsif @debate.debate_style_id == 5
-        render 'four_versus_four'
-      elsif @debate.debate_style_id == 6
-        render 'firetalk'
-      else
-        render 'discussion_freetalk'
-      end
+      render 'one_versus_one'
     else
       flash[:success] = false
       flash[:message] = "You must be signed in to use this feature!"
