@@ -425,8 +425,22 @@ full-ft-speaker-box {
 	margin: 0 auto;
 }
 .home-butts-container{
-	width: 200px;
+	width: 100px;
 	margin: 0 auto;
+}
+
+.button {
+	background-color: #f2f2f2;
+	border-width: 2px;
+	border-style: solid;
+	border-color: black;
+	font-family: 'Karla', sans-serif;
+	padding:5px;
+	text-align: center; 
+}
+
+.button:hover {
+	background-color: #e6e6e6;
 }
 
 
