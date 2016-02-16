@@ -20,20 +20,21 @@
 
 <div class="col span_4_of_10">
 
+
   <%= form_for [@user, @firetalk] do |f| %>
   <%= f.hidden_field :user_id, :value => @user.id %>
 
 
 
   <h3>Topic</h3>
-  <%= f.text_field(:topic, :placeholder => 'Topic', :class => "forms") %>
+  <%= f.text_field :topic %>
   <hr>
   <h3>Title</h3>
-  <%= f.text_field(:name, :placeholder => 'Title', :class => "forms") %>
+   <%= f.text_field :name %>
   <hr>
   
   <h3>Description</h3>
-  <%= f.text_field(:description, :placeholder => 'Description', :class => "forms") %>
+   <%= f.text_field :description %>
   <hr>  
 
 </div>
@@ -41,11 +42,6 @@
 
     <div class="col span_4_of_10">
   <h3>Invite Debaters</h3>
-
-
-  <%= f.text_field :topic %>
-  <%= f.text_field :name %>
-  <%= f.text_field :description %>
 
 
   <%= f.fields_for :firetalk_debaters do |ff| %>
@@ -84,3 +80,5 @@
 
 
 </div>
+
+

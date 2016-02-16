@@ -170,7 +170,7 @@ h1,h2,h3{
 /*  GRID COLUMN SETUP   ==================================================================== */
 
 .col {
-	display: block;
+	display: inline-block;
 	float:left;
 	margin: 1% 0 1% 1.6%;
 }
@@ -314,9 +314,6 @@ li {
 	float: left;
 }
 
-.speakerBox object{
-}
-
 
 .firetalktopbar-container {
 	border-width: 2px;
@@ -339,6 +336,10 @@ li {
 	border-radius: 5px;
 	border-style: solid;
 	border-width: 1px;
+
+	padding-left: 20px;
+	padding-right: 20px;
+
 }
 
 .imgclear {
@@ -348,7 +349,7 @@ li {
 	vertical-align: top;
 }
 
-.points {
+.speakerPoints {
 	font-size: 2em;
 }
 
@@ -357,7 +358,17 @@ li {
 	display: inline;
 	height: 150px;
 	width: 80px;
-	background-color: #cceeff;
+	text-align: center;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #f2f2f2;
+	padding-top: 10px;
+	border-radius: 5px;
+	background-color: #ffffff;
+}
+
+.totalvotes{
+	font-size: .75em;
 }
 
 .infobutton{
@@ -375,6 +386,37 @@ li {
 @media screen 1160px breaks firetalk ui
 
 
+full-ft-speaker-box {
+	margin-left: 20px;
+}
+
+
+.ft-left-bar{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+
+
+
+
+/*========== EXTRA LARGE SCREEN MEDIA QUERY ===================*/
+
+@media screen and (min-width: 1824px) {
+	.speakerBox{
+	height: 225px;
+	width: 300px;
+	float: left;
+}
+
+.speaker-options{
+	height: 225px;
+	width: 80px;
+}
+
+
+}
 
 
 

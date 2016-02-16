@@ -3,47 +3,67 @@
 
 
 <div class="section" id="toppad">
-  <div class="col span_2_of_10">
-  </div>
+
+
+      <div class="col span_2_of_10">
+        <div class="ft-left-bar float-right">
+          <div>
+            <% if @user.id == @firetalk.user_id %>
+            <button onclick="startFiretalk()" id="startFiretalk">
+              Start Firetalk
+            </button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+
+
   <div class="col span_7_of_10" id="center-col-ft">
     <div class="section group firetalktopbar-container">
-      <div class="col span_1_of_10">
-        <% if @user.id == @firetalk.user_id %>
-        <button onclick="startFiretalk()" id="startFiretalk">Start Firetalk</button>
-        <% end %>
-      </div>
-      <div class="col span_3_of_10">
+      
+      <div class="col span_1_of_3">
         <span class="margleft"> 
           Time:
         </span>
-        <span id="clock" class="">
+        <span id="clock">
           30
         </span>
       </div>
 
-      <div class="col span_3_of_10">
+      <div class="col span_1_of_3">
         <span class="centerhor">Your Votes Left:</span>
-        <span id="pointsLeft" class="centerhor">3</span>
+        <span id="pointsLeft" class="centerhor">
+          3
+        </span>
       </div>
 
-      <div class="col span_3_of_10">
-        <span id="roundNumber" class="float-right">1</span>
+      <div class="col span_1_of_3">
+        <span id="roundNumber" class="float-right">
+          1
+        </span>
         <span class="float-right">Round:</span>
       </div>
     </div>
 
     <div class="section">
 
-        <div class="col span_1_of_3">
-
-
-          <div id="speaker1Box" class="speakerBox"></div>
-
+        <div class="col span_1_of_3 full-ft-speaker-box">
+            <div id="speaker1Box" class="speakerBox">
+          </div>
           <div class="speaker-options">
-            <div id="speakerOnePoints" class="points">0</div>
+            <div id="speakerOnePoints" class="speakerPoints">
+              0
+            </div>
+
+            <span class="totalvotes">total votes</span>
+
+            <!--
             
             <%= image_tag("infobutton.svg", :class =>"infobutton")%>
 
+          -->
+
           </div>
 
 
@@ -51,45 +71,71 @@
 
 
 
-        <div class="col span_1_of_3">
+        <div class="col span_1_of_3  full-ft-speaker-box">
           <div id="speaker2Box" class="speakerBox">
-            <%= image_tag("picpix.jpg", :class => "imgclear")%>
           </div>
-          <div id="speakerTwoPoints" class="points">0</div>
+
+          <div class="speaker-options">
+          <div id="speakerTwoPoints" class="speakerPoints">
+            0
+          </div>
+          <span class="totalvotes">total votes</span>
+        </div>
         </div>
 
 
        
-        <div class="col span_1_of_3">
+        <div class="col span_1_of_3 full-ft-speaker-box">
           <div id="speaker3Box" class="speakerBox">
-            <%= image_tag("picpix.jpg", :class => "imgclear")%>
+            
           </div>
-          <div id="speakerThreePoints" class="points">0</div>
+
+        <div class="speaker-options">
+          <div id="speakerThreePoints" class="speakerPoints">
+            0
+          </div>
+          <span class="totalvotes">total votes</span>
         </div>
       </div>
-
       <div class="section">
        
-        <div class="col span_1_of_3">
+        <div class="col span_1_of_3 full-ft-speaker-box">
           <div id="speaker4Box" class="speakerBox">
-            <%= image_tag("picpix.jpg", :class => "imgclear")%>
+           
           </div>
-          <div id="speakerFourPoints" class="points">0</div>
+
+          <div class="speaker-options">
+          <div id="speakerFourPoints" class="speakerPoints">
+            0
+          </div>
+          <span class="totalvotes">total votes</span>
+        </div>
         </div>
        
-        <div class="col span_1_of_3">
+        <div class="col span_1_of_3 full-ft-speaker-box">
           <div id="speaker5Box" class="speakerBox">
-            <%= image_tag("picpix.jpg", :class => "imgclear")%>
+          
           </div>
-          <div id="speakerFivePoints" class="points">0</div>
+          <div class="speaker-options">
+          <div id="speakerFivePoints" class="speakerPoints">
+            0
+          </div>
+          <span class="totalvotes">
+            total vote
+          </span>
+        </div>
         </div>
         
-        <div class="col span_1_of_3">
+        <div class="col span_1_of_3 full-ft-speaker-box">
           <div id="speaker6Box" class="speakerBox">
-            <%= image_tag("picpix.jpg", :class => "imgclear")%>
           </div>
-          <div id="speakerSixPoints" class="points">0</div>
+          <div class="speaker-options">
+          <div id="speakerSixPoints" class="speakerPoints">
+            0
+          </div>
+          <span class="totalvotes">total votes</span>
         </div>
+      </div>
 
     </div>
   </div>
@@ -107,62 +153,13 @@
 
 <!================================-->
 
-<!--
-<%= 'FIRETALK SHOW VIEW' %>
-
-<div id="clock">10</div>
-<div id="pointsLeft">3</div>
-<p>ROUND NUMBER</p>
-<div id="roundNumber">1</div>
-
-<span>Speaker One</span>
-<div id="speaker1Box" class="speakerBox"></div>
-<span>Speaker Two</span>
-<div id="speaker2Box" class="speakerBox"></div>
-<span>Speaker Three</span>
-<div id="speaker3Box" class="speakerBox"></div>
-<div id="speaker4Box" class="speakerBox"></div>
-<div id="speaker5Box" class="speakerBox"></div>
-<div id="speaker6Box" class="speakerBox"></div>
-
-<div id="speakerOnePoints" class="speakerPoints">0</div>
-<div id="speakerTwoPoints" class="speakerPoints">0</div>
-<div id="speakerThreePoints" class="speakerPoints">0</div>
-<div id="speakerThreePoints" class="speakerPoints">0</div>
-<div id="speakerFourPoints" class="speakerPoints">0</div>
-<div id="speakerFivePoints" class="speakerPoints">0</div>
-<div id="speakerSixPoints" class="speakerPoints">0</div>
-
--->
-
-
-
 <%= javascript_tag do %>
 var apiKey = '45241592';
 var sessionId = "<%= j @firetalk.tok_session_id %>";
 var token = "<%= j @tok_token %>";
 var myEmail = "<%= j @user.email %>"
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
-<<<<<<< HEAD
-
-
-var publisherOptions = {
-  insertMode: 'append',
-  width: '100%',
-  height: '100%'
-};
-
-var totalSessions = [];
-var session = TB.initSession(sessionId);
-var speakerNumber = parseInt(debatersJson[myEmail] + 1);
-var publisher = OT.initPublisher(apiKey, "speaker" + speakerNumber + "Box", publisherOptions);
-
-// starting number of points
-
-var votingPoints = 3;
-=======
 var isDebater = "<%= @is_debater %>"
->>>>>>> refs/remotes/rhenvar/master
 
 // connecting logic
 TB.setLogLevel(TB.DEBUG);
@@ -175,16 +172,6 @@ for (var i = 0; i < totalPoints.length; i++) {
   totalPoints[i].style.visibility = "hidden";
 }
 
-
-
-// try out hovering stuff here?
-var totalBoxes = $('#CHOOSE A SPEAKER BOX');
-// alert(totalBoxes.length);
-for (var i = 0; i < totalBoxes.length; i++) {
-  totalBoxes[i].onmouseover = hover;
-  totalBoxes[i].onmouseleave = unhover;
-}
-
 session.addEventListener('sessionConnected', sessionConnectedHandler);
 session.addEventListener('streamCreated', streamCreatedHandler);
 session.addEventListener('streamPropertyChanged', streamPropertyChangedHandler)
@@ -192,11 +179,12 @@ session.connect(apiKey, token);
 
 var publisher;
 var speakerNumber;
+var publisherOptions = {width: '100%', height: '100%'};
 
 function sessionConnectedHandler(event) {
   var myDiv = document.createElement('div');
   speakerNumber = parseInt(debatersJson[myEmail] + 1);
-  publisher = OT.initPublisher(apiKey, myDiv, , publisherOptions);
+  publisher = OT.initPublisher(apiKey, myDiv, publisherOptions);
   document.getElementById("speaker" + speakerNumber + "Box").appendChild(myDiv);
   if (isDebater) {
     session.publish(publisher);
@@ -208,13 +196,11 @@ function sessionConnectedHandler(event) {
   subscribeToStreams(event.streams);
 }
 
-
-
-
-
 function streamCreatedHandler(event) {
     subscribeToStreams(event.streams);
 }
+
+var options = {height: "100%", width: "100%"}
 
 function subscribeToStreams(streams) {
   for (var i = 0; i < streams.length; i++) {
@@ -224,7 +210,7 @@ function subscribeToStreams(streams) {
     }
     // Create the div to put the subscriber element in to
     var div = document.createElement('div');
-    div.setAttribute('id', 'stream' + streams[i].streamId, publisherOptions);
+    div.setAttribute('id', 'stream' + streams[i].streamId);
 
     var connection = streams[i].connection;
     var email = connection.data.split("|")[1];
@@ -232,7 +218,7 @@ function subscribeToStreams(streams) {
     document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
 
     // Subscribe to the stream
-    session.subscribe(streams[i], div.id);
+    session.subscribe(streams[i], div.id, options);
   }
 }
 
@@ -300,7 +286,7 @@ session.on(
       }
     }
     speakerIndex = parseInt(debatersJson[email]) + 1;
-    document.getElementById('speaker' + speakerIndex + 'Box').style.backgroundColor = "yellow";
+    document.getElementById('speaker' + speakerIndex + 'Box').style.border = "4px solid #ffff33";
   }
 );
 session.on(
@@ -381,7 +367,7 @@ session.on(
     }
     var debaterIndex = parseInt(debatersJson[email]);
     debaterIndex++;
-    document.getElementById('speaker' + debaterIndex + 'Box').style.backgroundColor = "black";
+    document.getElementById('speaker' + debaterIndex + 'Box').style.border = "4px solid #000000";
   }
 );
 
@@ -393,11 +379,8 @@ session.on(
 
 session.on(
   "signal:resetTimer", function(event) {
-
-
-  $('#clock').html("25");
-
-
+  $('#clock').html("10");
+});
 
 session.on(
   "signal:adjustAudio", function(event) {
@@ -411,16 +394,16 @@ session.on(
     var totalSpeakerBoxes = $('.speakerBox');
     for (var i = 0; i < totalSpeakerBoxes.length; i++) {
       if (i == nowSpeaking) {
-        totalSpeakerBoxes[i].style.backgroundColor = "green";
+        totalSpeakerBoxes[i].style.border = "4px solid red";
       }
-      else if (totalSpeakerBoxes[i].style.backgroundColor != "black"){
-        totalSpeakerBoxes[i].style.backgroundColor = "red";
+      else if (totalSpeakerBoxes[i].style.border != "4px solid #000000"){
+        totalSpeakerBoxes[i].style.border = "4px solid red";
       }
     }
     // Don't worry about this, it's just muting stuff
     if (event.data == session.connection.connectionId) {
       alert("your turn to speak");
-      //$("#speaker" + speakerNumber + "Box").css("background-color", "green");
+      //$("#speaker" + speakerNumber + "Box").css("border", "4px solid green");
       publisher.publishAudio(true);
     }
     else {
