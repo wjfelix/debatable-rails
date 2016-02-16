@@ -36,6 +36,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'bootstrap-sass', '3.2.0.0'
 
+gem 'searchbing'
+
 
 
 # Use unicorn as the app server

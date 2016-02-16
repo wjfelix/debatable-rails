@@ -5,3 +5,15 @@
 	<%= button_to "New Firetalk", new_user_firetalk_path(@user), :method => 'get' %>
 </div>
 <%= link_to('My Profile', @user) %>
+
+<% @news_items.each do |news_result| %>
+<% news_articles = news_result[:News] %>
+<% news_articles.each do |news_article| %>
+<div class="newsItem">
+	<%= link_to(news_article[:Title], news_article[:Url]) %>
+	<%= news_article[:Source] %>
+	<%= news_article[:Description][0..100] << "..." %>
+</div>
+<br />
+<% end %>
+<% end %>
