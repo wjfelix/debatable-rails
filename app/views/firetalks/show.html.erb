@@ -1,13 +1,24 @@
 <script type="text/javascript" src="https://static.opentok.com/v2/js/opentok.min.js"></script>
 
-<<<<<<< HEAD
-
 
 <div class="section" id="toppad">
 
 
       <div class="col span_2_of_10">
         <div class="ft-left-bar float-right">
+
+          <div class="firetalk-info">
+          <%= @firetalk.description %>
+<%= @firetalk.name %>
+<%= @firetalk.topic %>
+
+
+<%= @users[0].email %>
+
+<%= @users[1].email %>
+</div>
+
+
           <div>
             <% if @user.id == @firetalk.user_id %>
             <button onclick="startFiretalk()" id="startFiretalk">
@@ -153,42 +164,7 @@
 <!LOCAL JAVASCRIPT-->
 
 <!================================-->
-=======
-<%= 'FIRETALK SHOW VIEW' %>
 
-<div id="clock">10</div>
-<div id="pointsLeft">3</div>
-<p>ROUND NUMBER</p>
-<div id="roundNumber">1</div>
-
-<%= @firetalk.description %>
-<%= @firetalk.name %>
-<%= @firetalk.topic %>
-
-<!--
-All users are stored in the @users array
-the fields you can print are email, firstname, and lastname
--->
-<span>Speaker One</span>
-<%= @users[0].email %>
-<div id="speaker1Box" class="speakerBox"></div>
-<span>Speaker Two</span>
-<%= @users[1].email %>
-<div id="speaker2Box" class="speakerBox"></div>
-<span>Speaker Three</span>
-<%= @users[2].email %>
-<div id="speaker3Box" class="speakerBox"></div>
-<div id="speaker4Box" class="speakerBox"></div>
-<div id="speaker5Box" class="speakerBox"></div>
-<div id="speaker6Box" class="speakerBox"></div>
-
-<div id="speaker1Points" class="speakerPoints">0</div>
-<div id="speaker2Points" class="speakerPoints">0</div>
-<div id="speaker3Points" class="speakerPoints">0</div>
-<div id="speaker4Points" class="speakerPoints">0</div>
-<div id="speaker5Points" class="speakerPoints">0</div>
-<div id="speaker6Points" class="speakerPoints">0</div>
->>>>>>> refs/remotes/rhenvar/master
 
 <%= javascript_tag do %>
 var apiKey = '45241592';
@@ -552,14 +528,10 @@ session.on(
     }
     // Don't worry about this, it's just muting stuff
     if (event.data == session.connection.connectionId) {
-<<<<<<< HEAD
 
       //$("#speaker" + speakerNumber + "Box").css("border", "4px solid green");
-
-=======
-      //$("#speaker" + speakerNumber + "Box").css("background-color", "green");
       alert("your turn to speak");
->>>>>>> refs/remotes/rhenvar/master
+
       publisher.publishAudio(true);
     }
     else {

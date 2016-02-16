@@ -7,7 +7,7 @@
 <div class="col span_7_of_10" id="center-col">
 
 	<div class="section centerhor">
-		<h2>Join our community!</h2>
+		<h1>Join our community!</h1>
 	</div>
 
 
@@ -18,15 +18,15 @@
 	<div class="col span_4_of_10 centerhor">
 <%= form_for(@user) do |f| %>
 	<h3>First Name</h3>
-<%= f.text_field(:firstname, {:placeholder => "First Name", :required => true}) %>
+<%= f.text_field(:firstname, {:placeholder => "First Name", :required => true, :class => "forms"}) %>
 </br>
 </br>
 <h3>Last Name</h3>
-<%= f.text_field(:lastname, {:placeholder => "Last Name", :required => true}) %>
+<%= f.text_field(:lastname, {:placeholder => "Last Name", :required => true, :class => "forms"}) %>
 </br>
 </br>
 <h3>Email</h3>
-<%= f.text_field(:email, {:placeholder => "E-mail", :required => true}) %>
+<%= f.text_field(:email, {:placeholder => "E-mail", :required => true, :class => "forms"}) %>
 </br>
 </br>
 
@@ -38,20 +38,22 @@
 
 
 <h3>Create a Password</h3>
-<%= f.password_field(:password, {:placeholder => "Password", :required => true}) %>
+<div>
+<%= f.password_field(:password, {:placeholder => "Password", :required => true, :class => "forms"}) %>
+</div>
 </br>
 </br>
 <h3>Confirm Password</h3>
-<%= f.password_field(:password_confirmation, {:placeholder => "Confirm Password", :required => true}) %>
+<div>
+<%= f.password_field(:password_confirmation, {:placeholder => "Confirm Password", :required => true, :class => "forms"}) %>
+</div>
 </br>
 </br>
 
 
 
 </br>
-<%= f.submit("Create Account") %>
 
-<% end %>
 
 </br></br>
 
@@ -61,6 +63,18 @@
 
 
 
+</div>
+
+</br>
+
+<div class="section centerhor">
+
+	<hr>
+<%= f.submit("Create Account") %>
+
+<% end %>
+<hr>
+<br>
 </div>
 
 

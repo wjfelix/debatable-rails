@@ -4,10 +4,24 @@
 
 <div class="col span_2_of_10">
 
+	<div class="leftbar-news">
 
-	<%= button_to "New Debate", new_user_debate_path(@user), {:class => 'loginButton', :method => 'get'} %>
+		<div class="centerhor">
 
-	<%= button_to "New Firetalk", new_user_firetalk_path(@user), :method => 'get' %>
+<h3>Talk it up!</h3>
+		</div>
+	</br>
+
+<div class="home-butts-container">
+	<%= button_to "New Debate", new_user_debate_path(@user), {:class => 'home-butts', :method => 'get'} %>
+</div>
+</br>
+<div class="home-butts-container">
+
+	<%= button_to "New Firetalk", new_user_firetalk_path(@user), {:class => 'home-butts', :method => 'get'} %>
+</div>
+
+</div>
 
 
 </div>
@@ -26,13 +40,19 @@
 		Our Mission:
 	    </em>
 	</h3>
-	<blockquote>
+	<blockquote class="justification">
 		<p>
-			Here at debatable, we want to give people the stage to share their opinions and be understood by their communities. Debatable is a live-video debating social media platform that bridges face to face conversation and social media interaction. Come join us on <strong>February 20th</strong> for our launch! <br><em>- The Debatable Team</em>
+			Here at debatable, we want to give people the stage to share their opinions and be understood by their communities. Debatable is a live-video debating social media platform that bridges face to face conversation and social media interaction.<br><em>- The Debatable Team</em>
 		</p>
 	</blockquote>
 
+	<br><br>
+
+	<div class="center-obj">
+
 	<div class="fb-page" data-href="https://www.facebook.com/debatablelive" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/debatablelive"><a href="https://www.facebook.com/debatablelive">Debatable</a></blockquote></div></div>
+
+</div>
 
 
 </div>

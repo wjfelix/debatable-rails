@@ -109,30 +109,18 @@ body{
 h1 { 
     display: block;
     font-size: 2em;
-    margin-top: 0.67em;
-    margin-bottom: 0.67em;
-    margin-left: 0;
-    margin-right: 0;
     font-weight: bold;
 }
 
 h2 {
     display: block;
     font-size: 1.5em;
-    margin-top: 0.83em;
-    margin-bottom: 0.83em;
-    margin-left: 0;
-    margin-right: 0;
     font-weight: bold;
 }
 
 h3 { 
     display: block;
     font-size: 1.17em;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    margin-left: 0;
-    margin-right: 0;
     font-weight: bold;
 }
 
@@ -140,7 +128,12 @@ h1,h2,h3{
 	font-family: 'PT Sans', sans-serif;
 }
 
-
+html { 
+    height:100%;
+}
+body { 
+    min-height:100%;
+}
  /*===================================
 
 
@@ -240,7 +233,7 @@ li {
 	border-radius: 5px;
 	border-style: solid;
 	border-width: 1px;
-	padding: 0% 5% 0% 5%;
+	padding: 20px 5% 50px 5%;
 }
 
 
@@ -271,7 +264,8 @@ li {
 
 
 .forms{
-	width: 100%;
+	max-width: 250px;
+	margin: 0 auto;
 }
 
 
@@ -339,6 +333,7 @@ li {
 	border-width: 1px;
 	padding-left: 20px;
 	padding-right: 20px;
+	padding-bottom: 50px;
 
 }
 
@@ -396,6 +391,42 @@ full-ft-speaker-box {
 	margin-right: auto;
 }
 
+.firetalk-info{
+	background-color: white;
+}
+
+
+.center-obj{
+	margin: 0px auto;
+	width: 340px;
+}
+
+.justification{
+	text-align: justify;
+}
+
+
+.leftbar-news{
+	background-color: #ffffff;
+	height: calc(100% - 70px);
+	width: 100%;
+	margin-left: 10px;
+	margin-right: 10px;
+	padding-bottom: 30px;
+	padding-top: 30px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-radius: 5px;
+}
+
+.home-butts{
+	width: 100%;
+	margin: 0 auto;
+}
+.home-butts-container{
+	width: 150px;
+	margin: 0 auto;
+}
 
 
 
@@ -419,6 +450,10 @@ full-ft-speaker-box {
 }
 
 	#center-col-ft{
+		max-width: 1270px;
+	}
+
+	#center-col{
 		max-width: 1270px;
 	}
 	
