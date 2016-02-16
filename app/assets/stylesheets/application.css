@@ -401,12 +401,14 @@ full-ft-speaker-box {
 
 
 .ft-left-bar{
-	margin-left: auto;
-	margin-right: auto;
+	margin-left: 20px;
+	padding-left: 10px;
 }
 
 .firetalk-info{
 	background-color: white;
+	border-left: solid 2px black;
+	padding: 10px;
 }
 
 
@@ -488,6 +490,42 @@ full-ft-speaker-box {
 	max-width: 250px;
 }
 
+.newsItem a{
+	font-size: 1em;
+	color: #0066cc;
+	clear: both;
+	float: left;
+	text-decoration: underline;
+}
+.newsItem a:hover{
+	color: #3399ff;
+}
+.newsItem a::after{
+	clear: left;
+}
+.newsdesc{
+	float: left;
+}
+
+.news{
+	max-width: 600px;
+	padding: 10px;
+	border-color: black;
+	border-style: solid;
+	border-width: 2px;
+	overflow: scroll;
+	max-height: 400px;
+	margin: 0 auto;
+}
+
+
+.logohome {
+	height: 25px;
+}
+
+.navlink {
+	margin: 0 10px 0 10px;
+}
 
 
 

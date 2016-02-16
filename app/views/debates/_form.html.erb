@@ -15,6 +15,7 @@
 </h1>
 
   </div>
+</br>
 
 <div class="section">
 
@@ -23,41 +24,49 @@
   <% #= f.collection_select(:category_id, @categories, :id, :category_name, :required => true) %>
   <% #= f.collection_select(:debate_style_id, @debate_styles, :id, :debate_style, {:required => true}, {:class => 'debate_dropdown_style'}) %>
 
-  <div>
+  <div class="centerhor">
+    <h3>Topic</h3>
+  </br>
   <%= f.text_field(:topic, :placeholder => 'Topic', :required => true, :class => 'forms') %>
 </div>
-
- <div>
+</br>
+ <div class="centerhor">
+  <h3>Debate Name</h3>
+</br>
   <%= f.text_field(:name, :placeholder => 'Debate Name', :required => true, :class => 'forms') %>
   </div>
-
-   <div>
+</br>
+   <div class="centerhor">
+    <h3>Description</h3>
+  </br>
   <%= f.text_area(:description, :placeholder => 'Description', :class => 'description-box') %>
   </div>
 
-   <div>
+   <div class="centerhor">
   <%= f.hidden_field(:size, :value => 1, :class => 'forms') %>
   </div>
-
-   <div>
+</br>
+   <div class="centerhor">
+    <h3>
   <%= f.label('Public') %>
+</h3>
 
 
 
   <%= f.check_box(:public) %>
 </div>
-
+</br>
 <div>
   <%= f.hidden_field(:size, :value => 1, :class => 'debate_size_style') %>
 </div>
 
- <div>
+ <div class="centerhor">
   <%= f.fields_for :debater_invites do |debater_invite_form| %>
   <%= render 'debater_invite_fields', f: debater_invite_form %>
   <% end %>
 </div>
-
-<div>
+</br>
+<div class="centerhor">
   <%= f.fields_for :moderator_invites do |moderator_invite_form| %>
   <%= render 'moderator_invite_fields', f: moderator_invite_form %>
 </div>
@@ -65,11 +74,11 @@
   
 
 </div>
-
-<div class="section">
+</br>
+<div class="section centerhor">
 <% end %>
   <% #= link_to_add_moderator_fields "Add Moderator", f, :moderator_invites %>
-  <%= f.submit %>
+  <%= f.submit(:class => "button") %>
 
 <% end %>
 

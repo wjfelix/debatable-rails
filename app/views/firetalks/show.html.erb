@@ -8,20 +8,29 @@
         <div class="ft-left-bar float-right">
 
           <div class="firetalk-info">
-          <%= @firetalk.description %>
-<%= @firetalk.name %>
-<%= @firetalk.topic %>
 
+
+          
+<h2><%= @firetalk.name %></h2>
+<h3><em><%= @firetalk.topic %></em></h3>
+
+<em>
+<%= @firetalk.description %>
+</em>
+
+
+</br></br>
+participants:
 
 <%= @users[0].email %>
 
 <%= @users[1].email %>
 </div>
 
-
-          <div>
+</br>
+          <div class="centerhor">
             <% if @user.id == @firetalk.user_id %>
-            <button onclick="startFiretalk()" id="startFiretalk">
+            <button onclick="startFiretalk()" id="startFiretalk" class="button">
               Start Firetalk
             </button>
             <% end %>
@@ -69,6 +78,7 @@
             </div>
 
             <span class="totalvotes">total votes</span>
+            <%= @users[0].firstname %>
 
             <!--
             
@@ -92,6 +102,7 @@
             0
           </div>
           <span class="totalvotes">total votes</span>
+          <%= @users[1].firstname %>
         </div>
         </div>
 

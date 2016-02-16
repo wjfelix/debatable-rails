@@ -28,33 +28,66 @@
 
 <div class="col span_7_of_10" id="center-col">
 
-
-	<h2>
-		<strong><%= image_tag("chitchat_nav_white.png", :class => "text-center")%>
+<div class="centerhor">
+	<h1>
+		<strong><%= image_tag("logo.png", :class => "logohome")%>
 			Welcome to Debatable!
 		</strong>
-	</h2>
-
+	</h1>
+</br>
 	<h3>
 		<em>
 		Our Mission:
 	    </em>
 	</h3>
+</br>
 	<blockquote class="justification">
 		<p>
-			Here at debatable, we want to give people the stage to share their opinions and be understood by their communities. Debatable is a live-video debating social media platform that bridges face to face conversation and social media interaction.<br><em>- The Debatable Team</em>
+			Here at debatable, we want to give people the stage to share their opinions and be understood by their communities. Debatable is a live-video debating social media platform that bridges face to face conversation and social media interaction.<br>
 		</p>
 	</blockquote>
+	<em>- The Debatable Team</em>
+
+</div>
 
 	<br><br>
 
-	<div class="center-obj">
+</br>
+
+<div class="news">
+	<div class="centerhor"><h2>In the news:</h2></div>
+</br>
+
+<% @news_items.each do |news_result| %>
+<% news_articles = news_result[:News] %>
+<% news_articles.each do |news_article| %>
+<div class="newsItem">
+	<%= link_to(news_article[:Title], news_article[:Url]) %>
+	<div class="newsdesc">
+	<%= news_article[:Source] %>
+	<%= news_article[:Description][0..100] << "..." %>
+</div>
+</div>
+<br />
+<% end %>
+<% end %>
+
+</div>
+
+</br>
+<div class="center-obj">
 
 	<div class="fb-page" data-href="https://www.facebook.com/debatablelive" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/debatablelive"><a href="https://www.facebook.com/debatablelive">Debatable</a></blockquote></div></div>
 
 </div>
+</br></br>
+<div>
 
-
+<h3>
+				Questions?</br>
+			Contact us at about@debatable.co
+		</h3>
+	</div>
 </div>
 
 <div class="col span_1_of_10"></div>
@@ -70,15 +103,6 @@
 <<<<<<< HEAD
 -->
 
-<% @news_items.each do |news_result| %>
-<% news_articles = news_result[:News] %>
-<% news_articles.each do |news_article| %>
-<div class="newsItem">
-	<%= link_to(news_article[:Title], news_article[:Url]) %>
-	<%= news_article[:Source] %>
-	<%= news_article[:Description][0..100] << "..." %>
-</div>
-<br />
-<% end %>
-<% end %>
+
+
 

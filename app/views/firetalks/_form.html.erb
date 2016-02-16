@@ -7,20 +7,12 @@
 <div class="col span_7_of_10" id="center-col">
 
   <div class="section">
-    <h2 class="centerhor">New Firetalk</h2>
+    <h1 class="centerhor">New Firetalk</h1>
   </div>
 
-
+</br>
 
   <div class="section">
-
-    <div class="col span_1_of_10">
-
-</div>
-
-<div class="col span_4_of_10">
-
-<div class="home-butts-container">
 
   <%= form_for [@user, @firetalk] do |f| %>
   <%= f.hidden_field :user_id, :value => @user.id %>
@@ -29,55 +21,44 @@
 
   <h3 class="centerhor">Topic</h3>
   </br>
+  <div class="centerhor">
   <%= f.text_field :topic, :class => "forms" %>
+</div>
 </br>
-  </br>
   <h3 class="centerhor">Title</h3>
   </br>
+  <div class="centerhor">
    <%= f.text_field :name, :class => "forms" %>
+   </div>
    </br>
   </br>
   
   <h3 class="centerhor">Description</h3>
   </br>
+  <div class="centerhor">
    <%= f.text_field :description, :class => "forms" %>
- </div>
+   </div>
   
 
-</div>
+</br>
 
-
-    <div class="col span_4_of_10">
   <h3 class="centerhor">Invite Debaters</h3>
   </br>
 
-  <div class="home-butts-container">
-
 
   <%= f.fields_for :firetalk_debaters do |ff| %>
+  <div class="centerhor">
     <%= ff.text_field(:email, :placeholder => 'Debater Email', :required => true, :class => "forms") %>
+  </div>
   <% end %>
 
 </div>
-</br>
-</br>
   
-</div>
-
-
-<div class="col span_1_of_10">
-
-</div>
-
-
-
-
-</div>
 
 
 <div class="section centerhor">
 </br></br>
-  <%= f.submit %>
+  <%= f.submit(:class => "button") %>
 
 </br></br>
 <% end %>

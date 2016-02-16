@@ -1,7 +1,16 @@
-<%= f.text_field(:user_name, :placeholder => 'Debater name or e-mail', :required => true, :class => "forms") %>
-	<h4>
-	Message:
-</h4>
-	
+<div>
+<h3>Invite the other debater</h3>
+</br>
+	<%= f.text_field(:user_name, :placeholder => 'Debater name or e-mail', :required => true, :class => "forms") %>
+
+</div>
+
+</br>
+	<div>
+	<h3>
+	Message
+</h3>
+	</br>
 <%= f.text_area(:invite_message, :placeholder => "Hi, I'd like you to join my debate!", :class => "forms") %>
 
+</div>
