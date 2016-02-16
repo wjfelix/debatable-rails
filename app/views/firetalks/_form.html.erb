@@ -20,33 +20,46 @@
 
 <div class="col span_4_of_10">
 
+<div class="home-butts-container">
 
   <%= form_for [@user, @firetalk] do |f| %>
   <%= f.hidden_field :user_id, :value => @user.id %>
 
 
 
-  <h3>Topic</h3>
+  <h3 class="centerhor">Topic</h3>
+  </br>
   <%= f.text_field :topic, :class => "forms" %>
-  <hr>
-  <h3>Title</h3>
+</br>
+  </br>
+  <h3 class="centerhor">Title</h3>
+  </br>
    <%= f.text_field :name, :class => "forms" %>
-  <hr>
+   </br>
+  </br>
   
-  <h3>Description</h3>
+  <h3 class="centerhor">Description</h3>
+  </br>
    <%= f.text_field :description, :class => "forms" %>
-  <hr>  
+ </div>
+  
 
 </div>
 
 
     <div class="col span_4_of_10">
-  <h3>Invite Debaters</h3>
+  <h3 class="centerhor">Invite Debaters</h3>
+  </br>
+
+  <div class="home-butts-container">
 
 
   <%= f.fields_for :firetalk_debaters do |ff| %>
     <%= ff.text_field(:email, :placeholder => 'Debater Email', :required => true, :class => "forms") %>
   <% end %>
+
+</div>
+</br>
 </br>
   
 </div>

@@ -266,6 +266,7 @@ li {
 .forms{
 	max-width: 250px;
 	margin: 0 auto;
+	width: 100%;
 }
 
 
@@ -424,7 +425,7 @@ full-ft-speaker-box {
 	margin: 0 auto;
 }
 .home-butts-container{
-	width: 150px;
+	width: 200px;
 	margin: 0 auto;
 }
 
