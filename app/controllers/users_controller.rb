@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      UserMailer.email_validation(@user)
+      UserMailer.email_validation(@user).deliver
       flash[:success] = true
       flash[:message] = "Account successfully created! Check your E-mail for a verification link"
       redirect_to root_url
@@ -53,19 +53,15 @@ class UsersController < ApplicationController
   end
 
   def validate_email
-    user = User.find_by_validation_code(params[:id])
+    user = User.find_by_validation_code(params[:user_id])
 
     if user
-      user.is_validated = true
-      if user.save
-        flash[:success] = true
-        flash[:message] = "E-mail successfully verified, Thanks for registering!"
-        redirect_to login_path
-      else
-        flash[:succes] = false
-        flash[:message] = "There was an error verifying your account!"
-        redirect_to root
-      end
+      worked = false
+      sql = "UPDATE users SET is_validated = 1 WHERE id = #{user.id}"
+      worked = ActiveRecord::Base.connection.execute(sql)
+      flash[:success] = true
+      flash[:message] = "E-mail successfully verified!"
+      redirect_to login_path
     else
       flash[:success] = false
       flash[:message] = "Sorry, that user does not exist!"

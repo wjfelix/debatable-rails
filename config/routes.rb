@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   get '/feedbacks/new', to: 'feedbacks#new'
   post '/feedbacks/new', to: 'feedbacks#create'
-  
+
   get 'home/news'
   get '/login', to: 'sessions#new'
   get '/logout', to: 'sessions#destroy'
@@ -18,11 +18,11 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   post '/subscribe', to: 'home#save_subscription'
 
-  get 'change_password', to: 'users#change_password'
-  post 'update_password', to: 'users#update_password'
+  get '/change_password', to: 'users#change_password'
+  post '/update_password', to: 'users#update_password'
 
   get '/forgot_password', to: 'users#forgot_password'
-  post '/reset_password', to: 'users#reset_password'
+  post '/forgot_password', to: 'users#reset_password'
 
   resources :users do
     get :validate_email
