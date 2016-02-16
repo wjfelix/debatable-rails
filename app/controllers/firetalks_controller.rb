@@ -4,11 +4,12 @@ class FiretalksController < ApplicationController
   require 'json'
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
   before_filter :config_opentok, :except => [:index, :destroy]
+  before_filter :is_logged_in
 
   def new
     @user = User.find(params[:user_id])
     @firetalk = Firetalk.new
-    1.times do
+    3.times do
       @firetalk.firetalk_debaters.build
     end
   end
@@ -33,6 +34,10 @@ class FiretalksController < ApplicationController
     if @firetalk.save
       flash[:success] = true
       flash[:message] = "Successfully created new Firetalk!"
+
+      @firetalk.firetalk_debaters.each do |firetalk_debater|
+        UserMailer.send_firetalk_invite(@firetalk, firetalk_debater).deliver
+      end
       redirect_to user_firetalk_path(:id => @firetalk.id)
     else
       flash[:success] = false
@@ -109,5 +114,13 @@ class FiretalksController < ApplicationController
       end
     end
     return false
+  end
+
+  def is_logged_in
+    if (session[:user_id].nil?)
+      flash[:message] = true
+      flash[:message] = "You must be logged in to use this feature!"
+      redirect_to login_path
+    end
   end
 end

@@ -24,7 +24,11 @@ class SessionsController < ApplicationController
         elsif @user.authenticate(params[:session][:password])
           session[:user_id] = @user.id
           flash[:message] = "Successfully logged in!"
-          redirect_to home_news_path
+          if (session[:return_route])
+            redirect_to session[:return_route]
+          else
+            redirect_to home_news_path
+          end
         else
           flash[:message] = "Incorrect Username or Password"
           redirect_to login_path

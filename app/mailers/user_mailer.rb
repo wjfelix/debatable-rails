@@ -12,4 +12,11 @@ class UserMailer < ActionMailer::Base
     mail(:to => user.email,
     :subject => 'New Password')
   end
+
+  def send_firetalk_invite(firetalk, user)
+    @firetalk = firetalk
+    @user = user
+    mail(:to => @user.email,
+    :subject => "You've been challenged to a firetalk!")
+  end
 end

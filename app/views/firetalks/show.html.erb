@@ -10,7 +10,7 @@
           <div class="firetalk-info">
 
 
-          
+
 <h2><%= @firetalk.name %></h2>
 <h3><em><%= @firetalk.topic %></em></h3>
 
@@ -30,7 +30,7 @@ participants:
 </br>
           <div class="centerhor">
             <% if @user.id == @firetalk.user_id %>
-            <button onclick="startFiretalk()" id="startFiretalk" class="button">
+            <button id="startFiretalk" class="button">
               Start Firetalk
             </button>
             <% end %>
@@ -42,9 +42,9 @@ participants:
 
   <div class="col span_7_of_10-ft" id="center-col-ft">
     <div class="section group firetalktopbar-container">
-      
+
       <div class="col span_1_of_3">
-        <span class="margleft"> 
+        <span class="margleft">
           Time:
         </span>
         <span id="clock">
@@ -73,7 +73,7 @@ participants:
             <div id="speaker1Box" class="speakerBox">
           </div>
           <div class="speaker-options">
-            <div id="speakerOnePoints" class="speakerPoints">
+            <div id="speaker1Points" class="speakerPoints">
               0
             </div>
 
@@ -81,7 +81,7 @@ participants:
             <%= @users[0].firstname %>
 
             <!--
-            
+
             <%= image_tag("infobutton.svg", :class =>"infobutton")%>
 
           -->
@@ -98,7 +98,7 @@ participants:
           </div>
 
           <div class="speaker-options">
-          <div id="speakerTwoPoints" class="speakerPoints">
+          <div id="speaker2Points" class="speakerPoints">
             0
           </div>
           <span class="totalvotes">total votes</span>
@@ -107,40 +107,40 @@ participants:
         </div>
 
 
-       
+
         <div class="col span_1_of_3 full-ft-speaker-box">
           <div id="speaker3Box" class="speakerBox">
-            
+
           </div>
 
         <div class="speaker-options">
-          <div id="speakerThreePoints" class="speakerPoints">
+          <div id="speaker3Points" class="speakerPoints">
             0
           </div>
           <span class="totalvotes">total votes</span>
         </div>
       </div>
       <div class="section">
-       
+
         <div class="col span_1_of_3 full-ft-speaker-box">
           <div id="speaker4Box" class="speakerBox">
-           
+
           </div>
 
           <div class="speaker-options">
-          <div id="speakerFourPoints" class="speakerPoints">
+          <div id="speaker4Points" class="speakerPoints">
             0
           </div>
           <span class="totalvotes">total votes</span>
         </div>
         </div>
-       
+
         <div class="col span_1_of_3 full-ft-speaker-box">
           <div id="speaker5Box" class="speakerBox">
-          
+
           </div>
           <div class="speaker-options">
-          <div id="speakerFivePoints" class="speakerPoints">
+          <div id="speaker5Points" class="speakerPoints">
             0
           </div>
           <span class="totalvotes">
@@ -148,12 +148,12 @@ participants:
           </span>
         </div>
         </div>
-        
+
         <div class="col span_1_of_3 full-ft-speaker-box">
           <div id="speaker6Box" class="speakerBox">
           </div>
           <div class="speaker-options">
-          <div id="speakerSixPoints" class="speakerPoints">
+          <div id="speaker6Points" class="speakerPoints">
             0
           </div>
           <span class="totalvotes">total votes</span>
@@ -514,7 +514,7 @@ session.on(
 
 session.on(
   "signal:resetTimer", function(event) {
-  $('#clock').html("10");
+  $('#clock').html("30");
 });
 
 session.on(
@@ -529,7 +529,7 @@ session.on(
     var totalSpeakerBoxes = $('.speakerBox');
     for (var i = 0; i < totalSpeakerBoxes.length; i++) {
       if (i == nowSpeaking) {
-        totalSpeakerBoxes[i].style.border = "4px solid red";
+        totalSpeakerBoxes[i].style.border = "4px solid green";
       }
       else if (totalSpeakerBoxes[i].style.border != "4px solid #000000"){
         totalSpeakerBoxes[i].style.border = "4px solid red";
@@ -537,14 +537,10 @@ session.on(
     }
     // Don't worry about this, it's just muting stuff
     if (event.data == session.connection.connectionId) {
-<<<<<<< HEAD
 
-      //$("#speaker" + speakerNumber + "Box").css("border", "4px solid green");
-      alert("your turn to speak");
+      $("#speaker" + speakerNumber + "Box").css("border", "4px solid green");
 
-=======
       //$("#speaker" + speakerNumber + "Box").css("background-color", "green");
->>>>>>> refs/remotes/rhenvar/master
       publisher.publishAudio(true);
     }
     else {
@@ -637,6 +633,7 @@ session.on(
     }
 
     // OWNER START SPEAKING
+    alert("STARTING OWNER TALK");
     session.signal({
       type: "adjustAudio",
       data: session.connection.connectionId
@@ -646,13 +643,14 @@ session.on(
         alert("There was an error starting the firetalk with owner");
       }
     });
+    alert("ENDING OWNER TALK");
 
     var timer = null;
     if (!timer) {
       timer = setInterval(clockwork, 1000);
     }
 
-    var totalRounds = 3;
+    var totalRounds = 4;
     var currentRound = 1;
 
     // Firetalk logic function
@@ -863,7 +861,7 @@ session.on(
       var index = lowestPointsIndex();
       playersAlive[index] = null;
       var lowestConnection = totalSessions[index].connection;
-      alert("dropping " + lowestConnection.connectionId);
+      //alert("dropping " + lowestConnection.connectionId);
       session.signal(
         {
           type: "disconnect",
