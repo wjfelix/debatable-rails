@@ -97,7 +97,7 @@ input, select {
 }
 
 a,a:visited,a:hover{
-	color: #0099ff;
+	color: #ffffff;
 	text-decoration: none;
 }
 body{
@@ -188,6 +188,7 @@ body {
 	background-color: #d9d9d9;
 	position: fixed;
 	width: 100%;
+	max-height: 55px;
 }
 
 ul {
@@ -224,13 +225,13 @@ li {
 /*HOME*/
 
 #toppad{
-	padding-top: 45px;
+	padding-top: 60px;
 }
 
 
 #center-col{
 	background-color: #999999;
-	border-radius: 5px;
+	
 	border-style: solid;
 	border-width: 1px;
 	padding: 20px 5% 50px 5%;
@@ -245,7 +246,7 @@ li {
 .home-section-2{
 	margin: 20px 0px;
 	background-color: #ccedff;
-	border-radius: 5px;
+	
 	padding: 20px 20px;
 	border-style: solid;
 	border-width: 1px;
@@ -307,7 +308,7 @@ li {
 	height: 150px;
 	width: 200px;
 	float: left;
-	border-radius: 5px;
+	
 }
 
 
@@ -329,7 +330,7 @@ li {
 
 #center-col-ft{
 	background-color: #999999;
-	border-radius: 5px;
+	
 	border-style: solid;
 	border-width: 1px;
 	padding-left: 20px;
@@ -359,7 +360,7 @@ li {
 	border-width: 2px;
 	border-color: #f2f2f2;
 	padding-top: 10px;
-	border-radius: 5px;
+	
 	background-color: #ffffff;
 }
 
@@ -372,11 +373,14 @@ li {
 }
 
 .navlogo{
-	margin-top: 6px;
+	line-height: 30px;
 }
 
 .navlogo1{
-	height:15px;
+	padding-top: 5px;
+	height:25px;
+	transform-origin: 50% 50%;
+
 }
 
 @media screen 1160px breaks firetalk ui
@@ -407,6 +411,19 @@ full-ft-speaker-box {
 }
 
 
+.centervertnav{
+	justify-content:center;
+	transform-origin: 50% 50%;
+	line-height: 30px;
+}
+
+.navcontainer{
+	display: flex;
+	flex-direction: row;
+}
+
+
+
 .leftbar-news{
 	background-color: #ffffff;
 	height: calc(100% - 70px);
@@ -417,7 +434,7 @@ full-ft-speaker-box {
 	padding-top: 30px;
 	padding-left: 10px;
 	padding-right: 10px;
-	border-radius: 5px;
+	
 }
 
 .home-butts{
@@ -426,14 +443,14 @@ full-ft-speaker-box {
 }
 .home-butts-container{
 	width: 100px;
-	margin: 0 auto;
+	margin: 2px auto 0px auto;
 }
 
 .button {
 	background-color: #f2f2f2;
 	border-width: 2px;
 	border-style: solid;
-	border-color: black;
+	border-color: #e6e6e6;
 	font-family: 'Karla', sans-serif;
 	padding:5px;
 	text-align: center; 
@@ -441,8 +458,15 @@ full-ft-speaker-box {
 
 .button:hover {
 	background-color: #e6e6e6;
+	border-color: #f2f2f2;
 }
 
+
+.middle-nav{
+	display: inline;
+	margin: 0 auto;
+	padding-left: 50px;
+}
 
 
 
