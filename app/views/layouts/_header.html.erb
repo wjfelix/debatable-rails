@@ -14,14 +14,14 @@
 <li><%= link_to("Tell us how we're doing.", '/feedbacks/new') %></li>
 </ul>
 <ul class="float-right centervertnav">
-  <li class="navlink">
+  <li class="navlog">
     <% if session[:user_id] != nil %>
       <%= nav_link 'Logout', logout_path %>
     <% else %>
     <%= nav_link 'Login', login_path %>
     <% end %>
 </li>
-<li class="navlink"><%= link_to('My Profile', @user) %>
+<li class="navlog"><%= link_to('My Profile', @user) %>
   </li>
 </ul>
 </ul>
