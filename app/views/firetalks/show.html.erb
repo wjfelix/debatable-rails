@@ -805,14 +805,47 @@ session.on(
       }
       for (var i = 0; i < playersAlive.length; i++) {
         if (playersAlive[i] != null) {
-          var connection = totalSessions[i].connection;
-          if (parseInt(connection.data.split("|")[0]) < parseInt(lowestConnection.data.split("|")[0])) {
+          var testConnection = totalSessions[i].connection;
+          if (parseInt(testConnection.data.split("|")[0]) < parseInt(lowestConnection.data.split("|")[0])) {
             lowestIndex = i;
-            lowestConnection = connection;
+            lowestConnection = testConnection;
           }
         }
       }
       return lowestIndex;
+
+      /*
+      var alive = playersLeft();
+      var aliveConnections = [];
+
+      for (var i = 0; i < totalSessions.length; i++) {
+        for (var j = 0; i < alive.length; j++) {
+          if (totalSessions[i].connection.connectionId == alive[j]) {
+            aliveConnections.push(totalSessions[i].connection);
+          }
+        }
+      }
+
+      var firstConnection = aliveConnections[0];
+      var lowestIndex = 0;
+      for (var i = 0; i < aliveConnections.length; i++) {
+        var firstPoints = parseInt(firstConnection.data.split("|")[0]);
+        var secondPoints = parseInt(aliveConnections[i].connection.data.split("|")[0]);
+        if (secondPoints > firstPoints) {
+          firstConnection = aliveConnections[i].connection;
+        }
+      }
+      */
+    }
+
+    function playersLeft() {
+      left = [];
+      for (var i = 0; i < playersAlive.length; i++) {
+        if (players[i]) {
+          left.push(players[i]);
+        }
+      }
+      return left;
     }
 
     function dropLowest() {
