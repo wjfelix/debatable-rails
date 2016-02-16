@@ -268,6 +268,15 @@ li {
 	max-width: 250px;
 	margin: 0 auto;
 	width: 100%;
+	padding: 2px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #f2f2f2;
+}
+
+.feedback-box{
+	height: 200px;
+	width: 100%
 }
 
 
@@ -437,6 +446,11 @@ full-ft-speaker-box {
 	
 }
 
+.feedback-center{
+	margin: 0 auto;
+	align-content: center;
+}
+
 .home-butts{
 	width: 100%;
 	margin: 0 auto;
@@ -466,6 +480,12 @@ full-ft-speaker-box {
 	display: inline;
 	margin: 0 auto;
 	padding-left: 50px;
+}
+
+.description-box{
+	height: 100px;
+	width: 100%;
+	max-width: 250px;
 }
 
 
