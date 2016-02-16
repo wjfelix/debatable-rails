@@ -19,7 +19,7 @@
 
 
 
-  <div class="col span_7_of_10" id="center-col-ft">
+  <div class="col span_7_of_10-ft" id="center-col-ft">
     <div class="section group firetalktopbar-container">
       
       <div class="col span_1_of_3">
@@ -496,12 +496,9 @@ session.on(
     }
     // Don't worry about this, it's just muting stuff
     if (event.data == session.connection.connectionId) {
-<<<<<<< HEAD
-      alert("your turn to speak");
+
       //$("#speaker" + speakerNumber + "Box").css("border", "4px solid green");
-=======
-      //$("#speaker" + speakerNumber + "Box").css("background-color", "green");
->>>>>>> refs/remotes/rhenvar/master
+
       publisher.publishAudio(true);
     }
     else {
@@ -792,12 +789,5 @@ session.on(
     }
   }
   <% end %>
-<<<<<<< HEAD
-<% end %>
-=======
-<% end %>
 
-<% if @user.id == @firetalk.user_id %>
-  <button id="startFiretalk">Start Firetalk</button>
 <% end %>
->>>>>>> refs/remotes/rhenvar/master
