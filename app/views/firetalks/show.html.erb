@@ -583,8 +583,7 @@ function startLoadingBar(speakerIndex) {
   bar.style.border = "4 px solid pink";
   bar.height = "225px";
   var speakerBox = $('#speaker' + speakerIndex + 'Box');
-  var parent = speakerBox.parentElement;
-  parent.appendChild(bar);
+  document.body.appendChild(bar);
   barTimer = setInterval(decrementBar, 100);
 }
 
