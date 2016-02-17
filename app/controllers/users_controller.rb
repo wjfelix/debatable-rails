@@ -57,7 +57,7 @@ class UsersController < ApplicationController
 
     if user
       worked = false
-      sql = "UPDATE users SET is_validated = 1 WHERE id = #{user.id}"
+      sql = "UPDATE users SET is_validated = true WHERE id = #{user.id}"
       worked = ActiveRecord::Base.connection.execute(sql)
       flash[:success] = true
       flash[:message] = "E-mail successfully verified!"
