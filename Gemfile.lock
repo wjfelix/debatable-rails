@@ -89,6 +89,7 @@ GEM
       activesupport (>= 2.0)
       addressable (~> 2.3)
       httparty (~> 0.13.1)
+    pg (0.18.4)
     rack (1.5.5)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -165,8 +166,9 @@ DEPENDENCIES
   faye
   jbuilder (~> 2.0)
   jquery-rails
-  mysql2 (= 0.3.20)
+  mysql2
   opentok
+  pg
   rails (= 4.1.8)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
