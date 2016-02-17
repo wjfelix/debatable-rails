@@ -184,6 +184,8 @@ var token = "<%= j @tok_token %>";
 var myEmail = "<%= j @user.email %>"
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
 var isDebater = "<%= @is_debater %>"
+var firetalkGoing = false;
+var playersAlive = [];
 
 // connecting logic
 TB.setLogLevel(TB.DEBUG);
@@ -247,7 +249,6 @@ function subscribeToStreams(streams) {
 }
 
 function streamPropertyChangedHandler() {
-
 }
 
 function decrementVote() {
@@ -450,9 +451,30 @@ session.on(
 
     // JSON points email => Speaker number
     // totalSessions puts people in the right order by speaker number
-    totalSessions[parseInt(debatersJson[emailAndPoints[1]])] = event;
+
+    // RECONNECTING LOGIC
+    var newSession = event;
+
+    if (firetalkGoing) {
+      var index = parseInt(debatersJson[emailAndPoints[1]]);
+      if (playersAlive[index]) {
+        playersAlive[index] == newSession.connection.connectionId;
+        showPoints();
+      }
+    }
+    totalSessions[parseInt(debatersJson[emailAndPoints[1]])] = newSession;
   }
 );
+
+function showPoints() {
+  session.signal({
+    type: "showPoints"
+  }, function(error) {
+    if (error) {
+      alert("couldn't show points");
+    }
+  });
+}
 
 // Listen to ourselves if we lose
 session.on(
@@ -529,8 +551,11 @@ session.on(
     var totalSpeakerBoxes = $('.speakerBox');
     for (var i = 0; i < totalSpeakerBoxes.length; i++) {
       if (i == nowSpeaking) {
-        totalSpeakerBoxes[i].style.border = "4px solid green";
+        //totalSpeakerBoxes[i].style.border = "4px solid green";
+        startLoadingBar(i);
       }
+
+      // if it's not black, turn it red (if they're not out, mute them for the round)
       else if (totalSpeakerBoxes[i].style.borderColor != "rgb(0, 0, 0)"){
         if (totalSpeakerBoxes[i].style.borderColor != '#000000') {
           totalSpeakerBoxes[i].style.border = "4px solid red";
@@ -540,7 +565,7 @@ session.on(
     // Don't worry about this, it's just muting stuff
     if (event.data == session.connection.connectionId) {
 
-      $("#speaker" + speakerNumber + "Box").css("border", "4px solid green");
+      //$("#speaker" + speakerNumber + "Box").css("border", "4px solid green");
 
       //$("#speaker" + speakerNumber + "Box").css("background-color", "green");
       publisher.publishAudio(true);
@@ -550,6 +575,31 @@ session.on(
     }
   }
 );
+
+var barTimer = null;
+function startLoadingBar(speakerIndex) {
+  var bar = document.createElement("div");
+  bar.id = "speakingBar";
+  bar.style.border = "4 px solid pink";
+  bar.height = "225px";
+  var speakerBox = $('#speaker' + speakerIndex + 'Box');
+  var parent = speakerBox.parentElement;
+  parent.appendChild(bar);
+  barTimer = setInterval(decrementBar, 100);
+}
+
+function decrementBar() {
+  var currentTimeLeft = parseInt($('#clock').text(), 10);
+  var bar = document.getElementById("speakingBar");
+  if (currentTimeLeft == 0) {
+    clearInterval(barTimer);
+    barTimer = null;
+  }
+  else {
+    // CHANGE THIS WHEN YOU CHANGE THE TIME
+    bar.style.height = currentTimeLeft * 15 / 225;
+  }
+}
 
 session.on(
   "signal:nextRound", function(event) {
@@ -602,7 +652,6 @@ session.on(
 
 <% if session[:user_id].to_s == params[:user_id].to_s %>
   <%= javascript_tag do %>
-  var playersAlive = [];
   var currentSpeakerIndex = 0;
   window.onload = function() {
     $('#startFiretalk').on('click', function() {
@@ -610,17 +659,10 @@ session.on(
     });
   };
 
-  function showPoints() {
-    session.signal({
-      type: "showPoints"
-    }, function(error) {
-      if (error) {
-        alert("couldn't show points");
-      }
-    });
-  }
   function startFiretalk() {
     $('#startFiretalk').hide();
+    firetalkGoing = true;
+
     showPoints();
     session.signal({
       type: "removeButtons"
