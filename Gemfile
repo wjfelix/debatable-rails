@@ -37,6 +37,8 @@ gem 'bootstrap-sass', '3.2.0.0'
 
 gem 'searchbing'
 
+gem 'unicorn'
+
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
