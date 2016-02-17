@@ -435,10 +435,18 @@ session.on(
 session.on(
   "signal:catchUpPoints", function(event) {
     var mostRecentPoints = event.data.split("|");
+    var zeroPoints = document.querySelectorAll("speakerPoints");
+    alert(zeroPoints.length);
+
+    for (var i = 0; i < mostRecentPoints.length; i++) {
+      zeroPoints[i].innerHTML = mostRecentPoints[i];
+    }
+    /*
     $('.speakerPoints').each(function(index) {
       var newPoint = mostRecentPoints[index];
       $(this).html(newPoint);
     });
+    */
     /*
     for (var i = 0; i < mostRecentPoints.length; i++) {
       points[i].html(mostRecentPoints[i]);
