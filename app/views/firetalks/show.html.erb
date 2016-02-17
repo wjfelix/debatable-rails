@@ -441,7 +441,7 @@ session.on(
       zeroPoints[i].innerHTML = mostRecentPoints[i];
 
       var conn = totalSessions[i].connection;
-      conn.data = mostRecentPoints[i] + "|" conn.data.split("|")[1];
+      conn.data = mostRecentPoints[i] + "|" + conn.data.split("|")[1];
     }
     /*
     $('.speakerPoints').each(function(index) {
