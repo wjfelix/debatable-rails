@@ -5,6 +5,7 @@ class FiretalksController < ApplicationController
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
   before_filter :config_opentok, :except => [:index, :destroy]
   before_filter :is_logged_in
+  before_filter :store_route
 
   def new
     @user = User.find(params[:user_id])
@@ -122,5 +123,9 @@ class FiretalksController < ApplicationController
       flash[:message] = "You must be logged in to use this feature!"
       redirect_to login_path
     end
+  end
+
+  def store_route
+    session[:return_route] = request.env['PATH_INFO']
   end
 end
