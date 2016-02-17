@@ -479,7 +479,7 @@ session.on(
           data: pointsString
         }, function(error) {
           if (error) {
-            alert("could not tell player to reset points!");
+            alert("could not tell player to reset points!" + error.message + error.code);
           }
         }
       )
