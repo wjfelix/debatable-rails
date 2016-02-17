@@ -475,7 +475,7 @@ session.on(
       session.signal({
           type: "catchUpPoints",
           to: event.connection.connectionId,
-          data: pointsSTring
+          data: pointsString
         }, function(error) {
           if (error) {
             alert("could not tell player to reset points!");
