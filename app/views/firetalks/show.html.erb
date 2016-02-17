@@ -434,11 +434,16 @@ session.on(
 
 session.on(
   "signal:catchUpPoints", function(event) {
-    var points = $('.speakerPoints');
     var mostRecentPoints = event.data.split("|");
+    $('.speakerPoints').each(function(index) {
+      var newPoint = mostRecentPoints[index];
+      $(this).html(newPoint);
+    });
+    /*
     for (var i = 0; i < mostRecentPoints.length; i++) {
-      points[i].html(points[i]);
+      points[i].html(mostRecentPoints[i]);
     }
+    */
   }
 );
 
@@ -471,7 +476,6 @@ session.on(
       for (var i = 0; i < totalSessions.length; i++) {
         pointsString += totalSessions[i].connection.data.split("|")[0] + "|";
       }
-      alert(pointsString);
       // update their points
       session.signal({
           type: "catchUpPoints",
