@@ -9,7 +9,7 @@ b, i,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figcaption, figure, 
+article, aside, canvas, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
     margin: 0;
@@ -26,7 +26,7 @@ body {
 }
 
 article,aside,details,figcaption,figure,
-footer,header,hgroup,menu,nav,section { 
+footer,header,hgroup,menu,nav,section {
 	display: block;
 }
 
@@ -60,7 +60,7 @@ ins {
 
 mark {
     background-color: #ff9;
-    color: #000; 
+    color: #000;
     font-style: italic;
     font-weight: bold;
 }
@@ -82,7 +82,7 @@ table {
 hr {
     display: block;
     height: 1px;
-    border: 0;   
+    border: 0;
     border-top: 1px solid #cccccc;
     margin: 1em 0;
     padding: 0;
@@ -106,7 +106,7 @@ body{
  }
 
 
-h1 { 
+h1 {
     display: block;
     font-size: 2em;
     font-weight: bold;
@@ -118,7 +118,7 @@ h2 {
     font-weight: bold;
 }
 
-h3 { 
+h3 {
     display: block;
     font-size: 1.17em;
     font-weight: bold;
@@ -128,10 +128,10 @@ h1,h2,h3{
 	font-family: 'PT Sans', sans-serif;
 }
 
-html { 
+html {
     height:100%;
 }
-body { 
+body {
     min-height:100%;
 }
  /*===================================
@@ -174,7 +174,7 @@ body {
 /*  REMOVE MARGINS AS ALL GO FULL WIDTH AT 480 PIXELS */
 
 @media only screen and (max-width: 480px) {
-	.col { 
+	.col {
 		margin: 1% 0 1% 0%;
 	}
 }
@@ -231,7 +231,7 @@ li {
 
 #center-col{
 	background-color: #999999;
-	
+
 	border-style: solid;
 	border-width: 1px;
 	padding: 20px 5% 50px 5%;
@@ -246,7 +246,7 @@ li {
 .home-section-2{
 	margin: 20px 0px;
 	background-color: #ccedff;
-	
+
 	padding: 20px 20px;
 	border-style: solid;
 	border-width: 1px;
@@ -317,7 +317,7 @@ li {
 	height: 150px;
 	width: 200px;
 	float: left;
-	
+
 }
 
 
@@ -339,7 +339,7 @@ li {
 
 #center-col-ft{
 	background-color: #999999;
-	
+
 	border-style: solid;
 	border-width: 1px;
 	padding-left: 20px;
@@ -369,7 +369,7 @@ li {
 	border-width: 2px;
 	border-color: #f2f2f2;
 	padding-top: 10px;
-	
+
 	background-color: #ffffff;
 }
 
@@ -392,7 +392,7 @@ li {
 
 }
 
-@media screen 1160px breaks firetalk ui
+/* @media screen 1160px breaks firetalk ui */
 
 
 full-ft-speaker-box {
@@ -445,7 +445,7 @@ full-ft-speaker-box {
 	padding-top: 30px;
 	padding-left: 10px;
 	padding-right: 10px;
-	
+
 }
 
 .feedback-center{
@@ -469,7 +469,7 @@ full-ft-speaker-box {
 	border-color: #e6e6e6;
 	font-family: 'Karla', sans-serif;
 	padding:5px;
-	text-align: center; 
+	text-align: center;
 }
 
 .button:hover {
@@ -543,7 +543,7 @@ full-ft-speaker-box {
 }
 
 	.span_7_of_10-ft {
-	width: 50%; 
+	width: 50%;
 }
 
 	#center-col-ft{
@@ -553,7 +553,7 @@ full-ft-speaker-box {
 	#center-col{
 		max-width: 1270px;
 	}
-	
+
 
 
 
@@ -584,23 +584,23 @@ full-ft-speaker-box {
 }
 
 .span_7_of_10 {
-	width: 69.52%; 
+	width: 69.52%;
 }
 
 .span_7_of_10-ft {
-	width: 69.52%; 
+	width: 69.52%;
 }
 
 .span_6_of_10 {
-	width: 59.36%; 
+	width: 59.36%;
 }
 
 .span_5_of_10 {
-	width: 49.2%; 
+	width: 49.2%;
 }
 
 .span_4_of_10 {
-	width: 39.04%; 
+	width: 39.04%;
 }
 
 .span_3_of_10 {
@@ -608,11 +608,11 @@ full-ft-speaker-box {
 }
 
 .span_2_of_10 {
-	width: 18.72%; 
+	width: 18.72%;
 }
 
 .span_1_of_10 {
-	width: 8.56%; 
+	width: 8.56%;
 }
 
 
@@ -620,51 +620,51 @@ full-ft-speaker-box {
 
 @media only screen and (max-width: 480px) {
 	.span_10_of_10 {
-		width: 100%; 
+		width: 100%;
 	}
 	.span_9_of_10 {
-		width: 100%; 
+		width: 100%;
 	}
 	.span_8_of_10 {
-		width: 100%; 
+		width: 100%;
 	}
 	.span_7_of_10 {
-		width: 100%; 
+		width: 100%;
 	}
 	.span_6_of_10 {
-		width: 100%; 
+		width: 100%;
 	}
 	.span_5_of_10 {
-		width: 100%; 
+		width: 100%;
 	}
 	.span_4_of_10 {
-		width: 100%; 
+		width: 100%;
 	}
 	.span_3_of_10 {
-		width: 100%; 
+		width: 100%;
 	}
 	.span_2_of_10 {
-		width: 100%; 
+		width: 100%;
 	}
 	.span_1_of_10 {
-		width: 100%; 
+		width: 100%;
 	}
 }
 
 
 /*  GRID OF THREE   ============================================================================= */
 
-	
+
 .span_3_of_3 {
-	width: 100%; 
+	width: 100%;
 }
 
 .span_2_of_3 {
-	width: 66.13%; 
+	width: 66.13%;
 }
 
 .span_1_of_3 {
-	width: 32.26%; 
+	width: 32.26%;
 }
 
 
@@ -672,10 +672,10 @@ full-ft-speaker-box {
 
 @media only screen and (max-width: 480px) {
 	.span_3_of_3 {
-		width: 100%; 
+		width: 100%;
 	}
 	.span_2_of_3 {
-		width: 100%; 
+		width: 100%;
 	}
 	.span_1_of_3 {
 		width: 100%;
