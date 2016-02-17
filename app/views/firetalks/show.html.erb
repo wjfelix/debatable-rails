@@ -552,7 +552,7 @@ session.on(
     for (var i = 0; i < totalSpeakerBoxes.length; i++) {
       if (i == nowSpeaking) {
         //totalSpeakerBoxes[i].style.border = "4px solid green";
-        startLoadingBar(i);
+        startLoadingBar(i + 1);
       }
 
       // if it's not black, turn it red (if they're not out, mute them for the round)
