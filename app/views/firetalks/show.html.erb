@@ -476,6 +476,11 @@ session.on(
       for (var i = 0; i < totalSessions.length; i++) {
         pointsString += totalSessions[i].connection.data.split("|")[0] + "|";
       }
+      var index = parseInt(debatersJson[emailAndPoints[1]]);
+      if (playersAlive[index] != null) {
+        playersAlive[index] = newSession.connection.connectionId;
+        showPoints();
+      }
       // update their points
       session.signal({
           type: "catchUpPoints",
@@ -486,12 +491,7 @@ session.on(
             alert("could not tell player to reset points!" + error.message + error.code);
           }
         }
-      )
-      var index = parseInt(debatersJson[emailAndPoints[1]]);
-      if (playersAlive[index] != null) {
-        playersAlive[index] = newSession.connection.connectionId;
-        showPoints();
-      }
+      );
     }
     totalSessions[parseInt(debatersJson[emailAndPoints[1]])] = newSession;
   }
