@@ -475,7 +475,7 @@ session.on(
       // update their points
       session.signal({
           type: "catchUpPoints",
-          to: newSession.connection.connectionId,
+          to: newSession.connection,
           data: pointsString
         }, function(error) {
           if (error) {
