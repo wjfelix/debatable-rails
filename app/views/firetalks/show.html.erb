@@ -447,6 +447,7 @@ function incrementStream(connectionId) {
 // Get whoever connected and add to list
 session.on(
   "connectionCreated", function(event) {
+    alert("created!");
     var emailAndPoints = event.connection.data.split("|");
 
     // JSON points email => Speaker number
@@ -551,8 +552,8 @@ session.on(
     var totalSpeakerBoxes = $('.speakerBox');
     for (var i = 0; i < totalSpeakerBoxes.length; i++) {
       if (i == nowSpeaking) {
-        //totalSpeakerBoxes[i].style.border = "4px solid green";
-        startLoadingBar(i + 1);
+        totalSpeakerBoxes[i].style.border = "4px solid green";
+        //startLoadingBar(i + 1);
       }
 
       // if it's not black, turn it red (if they're not out, mute them for the round)
@@ -583,7 +584,7 @@ function startLoadingBar(speakerIndex) {
   bar.style.border = "4 px solid pink";
   bar.height = "225px";
   var speakerBox = $('#speaker' + speakerIndex + 'Box');
-  document.querySelector("speaker-options").appendChild(bar);
+  // append bar to somewhere?
   barTimer = setInterval(decrementBar, 100);
 }
 
@@ -593,6 +594,7 @@ function decrementBar() {
   if (currentTimeLeft == 0) {
     clearInterval(barTimer);
     barTimer = null;
+    bar.visibility = "hidden";
   }
   else {
     // CHANGE THIS WHEN YOU CHANGE THE TIME
