@@ -460,7 +460,7 @@ session.on(
       var index = parseInt(debatersJson[emailAndPoints[1]]);
       if (playersAlive[index] != null) {
         alert(playersAlive[index]);
-        playersAlive[index] == newSession.connection.connectionId;
+        playersAlive[index] = newSession.connection.connectionId;
         showPoints();
       }
     }
