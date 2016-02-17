@@ -447,7 +447,6 @@ function incrementStream(connectionId) {
 // Get whoever connected and add to list
 session.on(
   "connectionCreated", function(event) {
-    alert("created!");
     var emailAndPoints = event.connection.data.split("|");
 
     // JSON points email => Speaker number
@@ -457,6 +456,7 @@ session.on(
     var newSession = event;
 
     if (firetalkGoing) {
+      alert("connected!@");
       var index = parseInt(debatersJson[emailAndPoints[1]]);
       if (playersAlive[index]) {
         playersAlive[index] == newSession.connection.connectionId;
