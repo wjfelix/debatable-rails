@@ -432,6 +432,16 @@ session.on(
   }
 );
 
+session.on(
+  "signal:catchUpPoints", function(event) {
+    var points = $('.speakerPoints');
+    var mostRecentPoints = event.data.split("|");
+    for (var i = 0; i < mostRecentPoints.length; i++) {
+      points[i].html(points[i]);
+    }
+  }
+);
+
 // Stores the points of the connection locally and returns the value
 function incrementStream(connectionId) {
   for (var i = 0; i < totalSessions.length; i++) {
@@ -456,10 +466,24 @@ session.on(
     var newSession = event;
 
     if (firetalkGoing) {
-      alert("connected!@");
+
+      var pointsString = "|";
+      for (var i = 0; i < totalSessions.length; i++) {
+        pointsString += totalSessions[i].connection.data.split("|")[0] + "|";
+      }
+      // update their points
+      session.signal({
+          type: "catchUpPoints",
+          to: event.connection.connectionId,
+          data: pointsSTring
+        }, function(error) {
+          if (error) {
+            alert("could not tell player to reset points!");
+          }
+        }
+      )
       var index = parseInt(debatersJson[emailAndPoints[1]]);
       if (playersAlive[index] != null) {
-        alert(playersAlive[index]);
         playersAlive[index] = newSession.connection.connectionId;
         showPoints();
       }
