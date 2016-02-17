@@ -48,7 +48,7 @@ participants:
           Time:
         </span>
         <span id="clock">
-          30
+          15
         </span>
       </div>
 
@@ -262,7 +262,7 @@ function getPoints() {
 
 // BROADCAST SIGNAL EVENTS
 $('#speaker1Points').click(function() {
-  if (hasPointsLeft()) {
+  if (hasPointsLeft() && speakerNumber != 1) {
     decrementVote();
     session.signal(
       {
@@ -279,7 +279,7 @@ $('#speaker1Points').click(function() {
 });
 
 $('#speaker2Points').click(function() {
-  if (hasPointsLeft()) {
+  if (hasPointsLeft() && speakerNumber != 2) {
     session.signal(
       {
         data:  totalSessions[1].connection.connectionId,
@@ -296,7 +296,7 @@ $('#speaker2Points').click(function() {
 });
 
 $('#speaker3Points').click(function() {
-  if (hasPointsLeft()) {
+  if (hasPointsLeft() && speakerNumber != 3) {
     session.signal(
       {
         data:  totalSessions[2].connection.connectionId,
@@ -313,7 +313,7 @@ $('#speaker3Points').click(function() {
 });
 
 $('#speaker4Points').click(function() {
-  if (hasPointsLeft()) {
+  if (hasPointsLeft() && speakerNumber != 4) {
     session.signal(
       {
         data:  totalSessions[3].connection.connectionId,
@@ -330,7 +330,7 @@ $('#speaker4Points').click(function() {
 });
 
 $('#speaker5Points').click(function() {
-  if (hasPointsLeft()) {
+  if (hasPointsLeft() && speakerNumber != 5) {
     session.signal(
       {
         data:  totalSessions[4].connection.connectionId,
@@ -347,7 +347,7 @@ $('#speaker5Points').click(function() {
 });
 
 $('#speaker6Points').click(function() {
-  if (hasPointsLeft()) {
+  if (hasPointsLeft() && speakerNumber != 6) {
     session.signal(
       {
         data:  totalSessions[5].connection.connectionId,
@@ -514,7 +514,7 @@ session.on(
 
 session.on(
   "signal:resetTimer", function(event) {
-  $('#clock').html("30");
+  $('#clock').html("15");
 });
 
 session.on(
@@ -531,8 +531,10 @@ session.on(
       if (i == nowSpeaking) {
         totalSpeakerBoxes[i].style.border = "4px solid green";
       }
-      else if (totalSpeakerBoxes[i].style.border != "4px solid #000000"){
-        totalSpeakerBoxes[i].style.border = "4px solid red";
+      else if (totalSpeakerBoxes[i].style.borderColor != "rgb(0, 0, 0)"){
+        if (totalSpeakerBoxes[i].style.borderColor != '#000000') {
+          totalSpeakerBoxes[i].style.border = "4px solid red";
+        }
       }
     }
     // Don't worry about this, it's just muting stuff
@@ -580,14 +582,22 @@ session.on(
       points[i].style.visibility = 'visible';
     }
   }
-)
+);
 
 session.on(
   "signal:newPoints", function(event) {
     var newPoints = parseInt(event.data);
     document.getElementById("pointsLeft").innerHTML = newPoints;
   }
-)
+);
+
+session.on(
+  "signal:prepareNextSpeaker", function(event) {
+    var speakerIndex = parseInt(event.data) + 1;
+    $("#speaker" + speakerIndex + "Box").css("border", "4px solid blue");
+  }
+);
+
 <% end %>
 
 <% if session[:user_id].to_s == params[:user_id].to_s %>
@@ -633,7 +643,6 @@ session.on(
     }
 
     // OWNER START SPEAKING
-    alert("STARTING OWNER TALK");
     session.signal({
       type: "adjustAudio",
       data: session.connection.connectionId
@@ -643,14 +652,13 @@ session.on(
         alert("There was an error starting the firetalk with owner");
       }
     });
-    alert("ENDING OWNER TALK");
 
     var timer = null;
     if (!timer) {
       timer = setInterval(clockwork, 1000);
     }
 
-    var totalRounds = 6;
+    var totalRounds = 4;
     var currentRound = 1;
 
     // Firetalk logic function
@@ -673,6 +681,26 @@ session.on(
             alert("Failed to update clock, who knows");
           }
         });
+
+        if (currentTimeLeft == 10) {
+          // get next speaker speaking
+          if (!isLastSpeakerAlive(currentSpeakerIndex)) {
+            var nextSpeakerIndex = getNextSpeakerAlive(currentSpeakerIndex);
+            //alert("Now: " + currentSpeakerIndex + " next:" + nextSpeakerIndex);
+
+            session.signal({
+              type: "prepareNextSpeaker",
+              data: nextSpeakerIndex
+            }, function(error) {
+              if (error) {
+                alert("couldn't prepare next speaker");
+              }
+            });
+          }
+          else {
+
+          }
+        }
       }
       // Timer Ended (30 seconds up!)
       else {
@@ -768,6 +796,19 @@ session.on(
               break;
             }
           }
+        }
+      }
+    }
+
+    function getNextSpeakerAlive(currentSpeaker) {
+      for (var i = currentSpeaker; i < playersAlive.length; i++) {
+        if (playersAlive[i + 1]) {
+          return i + 1;
+        }
+      }
+      for (var i = 0; i < currentSpeaker; i++) {
+        if (playersAlive[i]) {
+          return i;
         }
       }
     }

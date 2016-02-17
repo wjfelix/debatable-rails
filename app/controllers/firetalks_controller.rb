@@ -9,7 +9,7 @@ class FiretalksController < ApplicationController
   def new
     @user = User.find(params[:user_id])
     @firetalk = Firetalk.new
-    5.times do
+    3.times do
       @firetalk.firetalk_debaters.build
     end
   end
@@ -36,7 +36,7 @@ class FiretalksController < ApplicationController
       flash[:message] = "Successfully created new Firetalk!"
 
       @firetalk.firetalk_debaters.each do |firetalk_debater|
-        UserMailer.send_firetalk_invite(@firetalk, firetalk_debater).deliver
+        #UserMailer.send_firetalk_invite(@firetalk, firetalk_debater).deliver
       end
       redirect_to user_firetalk_path(:id => @firetalk.id)
     else
