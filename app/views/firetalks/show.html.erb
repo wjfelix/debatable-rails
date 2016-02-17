@@ -642,10 +642,10 @@ session.on(
       }
     }
 
-    // OWNER START SPEAKING
+    // First person start
     session.signal({
       type: "adjustAudio",
-      data: session.connection.connectionId
+      data: totalSessions[0].connection.connectionId
     },
     function(error) {
       if (error) {
