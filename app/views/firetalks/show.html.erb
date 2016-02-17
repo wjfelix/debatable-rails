@@ -471,10 +471,11 @@ session.on(
       for (var i = 0; i < totalSessions.length; i++) {
         pointsString += totalSessions[i].connection.data.split("|")[0] + "|";
       }
+      alert(pointsString);
       // update their points
       session.signal({
           type: "catchUpPoints",
-          to: event.connection.connectionId,
+          to: newSession.connection.connectionId,
           data: pointsString
         }, function(error) {
           if (error) {
