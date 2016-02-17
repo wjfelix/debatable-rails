@@ -436,10 +436,9 @@ session.on(
   "signal:catchUpPoints", function(event) {
     var mostRecentPoints = event.data.split("|");
     var zeroPoints = $(".speakerPoints");
-    alert(zeroPoints.length);
 
     for (var i = 0; i < mostRecentPoints.length; i++) {
-      zeroPoints[i].innerHTML = mostRecentPoints[i];
+      zeroPoints[i - 1].innerHTML = mostRecentPoints[i];
     }
     /*
     $('.speakerPoints').each(function(index) {
