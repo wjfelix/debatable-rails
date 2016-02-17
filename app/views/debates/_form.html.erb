@@ -1,24 +1,93 @@
+
+
+<div class="section" id="toppad">
+
+
+
+<div class="col span_2_of_10"></div>
+
+<div class="col span_7_of_10" id="center-col">
+
+
+  <div class="section centerhor">
+<h1>
+  Create a new debate
+</h1>
+
+  </div>
+</br>
+
+<div class="section">
+
+
 <%= form_for [@user, @debate] do |f| %>
   <% #= f.collection_select(:category_id, @categories, :id, :category_name, :required => true) %>
   <% #= f.collection_select(:debate_style_id, @debate_styles, :id, :debate_style, {:required => true}, {:class => 'debate_dropdown_style'}) %>
-  <%= f.text_field(:topic, :placeholder => 'Topic', :required => true) %>
-  <%= f.text_field(:name, :placeholder => 'Debate Name', :required => true) %>
-  <%= f.text_area(:description, :placeholder => 'Description') %>
-  <%= f.hidden_field(:size, :value => 1, :class => 'debate_size_style') %>
-  <%= f.label('Public') %>
-  <%= f.check_box(:public) %>
-  <br />
 
-  <%= 'Debater Invites' %>
+  <div class="centerhor">
+    <h3>Topic</h3>
+  </br>
+  <%= f.text_field(:topic, :placeholder => 'Topic', :required => true, :class => 'forms') %>
+</div>
+</br>
+ <div class="centerhor">
+  <h3>Debate Name</h3>
+</br>
+  <%= f.text_field(:name, :placeholder => 'Debate Name', :required => true, :class => 'forms') %>
+  </div>
+</br>
+   <div class="centerhor">
+    <h3>Description</h3>
+  </br>
+  <%= f.text_area(:description, :placeholder => 'Description', :class => 'description-box') %>
+  </div>
+
+   <div class="centerhor">
+  <%= f.hidden_field(:size, :value => 1, :class => 'forms') %>
+  </div>
+</br>
+   <div class="centerhor">
+    <h3>
+  <%= f.label('Public') %>
+</h3>
+
+
+
+  <%= f.check_box(:public) %>
+</div>
+</br>
+<div>
+  <%= f.hidden_field(:size, :value => 1, :class => 'debate_size_style') %>
+</div>
+
+ <div class="centerhor">
   <%= f.fields_for :debater_invites do |debater_invite_form| %>
   <%= render 'debater_invite_fields', f: debater_invite_form %>
   <% end %>
-  <br />
-
-  <%= 'Moderator Invites' %>
+</div>
+</br>
+<div class="centerhor">
   <%= f.fields_for :moderator_invites do |moderator_invite_form| %>
   <%= render 'moderator_invite_fields', f: moderator_invite_form %>
-  <% end %>
-  <% #= link_to_add_moderator_fields "Add Moderator", f, :moderator_invites %>
-  <%= f.submit %>
+</div>
+
+  
+
+</div>
+</br>
+<div class="section centerhor">
 <% end %>
+  <% #= link_to_add_moderator_fields "Add Moderator", f, :moderator_invites %>
+  <%= f.submit(:class => "button") %>
+
+<% end %>
+
+</div>
+
+</div>
+
+<div class="col span_1_of_10"></div>
+
+
+
+</div>

@@ -1,0 +1,683 @@
+/* html5reset.css - 01/11/2011 */
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+body {
+    line-height: 1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section { 
+	display: block;
+}
+
+nav ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+a {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+ins {
+    background-color: #ff9;
+    color: #000;
+    text-decoration: none;
+}
+
+mark {
+    background-color: #ff9;
+    color: #000; 
+    font-style: italic;
+    font-weight: bold;
+}
+
+del {
+    text-decoration:  line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom: 1px dotted;
+    cursor: help;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;   
+    border-top: 1px solid #cccccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+input, select {
+    vertical-align: middle;
+}*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+a,a:visited,a:hover{
+	color: #ffffff;
+	text-decoration: none;
+}
+body{
+	font-family: 'Karla', sans-serif;
+	background-color: #00131a;
+ }
+
+
+h1 { 
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+h2 {
+    display: block;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+h3 { 
+    display: block;
+    font-size: 1.17em;
+    font-weight: bold;
+}
+
+h1,h2,h3{
+	font-family: 'PT Sans', sans-serif;
+}
+
+html { 
+    height:100%;
+}
+body { 
+    min-height:100%;
+}
+ /*===================================
+
+
+/*  SECTIONS  ============================================================================= */
+
+.section {
+	clear: both;
+	padding: 0px;
+	margin: 0px;
+}
+
+/*  GROUPING  ============================================================================= */
+
+
+.group:before,
+.group:after {
+    content:"";
+    display:table;
+}
+.group:after {
+    clear:both;
+}
+.group {
+    zoom:1; /* For IE 6/7 (trigger hasLayout) */
+}
+
+/*  GRID COLUMN SETUP   ==================================================================== */
+
+.col {
+	display: inline-block;
+	float:left;
+	margin: 1% 0 1% 1.6%;
+}
+
+.col:first-child { margin-left: 0; } /* all browsers except IE6 and lower */
+
+
+/*  REMOVE MARGINS AS ALL GO FULL WIDTH AT 480 PIXELS */
+
+@media only screen and (max-width: 480px) {
+	.col { 
+		margin: 1% 0 1% 0%;
+	}
+}
+
+
+
+
+/*NAVBAR*/
+
+.header-span{
+	background-color: #d9d9d9;
+	position: fixed;
+	width: 100%;
+	max-height: 55px;
+}
+
+ul {
+	list-style-type: none;
+}
+
+li {
+	display: inline;
+}
+
+
+.float-left{
+	float: left;
+}
+
+.float-right{
+	float: right;
+}
+
+.nav{
+}
+
+.navbar-left{
+	height: 30px;
+  line-height: 30px;
+}
+
+#navbar-right{
+	margin-right: 30px;
+}
+
+
+
+/*HOME*/
+
+#toppad{
+	padding-top: 60px;
+}
+
+
+#center-col{
+	background-color: #999999;
+	
+	border-style: solid;
+	border-width: 1px;
+	padding: 20px 5% 50px 5%;
+}
+
+
+.home-section-1{
+	margin: 20px 0px;
+	padding: 20px 20px;
+}
+
+.home-section-2{
+	margin: 20px 0px;
+	background-color: #ccedff;
+	
+	padding: 20px 20px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #d9d9d9;
+}
+
+
+.centerhor{
+	text-align: center;
+}
+
+
+
+
+/*LOGIN*/
+
+
+.forms{
+	max-width: 250px;
+	margin: 0 auto;
+	width: 100%;
+	padding: 2px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #f2f2f2;
+}
+
+.feedback-box{
+	height: 200px;
+	width: 100%
+}
+
+
+.debate_dropdown_style{
+	width: 10%;
+}
+
+
+.debate-form{
+	padding: 0 10% 0 10%;
+}
+
+
+#videobox {
+  max-width: 800px;
+  max-height: 600px;
+
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#videobox object {
+  float: left;
+}
+
+#ownerbox {
+  max-width: 800px;
+  max-height: 600px;
+
+  margin-left: 50%;
+}
+
+#ownerbox object {
+  float: right;
+}
+
+.speakerBox{
+	height: 150px;
+	width: 200px;
+	float: left;
+	
+}
+
+
+.firetalktopbar-container {
+	border-width: 2px;
+	border-style: solid;
+	border-color: #f2f2f2;
+	background-color: #ffffff;
+}
+
+#roundNumber {
+	padding-right: 20px;
+}
+
+.margleft {
+	padding-left: 20px;
+}
+
+
+#center-col-ft{
+	background-color: #999999;
+	
+	border-style: solid;
+	border-width: 1px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 50px;
+
+}
+
+.imgclear {
+	padding: 0;
+	margin: 0;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.speakerPoints {
+	font-size: 2em;
+}
+
+.speaker-options{
+	float: left;
+	display: inline;
+	height: 150px;
+	width: 80px;
+	text-align: center;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #f2f2f2;
+	padding-top: 10px;
+	
+	background-color: #ffffff;
+}
+
+.totalvotes{
+	font-size: .75em;
+}
+
+.infobutton{
+	margin: 0% auto;
+}
+
+.navlogo{
+	line-height: 30px;
+}
+
+.navlogo1{
+	padding-top: 5px;
+	height:25px;
+	transform-origin: 50% 50%;
+
+}
+
+@media screen 1160px breaks firetalk ui
+
+
+full-ft-speaker-box {
+	margin-left: 20px;
+}
+
+
+.ft-left-bar{
+	margin-left: 20px;
+	padding-left: 10px;
+}
+
+.firetalk-info{
+	background-color: white;
+	border-left: solid 2px black;
+	padding: 10px;
+}
+
+
+.center-obj{
+	margin: 0px auto;
+	width: 340px;
+}
+
+.justification{
+	text-align: justify;
+}
+
+
+.centervertnav{
+	justify-content:center;
+	transform-origin: 50% 50%;
+	line-height: 30px;
+}
+
+.navcontainer{
+	display: flex;
+	flex-direction: row;
+}
+
+
+
+.leftbar-news{
+	background-color: #ffffff;
+	height: calc(100% - 70px);
+	width: 100%;
+	margin-left: 10px;
+	margin-right: 10px;
+	padding-bottom: 30px;
+	padding-top: 30px;
+	padding-left: 10px;
+	padding-right: 10px;
+	
+}
+
+.feedback-center{
+	margin: 0 auto;
+	align-content: center;
+}
+
+.home-butts{
+	width: 100%;
+	margin: 0 auto;
+}
+.home-butts-container{
+	width: 100px;
+	margin: 2px auto 0px auto;
+}
+
+.button {
+	background-color: #f2f2f2;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #e6e6e6;
+	font-family: 'Karla', sans-serif;
+	padding:5px;
+	text-align: center; 
+}
+
+.button:hover {
+	background-color: #e6e6e6;
+	border-color: #f2f2f2;
+}
+
+
+.middle-nav{
+	display: inline;
+	margin: 0 auto;
+	padding-left: 50px;
+}
+
+.description-box{
+	height: 100px;
+	width: 100%;
+	max-width: 250px;
+}
+
+.newsItem a{
+	font-size: 1em;
+	color: #0066cc;
+	clear: both;
+	float: left;
+	text-decoration: underline;
+}
+.newsItem a:hover{
+	color: #3399ff;
+}
+.newsItem a::after{
+	clear: left;
+}
+.newsdesc{
+	float: left;
+}
+
+.news{
+	max-width: 600px;
+	padding: 10px;
+	border-color: black;
+	border-style: solid;
+	border-width: 2px;
+	overflow: scroll;
+	max-height: 400px;
+	margin: 0 auto;
+}
+
+
+.logohome {
+	height: 25px;
+}
+
+.navlog {
+	margin: 0 10px 0 10px;
+}
+
+
+
+/*========== EXTRA LARGE SCREEN MEDIA QUERY ===================*/
+
+@media screen and (min-width: 1824px) {
+	.speakerBox{
+	height: 225px;
+	width: 300px;
+	float: left;
+}
+	.speaker-options{
+	height: 225px;
+	width: 80px;
+}
+
+	.span_7_of_10-ft {
+	width: 50%; 
+}
+
+	#center-col-ft{
+		max-width: 1270px;
+	}
+
+	#center-col{
+		max-width: 1270px;
+	}
+	
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+/*  GRID OF TEN   ============================================================================= */
+
+
+.span_10_of_10 {
+	width: 100%;
+}
+
+.span_9_of_10 {
+	width: 89.84%;
+}
+
+.span_8_of_10 {
+	width: 79.68%;
+}
+
+.span_7_of_10 {
+	width: 69.52%; 
+}
+
+.span_7_of_10-ft {
+	width: 69.52%; 
+}
+
+.span_6_of_10 {
+	width: 59.36%; 
+}
+
+.span_5_of_10 {
+	width: 49.2%; 
+}
+
+.span_4_of_10 {
+	width: 39.04%; 
+}
+
+.span_3_of_10 {
+	width: 28.88%;
+}
+
+.span_2_of_10 {
+	width: 18.72%; 
+}
+
+.span_1_of_10 {
+	width: 8.56%; 
+}
+
+
+/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+
+@media only screen and (max-width: 480px) {
+	.span_10_of_10 {
+		width: 100%; 
+	}
+	.span_9_of_10 {
+		width: 100%; 
+	}
+	.span_8_of_10 {
+		width: 100%; 
+	}
+	.span_7_of_10 {
+		width: 100%; 
+	}
+	.span_6_of_10 {
+		width: 100%; 
+	}
+	.span_5_of_10 {
+		width: 100%; 
+	}
+	.span_4_of_10 {
+		width: 100%; 
+	}
+	.span_3_of_10 {
+		width: 100%; 
+	}
+	.span_2_of_10 {
+		width: 100%; 
+	}
+	.span_1_of_10 {
+		width: 100%; 
+	}
+}
+
+
+/*  GRID OF THREE   ============================================================================= */
+
+	
+.span_3_of_3 {
+	width: 100%; 
+}
+
+.span_2_of_3 {
+	width: 66.13%; 
+}
+
+.span_1_of_3 {
+	width: 32.26%; 
+}
+
+
+/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+
+@media only screen and (max-width: 480px) {
+	.span_3_of_3 {
+		width: 100%; 
+	}
+	.span_2_of_3 {
+		width: 100%; 
+	}
+	.span_1_of_3 {
+		width: 100%;
+	}
+}

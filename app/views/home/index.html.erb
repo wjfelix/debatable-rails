@@ -1,317 +1,184 @@
-<body data-spy="scroll">
-	<a name="mission"></a>
-<div class="jumbotron">
-<div class="container">
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-10 text-center">
-	<h1><%= image_tag("chitchat_logo_white_60.png", :class => "text-center")%>
-		<strong>Welcome to Debatable!</strong>
-	</h1>
-</div>
-<div class="col-md-1"></div>
-</div>
+
+	<div class="section" id="toppad">
+
+
+<div class="col span_2_of_10">
+
+	<div class="leftbar-news">
+
+		<div class="centerhor">
+<h2>Welcome!</h2>
+		</div>
 </br>
-<div class="row">
-	<div class="col-md-1"></div>
-	<div class="col-md-10">
+
+		<div class="home-butts-container">
+	
+	<%= button_to "Login", login_path, {:class => "home-butts button", :method => "get"} %>
+	<br>
+</div>
+	<div class="home-butts-container">
+	<%= button_to "Signup", new_user_path, {:class => "home-butts button", :method => "get"} %>
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<!--HOME CENTER BLOCK-->
+
+<div class="col span_7_of_10" id="center-col">
+
+
+	
+
+
+	<div class="home-section-1">
+		<h1>
+		<strong><%= image_tag("logo.png", :class => "logohome")%>
+			Welcome to Debatable!
+		</strong>
+	</h1>
+</br>
 	<h3>
-		<span class="glyphicon glyphicon-forward" aria-hidden="true"></span><em>
-		Our Mission:</em></h3>
-	<div class="text-justify">
+		<em>
+		Our Mission:
+	    </em>
+	</h3>
+</br>
 	<blockquote>
 		<p>
-			Here at debatable, we want to give people the stage to share their opinions and be understood by their communities. Debatable is a live-video debating social media platform that bridges face to face conversation and social media interaction. Come join us on <strong>February 20th</strong> for our launch! <br><em>- The Debatable Team</em>
+			Here at debatable, we want to give people the stage to share their opinions and be understood by their communities. Debatable is a live-video debating social media platform that bridges face to face conversation and social media interaction. Come join us on <strong>February 20th</strong> for our launch! <br>
+		</br><em>- The Debatable Team</em>
 		</p>
 	</blockquote>
-</div>
-</div>
-<div class="col-md-1"></div>
-</div>
-				<div class="row">
-					<div class="col-md-12 text-center">
-						<h2>Beta Coming Soon!</h2>
-					</div>
-				</div>
-			</div>
-		</div>
-<a name="connect"></a>
-<div class="jumbotron">
-	<div class="container">
 
-		<div class="row">
-			<div class="container text-center">
-				<h3><strong>Stay connected and be the first to use Debatable!</strong></h3>
-			</div>
-		</div>
-	</br>
-	<div class="row">
-		<div class="col-md-3"></div>
-		<div class="col-md-6">
-			<h4 class="text-center">
-				Sign up for our newsletter:</h4>
-			</div>
-			<div class="col-md-3"></div>
-		</div>
 
-		<%= form_for @newslettersubscription, :url => subscribe_path do |f| %>
-		<div class="row">
-			<div class="col-md-3"></div>
-			<div class="col-md-6">
-				<div class="form-group">
-					<%= f.text_field :email, :placeholder => "Email", :class => "form-control" %>
-				</div>
-			</div>
-			<div class="col-md-3"></div>
-		</div>
-		<div class="row">
-			<div class="col-md-5"></div>
-			<div class="col-md-2 text-center">
-				<%= f.submit 'Submit', :class => "btn btn-default" %>
-			</div>
-			<div class="col-md-5"></div>
-		</div>
-		<% end %>
-	</br>
-	<!--
-	<div class="row">
-		<div class="col-md-5"></div>
-		<div class="col-md-2">
-			<h3 class="text-center"><strong>Follow us!
-			</strong></h3>
-		</div>
 
-		<div class="col-md-5"></div>
+
 
 	</div>
-	<div class="row">
-		<div class="col-md-5"></div>
-		<div class="col-md-1">
-			<%= link_to image_tag("facebook_small.png", :class => "img-responsive") %>
-		</div>
-		<div class="col-md-1">
-			<%= link_to image_tag("twitter_small.png", :class => "img-responsive") %>
-		</div>
-		<div class="col-md-5"></div>
-	</div>
--->
-</div>
-</div>
 
-<a name="features"></a>
-<div class="jumbotron">
-	<div class="container">
-		<div class="container">
-<div class="row">
-	<div class="col-md-12 text-center">
-	<h2>What to expect:</h2>
-	</div>
-</div>
 
+
+<hr>
+<hr>
+
+	<div class="home-section-1">
+
+		<h2>We're here to help you speak your mind.</h2>
 		</br>
-	<div class="row">
-	<div class="col-md-2">
-	</div>
-	<div class="col-md-8">
-	<h3><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-	Debates
-	</h3>
-	<blockquote>
-	Debate and discuss any topic face-to-face with whoever you want whether they live across the globe or across the nation.
-	</blockquote>
-	</div>
-	<div class="col-md-2"></div>
-	</div>
-	</br>
 
-	<div class="row">
-	<div class="col-md-2"></div>
-	<div class="col-md-8">
-	<h3><span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
-	Firetalk
-	</h3>
-	<blockquote>
-	Battle your friends with your words as you fight through rounds of elimination in a fast-paced debatable game.
-	</blockquote>
-	</div>
-	<div class="col-md-2"></div>
-	</div>
+		<h3>
+		Debates
+		</h3>
+		<blockquote>
+		Debate and discuss any topic face-to-face with whoever you want whether they live across the globe or across the nation.
+		</blockquote>
 
+
+		<h3>
+		Firetalk 
+		</h3>
+		<blockquote>
+		Battle your friends with your words as you fight through rounds of elimination in a fast-paced debatable game.
+		</blockquote>
+
+
+
+		<h3>
+		Moderation
+		</h3>
+		<blockquote>
+		With the option of adding a moderator, you will be able to ensure there is a neutral participant, as well as keep the discussion on-topic.
+		</blockquote>
+	
+
+		<h3>
+		Social Media
+		</h3>
+		<blockquote>
+		Engage in a true social atmosphere centered on intelligent debate and discussion. Where every status update can turn into the next big debate or firetalk; debatable truly brings the town hall to the web.
+		</blockquote>
+	
+
+
+
+		<h3>
+		Share Debates
+		</h3>
+		<blockquote>
+		Share debates on Facebook, Twitter, and other existing social media to show the world what you have been up to.
+		</blockquote>
+
+
+
+	</div>	
+
+	<hr><hr>
+
+<div class="center-obj">
+<div class="fb-page" data-href="https://www.facebook.com/debatablelive" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/debatablelive"><a href="https://www.facebook.com/debatablelive">Debatable</a></blockquote></div></div>
+</div>
+
+<hr>
+<hr>
 </br>
+	<div class="centerhor">
 
-<div class="row">
-	<div class="col-md-2"></div>
-	<div class="col-md-8">
-	<h3><span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
-	Moderation
-	</h3>
-	<blockquote>
-	With the option of adding a moderator, you will be able to ensure there is a neutral participant, as well as keep the discussion on-topic.
-	</blockquote>
-	</div>
-	<div class="col-md-2"></div>
-</div>
 
-</br>
-
-<div class="row">
-	<div class="col-md-2"></div>
-	<div class="col-md-8">
-	<h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-	Social Media
-	</h3>
-	<blockquote>
-	Engage in a true social atmosphere centered on intelligent debate and discussion. Where every status update can turn into the next big debate or firetalk; debatable truly brings the town hall to the web.
-	</blockquote>
-	</div>
-	<div class="col-md-2"></div>
-</div>
-
-</br>
-
-<div class="row">
-	<div class="col-md-2"></div>
-	<div class="col-md-8">
-	<h3><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
-	Share Debates
-	</h3>
-	<blockquote>
-	Share debates on Facebook, Twitter, and other existing social media to show the world what you have been up to.
-	</blockquote>
-	</div>
-	<div class="col-md-2"></div>
-
-</div>
-</div>
-</div>
-</div>
-
-<a name="about"></a>
-<div class="jumbotron">
-	<div class="container">
-
-		<div class="container">
-			<div class="row">
-			<div class="col-md-1">
-</div>
-			<div class="col-md-10">
 	<h2 class="text-center">The Team:</h2>
-</div>
-			<div class="col-md-1">
-</div>
-</div>
-		<div class="row">
-			<div class="col-md-2"></div>
-			<div class="col-md-8">
+	</br></br>
+
+	<div>
+
 		<%= image_tag("debatableteampic.png", :class => "img-thumbnail img-responsive") %>
 	</div>
-	<div class="col-md-2"></div>
-</div>
-<div class="row">
-	<div class="col-md-1"></div>
-	<div class="col-md-10"><hr></div>
-	<div class="col-md-1"></div>
-</div>
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-sm-6 col-md-2">
-    		<div class="thumbnail">
-	<div class="center-block img-thumbnail hidden-sm hidden-xs">
-    				<div class="text-center">
-	<span style="font-size:4em;" class="glyphicon glyphicon-tint" aria-hidden="true"></span>
-</div>
-</div>
-	<div class="caption text-center">
-        <h4>William <br>Felix</h4>
-        <h5>Front-end Developer and Co-Founder</h5>
-</div>
-</div>
-</div>
 
-<div class="col-sm-6 col-md-2">
-    		<div class="thumbnail">
-	<div class="center-block img-thumbnail hidden-sm hidden-xs">
-    				<div class="text-center">
-	<span style="font-size:4em;" class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-</div>
-</div>
-	<div class="caption text-center">
-        <h4>Garrick<br> Król</h4>
-        <h5>Senior Developer and Co-Founder</h5>
-</div>
-</div>
-</div>
-		<div class="col-sm-6 col-md-2">
-    		<div class="thumbnail">
-	<div class="center-block img-thumbnail hidden-sm hidden-xs">
-    				<div class="text-center">
-	<span style="font-size:4em;" class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
-</div>
-</div>
-	<div class="caption text-center">
-        <h4>Brandon<br> Prinz</h4>
-        <h5>CEO and Founder<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    </h5>
-</div>
-</div>
-</div>
+</br>
+        <h3>William Felix</h3>
+        <h4>
+        <em>Front-end Developer and Co-Founder</em>
+    </h4>
+</br>
+        <h3>Garrick Król</h3>
+        <em>
+        <h4>Senior Developer and Co-Founder</h4>
+    </em>
 
-<div class="col-sm-6 col-md-2">
-    		<div class="thumbnail">
-    			<div class="center-block img-thumbnail hidden-sm hidden-xs">
-    				<div class="text-center">
-	<span style="font-size:4em;" class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
-</div>
-</div>
-	<div class="caption text-center">
-        <h4>Dane<br> Halvorson</h4>
-        <h5>COO and Co-Founder<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
-</div>
-</div>
-</div>
+</br>
+        <h3>Brandon Prinz</h3>
+        <em>
+        <h4>CEO and Co-Founder</h4>
+    </em>
+</br>
+        <h3>Dane Halvorson</h3>
+        <em>
+        <h4>COO and Co-Founder</h4>
+    </em>
 
-<!--
-<div class="col-sm-6 col-md-2">
-    		<div class="thumbnail">
-	<div class="center-block img-thumbnail hidden-sm hidden-xs">
-    				<div class="text-center">
-	<span style="font-size:4em;" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
-</div>
-</div>
-	<div class="caption text-center">
-        <h4>Marielle<br> Trumbauer</h4>
-        <h5>Head of Finance and Co-Founder</h5>
-</div>
--->
-</div>
-</div>
-
-<div class="col-md-1"></div>
-</div>
-		<div class="container text-center">
+</br></br>
 			<h3>
 				Questions?</br>
 			Contact us at about@debatable.co
 		</h3>
+
+
+	</div>
 </div>
-</div>
-</div>
-</body>
 
 
 
 
 
 
-<!--
-<div>
-<div>
-<%= button_to "Login", login_path, {:class => "btn btn-default", :method => "get"} %>
+
+<div class="col span_1_of_10">
+
+
 </div>
-</br>
-<div>
-<%= button_to "Signup", new_user_path, {:class => "btn btn-default", :method => "get"} %>
+
 </div>
 </div>
--->
