@@ -458,8 +458,8 @@ session.on(
     if (firetalkGoing) {
       alert("connected!@");
       var index = parseInt(debatersJson[emailAndPoints[1]]);
-      alert(index);
-      if (playersAlive[index]) {
+      if (playersAlive[index] != null) {
+        alert(playersAlive[index]);
         playersAlive[index] == newSession.connection.connectionId;
         showPoints();
       }
@@ -861,6 +861,7 @@ session.on(
     function firstSpeakerAlive() {
       for (var i = 0; i < playersAlive.length; i++) {
         if (playersAlive[i] != null) {
+          // here it's returning the incorrect connectionID because it didn't update properly...
           return playersAlive[i];
         }
       }
