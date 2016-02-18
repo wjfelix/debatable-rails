@@ -1,184 +1,154 @@
-
-	<div class="section" id="toppad">
-
-
-<div class="col span_2_of_10">
-
-	<div class="leftbar-news">
-
-		<div class="centerhor">
-<h2>Welcome!</h2>
+<div class="section" id="toppad">
+	<div class="col span_2_of_10">
+		<div class="left-container">
+		<div class="leftbar-news">
+			<div class="centerhor">
+				
+					Welcome!
+			</div>
+			</br>
+			<div class="home-butts-container">
+				<%= button_to "Login", login_path, {:class => "home-butts button", :method => "get"} %>
+				</br>
+			</div>
+			<div class="home-butts-container">
+				<%= button_to "Signup", new_user_path, {:class => "home-butts button", :method => "get"} %>
+			</div>
 		</div>
-</br>
-
-		<div class="home-butts-container">
-	
-	<%= button_to "Login", login_path, {:class => "home-butts button", :method => "get"} %>
-	<br>
-</div>
-	<div class="home-butts-container">
-	<%= button_to "Signup", new_user_path, {:class => "home-butts button", :method => "get"} %>
-</div>
-
-</div>
-
-
-</div>
-
-
-
-<!--HOME CENTER BLOCK-->
-
-<div class="col span_7_of_10" id="center-col">
-
-
-	
-
-
-	<div class="home-section-1">
-		<h1>
-		<strong><%= image_tag("logo.png", :class => "logohome")%>
-			Welcome to Debatable!
-		</strong>
-	</h1>
-</br>
-	<h3>
+	</div>
+	</div>
+	<div class="col span_8_of_10" id="center-col">
+		<div class="center-container">
+		<div class="section centerhor notif"> 
+	<% if !flash[:message].nil? %>
+    <%= flash[:message] %>
+    <% end %>
+    </div>
+		<div class="home-section-1">
+			<h1>
+				<strong>
+					<%= image_tag("logo.png", :class => "logohome")%>
+					Welcome to Debatable!
+				</strong>
+			</h1>
+				</br>
+			<h3>
 		<em>
 		Our Mission:
 	    </em>
 	</h3>
-</br>
+			</br>
 	<blockquote>
 		<p>
-			Here at debatable, we want to give people the stage to share their opinions and be understood by their communities. Debatable is a live-video debating social media platform that bridges face to face conversation and social media interaction. Come join us on <strong>February 20th</strong> for our launch! <br>
-		</br><em>- The Debatable Team</em>
-		</p>
-	</blockquote>
-
-
-
-
-
-	</div>
-
-
-
-<hr>
-<hr>
-
-	<div class="home-section-1">
-
-		<h2>We're here to help you speak your mind.</h2>
+		Here at debatable, we want to give people the stage to share their opinions and be understood by their communities. Debatable is a live-video debating social media platform that bridges face to face conversation and social media interaction. Come join us on 
+		<strong>
+			February 20th
+		</strong>
+		 for our launch! 
+		 </br>
 		</br>
-
+		<em>
+			- The Debatable Team
+		</em>
+	</p>
+</blockquote>
+</div>
+<hr>
+<hr>
+<div class="home-section-1">
+	<h2>We're here to help you speak your mind.</h2>
+		</br>
 		<h3>
-		Debates
+			Debates
 		</h3>
 		<blockquote>
-		Debate and discuss any topic face-to-face with whoever you want whether they live across the globe or across the nation.
+			Debate and discuss any topic face-to-face with whoever you want whether they live across the globe or across the nation.
 		</blockquote>
-
-
 		<h3>
-		Firetalk 
+			Firetalk 
 		</h3>
 		<blockquote>
-		Battle your friends with your words as you fight through rounds of elimination in a fast-paced debatable game.
+			Battle your friends with your words as you fight through rounds of elimination in a fast-paced debatable game.
 		</blockquote>
-
-
-
 		<h3>
-		Moderation
+			Moderation
 		</h3>
 		<blockquote>
-		With the option of adding a moderator, you will be able to ensure there is a neutral participant, as well as keep the discussion on-topic.
+			With the option of adding a moderator, you will be able to ensure there is a neutral participant, as well as keep the discussion on-topic.
 		</blockquote>
-	
-
 		<h3>
-		Social Media
+			Social Media
 		</h3>
 		<blockquote>
-		Engage in a true social atmosphere centered on intelligent debate and discussion. Where every status update can turn into the next big debate or firetalk; debatable truly brings the town hall to the web.
+			Engage in a true social atmosphere centered on intelligent debate and discussion. Where every status update can turn into the next big debate or firetalk; debatable truly brings the town hall to the web.
 		</blockquote>
-	
-
-
-
 		<h3>
-		Share Debates
+			Share Debates
 		</h3>
 		<blockquote>
-		Share debates on Facebook, Twitter, and other existing social media to show the world what you have been up to.
+			Share debates on Facebook, Twitter, and other existing social media to show the world what you have been up to.
 		</blockquote>
-
-
-
 	</div>	
 
 	<hr><hr>
-
-<div class="center-obj">
-<div class="fb-page" data-href="https://www.facebook.com/debatablelive" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/debatablelive"><a href="https://www.facebook.com/debatablelive">Debatable</a></blockquote></div></div>
-</div>
-
-<hr>
-<hr>
-</br>
+	<div class="center-obj">
+		<div class="fb-page" data-href="https://www.facebook.com/debatablelive" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/debatablelive"><a href="https://www.facebook.com/debatablelive">Debatable</a></blockquote></div></div>
+	</div>
+	<hr>
+	<hr>
+	</br>
 	<div class="centerhor">
-
-
-	<h2 class="text-center">The Team:</h2>
+		<h2 class="text-center">
+			The Team:
+		</h2>
 	</br></br>
-
 	<div>
-
 		<%= image_tag("debatableteampic.png", :class => "img-thumbnail img-responsive") %>
 	</div>
-
-</br>
-        <h3>William Felix</h3>
-        <h4>
-        <em>Front-end Developer and Co-Founder</em>
-    </h4>
-</br>
-        <h3>Garrick Król</h3>
-        <em>
-        <h4>Senior Developer and Co-Founder</h4>
-    </em>
-
-</br>
-        <h3>Brandon Prinz</h3>
-        <em>
-        <h4>CEO and Co-Founder</h4>
-    </em>
-</br>
-        <h3>Dane Halvorson</h3>
-        <em>
-        <h4>COO and Co-Founder</h4>
-    </em>
-
-</br></br>
-			<h3>
-				Questions?</br>
-			Contact us at about@debatable.co
-		</h3>
-
-
-	</div>
+	</br>
+	<h3>
+		William Felix
+	</h3>
+	<h4>
+		<em>
+			Front-end Developer and Co-Founder
+		</em>
+	</h4>
+	</br>
+	<h3>
+		Garrick Król
+	</h3>
+	<em>
+		<h4>
+			Senior Developer and Co-Founder
+		</h4>
+	</em>
+	</br>
+	<h3>
+		Brandon Prinz
+	</h3>
+	<em>
+		<h4>
+			CEO and Co-Founder
+		</h4>
+	</em>
+	</br>
+	<h3>
+		Dane Halvorson
+	</h3>
+	<em>
+		<h4>
+			COO and Co-Founder
+		</h4>
+	</em>
+	</br></br>
+	<h3>
+		Questions?
+		</br>
+		Contact us at about@debatable.co
+	</h3>
 </div>
-
-
-
-
-
-
-
-<div class="col span_1_of_10">
-
-
 </div>
-
+</div>
 </div>
 </div>

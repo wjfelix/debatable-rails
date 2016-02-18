@@ -1,27 +1,31 @@
 
 <div class="section header-span">
-
-  <div  class="col span_2_of_10"></div>
-
-<div  class="col span_6_of_10">
-
-  <ul class="navcontainer">
-    <li class="navlogo">
-      <%= link_to image_tag("debatable-logo.png", :class => "navlogo1"), root_path %>
-   </li>
-   <ul class="middle-nav centervertnav">
-<li>We need your feedback!</li>
-<li><%= link_to("Tell us how we're doing.", '/feedbacks/new') %></li>
-</ul>
-<ul class="float-right centervertnav">
-  <li class="navlog">
-    <% if session[:user_id] != nil %>
-      <%= nav_link 'Logout', logout_path %>
+  <div class="navbar-pos">
+    <div  class="col span_2_of_10">
+    </div>
+    <div  class="col span_6_of_10">
+      <ul class="navcontainer">
+        <li class="navlogo">
+          <%= link_to image_tag("debatable-logo.png", :class => "navlogo1"), root_path %>
+        </li>
+        <ul class="middle-nav centervertnav">
+          <li>
+            We need your feedback!
+          </li>
+          <li>
+            <%= link_to("Tell us how we're doing.", '/feedbacks/new') %>
+          </li>
+        </ul>
+        <ul class="float-right centervertnav">
+          <li class="navlog">
+            <% if session[:user_id] != nil %>
+            <%= nav_link 'Logout', logout_path %>
+            <%= link_to('My Profile', @user) %>
     <% else %>
     <%= nav_link 'Login', login_path %>
     <% end %>
 </li>
-<li class="navlog"><%= link_to('My Profile', @user) %>
+<li class="navlog">
   </li>
 </ul>
 </ul>
@@ -30,6 +34,4 @@
 <div  class="col span_2_of_10"></div>
 
 </div>
-
-
-<%= link_to('My Profile', @user) %>
+</div>
