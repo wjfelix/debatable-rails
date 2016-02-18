@@ -7,7 +7,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email, null: false, unique: true
       t.string :school
       t.string :password_digest, null: false
-      t.boolean :is_validated, null: false, default: false
+      t.boolean :is_validated, null: false, default: true 
       t.string :validation_code
       t.integer :level, null: false, default: 0
       t.timestamps
