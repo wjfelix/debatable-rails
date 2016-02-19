@@ -2,168 +2,198 @@
 
 
 <div class="section" id="toppad">
+  <div class="col span_10_of_10" id="center-col">
+    <div class="center-col-shadow">
+    <div class="section">
+      <div class="section firetalk-title centerhor">
+        <h3>
+          <%= @firetalk.name %>
+        </h3>
+
+      </div>
+    </div>
+
+    <div class="section ft-row-container">
+      <div class="col  full-ft-speaker-box">
+        <div class="section">
+          <div id="speaker1Box" class="speakerBox">
+          </div>
+        </div>
+        <div class="section progressbar"></div>
+
+        <div class="section speaker-options-container">
+          <div class="speaker-options">
+            <div class="user-name-ft">
+            <%= @users[0].firstname %>
+          </div>
 
 
-      <div class="col span_2_of_10">
-        <div class="ft-left-bar float-right">
-
-          <div class="firetalk-info">
-
-
-
-<h2><%= @firetalk.name %></h2>
-<h3><em><%= @firetalk.topic %></em></h3>
-
-<em>
-<%= @firetalk.description %>
-</em>
-
-
-</br></br>
-participants:
-
-<%= @users[0].email %>
-
-<%= @users[1].email %>
-</div>
-
-</br>
-          <div class="centerhor">
-            <% if @user.id == @firetalk.user_id %>
-            <button id="startFiretalk" class="button">
-              Start Firetalk
-            </button>
-            <% end %>
+              <button id="speaker1Points" class="speakerPoints">
+                0
+              </button>
           </div>
         </div>
       </div>
 
+      <div class="col full-ft-speaker-box">
+        <div class="section">
+          <div id="speaker2Box" class="speakerBox">
+          </div>
+        </div>
+        <div class="section progressbar"></div>
+
+        <div class="section speaker-options-container">
+          <div class="speaker-options">
+            <div class="user-name-ft">
+            <%= @users[1].firstname %>
+          </div>
 
 
-  <div class="col span_7_of_10-ft" id="center-col-ft">
-    <div class="section group firetalktopbar-container">
+              <button id="speaker2Points" class="speakerPoints">
+                0
+              </button>
+          </div>
+        </div>
+      </div>
+      <div class="col full-ft-speaker-box">
 
-      <div class="col span_1_of_3">
-        <span class="margleft">
+        <div class="section">
+          <div id="speaker3Box" class="speakerBox">
+          </div>
+        </div>
+        <div class="section progressbar"></div>
+
+        <div class="section speaker-options-container">
+          <div class="speaker-options">
+            <div class="user-name-ft">
+
+          </div>
+
+
+              <button id="speaker3Points" class="speakerPoints">
+                0
+              </button>
+          </div>
+        </div>
+      </div>
+</div>
+<div class="section ft-row-container">
+      <div class="col full-ft-speaker-box">
+        <div class="section">
+          <div id="speaker4Box" class="speakerBox">
+          </div>
+        </div>
+        <div class="section progressbar"></div>
+
+        <div class="section speaker-options-container">
+          <div class="speaker-options">
+            <div class="user-name-ft">
+
+          </div>
+
+
+              <button id="speaker4Points" class="speakerPoints">
+                0
+              </button>
+          </div>
+        </div>
+      </div>
+      <div class="col full-ft-speaker-box">
+
+        <div class="section">
+          <div id="speaker5Box" class="speakerBox">
+          </div>
+        </div>
+        <div class="section progressbar"></div>
+
+        <div class="section speaker-options-container">
+          <div class="speaker-options">
+            <div class="user-name-ft">
+
+          </div>
+
+
+              <button id="speaker5Points" class="speakerPoints">
+                0
+              </button>
+          </div>
+        </div>
+      </div>
+      <div class="col full-ft-speaker-box">
+
+        <div class="section">
+          <div id="speaker6Box" class="speakerBox">
+          </div>
+        </div>
+        <div class="section progressbar"></div>
+
+        <div class="section speaker-options-container">
+          <div class="speaker-options">
+            <div class="user-name-ft">
+
+          </div>
+
+
+              <button id="speaker6Points" class="speakerPoints">
+                0
+              </button>
+          </div>
+        </div>
+      </div>
+
+      </div>
+
+
+
+        <div class="section firetalktopbar-container">
+<div class="float-left rounds-left">
+        <span class="">Round:</span>
+        <span id="roundNumber" class="">
+          1
+        </span>
+      </div>
+        <span class="">
           Time:
         </span>
         <span id="clock">
           30
         </span>
-      </div>
+        <span class="start-ft">
+        <% if @user.id == @firetalk.user_id %>
+        <button id="startFiretalk" class="button">
+          Start Firetalk
+        </button>
+        <% end %>
+      </span>
 
-      <div class="col span_1_of_3">
-        <span class="centerhor">Your Votes Left:</span>
-        <span id="pointsLeft" class="centerhor">
+      <div class="float-right votes-left">
+        <span class="">Your Votes Left:</span>
+        <span id="pointsLeft" class="">
           5
         </span>
       </div>
-
-      <div class="col span_1_of_3">
-        <span id="roundNumber" class="float-right">
-          1
-        </span>
-        <span class="float-right">Round:</span>
-      </div>
     </div>
 
-    <div class="section">
 
-        <div class="col span_1_of_3 full-ft-speaker-box">
-            <div id="speaker1Box" class="speakerBox">
+        <div class="firetalktopbar-container">
+          <div class="firetalk-info">
+            <h3><em><%= @firetalk.topic %></em></h3>
+            <em><%= @firetalk.description %></em>
+            </br></br>
+            participants:
+          </br>
+            <%= @users[0].email %>
+          </br>
+            <%= @users[1].email %>
+          </div></br>
+          <div class="centerhor">
           </div>
-          <div class="speaker-options">
-            <div id="speaker1Points" class="speakerPoints">
-              0
-            </div>
-
-            <span class="totalvotes">total votes</span>
-            <%= @users[0].firstname %>
-
-            <!--
-
-            <%= image_tag("infobutton.svg", :class =>"infobutton")%>
-
-          -->
-
-          </div>
-
-
         </div>
-
-
-
-        <div class="col span_1_of_3  full-ft-speaker-box">
-          <div id="speaker2Box" class="speakerBox">
-          </div>
-
-          <div class="speaker-options">
-          <div id="speaker2Points" class="speakerPoints">
-            0
-          </div>
-          <span class="totalvotes">total votes</span>
-          <%= @users[1].firstname %>
-        </div>
-        </div>
-
-
-
-        <div class="col span_1_of_3 full-ft-speaker-box">
-          <div id="speaker3Box" class="speakerBox">
-
-          </div>
-
-        <div class="speaker-options">
-          <div id="speaker3Points" class="speakerPoints">
-            0
-          </div>
-          <span class="totalvotes">total votes</span>
-        </div>
-      </div>
-      <div class="section">
-
-        <div class="col span_1_of_3 full-ft-speaker-box">
-          <div id="speaker4Box" class="speakerBox">
-
-          </div>
-
-          <div class="speaker-options">
-          <div id="speaker4Points" class="speakerPoints">
-            0
-          </div>
-          <span class="totalvotes">total votes</span>
-        </div>
-        </div>
-
-        <div class="col span_1_of_3 full-ft-speaker-box">
-          <div id="speaker5Box" class="speakerBox">
-
-          </div>
-          <div class="speaker-options">
-          <div id="speaker5Points" class="speakerPoints">
-            0
-          </div>
-          <span class="totalvotes">
-            total vote
-          </span>
-        </div>
-        </div>
-
-        <div class="col span_1_of_3 full-ft-speaker-box">
-          <div id="speaker6Box" class="speakerBox">
-          </div>
-          <div class="speaker-options">
-          <div id="speaker6Points" class="speakerPoints">
-            0
-          </div>
-          <span class="totalvotes">total votes</span>
-        </div>
-      </div>
-
-    </div>
   </div>
-  <div class="col span_1_of_10">
-  </div>
+
+
+</div>
+</div>
 </div>
 
 
@@ -577,7 +607,7 @@ session.on(
 
 session.on(
   "signal:resetTimer", function(event) {
-  $('#clock').html("30");
+  $('#clock').html("15");
 });
 
 session.on(
@@ -741,7 +771,7 @@ session.on(
       timer = setInterval(clockwork, 1000);
     }
 
-    var totalRounds = 4;
+    var totalRounds = 5;
     var currentRound = 1;
 
     // Firetalk logic function
