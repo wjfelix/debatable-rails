@@ -2,7 +2,6 @@
 
 
 <div class="section" id="toppad">
-<<<<<<< HEAD
   <div class="col span_10_of_10" id="center-col">
     <div class="center-col-shadow">
     <div class="section">
@@ -10,70 +9,7 @@
         <h3>
           <%= @firetalk.name %>
         </h3>
-=======
 
-
-      <div class="col span_2_of_10">
-        <div class="ft-left-bar float-right">
-
-          <div class="firetalk-info">
-
-
-
-<h2><%= @firetalk.name %></h2>
-<h3><em><%= @firetalk.topic %></em></h3>
-
-<em>
-<%= @firetalk.description %>
-</em>
-
-
-</br></br>
-participants:
-
-<%= @users[0].email %>
-
-<%= @users[1].email %>
-</div>
-
-</br>
-          <div class="centerhor">
-            <% if @user.id == @firetalk.user_id %>
-            <button id="startFiretalk" class="button">
-              Start Firetalk
-            </button>
-            <% end %>
-          </div>
-        </div>
-      </div>
-
-
-
-  <div class="col span_7_of_10-ft" id="center-col-ft">
-    <div class="section group firetalktopbar-container">
-
-      <div class="col span_1_of_3">
-        <span class="margleft">
-          Time:
-        </span>
-        <span id="clock">
-          15
-        </span>
-      </div>
-
-      <div class="col span_1_of_3">
-        <span class="centerhor">Your Votes Left:</span>
-        <span id="pointsLeft" class="centerhor">
-          5
-        </span>
-      </div>
-
-      <div class="col span_1_of_3">
-        <span id="roundNumber" class="float-right">
-          1
-        </span>
-        <span class="float-right">Round:</span>
->>>>>>> refs/remotes/rhenvar/master
       </div>
     </div>
 
