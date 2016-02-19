@@ -19,7 +19,7 @@
           <div id="speaker1Box" class="speakerBox">
           </div>
         </div>
-        <div class="section progressbar"></div>
+        <div class="section progressbar" id="speaker1Progressbar"></div>
 
         <div class="section speaker-options-container">
           <div class="speaker-options">
@@ -40,7 +40,7 @@
           <div id="speaker2Box" class="speakerBox">
           </div>
         </div>
-        <div class="section progressbar"></div>
+        <div class="section progressbar" id="speaker2Progressbar"></div>
 
         <div class="section speaker-options-container">
           <div class="speaker-options">
@@ -61,7 +61,7 @@
           <div id="speaker3Box" class="speakerBox">
           </div>
         </div>
-        <div class="section progressbar"></div>
+        <div class="section progressbar" id="speaker3Progressbar"></div>
 
         <div class="section speaker-options-container">
           <div class="speaker-options">
@@ -83,7 +83,7 @@
           <div id="speaker4Box" class="speakerBox">
           </div>
         </div>
-        <div class="section progressbar"></div>
+        <div class="section progressbar" id="speaker4Progressbar"></div>
 
         <div class="section speaker-options-container">
           <div class="speaker-options">
@@ -104,7 +104,7 @@
           <div id="speaker5Box" class="speakerBox">
           </div>
         </div>
-        <div class="section progressbar"></div>
+        <div class="section progressbar" id="speaker5Progressbar"></div>
 
         <div class="section speaker-options-container">
           <div class="speaker-options">
@@ -125,7 +125,7 @@
           <div id="speaker6Box" class="speakerBox">
           </div>
         </div>
-        <div class="section progressbar"></div>
+        <div class="section progressbar" id="speaker6Progressbar"></div>
 
         <div class="section speaker-options-container">
           <div class="speaker-options">
@@ -208,6 +208,7 @@
 
 
 <%= javascript_tag do %>
+var pointsLeft = 5;
 var apiKey = '45241592';
 var sessionId = "<%= j @firetalk.tok_session_id %>";
 var token = "<%= j @tok_token %>";
@@ -409,7 +410,9 @@ session.on(
       }
     }
     speakerIndex = parseInt(debatersJson[email]) + 1;
-    document.getElementById('speaker' + speakerIndex + 'Box').style.border = "4px solid #ffff33";
+    //document.getElementById('speaker' + speakerIndex + 'Box').style.border = "4px solid #ffff33";
+    document.getElementById('speaker' + speakerIndex + 'Progressbar').style.backgroundColor = "yellow";
+    document.getElementById("pointsLeft").innerHTML = "0";
   }
 );
 session.on(
@@ -553,7 +556,7 @@ session.on(
     if (session.connection.connectionId == event.data) {
       // Instead of just unpublishing, permanently mute and set style to black
       publisher.publishAudio(false);
-      document.getElementById('speaker' + speakerNumber + 'Box').style.backgroundColor = "black";
+      document.getElementById('speaker' + speakerNumber + 'Progressbar').style.backgroundColor = "red";
 
       session.signal({
         type: 'dropColor',
@@ -595,7 +598,7 @@ session.on(
     }
     var debaterIndex = parseInt(debatersJson[email]);
     debaterIndex++;
-    document.getElementById('speaker' + debaterIndex + 'Box').style.border = "4px solid #000000";
+    document.getElementById('speaker' + debaterIndex + 'Progressbar').style.backgroundColor = "red";
   }
 );
 
@@ -607,7 +610,7 @@ session.on(
 
 session.on(
   "signal:resetTimer", function(event) {
-  $('#clock').html("15");
+  $('#clock').html("30");
 });
 
 session.on(
@@ -619,18 +622,18 @@ session.on(
       }
     }
     var nowSpeaking = parseInt(debatersJson[email]);
-    var totalSpeakerBoxes = $('.speakerBox');
-    for (var i = 0; i < totalSpeakerBoxes.length; i++) {
+    var totalSpeakerBars = $('.progressbar');
+    for (var i = 0; i < totalSpeakerBars.length; i++) {
       if (i == nowSpeaking) {
-        totalSpeakerBoxes[i].style.border = "4px solid green";
+        //totalSpeakerBars[i].style.backgroundColor = "green";
         //startLoadingBar(i + 1);
+        startLoadingBar(i + 1);
       }
 
-      // if it's not black, turn it red (if they're not out, mute them for the round)
-      else if (totalSpeakerBoxes[i].style.borderColor != "rgb(0, 0, 0)"){
-        if (totalSpeakerBoxes[i].style.borderColor != '#000000') {
-          totalSpeakerBoxes[i].style.border = "4px solid red";
-        }
+      //else if (totalSpeakerBoxes[i].style.backgroundColor != "rgb(0, 0, 0)"){
+      else if (totalSpeakerBars[i].style.backgroundColor != "red") {
+        //if (totalSpeakerBoxes[i].style.borderColor != '#000000') {
+        totalSpeakerBars[i].style.backgroundColor = "gray";
       }
     }
     // Don't worry about this, it's just muting stuff
@@ -647,35 +650,65 @@ session.on(
   }
 );
 
-var barTimer = null;
 function startLoadingBar(speakerIndex) {
-  var bar = document.createElement("div");
-  bar.id = "speakingBar";
-  bar.style.border = "4 px solid pink";
-  bar.height = "225px";
-  var speakerBox = $('#speaker' + speakerIndex + 'Box');
-  // append bar to somewhere?
-  barTimer = setInterval(decrementBar, 100);
-}
+  var barTimer = null;
+  var speakerBar = document.getElementById("speaker" + speakerIndex + "Progressbar");
+  speakerBar.style.backgroundColor = "gray";
+  var timeLeftBar = document.createElement("div");
+  timeLeftBar.style.width = speakerBar.style.width;
+  timeLeftBar.style.height = "20px";
+  timeLeftBar.style.backgroundColor = "green";
+  speakerBar.appendChild(timeLeftBar);
 
-function decrementBar() {
-  var currentTimeLeft = parseInt($('#clock').text(), 10);
-  var bar = document.getElementById("speakingBar");
-  if (currentTimeLeft == 0) {
-    clearInterval(barTimer);
-    barTimer = null;
-    bar.visibility = "hidden";
-  }
-  else {
-    // CHANGE THIS WHEN YOU CHANGE THE TIME
-    bar.style.height = currentTimeLeft * 15 / 225;
+  var total = 100;
+  seconds = 30;
+
+  // interval = total seconds * 100 / 2 (or 3 or 4 depending on how far we wanna go)
+  var interval = 100;
+  barTimer = setInterval(decrementBar, interval);
+  function decrementBar() {
+    //this will be a function of time??
+    var currentTime = parseInt($('#clock').text(), 10);
+
+    // correct for network lag?
+    if (currentTime == seconds / 2) {
+      total = 50;
+    }
+    else if (currentTime == seconds / 4) {
+      total = 25;
+    }
+
+    if (currentTime == 0 || total == 0) {
+      speakerBar.removeChild(timeLeftBar);
+      clearInterval(barTimer);
+      barTimer = null;
+    }
+    else {
+      timeLeftBar.style.width = total + "%";
+      total -= 0.333;
+    }
   }
 }
 
 session.on(
   "signal:nextRound", function(event) {
+    var array = event.data.split(",");
     var currentRound = $('#roundNumber');
-    currentRound.html(event.data);
+    currentRound.html(array[0]);
+
+    // reset the people who are still competing's points to 0
+    for (var i = 0; i < array.length; i++) {
+      for (var j = 0; j < totalSessions.length; j++) {
+        var connection = totalSessions[j].connection;
+        if (array[i] == connection.connectionId) {
+          data = connection.data.split("|");
+          email = data[1];
+          speakerIndex = parseInt(debatersJson[email]) + 1;
+          $('#speaker' + speakerIndex + 'Points').html(0);
+          connection.data = 0 + "|" + email;
+        }
+      }
+    }
   }
 );
 
@@ -715,7 +748,8 @@ session.on(
 session.on(
   "signal:prepareNextSpeaker", function(event) {
     var speakerIndex = parseInt(event.data) + 1;
-    $("#speaker" + speakerIndex + "Box").css("border", "4px solid blue");
+    var element = $("#speaker" + speakerIndex + "Box");
+    element.backgroundColor = "blue";
   }
 );
 
@@ -771,7 +805,7 @@ session.on(
       timer = setInterval(clockwork, 1000);
     }
 
-    var totalRounds = 5;
+    var totalRounds = 4;
     var currentRound = 1;
 
     // Firetalk logic function
@@ -836,24 +870,6 @@ session.on(
           // Go back to the beginning of our list at the end of the round
           currentSpeakerIndex = firstIndexAlive();
 
-          session.signal({
-            type: "nextRound",
-            data: currentRound
-          },
-          function(error) {
-            if (error) {
-              alert("Failed to tell everyone to increment round...");
-            }
-          });
-
-          session.signal({
-            type: "newPoints",
-            data: totalRounds - currentRound
-          }, function(error) {
-            if (error) {
-              alert("failed to update voter points");
-            }
-          });
           // If it's the end of the firetalk
           if (currentRound == totalRounds) {
             alert("END OF FIRETALK");
@@ -888,6 +904,24 @@ session.on(
                   alert("cant send unmute ");
                 }
             });
+            session.signal({
+              type: "nextRound",
+              data: currentRound + "," + playersAlive.join()
+            },
+            function(error) {
+              if (error) {
+                alert("Failed to tell everyone to increment round...");
+              }
+            });
+            session.signal({
+              type: "newPoints",
+              data: pointsLeft * 2
+            }, function(error) {
+              if (error) {
+                alert("failed to update voter points");
+              }
+            });
+            pointsLeft *= 2;
           }
         }
         // There are still more people left to speak (guaranteed)
