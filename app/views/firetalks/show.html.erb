@@ -656,6 +656,7 @@ function startLoadingBar(speakerIndex) {
   var speakerBar = document.getElementById("speaker" + speakerIndex + "Progressbar");
   speakerBar.style.backgroundColor = "gray";
   var timeLeftBar = document.createElement("div");
+  timeLeftBar.setAttribute("id", "tickingBar");
   timeLeftBar.style.width = speakerBar.style.width;
   timeLeftBar.style.height = "8px";
   timeLeftBar.style.backgroundColor = "green";
@@ -664,6 +665,8 @@ function startLoadingBar(speakerIndex) {
 
   var total = 100;
   seconds = 30;
+
+  colorFade("tickingBar", "background", "green", "red", 25, 300);
 
   // interval = total seconds * 100 / 2 (or 3 or 4 depending on how far we wanna go)
   var interval = 100;
@@ -752,7 +755,7 @@ session.on(
     var speakerIndex = parseInt(event.data) + 1;
 
     // do something that takes 10 seconds
-    colorFade("speaker" + speakerIndex + "Progressbar", 'background', 'ffffff', '292c31', 25, 10);
+    colorFade("speaker" + speakerIndex + "Progressbar", 'background', 'gray', 'yellow', 25, 10);
   }
 );
 
