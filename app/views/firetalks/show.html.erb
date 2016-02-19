@@ -78,7 +78,7 @@
                           0
                         </div>
                       </div>
-          <div class="upvotebutton-container" id="upvote-bounce">
+          <div class="upvotebutton-container" id="upvote-bounce2">
                         <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
                       </div>
                     </div>
@@ -108,7 +108,7 @@
                           0
                         </div>
                       </div>
-          <div class="upvotebutton-container" id="upvote-bounce">
+          <div class="upvotebutton-container" id="upvote-bounce3">
                         <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
                       </div>
                     </div>
@@ -136,7 +136,7 @@
                           0
                         </div>
                       </div>
-          <div class="upvotebutton-container" id="upvote-bounce">
+          <div class="upvotebutton-container" id="upvote-bounce4">
                         <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
                       </div>
                     </div>
@@ -164,7 +164,7 @@
                           0
                         </div>
                       </div>
-          <div class="upvotebutton-container" id="upvote-bounce">
+          <div class="upvotebutton-container" id="upvote-bounce5">
                         <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
                       </div>
                     </div>
@@ -192,7 +192,7 @@
                           0
                         </div>
                       </div>
-          <div class="upvotebutton-container" id="upvote-bounce">
+          <div class="upvotebutton-container" id="upvote-bounce6">
                         <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
                       </div>
                     </div>
@@ -222,7 +222,7 @@
       <div class="float-right votes-left">
         <span class="">Your Votes Left:</span>
         <span id="pointsLeft" class="">
-          5
+          0
         </span>
       </div>
     </div>
@@ -367,7 +367,7 @@ $('#upvote-bounce1').click(function() {
   }
 });
 
-$('#speaker2Points').click(function() {
+$('#upvote-bounce2').click(function() {
   if (hasPointsLeft() && speakerNumber != 2) {
     session.signal(
       {
@@ -384,7 +384,7 @@ $('#speaker2Points').click(function() {
   }
 });
 
-$('#speaker3Points').click(function() {
+$('#upvote-bounce3').click(function() {
   if (hasPointsLeft() && speakerNumber != 3) {
     session.signal(
       {
@@ -401,7 +401,7 @@ $('#speaker3Points').click(function() {
   }
 });
 
-$('#speaker4Points').click(function() {
+$('#upvote-bounce4').click(function() {
   if (hasPointsLeft() && speakerNumber != 4) {
     session.signal(
       {
@@ -418,7 +418,7 @@ $('#speaker4Points').click(function() {
   }
 });
 
-$('#speaker5Points').click(function() {
+$('#upvote-bounce5').click(function() {
   if (hasPointsLeft() && speakerNumber != 5) {
     session.signal(
       {
@@ -435,7 +435,7 @@ $('#speaker5Points').click(function() {
   }
 });
 
-$('#speaker6Points').click(function() {
+$('#upvote-bounce6').click(function() {
   if (hasPointsLeft() && speakerNumber != 6) {
     session.signal(
       {
@@ -868,7 +868,14 @@ session.on(
   function startFiretalk() {
     $('#startFiretalk').hide();
     firetalkGoing = true;
-
+    session.signal({
+      type: "newPoints",
+      data: pointsLeft
+    }, function(error) {
+      if (error) {
+        alert("failed to update voter points");
+      }
+    });
     showPoints();
     session.signal({
       type: "removeButtons"
