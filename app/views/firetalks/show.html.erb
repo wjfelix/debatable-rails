@@ -475,7 +475,9 @@ session.on(
       zeroPoints[i].innerHTML = mostRecentPoints[i];
 
       var conn = totalSessions[i].connection;
-      conn.data = mostRecentPoints[i] + "|" + conn.data.split("|")[1];
+      if (conn) {
+        conn.data = mostRecentPoints[i] + "|" + conn.data.split("|")[1];
+      }
     }
     /*
     $('.speakerPoints').each(function(index) {
@@ -677,7 +679,7 @@ function startLoadingBar(speakerIndex) {
     if (currentTime == 25) {
       // 100, 100 = 10 sec total
       // green to yellow
-      colorFade("tickingBar", "background", "00cc00", "ffff00", 200, 5);
+      colorFade("tickingBar", "background", "00cc00", "ffff00", 200, 15);
     }
     else if (currentTime == 12) {
       // yellow to red
