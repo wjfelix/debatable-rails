@@ -5,12 +5,12 @@ class FiretalksController < ApplicationController
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
   before_filter :config_opentok, :except => [:index, :destroy]
   before_filter :is_logged_in
-  before_filter :store_route
+  #before_filter :store_route
 
   def new
     @user = User.find(params[:user_id])
     @firetalk = Firetalk.new
-    4.times do
+    3.times do
       @firetalk.firetalk_debaters.build
     end
   end

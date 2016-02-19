@@ -6,7 +6,7 @@
   </title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'http://localhost:9292/faye.js' %>
+  
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= favicon_link_tag 'favicon.png' %>
@@ -14,14 +14,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-  <script>
-    $(function() {
-      var faye = new Faye.Client('http://localhost:9292/faye');
-      faye.subscribe("/invitations/new", function(data) {
-        alert(data);
-      });
-    });
-  </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 </head>
 <body>
@@ -37,7 +29,7 @@
     <div class="section group header-span">
       <%= render 'layouts/header' %>
     </div>
-   
+
     <%= yield %>
     <%= render 'layouts/footer' %>
 </body>
