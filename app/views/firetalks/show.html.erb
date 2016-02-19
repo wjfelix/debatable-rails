@@ -157,7 +157,7 @@
           Time:
         </span>
         <span id="clock">
-          30
+          45
         </span>
         <span class="start-ft">
         <% if @user.id == @firetalk.user_id %>
@@ -611,7 +611,7 @@ session.on(
 
 session.on(
   "signal:resetTimer", function(event) {
-  $('#clock').html("30");
+  $('#clock').html("45");
 });
 
 session.on(
@@ -674,10 +674,10 @@ function startLoadingBar(speakerIndex) {
     //this will be a function of time??
     var currentTime = parseInt($('#clock').text(), 10);
 
-    if (currentTime == 25) {
+    if (currentTime == 30) {
       // 100, 100 = 10 sec total\
       // green to yellow
-      colorFade("tickingBar", "background", "00cc00", "ffff00", 100, 20);
+      colorFade("tickingBar", "background", "00cc00", "ffff00", 100, 5);
     }
     else if (currentTime == 35) {
       // yellow to red
