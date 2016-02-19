@@ -180,6 +180,11 @@ body {
 
 /*NAVBAR*/
 
+
+.svgsizer {
+  height: 30px;
+}
+
 .header-span{
 	background-color: #001a33;
 	position: fixed;
@@ -189,6 +194,7 @@ body {
 	border-bottom-style:solid;
 	border-bottom-color: #ffffff;
 	border-bottom-width: 1px;
+  z-index: 2;
 }
 
 .navlogo1{
@@ -342,6 +348,7 @@ li {
 }
 .rounds-left{
   padding-left: 10px;
+
 }
 
 #roundNumber {
@@ -375,6 +382,8 @@ li {
 }
 
 .speaker-options-container{
+  display: flex;
+  height:30px;
 }
 
 .speakerBox{
@@ -390,7 +399,7 @@ li {
 
 }
 .speaker-options{
-  display: flex;
+  display: inline;
 	border-style: solid;
 	border-width: 2px;
 	border-color: #0077e6;
@@ -404,10 +413,11 @@ li {
 
 .user-name-ft {
   padding-right: 20px;
+  vertical-align: middle;
 }
 
 .progressbar{
-  height: 20px;
+  height: 8px;
   position: relative;
 }
 
@@ -451,7 +461,6 @@ li {
 }
 
 .firetalk-info{
-	background-color: white;
 	border-left: solid 2px black;
 	padding: 10px;
 }
@@ -605,13 +614,27 @@ li {
 }
 
 .start-ft{
-  padding-left: 10px;
+  margin: 0 auto 5px auto;
+  max-width: 100px;
 }
 
 
 .navbar-pos{
 	position: relative;
 }
+
+
+.ft-info-container{
+  border-width: 2px;
+  border-style: solid;
+  border-color: #f2f2f2;
+  background-color: #ffffff;
+  max-width: 1000px;
+  width: 50%;
+  margin: 0 auto;
+  padding: 10px;
+}
+
 
 
 /*========== EXTRA LARGE SCREEN MEDIA QUERY ===================*/
@@ -633,10 +656,9 @@ li {
   }
 
   .speaker-options{
-    display: flex;
+    display: inline;
   	border-style: solid;
   	border-width: 2px;
-  	border-color: #f2f2f2;
   	padding: 5px;
   	background-color: #ffffff;
     max-height: 50px;
@@ -657,10 +679,18 @@ li {
 }
 
 
-
 }
 
+@media screen and (max-width: 1149px){
+  .ft-info-container{
+    width: 100%;
+  }
+}
+
+
 @media screen and (max-width: 1149px) and (min-width: 900px) {
+
+
   .speakerBox{
   	width: 100%;
   	height: 175px;
@@ -677,14 +707,11 @@ li {
   }
 
   .speaker-options{
-    display: flex;
-  	border-style: solid;
-  	border-width: 2px;
-  	border-color: #f2f2f2;
+
   	padding: 5px;
   	background-color: #ffffff;
     max-height: 50px;
-    width: 350px;
+    width: 275px;
     border-radius: 3px;
   }
   .center-col-shadow{
@@ -783,13 +810,17 @@ li {
 }
 
 
-/*======= MOBILE AND TABLET QUERY===========*/
+/*==================== MOBILE AND TABLET QUERY============================================================*/
 
 @media only screen and (max-width: 654px) {
 
+  .speaker-options-container{
+    display: flex;
+    height:30px;
+  }
 
-  .firetalktopbar-container {
-  	border-width: 2px;
+  .ft-info-container{
+    border-width: 2px;
   	border-style: solid;
   	border-color: #f2f2f2;
   	background-color: #ffffff;
@@ -797,6 +828,18 @@ li {
     width: 100%;
     margin: 0 auto;
     padding: 10px;
+  }
+
+  .center-vids{
+  margin-left: auto;
+  }
+
+
+  .firetalktopbar-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 5px;
+    height:30px;
   }
 
   .header-span{
@@ -862,6 +905,10 @@ li {
     line-height: 30px;
   }
 
+  .navwidth{
+    padding: 0 5px 0 5px;
+  }
+
   #navbar-right{
     margin-right: 30px;
   }
@@ -892,10 +939,10 @@ li {
 
 
   .votes-left{
-    padding-right: 10px;
+    padding-right: 5px;
   }
   .rounds-left{
-    padding-left: 10px;
+    padding-left: 5px;
   }
 
 
@@ -911,7 +958,7 @@ li {
 
 
   .speaker-options{
-    display: flex;
+    display: inline;
   	border-style: solid;
   	border-width: 2px;
   	border-color: #0077e6;
@@ -923,22 +970,20 @@ li {
     box-shadow:  0px 0px 5px #888888;
   }
   .full-ft-speaker-box {
-    margin-left: 0px;
+    float: left;
     width: 50%;
-    display: inline-block;
   }
   .speakerBox{
       clear: right;
       box-shadow:  0px 0px 10px #888888;
     }
 
-  .speaker-box-contianer{
+  .speaker-box-container{
 
   }
 
 
   .firetalk-info{
-    background-color: white;
     border-left: solid 2px black;
     padding: 10px;
   }
@@ -1065,8 +1110,7 @@ li {
 
   .center-col-shadow{
     box-shadow: none;
-    margin-left: 0px;
-    margin-right: 0px;
+    margin: 0 auto;
   }
   .mob-vid-row-ft{
     width: 100%
@@ -1080,75 +1124,31 @@ li {
 }
 
 
-/*==== iphone 6 =====*/
-@media only screen and (max-width: 375px) and (min-width: 361px) {
+@media only screen and (min-width: 416px) and (max-width: 654px){
+  .center-col-shadow{
+    max-width: 400px;
+  }
+  .speaker-options{
+    width: 200px;
+  }
   .speakerBox{
-  width: 180px;
-  height: 100px;
-}
-.speaker-options{
-  max-width: 180px;
+    width: 200px;
+    height: 125px;
+  }
 }
 
-}
-
-/*==== iphone 6splus or sumshit big phone =====*/
-@media only screen and (max-width: 432px) and (min-width: 376px) {
+@media only screen and (max-width: 415px){
+  .center-col-shadow{
+    max-width: 310px;
+  }
+  .speaker-options{
+    width: 155px;
+  }
   .speakerBox{
-  width: 180px;
-  height: 120px;
+    width: 155px;
+    height: 90px;
+  }
 }
-
-.speaker-options{
-  max-width: 180px;
-}
-
-
-}
-
-/*==== smaller tablets =====*/
-@media only screen and (max-width: 600px) and (min-width: 433px) {
-  .speakerBox{
-  width: 210px;
-  height: 125px;
-}
-.speaker-options{
-  max-width: 210px;
-}
-}
-
-/*==== between 600 and 654 =====*/
-@media only screen and (max-width: 654px) and (min-width: 601px) {
-  .speakerBox{
-  width: 290px;
-  height: 125px;
-}
-
-.speaker-options{
-  max-width: 290px;
-}
-
-}
-
-/*==== most phones and iphones =====*/
-@media only screen and (max-width: 360px) and (min-width: 321px) {
-  .speakerBox{
-  width: 165px;
-  height: 100px;
-}
-.speaker-options{
-  max-width: 165px;
-}
-}
-
-/*==== most other phones =====*/
-@media only screen and (max-width: 320px) {
-  .speakerBox{
-  width: 160px;
-  height: 100px;
-}
-}
-
 
 
 /*  GRID OF TWO   ============================================================================= */
@@ -1163,3 +1163,87 @@ li {
 }
 
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+
+
+
+
+@-webkit-keyframes bounce {
+  from, 20%, 53%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+  }
+
+  40%, 43% {
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    -webkit-transform: translate3d(0, -30px, 0);
+    transform: translate3d(0, -30px, 0);
+  }
+
+  70% {
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    -webkit-transform: translate3d(0, -15px, 0);
+    transform: translate3d(0, -15px, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(0,-4px,0);
+    transform: translate3d(0,-4px,0);
+  }
+}
+
+@keyframes bounce {
+  from, 20%, 53%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+  }
+
+  40%, 43% {
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    -webkit-transform: translate3d(0, -30px, 0);
+    transform: translate3d(0, -30px, 0);
+  }
+
+  70% {
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    -webkit-transform: translate3d(0, -15px, 0);
+    transform: translate3d(0, -15px, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(0,-4px,0);
+    transform: translate3d(0,-4px,0);
+  }
+}
+
+.bounce {
+  -webkit-animation-name: bounce;
+  animation-name: bounce;
+  -webkit-transform-origin: center bottom;
+  transform-origin: center bottom;
+}
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.upvotebutton-container{
+  height: 20px;
+  display: inline;
+  float: right;
+  transform: translate(0,-35px);
+}
+
+.upvotebutton-svg{
+
+}
