@@ -410,7 +410,6 @@ li {
 .progressbar{
   height: 20px;
   position: relative;
-  text-align: right;
 }
 
 .totalvotes{
