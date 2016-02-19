@@ -666,7 +666,7 @@ function startLoadingBar(speakerIndex) {
   var total = 100;
   seconds = 30;
 
-  colorFade("tickingBar", "background", "006600", "ffff00", 25, 1500);
+  colorFade("tickingBar", "background", "006600", "ffff00", 25, 1400);
 
   // interval = total seconds * 100 / 2 (or 3 or 4 depending on how far we wanna go)
   var interval = 100;
@@ -678,7 +678,7 @@ function startLoadingBar(speakerIndex) {
     // correct for network lag?
     if (currentTime == seconds / 2) {
       total = 50;
-      colorFade("tickingBar", "background", "ffff00", "ff0000", 25, 1500);
+      colorFade("tickingBar", "background", "ffff00", "ff0000", 25, 1400);
     }
     else if (currentTime == Math.round(seconds / 4)) {
       total = 25;
