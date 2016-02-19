@@ -749,8 +749,9 @@ session.on(
 session.on(
   "signal:prepareNextSpeaker", function(event) {
     var speakerIndex = parseInt(event.data) + 1;
-    var element = $("#speaker" + speakerIndex + "Box");
-    element.backgroundColor = "blue";
+
+    // do something that takes 10 seconds
+    colorFade("#speaker" + speakerIndex + "Progressbar", 'background', 'ffffff', '292c31', 25, 10);
   }
 );
 
