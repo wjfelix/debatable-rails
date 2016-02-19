@@ -1,14 +1,79 @@
 <script type="text/javascript" src="https://static.opentok.com/v2/js/opentok.min.js"></script>
-<<<<<<< HEAD
 
-<!--<%= 'ONE V ONE VIEW' %>-->
-=======
-<div id="ownerBox"></div>
+
+
+<div class="section" id="toppad">
+
+
+
+<div class="col span_2_of_10">
+  <div class="leftbar-news">
+
+
+
+<button onclick="sendSignal()" class="button">Send Signal</button>
+</div>
+
+
+</div>
+
+
+
+<div class="col span_7_of_10" id="center-col">
+
+  <div class="col span_1_of_2">
+
+
+<div class="o-v-o-box-container">
+  <div class="o-v-o-box">
+  <div id="ownerBox"></div>
+</div>
+</br>
+<div class="centerhor">nameOfUser</div>
+</div>
+
+</div>
+
+<div class="col span_1_of_2">
+
+<div class="o-v-o-box-container">
+  <div class="o-v-o-box">
 <div id="competitorBox"></div>
+</div>
+<div class="centerhor">nameOfUser</div>
+</div>
+</div>
+<div class="col span_1_of_2">
+
+<div class="o-v-o-box-container">
+  <div class="o-v-o-box">
 <div id="moderatorBox"></div>
-<>
-<%= 'ONE V ONE VIEW' %>
->>>>>>> refs/remotes/rhenvar/master
+</div>
+<div class="centerhor">nameOfUser</div>
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+<div class="col span_1_of_10"></div>
+
+
+
+</div>
+
+
+
+
+
+
 
 <%= javascript_tag do %>
 
@@ -26,6 +91,8 @@ var isOwner = "<%= @owner %>";
 var session;
 var connected = 1;
 
+var publisherOptions = {width: '100%', height: '100%'};
+
 TB.setLogLevel(TB.DEBUG);
 var session = TB.initSession(sessionId);
 session.addEventListener('sessionConnected', sessionConnectedHandler);
@@ -36,15 +103,15 @@ session.connect(apiKey, token);
 var publisher;
 function sessionConnectedHandler(event) {
   if (isModerator == "true") {
-    publisher = TB.initPublisher(apiKey, 'moderatorBox');
+    publisher = TB.initPublisher(apiKey, 'moderatorBox', publisherOptions);
     session.publish(publisher);
   }
   else if (isOwner == "true") {
-    publisher = TB.initPublisher(apiKey, 'ownerBox');
+    publisher = TB.initPublisher(apiKey, 'ownerBox', publisherOptions);
     session.publish(publisher);
   }
   else if (isDebater == "true") {
-    publisher = TB.initPublisher(apiKey, 'competitorBox');
+    publisher = TB.initPublisher(apiKey, 'competitorBox', publisherOptions);
     session.publish(publisher);
   }
   // Subscribe to streams that were in the session when we connected
@@ -103,28 +170,3 @@ session.on("signal", function(event) {
 });
 
 <% end %>
-<<<<<<< HEAD
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-2"></div>
-
-
-<div class="col-md-8">
-<button onclick="sendSignal()">Send Signal</button>
-
-<div class="one_versus_one_owner_box"></div>
-<div class="one_versus_one_opponent_box"></div>
-<div class="one_versus_one_moderator_box"></div> 
-<div class="jumbotron">
-    <div id="videobox"></div>
-    </div>
-</div>
-
-
-
-</div>
-</div>
-=======
->>>>>>> refs/remotes/rhenvar/master
