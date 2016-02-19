@@ -794,17 +794,17 @@ session.on(
     var blinkTimer = null;
     var times = 5;
     blinkTimer = setInterval(alertPlayer, 1000);
-    var progressBar = document.getElementById("speaker" + speakerIndex + "Progressbar");
+    var speakerBar = document.getElementById("speaker" + speakerIndex + "Progressbar");
     var yellowBar = document.createElement("div");
     yellowBar.style.width = speakerBar.style.width;
     yellowBar.style.height = "8px";
     yellowBar.style.backgroundColor = "yellow";
-    progressBar.appendChild(yellowBar);
+    speakerBar.appendChild(yellowBar);
 
 
     function alertPlayer() {
       if (times == 0) {
-        progressBar.removeChild(yellowBar);
+        speakerBar.removeChild(yellowBar);
         clearInterval(blinkTimer);
         blinkTimer = null;
       }
