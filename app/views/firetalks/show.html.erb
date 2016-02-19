@@ -50,7 +50,7 @@
                 0
               </div>
             </div>
-<div class="upvotebutton-container" id="upvote-bounce">
+<div class="upvotebutton-container" id="upvote-bounce1">
               <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
             </div>
           </div>
@@ -350,7 +350,7 @@ function getPoints() {
 }
 
 // BROADCAST SIGNAL EVENTS
-$('#speaker1Points').click(function() {
+$('#upvote-bounce1').click(function() {
   if (hasPointsLeft() && speakerNumber != 1) {
     decrementVote();
     session.signal(
