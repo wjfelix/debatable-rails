@@ -234,7 +234,12 @@ li {
 
 
 #center-col{
+<<<<<<< HEAD
 	background-color: #d9d9d9;
+=======
+	background-color: #999999;
+
+>>>>>>> refs/remotes/rhenvar/master
 	border-style: solid;
 	border-left-width:10px;
 	padding-top: 50px;
@@ -331,8 +336,12 @@ li {
 	max-width: 350px;
 	max-height: 200px;
 	float: left;
+<<<<<<< HEAD
 	clear: right;
   box-shadow:  0px 0px 10px #888888;
+=======
+
+>>>>>>> refs/remotes/rhenvar/master
 }
 
 
@@ -365,6 +374,10 @@ li {
 
 #center-col-ft{
 	background-color: #999999;
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/rhenvar/master
 	border-style: solid;
 	border-width: 1px;
 	padding-left: 20px;
@@ -390,8 +403,14 @@ li {
   display: flex;
 	border-style: solid;
 	border-width: 2px;
+<<<<<<< HEAD
 	border-color: #0077e6;
 	padding: 5px;
+=======
+	border-color: #f2f2f2;
+	padding-top: 10px;
+
+>>>>>>> refs/remotes/rhenvar/master
 	background-color: #ffffff;
   max-height: 50px;
   width: 200px;
@@ -426,7 +445,11 @@ li {
 
 }
 
+<<<<<<< HEAD
 /*@media screen 1160px breaks firetalk ui*/
+=======
+/* @media screen 1160px breaks firetalk ui */
+>>>>>>> refs/remotes/rhenvar/master
 
 
 .full-ft-speaker-box {
@@ -510,7 +533,10 @@ li {
 	font-family: 'Karla', sans-serif;
 	padding:5px;
 	text-align: center;
+<<<<<<< HEAD
 	border-radius: 3px;
+=======
+>>>>>>> refs/remotes/rhenvar/master
 }
 
 .button:hover {
@@ -592,12 +618,18 @@ li {
 	padding-top: 10px;
 }
 
+<<<<<<< HEAD
 .left-container{
 	padding-top: 30px;
 	height: 100%;
+=======
+	.span_7_of_10-ft {
+	width: 50%;
+>>>>>>> refs/remotes/rhenvar/master
 }
 
 
+<<<<<<< HEAD
 .firetalk-title{
 	background-color: #ffffff;
 	border-style: solid;
@@ -650,6 +682,11 @@ li {
     width: 350px;
     border-radius: 3px;
   }
+=======
+	#center-col{
+		max-width: 1270px;
+	}
+>>>>>>> refs/remotes/rhenvar/master
 
 
 
@@ -705,7 +742,11 @@ li {
 }
 
 .span_2_of_10 {
+<<<<<<< HEAD
 	width: 20%;
+=======
+	width: 18.72%;
+>>>>>>> refs/remotes/rhenvar/master
 }
 
 .span_1_of_10 {
@@ -778,6 +819,7 @@ li {
 		width: 100%;
 	}
 }
+<<<<<<< HEAD
 
 /*  GRID OF TWO   ============================================================================= */
 
@@ -800,3 +842,5 @@ li {
 		width: 100%;
 	}
 }
+=======
+>>>>>>> refs/remotes/rhenvar/master

@@ -2,6 +2,7 @@
 
 
 <div class="section" id="toppad">
+<<<<<<< HEAD
   <div class="col span_10_of_10" id="center-col">
     <div class="center-col-shadow">
     <div class="section">
@@ -9,6 +10,70 @@
         <h3>
           <%= @firetalk.name %>
         </h3>
+=======
+
+
+      <div class="col span_2_of_10">
+        <div class="ft-left-bar float-right">
+
+          <div class="firetalk-info">
+
+
+
+<h2><%= @firetalk.name %></h2>
+<h3><em><%= @firetalk.topic %></em></h3>
+
+<em>
+<%= @firetalk.description %>
+</em>
+
+
+</br></br>
+participants:
+
+<%= @users[0].email %>
+
+<%= @users[1].email %>
+</div>
+
+</br>
+          <div class="centerhor">
+            <% if @user.id == @firetalk.user_id %>
+            <button id="startFiretalk" class="button">
+              Start Firetalk
+            </button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+
+
+  <div class="col span_7_of_10-ft" id="center-col-ft">
+    <div class="section group firetalktopbar-container">
+
+      <div class="col span_1_of_3">
+        <span class="margleft">
+          Time:
+        </span>
+        <span id="clock">
+          15
+        </span>
+      </div>
+
+      <div class="col span_1_of_3">
+        <span class="centerhor">Your Votes Left:</span>
+        <span id="pointsLeft" class="centerhor">
+          5
+        </span>
+      </div>
+
+      <div class="col span_1_of_3">
+        <span id="roundNumber" class="float-right">
+          1
+        </span>
+        <span class="float-right">Round:</span>
+>>>>>>> refs/remotes/rhenvar/master
       </div>
     </div>
 
@@ -213,6 +278,8 @@ var token = "<%= j @tok_token %>";
 var myEmail = "<%= j @user.email %>"
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
 var isDebater = "<%= @is_debater %>"
+var firetalkGoing = false;
+var playersAlive = [];
 
 // connecting logic
 TB.setLogLevel(TB.DEBUG);
@@ -276,7 +343,6 @@ function subscribeToStreams(streams) {
 }
 
 function streamPropertyChangedHandler() {
-
 }
 
 function decrementVote() {
@@ -291,7 +357,7 @@ function getPoints() {
 
 // BROADCAST SIGNAL EVENTS
 $('#speaker1Points').click(function() {
-  if (hasPointsLeft()) {
+  if (hasPointsLeft() && speakerNumber != 1) {
     decrementVote();
     session.signal(
       {
@@ -308,7 +374,7 @@ $('#speaker1Points').click(function() {
 });
 
 $('#speaker2Points').click(function() {
-  if (hasPointsLeft()) {
+  if (hasPointsLeft() && speakerNumber != 2) {
     session.signal(
       {
         data:  totalSessions[1].connection.connectionId,
@@ -325,7 +391,7 @@ $('#speaker2Points').click(function() {
 });
 
 $('#speaker3Points').click(function() {
-  if (hasPointsLeft()) {
+  if (hasPointsLeft() && speakerNumber != 3) {
     session.signal(
       {
         data:  totalSessions[2].connection.connectionId,
@@ -342,7 +408,7 @@ $('#speaker3Points').click(function() {
 });
 
 $('#speaker4Points').click(function() {
-  if (hasPointsLeft()) {
+  if (hasPointsLeft() && speakerNumber != 4) {
     session.signal(
       {
         data:  totalSessions[3].connection.connectionId,
@@ -359,7 +425,7 @@ $('#speaker4Points').click(function() {
 });
 
 $('#speaker5Points').click(function() {
-  if (hasPointsLeft()) {
+  if (hasPointsLeft() && speakerNumber != 5) {
     session.signal(
       {
         data:  totalSessions[4].connection.connectionId,
@@ -376,7 +442,7 @@ $('#speaker5Points').click(function() {
 });
 
 $('#speaker6Points').click(function() {
-  if (hasPointsLeft()) {
+  if (hasPointsLeft() && speakerNumber != 6) {
     session.signal(
       {
         data:  totalSessions[5].connection.connectionId,
@@ -460,6 +526,31 @@ session.on(
   }
 );
 
+session.on(
+  "signal:catchUpPoints", function(event) {
+    var mostRecentPoints = event.data.split("|");
+    var zeroPoints = $(".speakerPoints");
+
+    for (var i = 0; i < mostRecentPoints.length; i++) {
+      zeroPoints[i].innerHTML = mostRecentPoints[i];
+
+      var conn = totalSessions[i].connection;
+      conn.data = mostRecentPoints[i] + "|" + conn.data.split("|")[1];
+    }
+    /*
+    $('.speakerPoints').each(function(index) {
+      var newPoint = mostRecentPoints[index];
+      $(this).html(newPoint);
+    });
+    */
+    /*
+    for (var i = 0; i < mostRecentPoints.length; i++) {
+      points[i].html(mostRecentPoints[i]);
+    }
+    */
+  }
+);
+
 // Stores the points of the connection locally and returns the value
 function incrementStream(connectionId) {
   for (var i = 0; i < totalSessions.length; i++) {
@@ -479,9 +570,46 @@ session.on(
 
     // JSON points email => Speaker number
     // totalSessions puts people in the right order by speaker number
-    totalSessions[parseInt(debatersJson[emailAndPoints[1]])] = event;
+
+    // RECONNECTING LOGIC
+    var newSession = event;
+
+    if (firetalkGoing) {
+
+      var pointsString = "";
+      for (var i = 0; i < totalSessions.length; i++) {
+        pointsString += totalSessions[i].connection.data.split("|")[0] + "|";
+      }
+      var index = parseInt(debatersJson[emailAndPoints[1]]);
+      if (playersAlive[index] != null) {
+        playersAlive[index] = newSession.connection.connectionId;
+        showPoints();
+      }
+      // update their points
+      session.signal({
+          type: "catchUpPoints",
+          to: newSession.connection,
+          data: pointsString
+        }, function(error) {
+          if (error) {
+            alert("could not tell player to reset points!" + error.message + error.code);
+          }
+        }
+      );
+    }
+    totalSessions[parseInt(debatersJson[emailAndPoints[1]])] = newSession;
   }
 );
+
+function showPoints() {
+  session.signal({
+    type: "showPoints"
+  }, function(error) {
+    if (error) {
+      alert("couldn't show points");
+    }
+  });
+}
 
 // Listen to ourselves if we lose
 session.on(
@@ -543,7 +671,7 @@ session.on(
 
 session.on(
   "signal:resetTimer", function(event) {
-  $('#clock').html("30");
+  $('#clock').html("15");
 });
 
 session.on(
@@ -559,15 +687,20 @@ session.on(
     for (var i = 0; i < totalSpeakerBoxes.length; i++) {
       if (i == nowSpeaking) {
         totalSpeakerBoxes[i].style.border = "4px solid green";
+        //startLoadingBar(i + 1);
       }
-      else if (totalSpeakerBoxes[i].style.border != "4px solid #000000"){
-        totalSpeakerBoxes[i].style.border = "4px solid red";
+
+      // if it's not black, turn it red (if they're not out, mute them for the round)
+      else if (totalSpeakerBoxes[i].style.borderColor != "rgb(0, 0, 0)"){
+        if (totalSpeakerBoxes[i].style.borderColor != '#000000') {
+          totalSpeakerBoxes[i].style.border = "4px solid red";
+        }
       }
     }
     // Don't worry about this, it's just muting stuff
     if (event.data == session.connection.connectionId) {
 
-      $("#speaker" + speakerNumber + "Box").css("border", "4px solid green");
+      //$("#speaker" + speakerNumber + "Box").css("border", "4px solid green");
 
       //$("#speaker" + speakerNumber + "Box").css("background-color", "green");
       publisher.publishAudio(true);
@@ -577,6 +710,31 @@ session.on(
     }
   }
 );
+
+var barTimer = null;
+function startLoadingBar(speakerIndex) {
+  var bar = document.createElement("div");
+  bar.id = "speakingBar";
+  bar.style.border = "4 px solid pink";
+  bar.height = "225px";
+  var speakerBox = $('#speaker' + speakerIndex + 'Box');
+  // append bar to somewhere?
+  barTimer = setInterval(decrementBar, 100);
+}
+
+function decrementBar() {
+  var currentTimeLeft = parseInt($('#clock').text(), 10);
+  var bar = document.getElementById("speakingBar");
+  if (currentTimeLeft == 0) {
+    clearInterval(barTimer);
+    barTimer = null;
+    bar.visibility = "hidden";
+  }
+  else {
+    // CHANGE THIS WHEN YOU CHANGE THE TIME
+    bar.style.height = currentTimeLeft * 15 / 225;
+  }
+}
 
 session.on(
   "signal:nextRound", function(event) {
@@ -609,19 +767,26 @@ session.on(
       points[i].style.visibility = 'visible';
     }
   }
-)
+);
 
 session.on(
   "signal:newPoints", function(event) {
     var newPoints = parseInt(event.data);
     document.getElementById("pointsLeft").innerHTML = newPoints;
   }
-)
+);
+
+session.on(
+  "signal:prepareNextSpeaker", function(event) {
+    var speakerIndex = parseInt(event.data) + 1;
+    $("#speaker" + speakerIndex + "Box").css("border", "4px solid blue");
+  }
+);
+
 <% end %>
 
 <% if session[:user_id].to_s == params[:user_id].to_s %>
   <%= javascript_tag do %>
-  var playersAlive = [];
   var currentSpeakerIndex = 0;
   window.onload = function() {
     $('#startFiretalk').on('click', function() {
@@ -629,17 +794,10 @@ session.on(
     });
   };
 
-  function showPoints() {
-    session.signal({
-      type: "showPoints"
-    }, function(error) {
-      if (error) {
-        alert("couldn't show points");
-      }
-    });
-  }
   function startFiretalk() {
     $('#startFiretalk').hide();
+    firetalkGoing = true;
+
     showPoints();
     session.signal({
       type: "removeButtons"
@@ -661,25 +819,23 @@ session.on(
       }
     }
 
-    // OWNER START SPEAKING
-    alert("STARTING OWNER TALK");
+    // First person start
     session.signal({
       type: "adjustAudio",
-      data: session.connection.connectionId
+      data: totalSessions[0].connection.connectionId
     },
     function(error) {
       if (error) {
         alert("There was an error starting the firetalk with owner");
       }
     });
-    alert("ENDING OWNER TALK");
 
     var timer = null;
     if (!timer) {
       timer = setInterval(clockwork, 1000);
     }
 
-    var totalRounds = 6;
+    var totalRounds = 5;
     var currentRound = 1;
 
     // Firetalk logic function
@@ -702,6 +858,26 @@ session.on(
             alert("Failed to update clock, who knows");
           }
         });
+
+        if (currentTimeLeft == 10) {
+          // get next speaker speaking
+          if (!isLastSpeakerAlive(currentSpeakerIndex)) {
+            var nextSpeakerIndex = getNextSpeakerAlive(currentSpeakerIndex);
+            //alert("Now: " + currentSpeakerIndex + " next:" + nextSpeakerIndex);
+
+            session.signal({
+              type: "prepareNextSpeaker",
+              data: nextSpeakerIndex
+            }, function(error) {
+              if (error) {
+                alert("couldn't prepare next speaker");
+              }
+            });
+          }
+          else {
+
+          }
+        }
       }
       // Timer Ended (30 seconds up!)
       else {
@@ -801,10 +977,24 @@ session.on(
       }
     }
 
+    function getNextSpeakerAlive(currentSpeaker) {
+      for (var i = currentSpeaker; i < playersAlive.length; i++) {
+        if (playersAlive[i + 1]) {
+          return i + 1;
+        }
+      }
+      for (var i = 0; i < currentSpeaker; i++) {
+        if (playersAlive[i]) {
+          return i;
+        }
+      }
+    }
+
     // returns connectionId of the first speaker in the list
     function firstSpeakerAlive() {
       for (var i = 0; i < playersAlive.length; i++) {
         if (playersAlive[i] != null) {
+          // here it's returning the incorrect connectionID because it didn't update properly...
           return playersAlive[i];
         }
       }
