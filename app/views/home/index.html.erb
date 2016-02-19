@@ -3,7 +3,7 @@
 		<div class="left-container">
 		<div class="leftbar-news">
 			<div class="centerhor">
-				
+
 					Welcome!
 			</div>
 			</br>
@@ -19,7 +19,7 @@
 	</div>
 	<div class="col span_8_of_10" id="center-col">
 		<div class="center-container">
-		<div class="section centerhor notif"> 
+		<div class="section centerhor notif">
 	<% if !flash[:message].nil? %>
     <%= flash[:message] %>
     <% end %>
@@ -30,6 +30,7 @@
 					<%= image_tag("logo.png", :class => "logohome")%>
 					Welcome to Debatable!
 				</strong>
+				<%= link_to("Tell us how we're doing.", '/feedbacks/new') %>
 			</h1>
 				</br>
 			<h3>
@@ -40,11 +41,11 @@
 			</br>
 	<blockquote>
 		<p>
-		Here at debatable, we want to give people the stage to share their opinions and be understood by their communities. Debatable is a live-video debating social media platform that bridges face to face conversation and social media interaction. Come join us on 
+		Here at debatable, we want to give people the stage to share their opinions and be understood by their communities. Debatable is a live-video debating social media platform that bridges face to face conversation and social media interaction. Come join us on
 		<strong>
 			February 20th
 		</strong>
-		 for our launch! 
+		 for our launch!
 		 </br>
 		</br>
 		<em>
@@ -65,7 +66,7 @@
 			Debate and discuss any topic face-to-face with whoever you want whether they live across the globe or across the nation.
 		</blockquote>
 		<h3>
-			Firetalk 
+			Firetalk
 		</h3>
 		<blockquote>
 			Battle your friends with your words as you fight through rounds of elimination in a fast-paced debatable game.
@@ -88,7 +89,7 @@
 		<blockquote>
 			Share debates on Facebook, Twitter, and other existing social media to show the world what you have been up to.
 		</blockquote>
-	</div>	
+	</div>
 
 	<hr><hr>
 	<div class="center-obj">
