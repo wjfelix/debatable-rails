@@ -675,7 +675,8 @@ function startLoadingBar(speakerIndex) {
     var currentTime = parseInt($('#clock').text(), 10);
 
     if (currentTime == 15) {
-      colorFade("tickingBar", "background", "00cc00", "ff0000", 10, 100);
+      alert("start changing");
+      colorFade("tickingBar", "background", "00cc00", "ff0000", 10, 1000);
     }
 
     // correct for network lag?
