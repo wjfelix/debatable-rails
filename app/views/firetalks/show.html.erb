@@ -674,16 +674,17 @@ function startLoadingBar(speakerIndex) {
     //this will be a function of time??
     var currentTime = parseInt($('#clock').text(), 10);
 
+    if (currentTime == 15) {
+      alert("start changing");
+      colorFade("tickingBar", "background", "00cc00", "ff0000", 2, 10000);
+    }
+    
     // correct for network lag?
     if (currentTime == seconds / 2) {
       total = 50;
     }
     else if (currentTime == Math.round(seconds / 4)) {
       total = 25;
-    }
-    else if (currentTime == 15) {
-      alert("start changing");
-      colorFade("tickingBar", "background", "00cc00", "ff0000", 2, 10000);
     }
 
     if (currentTime == 0 || total == 0) {
