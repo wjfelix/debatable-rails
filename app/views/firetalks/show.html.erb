@@ -729,8 +729,7 @@ function startLoadingBar(speakerIndex) {
   timeLeftBar.style.height = "8px";
   timeLeftBar.style.backgroundColor = "green";
   timeLeftBar.style.float = "right";
-  //speakerBar.appendChild(timeLeftBar);
-  $("#tickingBar").hide().appendTo($("#speaker" + speakerIndex + "Progressbar")).fadeIn(1000);
+  speakerBar.appendChild(timeLeftBar);
 
   var total = 100;
   seconds = 45;
@@ -856,8 +855,8 @@ session.on(
       else {
 
         if (yellowBar.style.display == "") {
-          $('#yellowBar').fadeOut("1000");
-          yellowBar.style.display = "none";
+          $('#yellowBlinkingBar').fadeOut(1000);
+          //yellowBar.style.display = "none";
         }
         else {
           yellowBar.style.display = "";
