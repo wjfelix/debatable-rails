@@ -729,8 +729,9 @@ function startLoadingBar(speakerIndex) {
   timeLeftBar.style.height = "8px";
   timeLeftBar.style.backgroundColor = "green";
   timeLeftBar.style.float = "right";
-  speakerBar.appendChild(timeLeftBar);
+  //speakerBar.appendChild(timeLeftBar);
   $("#tickingBar").hide().fadeIn();
+  $("#tickingBar").hide().appendTo(speakerBar).fadeIn(1000);
 
   var total = 100;
   seconds = 45;
