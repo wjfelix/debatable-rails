@@ -40,7 +40,7 @@
         <div class="section speaker-options-container">
           <div class="speaker-options">
 
-            <div class="user-name-ft">
+            <div class="user-name-ft" id="speaker1Name">
             <%= @users[0].firstname %>
           </div>
 
@@ -50,7 +50,7 @@
                 0
               </div>
             </div>
-<div class="upvotebutton-container" id="upvote-bounce">
+<div class="upvotebutton-container" id="upvote-bounce1">
               <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
             </div>
           </div>
@@ -67,8 +67,8 @@
 
         <div class="section speaker-options-container">
           <div class="speaker-options">
-            <div class="user-name-ft">
-            <%= @users[1].firstname %>
+            <div class="user-name-ft" id="speaker2Name">
+            <%= @users[0].firstname %>
           </div>
 
 
@@ -78,7 +78,7 @@
                           0
                         </div>
                       </div>
-          <div class="upvotebutton-container" id="upvote-bounce">
+          <div class="upvotebutton-container" id="upvote-bounce2">
                         <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
                       </div>
                     </div>
@@ -97,8 +97,8 @@
 
         <div class="section speaker-options-container">
           <div class="speaker-options">
-            <div class="user-name-ft">
-<%= @users[2].firstname %>
+            <div class="user-name-ft" id="speaker3Name">
+              <%= @users[0].firstname %>
           </div>
 
 
@@ -108,7 +108,7 @@
                           0
                         </div>
                       </div>
-          <div class="upvotebutton-container" id="upvote-bounce">
+          <div class="upvotebutton-container" id="upvote-bounce3">
                         <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
                       </div>
                     </div>
@@ -125,8 +125,8 @@
 
         <div class="section speaker-options-container">
           <div class="speaker-options">
-            <div class="user-name-ft">
-<%= @users[3].firstname %>
+            <div class="user-name-ft" id="speaker4Name">
+            <%= @users[0].firstname %>
           </div>
 
 
@@ -136,7 +136,7 @@
                           0
                         </div>
                       </div>
-          <div class="upvotebutton-container" id="upvote-bounce">
+          <div class="upvotebutton-container" id="upvote-bounce4">
                         <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
                       </div>
                     </div>
@@ -153,8 +153,8 @@
 
         <div class="section speaker-options-container">
           <div class="speaker-options">
-            <div class="user-name-ft">
-<%= @users[1].firstname %>
+            <div class="user-name-ft" id="speaker5Name">
+              <%= @users[0].firstname %>
           </div>
 
 
@@ -164,7 +164,7 @@
                           0
                         </div>
                       </div>
-          <div class="upvotebutton-container" id="upvote-bounce">
+          <div class="upvotebutton-container" id="upvote-bounce5">
                         <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
                       </div>
                     </div>
@@ -181,8 +181,8 @@
 
         <div class="section speaker-options-container">
           <div class="speaker-options">
-            <div class="user-name-ft">
-<%= @users[1].firstname %>
+            <div class="user-name-ft" id="speaker6Name">
+              <%= @users[0].firstname %>
           </div>
 
 
@@ -192,7 +192,7 @@
                           0
                         </div>
                       </div>
-          <div class="upvotebutton-container" id="upvote-bounce">
+          <div class="upvotebutton-container" id="upvote-bounce6">
                         <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
                       </div>
                     </div>
@@ -225,7 +225,7 @@
       <div class="float-right votes-left">
         <span class="">Your Votes Left:</span>
         <span id="pointsLeft" class="">
-          5
+          0
         </span>
       </div>
     </div>
@@ -353,7 +353,7 @@ function getPoints() {
 }
 
 // BROADCAST SIGNAL EVENTS
-$('#speaker1Points').click(function() {
+$('#upvote-bounce1').click(function() {
   if (hasPointsLeft() && speakerNumber != 1) {
     decrementVote();
     session.signal(
@@ -370,7 +370,7 @@ $('#speaker1Points').click(function() {
   }
 });
 
-$('#speaker2Points').click(function() {
+$('#upvote-bounce2').click(function() {
   if (hasPointsLeft() && speakerNumber != 2) {
     session.signal(
       {
@@ -387,7 +387,7 @@ $('#speaker2Points').click(function() {
   }
 });
 
-$('#speaker3Points').click(function() {
+$('#upvote-bounce3').click(function() {
   if (hasPointsLeft() && speakerNumber != 3) {
     session.signal(
       {
@@ -404,7 +404,7 @@ $('#speaker3Points').click(function() {
   }
 });
 
-$('#speaker4Points').click(function() {
+$('#upvote-bounce4').click(function() {
   if (hasPointsLeft() && speakerNumber != 4) {
     session.signal(
       {
@@ -421,7 +421,7 @@ $('#speaker4Points').click(function() {
   }
 });
 
-$('#speaker5Points').click(function() {
+$('#upvote-bounce5').click(function() {
   if (hasPointsLeft() && speakerNumber != 5) {
     session.signal(
       {
@@ -438,7 +438,7 @@ $('#speaker5Points').click(function() {
   }
 });
 
-$('#speaker6Points').click(function() {
+$('#upvote-bounce6').click(function() {
   if (hasPointsLeft() && speakerNumber != 6) {
     session.signal(
       {
@@ -473,6 +473,12 @@ session.on(
     //document.getElementById('speaker' + speakerIndex + 'Box').style.border = "4px solid #ffff33";
     document.getElementById('speaker' + speakerIndex + 'Progressbar').style.backgroundColor = "yellow";
     document.getElementById("pointsLeft").innerHTML = "0";
+    var winnerBox = document.createElement("div");
+    var winnerName = document.getElementById("speaker" + speakerIndex + "Name").innerHTML;
+    winnerBox.style.fontSize = "48pt";
+    winnerBox.style.textAlign = "center";
+    winnerBox.innerHTML = winnerName + " has won the firetalk!";
+    $(".firetalktopbar-container").prepend(winnerBox);
   }
 );
 session.on(
@@ -618,7 +624,7 @@ session.on(
     if (session.connection.connectionId == event.data) {
       // Instead of just unpublishing, permanently mute and set style to black
       publisher.publishAudio(false);
-      document.getElementById('speaker' + speakerNumber + 'Progressbar').style.backgroundColor = "red";
+    //  document.getElementById('speaker' + speakerNumber + 'Progressbar').style.backgroundColor = "red";
 
       session.signal({
         type: 'dropColor',
@@ -645,7 +651,9 @@ session.on(
 session.on(
   "signal:hideLoserButton", function(event) {
     var loserNumber = parseInt(event.data);
-    $('#speaker' + loserNumber + 'Points').unbind();
+    $('#upvote-bounce' + loserNumber).unbind();
+    $('#upvote-bounce' + loserNumber).fadeOut(400);
+    $('#speaker' + loserNumber + 'Points').hide(400);
   }
 );
 
@@ -658,16 +666,33 @@ session.on(
         email = totalSessions[i].connection.data.split("|")[1];
       }
     }
-    var debaterIndex = parseInt(debatersJson[email]);
-    debaterIndex++;
+    var debaterIndex = parseInt(debatersJson[email]) + 1;
     document.getElementById('speaker' + debaterIndex + 'Progressbar').style.backgroundColor = "red";
+    var loserVideoBox = $("#speaker" + debaterIndex + "Box");
+    var outDiv = document.createElement("div");
+    outDiv.setAttribute("id", "out");
+    outDiv.style.color = "red";
+    outDiv.style.fontSize = "40pt";
+    outDiv.style.position = "absolute";
+    outDiv.style.zIndex = "1000";
+    outDiv.innerHTML = "Out!";
+    loserVideoBox.prepend(outDiv);
+    $("#out").fadeOut(4000, function() {
+      $(this).remove();
+    });
   }
 );
 
 session.on(
   "signal:decrementClock", function(event) {
-    var currentTime = $('#clock');
-    currentTime.html(event.data);
+    var currentTimeElement = $('#clock');
+    var currentTime = parseInt(currentTimeElement.innerHTML);
+    if (currentTime <= 5) {
+      // make the background fade?
+      var redBackground = document.createElement("div");
+
+    }
+    currentTimeElement.html(event.data);
 });
 
 session.on(
@@ -828,10 +853,11 @@ session.on(
     // do something that takes 10 seconds
     //colorFade("speaker" + speakerIndex + "Progressbar", 'background', 'gray', 'yellow', 25, 10);
     var blinkTimer = null;
-    var times = 5;
+    var times = 6;
     blinkTimer = setInterval(alertPlayer, 1000);
     var speakerBar = document.getElementById("speaker" + speakerIndex + "Progressbar");
     var yellowBar = document.createElement("div");
+    yellowBar.setAttribute("id", "yellowBlinkingBar");
     yellowBar.style.width = speakerBar.style.width;
     yellowBar.style.height = "8px";
     yellowBar.style.backgroundColor = "yellow";
@@ -840,13 +866,17 @@ session.on(
 
     function alertPlayer() {
       if (times == 0) {
-        speakerBar.removeChild(yellowBar);
+        $('#yellowBlinkingBar').fadeOut(500, function() {
+          $(this).remove();
+        });
         clearInterval(blinkTimer);
         blinkTimer = null;
       }
       else {
+
         if (yellowBar.style.display == "") {
-          yellowBar.style.display = "none";
+          $('#yellowBlinkingBar').fadeOut(500);
+          //yellowBar.style.display = "none";
         }
         else {
           yellowBar.style.display = "";
@@ -871,7 +901,14 @@ session.on(
   function startFiretalk() {
     $('#startFiretalk').hide();
     firetalkGoing = true;
-
+    session.signal({
+      type: "newPoints",
+      data: pointsLeft
+    }, function(error) {
+      if (error) {
+        alert("failed to update voter points");
+      }
+    });
     showPoints();
     session.signal({
       type: "removeButtons"
@@ -909,7 +946,7 @@ session.on(
       timer = setInterval(clockwork, 1000);
     }
 
-    var totalRounds = 4;
+    var totalRounds = 3;
     var currentRound = 1;
 
     // Firetalk logic function
@@ -976,7 +1013,7 @@ session.on(
 
           // If it's the end of the firetalk
           if (currentRound == totalRounds) {
-            alert("END OF FIRETALK");
+            //alert("END OF FIRETALK");
             session.signal({
               type: "unmuteAll"
             },  function(error) {
