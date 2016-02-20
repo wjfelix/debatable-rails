@@ -475,7 +475,7 @@ session.on(
     document.getElementById('speaker' + speakerIndex + 'Progressbar').style.backgroundColor = "yellow";
     document.getElementById("pointsLeft").innerHTML = "0";
     var winnerBox = document.createElement("div");
-    var winnerName = "<%= j @users[" + speakerIndex + "] %>"; 
+    var winnerName = "<%= j @users[" + String(speakerIndex) + "] %>"; 
     winnerBox.style.fontsize = "48pt";
     winnerBox.innerHTML = winnerName + " has won the firetalk!";
     $(".firetalktopbar-container").prepend(winnerBox);
