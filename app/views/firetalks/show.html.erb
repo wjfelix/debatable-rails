@@ -790,7 +790,34 @@ session.on(
     var speakerIndex = parseInt(event.data) + 1;
 
     // do something that takes 10 seconds
-    colorFade("speaker" + speakerIndex + "Progressbar", 'background', 'gray', 'yellow', 25, 10);
+    //colorFade("speaker" + speakerIndex + "Progressbar", 'background', 'gray', 'yellow', 25, 10);
+    var blinkTimer = null;
+    var times = 5;
+    blinkTimer = setInterval(alertPlayer, 1000);
+    var speakerBar = document.getElementById("speaker" + speakerIndex + "Progressbar");
+    var yellowBar = document.createElement("div");
+    yellowBar.style.width = speakerBar.style.width;
+    yellowBar.style.height = "8px";
+    yellowBar.style.backgroundColor = "yellow";
+    speakerBar.appendChild(yellowBar);
+
+
+    function alertPlayer() {
+      if (times == 0) {
+        speakerBar.removeChild(yellowBar);
+        clearInterval(blinkTimer);
+        blinkTimer = null;
+      }
+      else {
+        if (yellowBar.style.display == "") {
+          yellowBar.style.display = "none";
+        }
+        else {
+          yellowBar.style.display = "";
+        }
+        times--;
+      }
+    }
   }
 );
 
