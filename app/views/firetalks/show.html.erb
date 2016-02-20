@@ -476,7 +476,8 @@ session.on(
     document.getElementById("pointsLeft").innerHTML = "0";
     var winnerBox = document.createElement("div");
     var winnerName = document.getElementById("speaker" + speakerIndex + "Name").innerHTML;
-    winnerBox.style.fontsize = "48pt";
+    winnerBox.style.fontSize = "48pt";
+    winnerBox.style.textAlign = "center";
     winnerBox.innerHTML = winnerName + " has won the firetalk!";
     $(".firetalktopbar-container").prepend(winnerBox);
   }
