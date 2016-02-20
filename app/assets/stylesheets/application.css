@@ -213,6 +213,20 @@ body {
 .navcontainer{
 }
 
+.home-p-left-border{
+  border-left-style: solid;
+  border-left-width: 4px;
+  border-left-color: #0077e6;
+  padding-left: 10px;
+}
+
+.time-center{
+  margin: 0 auto;
+width: 100px;
+  display: inline-block;
+
+}
+
 .navlog{
 display: inline;
 float: right;
@@ -262,7 +276,8 @@ li {
 
 /*HOME*/
 
-#toppad{
+.toppad{
+  margin-top: 30px;
 }
 
 
@@ -304,6 +319,11 @@ li {
 
 
 /*LOGIN*/
+
+.home-section{
+  width: 80%;
+  margin: 0 auto;
+}
 
 
 .forms{

@@ -1,112 +1,99 @@
-<div class="section" id="toppad">
-	<div class="col span_2_of_10">
-		<div class="left-container">
-		<div class="leftbar-news">
-			<div class="centerhor">
+<div class="section">
+	<div class="col span_10_of_10 toppad">
+    <div class="center-col-shadow">
+			<% if !flash[:message].nil? %>
+		    <%= flash[:message] %>
+		    <% end %>
+<%= link_to("Tell us how we're doing.", '/feedbacks/new') %>
 
 					Welcome!
-			</div>
-			</br>
-			<div class="home-butts-container">
 				<%= button_to "Login", login_path, {:class => "home-butts button", :method => "get"} %>
-				</br>
-			</div>
-			<div class="home-butts-container">
+
 				<%= button_to "Signup", new_user_path, {:class => "home-butts button", :method => "get"} %>
-			</div>
-		</div>
-	</div>
-	</div>
-	<div class="col span_8_of_10" id="center-col">
-		<div class="center-container">
-		<div class="section centerhor notif">
-	<% if !flash[:message].nil? %>
-    <%= flash[:message] %>
-    <% end %>
-    </div>
-		<div class="home-section-1">
-			<h1>
+
+
+
+<div class="section home-section">
+			<h1 class="centerhor">
 				<strong>
-					<%= image_tag("logo.png", :class => "logohome")%>
 					Welcome to Debatable!
 				</strong>
-				<%= link_to("Tell us how we're doing.", '/feedbacks/new') %>
+
 			</h1>
-				</br>
-			<h3>
-		<em>
-		Our Mission:
-	    </em>
-	</h3>
+
 			</br>
-	<blockquote>
+	<blockquote class="home-p-left-border">
+		<h2 style="color:#0077e6;">
+	<em>
+	Our Mission:
+		</em>
+</h2>
+</br>
 		<p>
-		Here at debatable, we want to give people the stage to share their opinions and be understood by their communities. Debatable is a live-video debating social media platform that bridges face to face conversation and social media interaction. Come join us on
-		<strong>
-			February 20th
-		</strong>
-		 for our launch!
+			<h4>
+		Here at debatable, we want to give people the stage to share their opinions
+		 and be understood by their communities. Debatable is a live-video debating
+		  social media platform that bridges face to face conversation and social media interaction.
 		 </br>
 		</br>
 		<em>
 			- The Debatable Team
 		</em>
+	</h4>
 	</p>
 </blockquote>
 </div>
-<hr>
-<hr>
-<div class="home-section-1">
-	<h2>We're here to help you speak your mind.</h2>
+
+
+
+
+<div class="section  home-section about-home">
+	<h2 class="centerhor">We're here to help you speak your mind.</h2>
 		</br>
 		<h3>
 			Debates
 		</h3>
-		<blockquote>
+		<blockquote  class="home-p-left-border">
 			Debate and discuss any topic face-to-face with whoever you want whether they live across the globe or across the nation.
-		</blockquote>
+		</blockquote  class="home-p-left-border">
 		<h3>
 			Firetalk
 		</h3>
-		<blockquote>
+		<blockquote  class="home-p-left-border">
 			Battle your friends with your words as you fight through rounds of elimination in a fast-paced debatable game.
 		</blockquote>
 		<h3>
 			Moderation
 		</h3>
-		<blockquote>
+		<blockquote  class="home-p-left-border">
 			With the option of adding a moderator, you will be able to ensure there is a neutral participant, as well as keep the discussion on-topic.
 		</blockquote>
 		<h3>
 			Social Media
 		</h3>
-		<blockquote>
+		<blockquote class="home-p-left-border">
 			Engage in a true social atmosphere centered on intelligent debate and discussion. Where every status update can turn into the next big debate or firetalk; debatable truly brings the town hall to the web.
 		</blockquote>
 		<h3>
 			Share Debates
 		</h3>
-		<blockquote>
+		<blockquote class="home-p-left-border">
 			Share debates on Facebook, Twitter, and other existing social media to show the world what you have been up to.
 		</blockquote>
+
 	</div>
 
-	<hr><hr>
+	<div class="section home-section">
+
 	<div class="center-obj">
 		<div class="fb-page" data-href="https://www.facebook.com/debatablelive" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/debatablelive"><a href="https://www.facebook.com/debatablelive">Debatable</a></blockquote></div></div>
 	</div>
-	<hr>
-	<hr>
-	</br>
-	<div class="centerhor">
 		<h2 class="text-center">
 			The Team:
 		</h2>
-	</br></br>
-	<div>
+
 		<%= image_tag("debatableteampic.png", :class => "img-thumbnail img-responsive") %>
-	</div>
-	</br>
+
 	<h3>
 		William Felix
 	</h3>
@@ -148,8 +135,9 @@
 		</br>
 		Contact us at about@debatable.co
 	</h3>
+
 </div>
-</div>
+
 </div>
 </div>
 </div>
