@@ -28,8 +28,9 @@ class FiretalksController < ApplicationController
         flash[:success] = false
         flash[:message] = "Failed to create Firetalk, no such user"
         redirect_to new_user_firetalk_path
+      elsif user.id
+        firetalk_debater.user_id = user.id
       end
-      firetalk_debater.user_id = user.id
     end
 
     if @firetalk.save
