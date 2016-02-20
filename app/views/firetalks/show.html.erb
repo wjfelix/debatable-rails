@@ -667,8 +667,13 @@ session.on(
 
 session.on(
   "signal:decrementClock", function(event) {
-    var currentTime = $('#clock');
-    currentTime.html(event.data);
+    var currentTimeElement = $('#clock');
+    if (currentTime <= 5) {
+      // make the background fade?
+      var redBackground = document.createElement("div");
+
+    }
+    currentTimeElement.html(event.data);
 });
 
 session.on(
@@ -724,6 +729,7 @@ function startLoadingBar(speakerIndex) {
   timeLeftBar.style.backgroundColor = "green";
   timeLeftBar.style.float = "right";
   speakerBar.appendChild(timeLeftBar);
+  $("tickingBar").hide().fadeIn(200);
 
   var total = 100;
   seconds = 45;
@@ -833,6 +839,7 @@ session.on(
     blinkTimer = setInterval(alertPlayer, 1000);
     var speakerBar = document.getElementById("speaker" + speakerIndex + "Progressbar");
     var yellowBar = document.createElement("div");
+    yellowBar.setAttribute("id", "yellowBlinkingBar");
     yellowBar.style.width = speakerBar.style.width;
     yellowBar.style.height = "8px";
     yellowBar.style.backgroundColor = "yellow";
@@ -846,7 +853,9 @@ session.on(
         blinkTimer = null;
       }
       else {
+
         if (yellowBar.style.display == "") {
+          $('#yellowBar').fadeOut("1000");
           yellowBar.style.display = "none";
         }
         else {
