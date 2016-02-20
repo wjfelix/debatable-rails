@@ -653,6 +653,7 @@ session.on(
   "signal:hideLoserButton", function(event) {
     var loserNumber = parseInt(event.data);
     $('#upvote-bounce' + loserNumber).unbind();
+    $('#upvote-bounce' + loserNumber).hide();
   }
 );
 
