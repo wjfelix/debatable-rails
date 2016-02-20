@@ -848,9 +848,10 @@ session.on(
 
     function alertPlayer() {
       if (times == 0) {
-        speakerBar.removeChild(yellowBar);
+        $('#yellowBlinkingBar').fadeOut(500);
         clearInterval(blinkTimer);
         blinkTimer = null;
+        speakerBar.removeChild(yellowBar);
       }
       else {
 
