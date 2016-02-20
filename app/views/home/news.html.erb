@@ -1,108 +1,180 @@
-<div class="section" id="toppad">
+<div class="section">
+	<div class="col span_10_of_10 toppad">
+    <div class="center-col-shadow">
 
+			<div class="section home-section">
+			<% if !flash[:message].nil? %>
+		    <%= flash[:message] %>
+		    <% end %>
+			</div>
 
+			<div class="section home-section">
+			<h1 class="centerhor">
+				<strong>
+					Welcome to Debatable <span style="color:#0077e6;">Beta</span>!
+				</strong>
 
-<div class="col span_2_of_10">
+			</h1>
 
-	<div class="leftbar-news">
-
-		<div class="centerhor">
-
-<h3>Talk it up!</h3>
-		</div>
-	</br>
-
-<div class="home-butts-container">
-	<%= button_to "New Debate", new_user_debate_path(@user), {:class => 'home-butts button', :method => 'get'} %>
-</div>
+			</br>
+	<blockquote class="home-p-left-border">
+		<h2 style="color:#0077e6;">
+	<em>
+	Our Mission:
+		</em>
+</h2>
 </br>
-<div class="home-butts-container">
-
-	<%= button_to "New Firetalk", new_user_firetalk_path(@user), {:class => 'home-butts button', :method => 'get'} %>
-</div>
-
-</div>
-
-
-</div>
-
-<div class="col span_7_of_10" id="center-col">
-
-<div class="centerhor">
-	<h1>
-		<strong><%= image_tag("logo.png", :class => "logohome")%>
-			Welcome to Debatable!
-		</strong>
-	</h1>
-</br>
-	<h3>
-		<em>
-		Our Mission:
-	    </em>
-	</h3>
-</br>
-	<blockquote class="justification">
 		<p>
-			Here at debatable, we want to give people the stage to share their opinions and be understood by their communities. Debatable is a live-video debating social media platform that bridges face to face conversation and social media interaction.<br>
-		</p>
-	</blockquote>
-	<em>- The Debatable Team</em>
-
+			<h4>
+		Here at debatable, we want to give people the stage to share their opinions
+		 and be understood by their communities. Debatable is a live-video debating
+		  social media platform that bridges face to face conversation and social media interaction.
+		 </br>
+		</br>
+		<em>
+			- The Debatable Team
+		</em>
+	</br>
+<em>
+			P.S.  We need your feedback!
+		<%= link_to("Tell us how we're doing.", '/feedbacks/new') %>
+	</em>
+	</h4>
+	</p>
+</blockquote>
 </div>
 
-	<br><br>
 
-</br>
-
-<div class="news">
-	<div class="centerhor"><h2>In the news:</h2></div>
-</br>
-
-<% @news_items.each do |news_result| %>
-<% news_articles = news_result[:News] %>
-<% news_articles.each do |news_article| %>
-<div class="newsItem">
-	<%= link_to(news_article[:Title], news_article[:Url]) %>
-	<div class="newsdesc">
-	<%= news_article[:Source] %>
-	<%= news_article[:Description][0..100] << "..." %>
-</div>
-</div>
-<br />
-<% end %>
-<% end %>
-
-</div>
-
-</br>
-<div class="center-obj">
-
-	<div class="fb-page" data-href="https://www.facebook.com/debatablelive" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/debatablelive"><a href="https://www.facebook.com/debatablelive">Debatable</a></blockquote></div></div>
-
-</div>
-</br></br>
-<div>
-
-<h3>
-				Questions?</br>
-			Contact us at about@debatable.co
-		</h3>
-	</div>
-</div>
-
-<div class="col span_1_of_10"></div>
-
-
-
-</div>
 
 <!--
+<div class="section home-header-welcome home-section">
 
-<%= link_to('My Profile', @user) %>
 
-<<<<<<< HEAD
+	<div class="home-butts-container">
+		Welcome! Are you a returning user?
+<%= button_to "Login", login_path, {:class => "home-butts button", :method => "get"} %>
+</div>
+
+<div class="home-butts-container">
+Are you new? Signup now to try it out.
+<%= button_to "Signup", new_user_path, {:class => "home-butts button", :method => "get"} %>
+</div>
+</div>
+
 -->
 
 
+<div class="section  home-section about-home">
+	<h2 class="centerhor">We're here to help you speak your mind.</h2>
+	<h3 class="centerhor"> (some features coming soon)</h3>
+		</br>
+		<h3>
+			Debates
+		</h3>
+		</br>
+		<blockquote  class="home-p-left-border">
+			Debate and discuss any topic face-to-face with whoever you want whether they live across the globe or across the nation.
+		</blockquote  class="home-p-left-border">
+		</br>
+		<h3>
+			Firetalk
+		</h3>
+		</br>
+		<blockquote  class="home-p-left-border">
+			Battle your friends with your words as you fight through rounds of elimination in a fast-paced debatable game.
+		</blockquote>
+		</br>
+		<h3>
+			Moderation
+		</h3>
+		</br>
+		<blockquote  class="home-p-left-border">
+			With the option of adding a moderator, you will be able to ensure there is a neutral participant, as well as keep the discussion on-topic.
+		</blockquote>
+		</br>
+		<h3>
+			Social Media
+		</h3>
+		</br>
+		<blockquote class="home-p-left-border">
+			Engage in a true social atmosphere centered on intelligent debate and discussion. Where every status update can turn into the next big debate or firetalk; debatable truly brings the town hall to the web.
+		</blockquote>
+		</br>
+		<h3>
+			Share Debates
+		</h3>
+		</br>
+		<blockquote class="home-p-left-border">
+			Share debates on Facebook, Twitter, and other existing social media to show the world what you have been up to.
+		</blockquote>
+
+	</div>
+</br>
 
 
+	<div class="section home-section">
+
+	<div class="center-obj">
+		<h3>Like us on Facebook!</h3>
+	</br>
+		<div class="fb-page" data-href="https://www.facebook.com/debatablelive" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/debatablelive"><a href="https://www.facebook.com/debatablelive">Debatable</a></blockquote></div></div>
+	</div>
+
+</br>
+<div class="about-us centerhor">
+		<h2 class="text-center">
+			The Team:
+		</h2>
+	</br>
+<div class="home-team-img">
+		<%= image_tag("debatableteampic.png", :class => "img-thumbnail img-responsive") %>
+	</div>
+</br>
+	<h3>
+		William Felix
+	</h3>
+	<h4>
+		<em>
+			Front-end Developer and Co-Founder
+		</em>
+	</h4>
+	</br>
+	<h3>
+		Garrick Król
+	</h3>
+	<em>
+		<h4>
+			Senior Developer and Co-Founder
+		</h4>
+	</em>
+	</br>
+	<h3>
+		Brandon Prinz
+	</h3>
+	<em>
+		<h4>
+			CEO and Co-Founder
+		</h4>
+	</em>
+	</br>
+	<h3>
+		Dane Halvorson
+	</h3>
+	<em>
+		<h4>
+			COO and Co-Founder
+		</h4>
+	</em>
+	</br></br>
+	<h3>
+		Questions?
+		</br>
+		Contact us at about@debatable.co
+	</h3>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>

@@ -315,7 +315,15 @@ li {
 	text-align: center;
 }
 
+.img-thumbnail{
+  width: 349px;
+  height: 178px;
+}
 
+.home-team-img{
+  width: 349px;
+  margin: 0px auto;
+}
 
 
 /*LOGIN*/
@@ -362,6 +370,27 @@ li {
   margin: 0 auto;
   padding: 10px;
 }
+
+.about-home{
+  margin-top: 20px;
+}
+
+.home-header-welcome{
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+}
+
+.home-butts {
+  display: inline-block;
+  width: 100px;
+
+}
+
+.home-butts-container{
+  display: inline-block;
+  text-align: center;
+  }
 
 .votes-left{
   padding-right: 10px;
@@ -487,8 +516,9 @@ display: inline-block;
 
 
 .center-obj{
-	margin: 0px auto;
+  text-align: center;
 	width: 340px;
+  margin: 0px auto;
 }
 
 .justification{
@@ -518,14 +548,7 @@ display: inline-block;
 	align-content: center;
 }
 
-.home-butts{
-	width: 100%;
-	margin: 0 auto;
-}
-.home-butts-container{
-	width: 100px;
-	margin: 2px auto 0px auto;
-}
+
 
 .button {
 	background-color: #f2f2f2;
@@ -692,6 +715,8 @@ display: inline-block;
   .center-col-shadow{
     max-width: 1050px;
     margin: 0 auto;
+    padding-top: 30px;
+    padding-bottom: 20px;
   }
 
 #desktop-no{
@@ -833,6 +858,21 @@ display: inline-block;
 /*==================== MOBILE AND TABLET QUERY============================================================*/
 
 @media only screen and (max-width: 654px) {
+
+  .img-thumbnail{
+    width: 262px;
+    height: 136px;
+  }
+
+  .home-team-img{
+    width: 262px;
+    margin: 0px auto;
+  }
+
+
+  .center-col-shadow{
+    padding-top: 30px;
+  }
 
   .speaker-options-container{
     display: flex;
@@ -1011,7 +1051,7 @@ display: inline-block;
 
   .center-obj{
     margin: 0px auto;
-    width: 340px;
+    width: 250px;
   }
 
 
@@ -1028,14 +1068,7 @@ display: inline-block;
 
   }
 
-  .home-butts{
-    width: 100%;
-    margin: 0 auto;
-  }
-  .home-butts-container{
-    width: 100px;
-    margin: 2px auto 0px auto;
-  }
+
 
   .middle-nav{
     visibility: hidden;
