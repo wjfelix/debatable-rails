@@ -10,7 +10,7 @@ class FiretalksController < ApplicationController
   def new
     @user = User.find(params[:user_id])
     @firetalk = Firetalk.new
-    2.times do
+    5.times do
       @firetalk.firetalk_debaters.build
     end
   end
@@ -28,9 +28,8 @@ class FiretalksController < ApplicationController
         flash[:success] = false
         flash[:message] = "Failed to create Firetalk, no such user"
         redirect_to new_user_firetalk_path
-      elsif user.id
-        firetalk_debater.user_id = user.id
       end
+      firetalk_debater.user_id = user.id
     end
 
     if @firetalk.save
