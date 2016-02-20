@@ -848,10 +848,11 @@ session.on(
 
     function alertPlayer() {
       if (times == 0) {
-        $('#yellowBlinkingBar').fadeOut(500);
+        $('#yellowBlinkingBar').fadeOut(500, function() {
+          $(this).remove();
+        });
         clearInterval(blinkTimer);
         blinkTimer = null;
-        speakerBar.removeChild(yellowBar);
       }
       else {
 
