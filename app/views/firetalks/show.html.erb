@@ -671,26 +671,16 @@ session.on(
     document.getElementById('speaker' + debaterIndex + 'Progressbar').style.backgroundColor = "red";
     var loserVideoBox = $("#speaker" + debaterIndex + "Box");
     var outDiv = document.createElement("div");
+    outDiv.setAttribute("id", "out");
     outDiv.style.color = "red";
     outDiv.style.fontSize = "40pt";
     outDiv.style.position = "absolute";
     outDiv.style.zIndex = "1000";
     outDiv.innerHTML = "Out!";
     loserVideoBox.prepend(outDiv);
-
-    var fadeOutTimer = setInterval(fadeOut, 200);
-
-    function fadeOut() {
-      if (outDiv.style.opacity == "0.0") {
-        loserVideoBox.removeChild(outDiv);
-        clearInterval(fadeOutTimer);
-        fadeOutTimer = null;
-      }
-      else {
-        var currentOpacity = parseFloat(outDiv.style.opacity);
-        outDiv.style.opacity = currentOpacity - 0.1;
-      }
-    }
+    $("#out").fadeOut(1000, function() {
+      $(this).remove();
+    });
   }
 );
 
