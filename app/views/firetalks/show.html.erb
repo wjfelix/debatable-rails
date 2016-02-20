@@ -668,6 +668,7 @@ session.on(
 session.on(
   "signal:decrementClock", function(event) {
     var currentTimeElement = $('#clock');
+    var currentTime = parseInt(currentTimeElement.innerHTML);
     if (currentTime <= 5) {
       // make the background fade?
       var redBackground = document.createElement("div");
