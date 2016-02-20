@@ -667,9 +667,15 @@ session.on(
         email = totalSessions[i].connection.data.split("|")[1];
       }
     }
-    var debaterIndex = parseInt(debatersJson[email]);
-    debaterIndex++;
+    var debaterIndex = parseInt(debatersJson[email]) + 1;
     document.getElementById('speaker' + debaterIndex + 'Progressbar').style.backgroundColor = "red";
+    var loserVideoBox = $("#speaker" + debaterIndex + "Box");
+    var outDiv = document.createElement("div");
+    outDiv.style.color = "red";
+    outDiv.style.fontSize = "36pt";
+    outDiv.innerHTML = "Out!";
+    loserVideoBox.appendChild(outDiv);
+    outDiv.style.zIndex = "1000";
   }
 );
 
@@ -1003,7 +1009,7 @@ session.on(
 
           // If it's the end of the firetalk
           if (currentRound == totalRounds) {
-            alert("END OF FIRETALK");
+            //alert("END OF FIRETALK");
             session.signal({
               type: "unmuteAll"
             },  function(error) {
