@@ -474,6 +474,10 @@ session.on(
     //document.getElementById('speaker' + speakerIndex + 'Box').style.border = "4px solid #ffff33";
     document.getElementById('speaker' + speakerIndex + 'Progressbar').style.backgroundColor = "yellow";
     document.getElementById("pointsLeft").innerHTML = "0";
+    var winnerBox = document.createElement("div");
+    winnerBox.style.fontsize = "48pt";
+    winnerBox.innerHTML = "<%= j @users[speakerIndex] %>" + " has won the firetalk!";
+    $(".firetalktopbar-container").prepend(winnerBox);
   }
 );
 session.on(
