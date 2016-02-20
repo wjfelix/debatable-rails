@@ -619,7 +619,7 @@ session.on(
     if (session.connection.connectionId == event.data) {
       // Instead of just unpublishing, permanently mute and set style to black
       publisher.publishAudio(false);
-      document.getElementById('speaker' + speakerNumber + 'Progressbar').style.backgroundColor = "red";
+    //  document.getElementById('speaker' + speakerNumber + 'Progressbar').style.backgroundColor = "red";
 
       session.signal({
         type: 'dropColor',
