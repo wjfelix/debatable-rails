@@ -218,7 +218,7 @@
           Time:
         </span>
         <span id="clock">
-          45
+          60
         </span>
       </h4>
 
@@ -701,7 +701,7 @@ session.on(
 
 session.on(
   "signal:resetTimer", function(event) {
-  $('#clock').html("45");
+  $('#clock').html("60");
 });
 
 session.on(
@@ -754,7 +754,7 @@ function startLoadingBar(speakerIndex) {
   speakerBar.appendChild(timeLeftBar);
 
   var total = 100;
-  seconds = 45;
+  seconds = 60;
 
 
   // interval = total seconds * 10 / 2 (or 3 or 4 depending on how far we wanna go)
