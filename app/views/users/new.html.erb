@@ -1,21 +1,12 @@
-<div class="section" id="toppad">
-
-
-
-<div class="col span_2_of_10"></div>
-
-<div class="col span_7_of_10" id="center-col">
-
+<div class="section">
+<div class="center-col-shadow">
+	<div class="toppad col span_10_of_10"
 	<div class="section centerhor">
 		<h1>Join our community!</h1>
 	</div>
 </br></br>
 
-<div class="section">
-
-	<div class="col span_1_of_10"></div>
-
-	<div class="col span_4_of_10 centerhor">
+<div class="section centerhor">
 <%= form_for(@user) do |f| %>
 	<h3>First Name</h3>
 	</br>
@@ -33,14 +24,11 @@
 </br>
 </br>
 
-	</div>
-	
-
-<div class="col span_4_of_10 centerhor">
 
 
 
 <h3>Create a Password</h3>
+<h3>Must be 7 or more characters</h3>
 </br>
 <div>
 <%= f.password_field(:password, {:placeholder => "Password", :required => true, :class => "forms"}) %>
@@ -52,25 +40,10 @@
 <%= f.password_field(:password_confirmation, {:placeholder => "Confirm Password", :required => true, :class => "forms"}) %>
 </div>
 </br>
-</br>
-
-
-
-</br>
-
-
-</br></br>
-
-</div>
-
-<div class="col span_1_of_10"></div>
-
 
 
 </div>
 
-</br>
-</br>
 <div class="section centerhor">
 
 <%= f.submit("Create Account", :class => "button") %>
@@ -79,11 +52,18 @@
 <br>
 </div>
 
+<div class="section centerhor notif">
+   <em>
+  <% if !flash[:message].nil? %>
+   <%= flash[:message] %>
+   <% end %>
+ </em>
+ </div>
+
 
 </div>
 
-<div class="col span_1_of_10"></div>
 
 
-
+</div>
 </div>
