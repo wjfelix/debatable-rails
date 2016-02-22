@@ -14,7 +14,7 @@
 
   <div class="section">
 
-  <%= form_for [@user, @firetalk], :protocol => 'https' do |f| %>
+  <%= form_for([@user, @firetalk], :url => user_firetalks_path(:protocol => 'https')) do |f| %>
   <%= f.hidden_field :user_id, :value => @user.id %>
 
 
