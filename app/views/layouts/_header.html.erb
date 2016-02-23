@@ -1,10 +1,11 @@
-
-<div class="section header-span">
-
-    <div class="navwidth">
+<div class="section navbar-container">
+  <div class="navwidth">
       <ul class="navcontainer">
-        <li class="navlogo">
-          <%= link_to image_tag("debatable-logo.png", :class => "navlogo1"), root_path %>
+        <li class="navlogo-container mobile-no">
+          <%= link_to image_tag("debatable-logo.png", :class => "navlogo"), root_path %>
+        </li>
+        <li class="navlogo-container desktop-no">
+          <%= link_to image_tag("logo.png", :class => "navlogo"), root_path %>
         </li>
         <ul class="navlog">
           <% if session[:user_id] != nil %>
@@ -28,7 +29,5 @@
 </li>
 </ul>
 </ul>
-
-
 </div>
 </div>
