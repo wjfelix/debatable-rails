@@ -278,173 +278,18 @@ li {
 
 
 /*HOME*/
-.home-hero-1{
-  background-color: #4d4d4d;
- height: calc(100vh - 40px);
- padding-top:;
- width: 100%;
-}
-.home-hero-2{
-  background-color: #4d4d4d;
- width: 100%;
- padding-bottom: 30px;
- height: calc(100vh - 40px);
- display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.home-hero{
+  background-image: url("http://hdwallpaperslovely.com/wp-content/gallery/photo-background-image/background.jpg");
+  background-size:cover;
+ position:relative;
+ height:100vh;
 }
 
-.home-hero-3{
-  background-color: #a6a6a6;
- width: 100%;
- padding-top: 30px;
- padding-bottom: 30px;
- height: calc(100vh - 40px);
- display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.hero-1{
-  background: rgba(3,31,168,1);
-background: -moz-linear-gradient(left, rgba(3,31,168,1) 0%, rgba(0,93,105,1) 100%);
-background: -webkit-gradient(left top, right top, color-stop(0%, rgba(3,31,168,1)), color-stop(100%, rgba(0,93,105,1)));
-background: -webkit-linear-gradient(left, rgba(3,31,168,1) 0%, rgba(0,93,105,1) 100%);
-background: -o-linear-gradient(left, rgba(3,31,168,1) 0%, rgba(0,93,105,1) 100%);
-background: -ms-linear-gradient(left, rgba(3,31,168,1) 0%, rgba(0,93,105,1) 100%);
-background: linear-gradient(to right, rgba(3,31,168,1) 0%, rgba(0,93,105,1) 100%);
-}
-
-.hero-2{
-  background-color:#002233;
-}
-.hero-3{
-  background-color: ;
-}
 
 .toppad{
-
+  margin-top: 30px;
 }
 
-.home-header{
-  display: inline-block;
-  padding: 20px;
-}
-
-.home-header-container-1{
-height: calc((100vh - 40px)/3);
-text-align: center;
-display: flex;
-justify-content: center;
-align-items: center;
-}
-.home-header-container-2{
-text-align: center;
-display: flex;
-justify-content: center;
-align-items: center;
-}
-
-.home-info-box{
-  border-style: solid;
-  border-color: #ffffff;
-  border-width: 2px;
-  border-radius: 8px;
-  padding: 20px;
-  width: 41%;
-  display: inline-block;
-  margin-left: 3%;
-  margin-right: 3%;
-}
-
-.home-fb-box{
-  border-style: solid;
-  border-color: #ffffff;
-  border-width: 2px;
-  border-radius: 8px;
-  padding: 20px;
-  width: 41%;
-  display: inline-block;
-  margin-left: 3%;
-  margin-right: 3%;
-}
-
-.home-team-container{
-  width: 100%;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.home-team-whole-container{
-  width: 100%;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-
-.home-info-box-container-1{
-width: 100%;
-text-align: center;
-display: flex;
-justify-content: center;
-align-items: center;
-height: calc((100vh - 40px)/3);
-}
-
-.home-info-box-container-2{
-width: 100%;
-text-align: center;
-display: flex;
-justify-content: center;
-align-items: center;
-}
-.home-info-box-container-1{
-width: 100%;
-text-align: center;
-display: flex;
-justify-content: center;
-align-items: center;
-}
-.details-item-header{
-  width: 40%;
-}
-.details-item{
-  width: 60%;
-  text-align: left;
-
-}
-.details-item-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.home-details-box{
-  border-style: solid;
-  border-color: #ffffff;
-  border-width: 2px;
-  border-radius: 8px;
-  padding: 20px;
-  width: 82%;
-  display: inline-block;
-}
-
-.navdown{
-
-}
-.navdown-container{
-  width: 100%;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc((100vh - 40px)/3);
-}
 
 #center-col{
 
@@ -456,8 +301,23 @@ align-items: center;
 
 .center-col-shadow{
   box-shadow:  0px 0px 50px #888888;
-  margin: 25px auto 25px auto;
+  margin: 0 auto;
   max-width: 600px;
+}
+
+.home-section-1{
+	margin: 20px 0px;
+	padding: 20px 20px;
+}
+
+.home-section-2{
+	margin: 20px 0px;
+	background-color: #ccedff;
+
+	padding: 20px 20px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #d9d9d9;
 }
 
 
@@ -832,34 +692,7 @@ display: inline-block;
 
 /*========== EXTRA LARGE SCREEN MEDIA QUERY ===================*/
 
-@media screen and (min-width: 1500px) {
-.home-hero-1{
- height: auto;
-}
-.home-hero-2{
-
- height: auto;
-}
-
-.home-hero-3{
-
- height: auto;
-}
-
-.home-info-box-container-1,
-.home-header-container-1,
-.navdown-container{
-  height: 160px;
-}
-}
-
-
-
-
-
 @media screen and (min-width: 1150px) {
-
-
   .speakerBox{
   	width: 100%;
   	height: 175px;
@@ -891,7 +724,9 @@ display: inline-block;
 }
   .center-col-shadow{
     max-width: 1050px;
-    margin: 25px auto 25px auto;
+    margin: 0 auto;
+    padding-top: 30px;
+    padding-bottom: 20px;
   }
 
 #desktop-no{
@@ -905,64 +740,10 @@ display: inline-block;
   .ft-info-container{
     width: 100%;
   }
-  .img-thumbnail{
-
-  }
-  .home-hero-1{
-   height: auto;
-  }
-  .home-hero-2{
-
-   height: auto;
-  }
-
-  .home-hero-3{
-
-   height: auto;
-  }
-
-  .home-info-box-container-1,
-  .home-header-container-1,
-  .navdown-container{
-    height: 160px;
-  }
-
 }
-
-@media screen and (max-width: 900px) {
-
-  .home-team-container{
-flex-direction: column;
-  }
-
-  .home-fb-box{
-    width: 80%;
-  }
-
-  .bottom-marg{
-    margin-bottom: 20px;
-  }
-
-}
-
-
-
 
 
 @media screen and (max-width: 1149px) and (min-width: 900px) {
-
-  .bottom-marg{
-    margin-bottom: 20px;
-  }
-
-
-  .home-team-container{
-flex-direction: column;
-  }
-
-  .home-fb-box{
-    width: 80%;
-  }
 
 
   .speakerBox{
@@ -990,6 +771,7 @@ flex-direction: column;
   }
   .center-col-shadow{
     max-width: 825px;
+    margin: 0 auto;
   }
 
 
@@ -1080,99 +862,16 @@ flex-direction: column;
   .desktop-no{
     display: none;
   }
-  .home-team-container{
-
-  }
 }
 
 
 /*==================== MOBILE AND TABLET QUERY============================================================*/
 
-
-
-
-/*  GRID OF TWO   ============================================================================= */
-
-
-.span_2_of_2 {
-	width: 100%;
-}
-
-.span_1_of_2 {
-	width: 49.2%;
-}
-
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-
-
-.upvotebutton-container{
-  height: 20px;
-  display: inline-block;
-}
-
-.upvotebutton{
-    height: 20px;
-}
-
-.upvotebutton:active{
-    transform: scale(1.3,1.3);
-}
-
-.vote-options{
-  height: 20px;
-  float: right;
-  display: inline-block;
-  transform: translateY(-18px);
-}
-
-.speakerPoints {
-  display: inline-block;
-  transform: translateY(-5px);
-  margin-right: 10px;
-}
-
-.speakerPoints-container{
-  height: 20px;
-  display: inline-block;
-}
-
-
-
-
-
-
-
-
 @media only screen and (max-width: 654px) {
-
-  .details-item, .details-item-header{
-    display: inline-block;
-    width: 100%;
-  }
-  .details-item-container{
-    display: inline-block;
-    margin-bottom: 5px;
-  }
-  .home-feedback-box{
-    width: 80%;
-  }
-
-.center-col-shadow{
-  width: 100%;
-}
-  .home-info-box{
-    width: 80%;
-  }
-  .home-info-box-container-1
-  {
-    display: inline-block;
-  }
 
   .img-thumbnail{
     width: 262px;
     height: 136px;
-    margin: 0 auto;
-    display: none;
   }
 
   .home-team-img{
@@ -1182,7 +881,7 @@ flex-direction: column;
 
 
   .center-col-shadow{
-
+    padding-top: 30px;
   }
 
   .speaker-options-container{
@@ -1472,7 +1171,7 @@ flex-direction: column;
 
   .center-col-shadow{
     box-shadow: none;
-
+    margin: 0 auto;
   }
   .mob-vid-row-ft{
     width: 100%
@@ -1510,4 +1209,50 @@ flex-direction: column;
     width: 155px;
     height: 90px;
   }
+}
+
+
+/*  GRID OF TWO   ============================================================================= */
+
+
+.span_2_of_2 {
+	width: 100%;
+}
+
+.span_1_of_2 {
+	width: 49.2%;
+}
+
+/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+
+
+.upvotebutton-container{
+  height: 20px;
+  display: inline-block;
+}
+
+.upvotebutton{
+    height: 20px;
+}
+
+.upvotebutton:active{
+    transform: scale(1.3,1.3);
+}
+
+.vote-options{
+  height: 20px;
+  float: right;
+  display: inline-block;
+  transform: translateY(-18px);
+}
+
+.speakerPoints {
+  display: inline-block;
+  transform: translateY(-5px);
+  margin-right: 10px;
+}
+
+.speakerPoints-container{
+  height: 20px;
+  display: inline-block;
 }
