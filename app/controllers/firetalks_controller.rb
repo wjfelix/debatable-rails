@@ -99,8 +99,8 @@ class FiretalksController < ApplicationController
 
   private
   def firetalk_params
-    params.require(:firetalk).permit(:topic, :name, :description, :user_id,
-                                      :firetalk_debaters_attributes => [:email], :user_tokens)
+    params.require(:firetalk).permit(:topic, :name, :description, :user_id, :user_tokens,
+                                      :firetalk_debaters_attributes => [:email])
   end
 
   def config_opentok
