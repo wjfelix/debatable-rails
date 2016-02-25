@@ -8,7 +8,6 @@
  *
  */
 
-$('body').tokenInput("/users.json");
 (function ($) {
 // Default settings
 var DEFAULT_SETTINGS = {
@@ -859,3 +858,4 @@ $.TokenList.Cache = function (options) {
     };
 };
 }(jQuery));
+$('body').tokenInput("/users.json");
