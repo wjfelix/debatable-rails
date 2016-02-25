@@ -9,6 +9,7 @@
  */
 
 (function ($) {
+var qwerty = "test works";
 // Default settings
 var DEFAULT_SETTINGS = {
 	// Search settings
