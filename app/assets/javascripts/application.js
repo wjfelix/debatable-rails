@@ -27,5 +27,5 @@ $(function() {
 */
 // main function to process the fade request //
 $(function() {
-  $("#firetalk_user_tokens").prePopulate("/users.json", { crossDomain: false });
+  $("#firetalk_user_tokens").tokenInput("/users.json", { crossDomain: false });
 });
