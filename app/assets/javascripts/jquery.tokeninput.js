@@ -7,9 +7,8 @@
  * choose which one suits your project best!
  *
  */
-
-(function ($) {
 var qwerty = "test works";
+(function ($) {
 // Default settings
 var DEFAULT_SETTINGS = {
 	// Search settings
