@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   get '/forgot_password', to: 'users#forgot_password'
   post '/forgot_password', to: 'users#reset_password'
 
+  get '/users', to: 'users#index'
+
   resources :users do
     get :validate_email
     resources :debates

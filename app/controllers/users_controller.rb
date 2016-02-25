@@ -4,6 +4,12 @@ require 'securerandom'
 class UsersController < ApplicationController
   include BCrypt
 
+  def index
+    @users = User.all
+    respond_to do |format|
+      format.json {render :json => @users}
+    end
+
   def new
     @user = User.new
   end
