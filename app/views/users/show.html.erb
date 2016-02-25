@@ -1,69 +1,15 @@
-<div class="section">
-	<div class="col span_10_of_10 toppad">
-    <div class="center-col-shadow">
-      <div class="prof-container">
-        <div class="prof">
-
-
-<div class="user-info-box-container">
-  <div class="user-info-box">
-    <!-- Here is where the user information will be printed -->
-      <div class="prof-pic-container">
-        <div class="prof-pic img-circle">
-
-            <%= link_to image_tag("twitter.png", :class => "img-circle prof-pic-pic")%>
-
-        </div>
-      </div>
-
-      <div class="user-info-name">
-        <h3>
-          <%= @user.firstname %>
-          <%= @user.lastname %>
-        </h3>
-      </div>
-
-      <div class="user-info-school">
-        <%= @user.school %>
-      </div>
-
-  <!-- just a thought, maybe keep track of how much they have participated? -->
-
-      <div class="user-info-total-debates">
-        <% total_debate_instances = @debates.length + @firetalks.length + @firetalk_debaters.length %>
-        <%= "Total debates: " + total_debate_instances.to_s %>
-      </div>
-
-
-      <div class="user-info-reset-password">
-        <%= session[:user_id].to_s + "Reset Password" + @user.id.to_s %>
-        <% if session[:user_id] == @user.id %>
-        <%= nav_link("Reset Password", change_password_path, :method => "get") %>
-        <% end %>
-      </div>
-
-<div class="user-info-about-me">
-    Perhaps a user inputted about section of a few paragraphs.
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae nulla
-  posuere, semper ligula eget, pharetra nisl. Suspendisse rutrum ultricies
-  iaculis. Cras auctor nibh sed orci suscipit vestibulum. Pellentesque
-  habitant morbi tristique senectus et netus et malesuada fames ac turpis
-  egestas. Curabitur suscipit est ac urna pharetra, sit amet tempus quam
-  pretium. Vestibulum eu porta ligula. In massa eros, convallis eu est
-  eget, cursus viverra diam. Suspendisse in ligula lectus.
-  </div>
-
-  <div class="user-info-connections">
-    this will be small (circle?) thumbnails of connected users, with a rollover
-    showing their name.
-  </div>
-</div>
-</div>
 
 
 
+<div class="section" id="toppad">
 
 
+
+<div class="col span_2_of_10"></div>
+
+<div class="col span_7_of_10" id="center-col">
+
+<%= "USERS#SHOW" %>
 
 <!--
 Here is all the profile activity ordered by date created
@@ -73,41 +19,34 @@ it will render the corresponding partials:
   FiretalkDebater: /firetalk_debaters/_firetalk_debater.html.erb
   and so on for debates and posts
 -->
-<div class="user-activity-container">
 
-
-  <div class="user-activity-organizer-container">
-    <div class="user-activity-organizer">
-
-organize by: <span style="text-decoration: underline; margin-left:10px;">---    box of options   v   --</span>
-
-    </div>
-  </div>
-
-
-  <div class="user-activity-box">
 <% @total.each do |obj| %>
   <% if obj %>
-  <div class="user-activity-item-container">
-  <div class="user-activity-item">
-    <strong>TEST TITLE</strong> <em>debate or ft</em>
-</br>
-    test topic/minidescription, if won or place (1st,2nd,etc) in debate/firetalk
-
     <%= render(:partial => obj, :locals => {:obj => obj}) %>
-
-  </div>
-</div>
-</br>
   <% end %>
 <% end %>
 
-</div>
+<br />
+
+<!-- Here is where the user information will be printed -->
+<%= "USER INFO HERE" %>
+<%= @user.firstname %>
+<%= @user.lastname %>
+<%= @user.school %>
+
+<!-- just a thought, maybe keep track of how much they have participated? -->
+<% total_debate_instances = @debates.length + @firetalks.length + @firetalk_debaters.length %>
+<%= "Total debates: " + total_debate_instances.to_s %>
+
+<%= session[:user_id].to_s + " " + @user.id.to_s %>
+<% if session[:user_id] == @user.id %>
+  <%= link_to("Reset Password", '/change_password') %>
+<% end %>
+
 </div>
 
+<div class="col span_1_of_10"></div>
 
-</div>
-</div>
-</div>
-</div>
+
+
 </div>
