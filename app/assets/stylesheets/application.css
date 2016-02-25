@@ -137,8 +137,6 @@ body {
     margin-right: 0;
 }
  /*===================================
-
-
 /*  SECTIONS  ============================================================================= */
 
 .section {
@@ -276,6 +274,143 @@ li {
 }
 
 
+/*     ==========   FOOTER   ============      */
+
+.footercontainer{
+  width: 100%;
+  padding: 10px 0px 10px 0px;
+  margin-bottom: 30px;
+}
+
+.widthcontainer{
+  width: 100%
+}
+
+.footer-link-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.footer-link-item{
+  color: black;
+  text-decoration: underline;
+  padding-left: 20px;
+  padding-right: 20px;
+
+}
+
+
+/*     ==========  END OF FOOTER  ==========     */
+
+
+
+
+
+
+
+
+
+
+/* ========   PROFILE PAGE  =========  */
+
+.img-circle {
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.prof-pic-pic{
+  height: 70px;
+  width: 70px;
+  margin: auto;
+}
+
+.prof-pic{
+  display: flex;
+  min-width: 80px;
+}
+
+.prof-pic-container{
+}
+
+.prof-container{
+
+}
+
+.prof{
+display: flex;
+}
+
+.user-info-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+}
+.user-info-box-container{
+  width: 30%;
+  display: flex;
+  margin-top: 10px;
+}
+
+.user-activity-container{
+  width: 70%;
+  padding: 10px;
+}
+
+.user-activity-box{
+  max-height: calc(100vh - 40px);
+  overflow: scroll;
+}
+
+.user-activity-organizer-container{
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user-activity-organizer{
+  text-align: center;
+}
+
+.user-info-reset-password{
+  padding: 5px;
+}
+
+.user-info-total-debates{
+  padding: 5px;
+}
+
+.user-info-name{
+  padding: 5px;
+}
+
+.user-info-about-me{
+  text-align: left;
+  width: 80%;
+  color: #808080;
+  padding: 10px;
+}
+
+.user-info-connections{
+  width: 80%;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 5px;
+  border-color: #ffffff;
+  padding: 10px;
+}
+
+/* ========   END OF PROFILE PAGE  =========  */
+
+
+
+
+
+
+
 
 /*HOME*/
 .home-hero-1{
@@ -307,13 +442,13 @@ li {
   flex-direction: column;
 }
 .hero-1{
-  background: rgba(3,31,168,1);
-background: -moz-linear-gradient(left, rgba(3,31,168,1) 0%, rgba(0,93,105,1) 100%);
-background: -webkit-gradient(left top, right top, color-stop(0%, rgba(3,31,168,1)), color-stop(100%, rgba(0,93,105,1)));
-background: -webkit-linear-gradient(left, rgba(3,31,168,1) 0%, rgba(0,93,105,1) 100%);
-background: -o-linear-gradient(left, rgba(3,31,168,1) 0%, rgba(0,93,105,1) 100%);
-background: -ms-linear-gradient(left, rgba(3,31,168,1) 0%, rgba(0,93,105,1) 100%);
-background: linear-gradient(to right, rgba(3,31,168,1) 0%, rgba(0,93,105,1) 100%);
+  background: rgba(0,117,133,0.89);
+background: -moz-linear-gradient(left, rgba(0,117,133,0.89) 0%, rgba(4,119,169,0.89) 34%, rgba(8,120,206,0.82) 68%, rgba(12,122,240,0.82) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0,117,133,0.89)), color-stop(34%, rgba(4,119,169,0.89)), color-stop(68%, rgba(8,120,206,0.82)), color-stop(100%, rgba(12,122,240,0.82)));
+background: -webkit-linear-gradient(left, rgba(0,117,133,0.89) 0%, rgba(4,119,169,0.89) 34%, rgba(8,120,206,0.82) 68%, rgba(12,122,240,0.82) 100%);
+background: -o-linear-gradient(left, rgba(0,117,133,0.89) 0%, rgba(4,119,169,0.89) 34%, rgba(8,120,206,0.82) 68%, rgba(12,122,240,0.82) 100%);
+background: -ms-linear-gradient(left, rgba(0,117,133,0.89) 0%, rgba(4,119,169,0.89) 34%, rgba(8,120,206,0.82) 68%, rgba(12,122,240,0.82) 100%);
+background: linear-gradient(to right, rgba(0,117,133,0.89) 0%, rgba(4,119,169,0.89) 34%, rgba(8,120,206,0.82) 68%, rgba(12,122,240,0.82) 100%);
 }
 
 .hero-2{
@@ -477,6 +612,36 @@ align-items: center;
 
 
 /*LOGIN*/
+
+.signin-hero{
+  background-color: #d9d9d9;
+ height: calc(100vh - 40px);
+ padding-top: 30px;
+ width: 100%;
+}
+
+.signin-box{
+  border-style: solid;
+  border-color: #ffffff;
+  border-width: 2px;
+  border-radius: 8px;
+  padding: 20px;
+  display: inline-block;
+  min-width: 275px;
+  background: rgba(39,72,107,0.5);
+background: -moz-linear-gradient(left, rgba(39,72,107,0.5) 0%, rgba(110,110,110,0.5) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(39,72,107,0.5)), color-stop(100%, rgba(110,110,110,0.5)));
+background: -webkit-linear-gradient(left, rgba(39,72,107,0.5) 0%, rgba(110,110,110,0.5) 100%);
+background: -o-linear-gradient(left, rgba(39,72,107,0.5) 0%, rgba(110,110,110,0.5) 100%);
+background: -ms-linear-gradient(left, rgba(39,72,107,0.5) 0%, rgba(110,110,110,0.5) 100%);
+background: linear-gradient(to right, rgba(39,72,107,0.5) 0%, rgba(110,110,110,0.5) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#27486b', endColorstr='#6e6e6e', GradientType=1 );
+}
+
+.signin-box-container{
+  text-align: center;
+
+}
 
 .home-section{
   width: 80%;
