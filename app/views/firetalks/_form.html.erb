@@ -63,7 +63,7 @@
 
 	<% names = [{name: "garrick", name: "test", name: "abcdefg asdf"}] %>
   <%= f.label :user_tokens, "Debaters" %>
-  <%= f.text_area :user_tokens, 'data-tokeninput' => {collection: names}.to_json %>
+  <%= f.text_field :user_tokens, 'data-tokeninput' => {collection: names}.to_json %>
 
 </div>
 
