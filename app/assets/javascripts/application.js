@@ -16,6 +16,7 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+//= require rails-jquery-tokeninput
 
 /*
 $(function() {
@@ -35,6 +36,9 @@ $(function() {
  * choose which one suits your project best!
  *
  */
+
+ /*
 $(function() {
   $("#firetalk_user_tokens").tokenInput("/users.json", { crossDomain: false });
 });
+*/

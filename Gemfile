@@ -43,6 +43,8 @@ gem 'searchbing'
 
 gem 'pg'
 
+gem 'rails-jquery-tokeninput'
+
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
