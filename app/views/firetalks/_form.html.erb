@@ -55,17 +55,14 @@
 
 
 -->
-  <%= f.fields_for :firetalk_debaters do |ff| %>
   <!--
   <div class="centerhor">
   -->
-    <%= ff.label :user_tokens, "Debaters" %>
-    <%= ff.text_area :user_tokens %>
     <!--
   </div>
   -->
-  <% end %>
-
+  <%= f.label :user_tokens, "Debaters" %>
+  <%= f.text_area :user_tokens %>
 <!--
 </div>
 
