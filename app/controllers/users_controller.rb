@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.json {render :json => @users}
     end
+  end
 
   def new
     @user = User.new
