@@ -2,14 +2,6 @@
 	<div class="toppad col span_10_of_10">
 <div class="center-col-shadow">
 
-	<div class="signin-hero">
-		<div class="signin-box-container">
-
-		<div class="signin-box">
-
-  <div class="section">
-    <h1 class="centerhor">New Firetalk</h1>
-  </div>
 
 </br>
 
@@ -46,11 +38,11 @@
 
 
   <%= f.fields_for :firetalk_debaters do |ff| %>
-
+  <div class="centerhor">
     <%= # ff.text_field(:email, :placeholder => 'Debater Email', :required => true, :class => "forms") %>
     <%= ff.label :user_tokens, "Debaters" %>
-    <%= ff.text_field :user_tokens, "Enter Names" %>
-
+    <%= ff.text_area :user_tokens, "Enter Names" %>
+  </div>
   <% end %>
 
 </div>
