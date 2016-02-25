@@ -36,6 +36,9 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
+  # Force SSL
+  config.force_ssl = true
+  
   # Mailer Host
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp

@@ -10,7 +10,7 @@ class FiretalksController < ApplicationController
   def new
     @user = User.find(params[:user_id])
     @firetalk = Firetalk.new
-    2.times do
+    5.times do
       @firetalk.firetalk_debaters.build
     end
   end
@@ -27,7 +27,7 @@ class FiretalksController < ApplicationController
       if !user
         flash[:success] = false
         flash[:message] = "Failed to create Firetalk, no such user"
-        redirect_to new_user_firetalk_path
+        #redirect_to new_user_firetalk_path
       elsif user.id
         firetalk_debater.user_id = user.id
       end
@@ -74,7 +74,7 @@ class FiretalksController < ApplicationController
       index = 0
       @firetalk_debaters.each do |firetalk_debater|
         firetalk_debaters_hash[firetalk_debater.email] = index
-        @users[index] = User.find(firetalk_debater.user_id)
+        @users[index] = User.find_by_email(firetalk_debater.email)
         index = index + 1
       end
       @firetalk_json = firetalk_debaters_hash.to_json

@@ -478,28 +478,6 @@ align-items: center;
 
 /*LOGIN*/
 
-.signin-hero{
-  background-color: #d9d9d9;
- height: calc(100vh - 40px);
- padding-top: 30px;
- width: 100%;
-}
-
-.signin-box{
-  border-style: solid;
-  border-color: #ffffff;
-  border-width: 2px;
-  border-radius: 8px;
-  padding: 20px;
-  display: inline-block;
-  min-width: 275px;
-}
-
-.signin-box-container{
-  text-align: center;
-
-}
-
 .home-section{
   width: 80%;
   margin: 0 auto;

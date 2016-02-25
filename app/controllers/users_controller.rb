@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       flash[:message] = "Account successfully created! Check your E-mail for a verification link"
       redirect_to root_url
     else
-      flash[:success] = false
+      flash[:success] = true
       flash[:message] = "You have not completed the required fields!"
       redirect_to new_user_path
     end
