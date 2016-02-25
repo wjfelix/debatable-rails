@@ -35,7 +35,6 @@ Rails.application.configure do
   config.assets.precompile += %w( token-input-facebook.css )
   config.assets.precompile += %w( token-input-mac.css )
   config.assets.precompile += %w( token-input.css )
-  config.assets.precompile += %w( jquery.tokeninput.js )
 
 
   # Raises error for missing translations
