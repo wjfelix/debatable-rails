@@ -46,11 +46,11 @@
 
 
   <%= f.fields_for :firetalk_debaters do |ff| %>
-  <div class="centerhor">
+
     <%= # ff.text_field(:email, :placeholder => 'Debater Email', :required => true, :class => "forms") %>
     <%= ff.label :user_tokens, "Debaters" %>
     <%= ff.text_field :user_tokens, "Enter Names" %>
-  </div>
+
   <% end %>
 
 </div>
