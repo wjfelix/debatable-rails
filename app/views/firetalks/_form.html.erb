@@ -1,11 +1,10 @@
-<div class="section">
-	<div class="toppad col span_10_of_10">
-<div class="center-col-shadow">
+<div class="section" id="toppad">
 
-	<div class="signin-hero">
-		<div class="signin-box-container">
 
-		<div class="signin-box">
+
+<div class="col span_2_of_10"></div>
+
+<div class="col span_7_of_10" id="center-col">
 
   <div class="section">
     <h1 class="centerhor">New Firetalk</h1>
@@ -33,13 +32,13 @@
    </div>
    </br>
   </br>
-
+  
   <h3 class="centerhor">Description</h3>
   </br>
   <div class="centerhor">
    <%= f.text_field :description, :class => "forms" %>
    </div>
-
+  
 
 </br>
 
@@ -50,12 +49,11 @@
   <%= f.fields_for :firetalk_debaters do |ff| %>
   <div class="centerhor">
     <%= ff.text_field(:email, :placeholder => 'Debater Email', :required => true, :class => "forms") %>
-  </br>
   </div>
   <% end %>
 
 </div>
-
+  
 
 
 <div class="section centerhor">
@@ -71,10 +69,10 @@
 
 </div>
 
+<div class="col span_1_of_10"></div>
+
+
 
 </div>
-</div>
-</div>
-</div>
 
-</div>
+
