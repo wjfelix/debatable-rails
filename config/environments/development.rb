@@ -32,13 +32,17 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
   config.assets.precompile += %w( fade.js )
+  config.assets.precompile += %w( token-input-facebook.css )
+  config.assets.precompile += %w( token-input-mac.css )
+  config.assets.precompile += %w( token-input.css )
+
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
   # Force SSL
   config.force_ssl = true
-  
+
   # Mailer Host
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
