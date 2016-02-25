@@ -4,15 +4,14 @@
 
 
 
-			<div class="section home-section">
-			<% if !flash[:message].nil? %>
-		    <%= flash[:message] %>
-		    <% end %>
-			</div>
-
 
 
 <div class="section home-hero-1 hero-1">
+	<div class="section home-section centerhor">
+	<% if !flash[:message].nil? %>
+		<%= flash[:message] %>
+		<% end %>
+	</div>
 <div class="home-header-container-1">
 				<div class="home-header">
 			<h1 class="centerhor">
