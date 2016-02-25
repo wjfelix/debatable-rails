@@ -36,9 +36,9 @@ $(function() {
  *
  */
 
+var qwerty = "test works";
 (function ($) {
 // Default settings
-var qwerty = "test works";
 var DEFAULT_SETTINGS = {
 	// Search settings
     method: "GET",
