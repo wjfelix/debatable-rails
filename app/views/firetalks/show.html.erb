@@ -6,9 +6,7 @@
 
 <div class="section" id="toppad">
 
-
-  <!--======DESKTOP VIEW======-->
-  <div class="col span_10_of_10" id="center-col">
+  <div class="col span_10_of_10">
     <div class="center-col-shadow">
     <div class="section">
       <div class="section firetalk-title centerhor">
@@ -27,6 +25,7 @@
     <% end %>
   </div>
 </div>
+
 
   <div class="center-vids">
       <div class="col  full-ft-speaker-box">
@@ -126,7 +125,7 @@
         <div class="section speaker-options-container">
           <div class="speaker-options">
             <div class="user-name-ft" id="speaker4Name">
-            <%= @users[3].firstname %>
+
           </div>
 
 
@@ -154,7 +153,7 @@
         <div class="section speaker-options-container">
           <div class="speaker-options">
             <div class="user-name-ft" id="speaker5Name">
-            <%= @users[4].firstname %>
+
           </div>
 
 
@@ -182,7 +181,7 @@
         <div class="section speaker-options-container">
           <div class="speaker-options">
             <div class="user-name-ft" id="speaker6Name">
-            <%= @users[5].firstname %>
+
           </div>
 
 
@@ -207,15 +206,17 @@
 
         <div class="section firetalktopbar-container">
           <div class="float-left rounds-left">
-        <span class="rounds-left">Round:</span>
+        <span class="rounds-left">ROUND:</span>
         <span id="roundNumber" class="">
+          <strong>
           1
+        </strong>
         </span>
       </div>
 
-      <h4 class="time-center">
-        <span class="">
-          Time:
+      <h4 class="time-center" style="color:#e60000;">
+        <span>
+          TIME:
         </span>
         <span id="clock">
           60
@@ -223,7 +224,7 @@
       </h4>
 
       <div class="float-right votes-left">
-        <span class="">Your Votes Left:</span>
+        <span class="">YOUR VOTES LEFT:</span>
         <span id="pointsLeft" class="">
           0
         </span>
@@ -244,7 +245,6 @@
           </br>
             <%= @users[2].firstname %>
           </br>
-            <%= @users[3].firstname %>
           </div>
         </div>
   </div>
