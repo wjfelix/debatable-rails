@@ -1,4 +1,4 @@
-<!--
+
 <div class="section">
 	<div class="toppad col span_10_of_10">
 <div class="center-col-shadow">
@@ -15,26 +15,26 @@
 </br>
 
   <div class="section">
-  -->
+
 
   <%= form_for([@user, @firetalk], :url => user_firetalks_path(:protocol => 'https')) do |f| %>
   <%= f.hidden_field :user_id, :value => @user.id %>
 
-<!--
+
   <h3 class="centerhor">Topic</h3>
   </br>
   <div class="centerhor">
-  -->
+
   <%= f.text_field :topic, :class => "forms" %>
-  <!--
+
 </div>
 </br>
   <h3 class="centerhor">Title</h3>
   </br>
   <div class="centerhor">
-  -->
+
    <%= f.text_field :name, :class => "forms" %>
-   <!--
+
    </div>
    </br>
   </br>
@@ -42,9 +42,9 @@
   <h3 class="centerhor">Description</h3>
   </br>
   <div class="centerhor">
-  -->
+
    <%= f.text_field :description, :class => "forms" %>
-   <!--
+
    </div>
 
 
@@ -54,34 +54,34 @@
   </br>
 
 
--->
-  <!--
+
+
   <div class="centerhor">
-  -->
-    <!--
+
+
   </div>
-  -->
+
   <%= f.label :user_tokens, "Debaters" %>
   <%= f.text_area :user_tokens %>
-<!--
+
 </div>
 
 
 
 <div class="section centerhor">
 </br></br>
--->
+
   <%= f.submit(:class => "button") %>
 
 </br></br>
 <% end %>
 
 
-<!--
+
 </div>
 
 </div>
--->
+
 
 
 </div>
