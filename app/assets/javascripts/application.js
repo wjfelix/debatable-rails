@@ -884,6 +884,6 @@ $(function() {
          return data[query];
      };
  };
- }
- $("#firetalk_user_tokens").tokenInput("/users.json", { crossDomain: false });
- (jQuery));
+ }(jQuery));
+
+$("#firetalk_user_tokens").tokenInput("/users.json", { crossDomain: false });
