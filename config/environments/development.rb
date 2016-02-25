@@ -31,7 +31,7 @@ Rails.application.configure do
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
-  # config.assets.precompile += %w( fade.js )
+  config.assets.precompile += %w( fade.js )
   config.assets.precompile += %w( token-input-facebook.css )
   config.assets.precompile += %w( token-input-mac.css )
   config.assets.precompile += %w( token-input.css )
