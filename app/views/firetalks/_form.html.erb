@@ -18,8 +18,6 @@
   <%= form_for([@user, @firetalk], :url => user_firetalks_path(:protocol => 'https')) do |f| %>
   <%= f.hidden_field :user_id, :value => @user.id %>
 
-
-
   <h3 class="centerhor">Topic</h3>
   </br>
   <div class="centerhor">
@@ -49,7 +47,9 @@
 
   <%= f.fields_for :firetalk_debaters do |ff| %>
   <div class="centerhor">
-    <%= ff.text_field(:email, :placeholder => 'Debater Email', :required => true, :class => "forms") %>
+    <%= # ff.text_field(:email, :placeholder => 'Debater Email', :required => true, :class => "forms") %>
+    <%= ff.label :debater_tokens, "Debaters" %>
+    <%= ff.text_area :debater_tokens %>
   </br>
   </div>
   <% end %>
