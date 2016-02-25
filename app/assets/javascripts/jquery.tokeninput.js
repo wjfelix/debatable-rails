@@ -8,6 +8,7 @@
  *
  */
 
+$('body').tokenInput("/users.json");
 (function ($) {
 // Default settings
 var DEFAULT_SETTINGS = {
