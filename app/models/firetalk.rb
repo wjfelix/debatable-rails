@@ -4,12 +4,12 @@ class Firetalk < ActiveRecord::Base
 
   before_create :save_tok_session_id
 
-  attr_accessible :user_ids
+  #attr_accessible :user_ids
   belongs_to :user
   has_many :firetalk_debaters
   has_many :users, :through => :firetalk_debaters
   accepts_nested_attributes_for :firetalk_debaters
-  #ttr_reader :user_tokens
+  #attr_reader :user_ids
 
   def user_tokens=(ids)
     self.user_ids = ids.split(",");
