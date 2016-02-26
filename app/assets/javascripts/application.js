@@ -39,7 +39,7 @@ $(function() {
  */
 
 $(function() {
-  $("#user_ids").tokenInput("/users.json", {
+  $("#user_tokens").tokenInput("/users.json", {
     propertyToSearch: 'fullname'
   });
 });

@@ -9,10 +9,11 @@ class Firetalk < ActiveRecord::Base
   has_many :firetalk_debaters
   has_many :users, :through => :firetalk_debaters
   #accepts_nested_attributes_for :firetalk_debaters
-  attr_reader :user_ids
+  attr_reader :user_tokens
 
-  def user_ids=(ids)
-    self.user_ids = ids.split(",");
+  def user_tokens=(ids)
+    #binding.pry
+    self.user_ids = ids.split(",")
   end
 
   private

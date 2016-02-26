@@ -44,6 +44,8 @@ gem 'searchbing'
 
 gem 'pg'
 
+gem 'pry'
+
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

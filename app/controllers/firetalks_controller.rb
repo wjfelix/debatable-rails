@@ -19,10 +19,9 @@ class FiretalksController < ApplicationController
 
     #adding ourselves (owner)
     @owner = @firetalk.firetalk_debaters.build(:firetalk_id => @firetalk.id, :email => @user.email, :user_id => @user.id)
-
-    user_ids = params[:firetalk][:firetalk_debater_user_ids].split(",")
+    user_ids = params[:firetalk][:user_ids].split(",")
     user_ids.each do |user_id|
-      user = User.find(user_id) if user_id != ""
+      user = User.find(user_id) if user_id && user_id != ""
       if user
         @firetalk.firetalk_debaters.build(:firetalk_id => @firetalk.id, :email => user.email, :user_id => user_id)
       end
@@ -39,7 +38,7 @@ class FiretalksController < ApplicationController
     else
       flash[:success] = false
       flash[:message] = "Failed to create Firetalk"
-      redirect_to new_user_firetalk_path
+      #redirect_to new_user_firetalk_path
     end
   end
 
@@ -94,7 +93,7 @@ class FiretalksController < ApplicationController
 
   private
   def firetalk_params
-    params.require(:firetalk).permit(:topic, :name, :description, :user_id, :user_ids)
+    params.require(:firetalk).permit(:topic, :name, :description, :user_id, :user_tokens)
   end
 
   def config_opentok
