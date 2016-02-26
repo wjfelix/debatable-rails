@@ -66,7 +66,7 @@ class UsersController < ApplicationController
     if user
       # CHANGE TO OMMIT PASSWORD
       #params[:user].delete(:password) if params[:password].blank?
-      sql = "UPDATE users SET is_validated = 1 WHERE id = #{user.id}"
+      sql = "UPDATE users SET is_validated = 't' WHERE id = #{user.id}"
       ActiveRecord::Base.connection.execute(sql)
       flash[:success] = true
       flash[:message] = "E-mail successfully verified!"
