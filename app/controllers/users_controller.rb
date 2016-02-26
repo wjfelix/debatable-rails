@@ -63,11 +63,11 @@ class UsersController < ApplicationController
 
   def validate_email
     user = User.find_by_validation_code(params[:user_id])
-
     if user
-      worked = false
+      # CHANGE TO OMMIT PASSWORD
+      #params[:user].delete(:password) if params[:password].blank?
       sql = "UPDATE users SET is_validated = 1 WHERE id = #{user.id}"
-      worked = ActiveRecord::Base.connection.execute(sql)
+      ActiveRecord::Base.connection.execute(sql)
       flash[:success] = true
       flash[:message] = "E-mail successfully verified!"
       redirect_to login_path

@@ -14,7 +14,7 @@
 </br></br>
 
 <div class="section centerhor">
-<%= form_for(@user, :url => users_path(:protocol => 'http')) do |f| %>
+<%= form_for(@user, :url => users_path(:protocol => 'https')) do |f| %>
 	<h3>First Name</h3>
 	</br>
 <%= f.text_field(:firstname, {:placeholder => "First Name", :required => true, :class => "forms"}) %>

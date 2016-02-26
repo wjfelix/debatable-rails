@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226040723) do
+ActiveRecord::Schema.define(version: 20160226214227) do
 
   create_table "categories", force: true do |t|
     t.string   "category_name", null: false
@@ -117,14 +117,14 @@ ActiveRecord::Schema.define(version: 20160226040723) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "firstname",                      null: false
-    t.string   "lastname",                       null: false
-    t.string   "email",                          null: false
+    t.string   "firstname",                       null: false
+    t.string   "lastname",                        null: false
+    t.string   "email",                           null: false
     t.string   "school"
-    t.string   "password_digest",                null: false
-    t.boolean  "is_validated",    default: true, null: false
+    t.string   "password_digest",                 null: false
+    t.boolean  "is_validated",    default: false, null: false
     t.string   "validation_code"
-    t.integer  "level",           default: 0,    null: false
+    t.integer  "level",           default: 0,     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "fullname"

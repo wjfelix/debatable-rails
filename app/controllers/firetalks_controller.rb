@@ -19,7 +19,7 @@ class FiretalksController < ApplicationController
 
     #adding ourselves (owner)
     @owner = @firetalk.firetalk_debaters.build(:firetalk_id => @firetalk.id, :email => @user.email, :user_id => @user.id)
-    user_ids = params[:firetalk][:user_ids].split(",")
+    user_ids = params[:firetalk][:user_tokens].split(",")
     user_ids.each do |user_id|
       user = User.find(user_id) if user_id && user_id != ""
       if user
@@ -36,9 +36,8 @@ class FiretalksController < ApplicationController
       end
       redirect_to user_firetalk_path(:id => @firetalk.id)
     else
-      flash[:success] = false
       flash[:message] = "Failed to create Firetalk"
-      #redirect_to new_user_firetalk_path
+      redirect_to new_user_firetalk_path
     end
   end
 
