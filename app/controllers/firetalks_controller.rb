@@ -27,6 +27,7 @@ class FiretalksController < ApplicationController
       end
     end
 
+    binding.pry
     if @firetalk.save
       flash[:success] = true
       flash[:message] = "Successfully created new Firetalk!"

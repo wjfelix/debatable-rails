@@ -12,7 +12,6 @@ class Firetalk < ActiveRecord::Base
   attr_reader :user_tokens
 
   def user_tokens=(ids)
-    #binding.pry
     self.user_ids = ids.split(",")
   end
 
