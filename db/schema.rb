@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(version: 20160215020745) do
   create_table "users", force: true do |t|
     t.string   "firstname",                      null: false
     t.string   "lastname",                       null: false
+    t.string   "fullname"
     t.string   "email",                          null: false
     t.string   "school"
     t.string   "password_digest",                null: false

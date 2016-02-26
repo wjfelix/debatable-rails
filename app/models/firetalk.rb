@@ -8,8 +8,8 @@ class Firetalk < ActiveRecord::Base
   belongs_to :user
   has_many :firetalk_debaters
   has_many :users, :through => :firetalk_debaters
-  accepts_nested_attributes_for :firetalk_debaters
-  #attr_reader :user_ids
+  #accepts_nested_attributes_for :firetalk_debaters
+  attr_reader :user_ids
 
   def user_tokens=(ids)
     self.user_ids = ids.split(",");

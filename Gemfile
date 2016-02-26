@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 # gem 'aws-sdk'
+gem 'chosen-rails'
 # faye rack server for JavaScript
 gem 'faye'
 # Thin webserver for faye async
@@ -42,8 +43,6 @@ gem 'bootstrap-sass', '3.2.0.0'
 gem 'searchbing'
 
 gem 'pg'
-
-gem 'rails-jquery-tokeninput'
 
 
 # Use Capistrano for deployment

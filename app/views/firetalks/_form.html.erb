@@ -17,7 +17,7 @@
   <div class="section">
 
 
-  <%= form_for([@user, @firetalk], :url => user_firetalks_path(:protocol => 'https')) do |f| %>
+  <%= form_for([@user, @firetalk], :url => user_firetalks_path(:protocol => 'http')) do |f| %>
   <%= f.hidden_field :user_id, :value => @user.id %>
 
 
@@ -61,9 +61,11 @@
 
   </div>
 
-	<% names = [{name: "test", name: "another test name", name: "third name test 123"}] %>
-  <%= f.label :user_ids, "Debaters" %>
-  <%= f.collection_select :user_ids, User.order(:email), :id, :email, {multiple: true} %>
+  <!--%= f.label :user_ids, "Debaters" %-->
+  <!--%= f.collection_select :user_ids, User.order(:fullname), :id, :fullname, {}, {:multiple => true} %-->
+
+	<%= f.label :user_ids, "Users" %>
+	<%= f.text_area :user_ids %>
 
 </div>
 

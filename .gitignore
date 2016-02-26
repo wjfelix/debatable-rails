@@ -18,4 +18,3 @@
 # Ignore database config
 /config/database.yml
 /*.scss
-Gemfile
