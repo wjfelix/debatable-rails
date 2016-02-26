@@ -5,9 +5,11 @@ class UsersController < ApplicationController
   include BCrypt
 
   def index
-    @users = User.all
-    respond_to do |format|
-      format.json {render :json => @users.where("fullname like ?", "%#{params[:q]}%")}
+    if (session[:user_id])
+      @users = User.where.not(:id => session[:user_id])
+      respond_to do |format|
+        format.json {render :json => @users.where("fullname like ?", "%#{params[:q]}%")}
+      end
     end
   end
 

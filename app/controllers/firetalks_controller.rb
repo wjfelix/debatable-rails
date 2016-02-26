@@ -19,21 +19,9 @@ class FiretalksController < ApplicationController
 
     #adding ourselves (owner)
     @owner = @firetalk.firetalk_debaters.build(:firetalk_id => @firetalk.id, :email => @user.email, :user_id => @user.id)
-    #@owner.save
 
-    # @firetalk.firetalk_debaters.each do |firetalk_debater|
-    #   user = User.find(params[:firetalk][:user_ids])
-    #   if !user
-    #     flash[:success] = true
-    #     flash[:message] = "Failed to create Firetalk, no such user"
-    #     redirect_to new_user_firetalk_path
-    #   elsif user.id
-    #     firetalk_debater.user_id = user.id
-    #     firetalk_debater.email = user.email
-    #   end
-    # end
-
-    params[:firetalk][:user_ids].each do |user_id|
+    user_ids = params[:firetalk][:firetalk_debater_user_ids].split(",")
+    user_ids.each do |user_id|
       user = User.find(user_id) if user_id != ""
       if user
         @firetalk.firetalk_debaters.build(:firetalk_id => @firetalk.id, :email => user.email, :user_id => user_id)

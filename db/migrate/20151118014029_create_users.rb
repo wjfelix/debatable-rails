@@ -4,7 +4,6 @@ class CreateUsers < ActiveRecord::Migration
 
       t.string :firstname, null: false
       t.string :lastname, null: false
-      t.string :fullname
 
       t.string :email, null: false, unique: true
       t.string :school

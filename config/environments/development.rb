@@ -40,7 +40,7 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Force SSL
-  #config.force_ssl = true
+  config.force_ssl = true
 
   # Mailer Host
   config.action_mailer.raise_delivery_errors = true

@@ -39,7 +39,7 @@ $(function() {
  */
 
 $(function() {
-  $("#firetalk_user_ids").tokenInput("/users.json", {
+  $("#user_ids").tokenInput("/users.json", {
     propertyToSearch: 'fullname'
   });
 });

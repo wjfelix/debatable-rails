@@ -11,7 +11,7 @@ class Firetalk < ActiveRecord::Base
   #accepts_nested_attributes_for :firetalk_debaters
   attr_reader :user_ids
 
-  def user_tokens=(ids)
+  def user_ids=(ids)
     self.user_ids = ids.split(",");
   end
 
