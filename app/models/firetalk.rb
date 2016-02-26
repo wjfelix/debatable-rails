@@ -10,9 +10,11 @@ class Firetalk < ActiveRecord::Base
   has_many :users, :through => :firetalk_debaters
   accepts_nested_attributes_for :firetalk_debaters
   attr_reader :user_tokens
+  #validates :user, presence: true
 
   def user_tokens=(ids)
-    self.user_ids = ids.split(",")
+    # TODO: validate users with ids, not working for now
+    #self.user_ids = ids.split(",")
   end
 
   private
