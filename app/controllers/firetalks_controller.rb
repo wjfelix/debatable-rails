@@ -99,7 +99,7 @@ class FiretalksController < ApplicationController
 
   private
   def firetalk_params
-    params.require(:firetalk).permit(:topic, :name, :description, :user_id, :user_ids,
+    params.require(:firetalk).permit(:topic, :name, :description, :user_id, :user_ids, :firstname,
                                       :firetalk_debaters_attributes => [:email])
   end
 
