@@ -10,9 +10,7 @@ class FiretalksController < ApplicationController
   def new
     @user = User.find(params[:user_id])
     @firetalk = Firetalk.new
-    5.times do
-      @firetalk.firetalk_debaters.build
-    end
+    @firetalk.firetalk_debaters.build
   end
 
   def create
