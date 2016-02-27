@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if (session[:user_id])
       @users = User.where.not(:id => session[:user_id])
       respond_to do |format|
-        format.json {render :json => @users.where("fullname like ?", "%#{params[:q]}%")}
+        format.json {render :json => @users.where("lower(fullname) like ?", "%#{params[:q].downcase}%")}
       end
     end
   end
