@@ -759,12 +759,12 @@ session.on(
   <%= javascript_tag do %>
   var currentSpeakerIndex = 0;
   window.onload = function() {
-    $('#startFiretalk').hide();
     // make it visible when totalSessions is full length
-
     $('#startFiretalk').on('click', function() {
       startFiretalk();
     });
+    $('#startFiretalk').hide();
+    alert("loaded");
   };
 
   function startFiretalk() {
