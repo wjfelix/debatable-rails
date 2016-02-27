@@ -134,6 +134,7 @@ var token = "<%= j @tok_token %>";
 var myEmail = "<%= j @user.email %>"
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
 var isDebater = "<%= @is_debater %>"
+var isOwner = "<%= @is_owner %>"
 var firetalkGoing = false;
 var playersAlive = [];
 
@@ -464,6 +465,12 @@ session.on(
       );
     }
     totalSessions[parseInt(debatersJson[emailAndPoints[1]])] = newSession;
+    if (totalSessions.length == debatersJson.length) {
+      // show firetalk button
+      if (isOwner) {
+        $('#startFiretalk').show();
+      }
+    }
   }
 );
 
@@ -752,6 +759,9 @@ session.on(
   <%= javascript_tag do %>
   var currentSpeakerIndex = 0;
   window.onload = function() {
+    $('#startFiretalk').hide();
+    // make it visible when totalSessions is full length
+
     $('#startFiretalk').on('click', function() {
       startFiretalk();
     });
