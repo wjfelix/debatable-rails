@@ -95,13 +95,10 @@
             <em><%= @firetalk.description %></em>
             </br></br>
             participants:
-          </br>
-            <%= @users[0].firstname %>
-          </br>
-            <%= @users[1].firstname %>
-          </br>
-            <%= @users[2].firstname %>
-          </br>
+            <% @users.each do |user| %>
+              </br>
+              <%= user.firstname %>
+            <% end %>
 
           </div>
         </div>

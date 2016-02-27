@@ -8,9 +8,14 @@ class FiretalksController < ApplicationController
   #before_filter :store_route
 
   def new
-    @user = User.find(params[:user_id])
-    @firetalk = Firetalk.new
-    @firetalk.firetalk_debaters.build
+    if (session[:user_id].to_s == params[:user_id].to_s)
+      @user = User.find(params[:user_id])
+      @firetalk = Firetalk.new
+      @firetalk.firetalk_debaters.build
+    else
+      @user = User.find(session[:user_id])
+      redirect_to new_user_firetalk_path(@user)
+    end
   end
 
   def create
