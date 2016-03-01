@@ -1,12 +1,13 @@
 <script type="text/javascript" src="https://static.opentok.com/v2/js/opentok.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src='http://code.jquery.com/jquery-<version>[.min].js'></script>
-<%= javascript_include_tag "fade" %>
 
 
 <div class="section" id="toppad">
 
-  <div class="col span_10_of_10">
+
+  <!--======DESKTOP VIEW======-->
+  <div class="col span_10_of_10" id="center-col">
     <div class="center-col-shadow">
     <div class="section">
       <div class="section firetalk-title centerhor">
@@ -26,197 +27,53 @@
   </div>
 </div>
 
-
   <div class="center-vids">
-      <div class="col  full-ft-speaker-box">
-        <div class="section">
-          <div id="speaker1Box" class="speakerBox">
-          </div>
+    <% @users.each_with_index do |user, index| %>
+    <div class="col  full-ft-speaker-box">
+      <div class="section">
+        <div id="speaker1Box" class="speakerBox">
         </div>
+      </div>
 
-        <div class="section progressbar" id="speaker1Progressbar"></div>
+      <div class="section progressbar" id="speaker1Progressbar"></div>
 
-        <div class="section speaker-options-container">
-          <div class="speaker-options">
+      <div class="section speaker-options-container">
+        <div class="speaker-options">
 
-            <div class="user-name-ft" id="speaker1Name">
-            <%= @users[0].firstname %>
+          <div class="user-name-ft" id="speaker1Name">
+            <%= @users[index].firstname %>
           </div>
 
-<div class="vote-options">
-  <div class="speakerPoints-container">
-            <div id="speaker1Points" class="speakerPoints">
+          <div class="vote-options">
+            <div class="speakerPoints-container">
+              <div id="speaker1Points" class="speakerPoints">
                 0
               </div>
             </div>
-<div class="upvotebutton-container" id="upvote-bounce1">
+            <div class="upvotebutton-container" id="upvote-bounce1">
               <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
             </div>
           </div>
         </div>
-          </div>
-        </div>
-
-      <div class="col full-ft-speaker-box">
-        <div class="section">
-          <div id="speaker2Box" class="speakerBox">
-          </div>
-        </div>
-        <div class="section progressbar" id="speaker2Progressbar"></div>
-
-        <div class="section speaker-options-container">
-          <div class="speaker-options">
-            <div class="user-name-ft" id="speaker2Name">
-            <%= @users[1].firstname %>
-          </div>
-
-
-          <div class="vote-options">
-            <div class="speakerPoints-container">
-                      <div id="speaker2Points" class="speakerPoints">
-                          0
-                        </div>
-                      </div>
-          <div class="upvotebutton-container" id="upvote-bounce2">
-                        <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
-                      </div>
-                    </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="col full-ft-speaker-box mobile-vid-row">
-
-        <div class="section">
-          <div id="speaker3Box" class="speakerBox">
-          </div>
-        </div>
-        <div class="section progressbar" id="speaker3Progressbar"></div>
-
-        <div class="section speaker-options-container">
-          <div class="speaker-options">
-            <div class="user-name-ft" id="speaker3Name">
-              <%= @users[2].firstname %>
-          </div>
-
-
-          <div class="vote-options">
-            <div class="speakerPoints-container">
-                      <div id="speaker3Points" class="speakerPoints">
-                          0
-                        </div>
-                      </div>
-          <div class="upvotebutton-container" id="upvote-bounce3">
-                        <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
-                      </div>
-                    </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col full-ft-speaker-box">
-        <div class="section">
-          <div id="speaker4Box" class="speakerBox">
-          </div>
-        </div>
-        <div class="section progressbar" id="speaker4Progressbar"></div>
-
-        <div class="section speaker-options-container">
-          <div class="speaker-options">
-            <div class="user-name-ft" id="speaker4Name">
-
-          </div>
-
-
-          <div class="vote-options">
-            <div class="speakerPoints-container">
-                      <div id="speaker4Points" class="speakerPoints">
-                          0
-                        </div>
-                      </div>
-          <div class="upvotebutton-container" id="upvote-bounce4">
-                        <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
-                      </div>
-                    </div>
-          </div>
-        </div>
-      </div>
-      <div class="col full-ft-speaker-box">
-
-        <div class="section">
-          <div id="speaker5Box" class="speakerBox">
-          </div>
-        </div>
-        <div class="section progressbar" id="speaker5Progressbar"></div>
-
-        <div class="section speaker-options-container">
-          <div class="speaker-options">
-            <div class="user-name-ft" id="speaker5Name">
-
-          </div>
-
-
-          <div class="vote-options">
-            <div class="speakerPoints-container">
-                      <div id="speaker5Points" class="speakerPoints">
-                          0
-                        </div>
-                      </div>
-          <div class="upvotebutton-container" id="upvote-bounce5">
-                        <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
-                      </div>
-                    </div>
-          </div>
-        </div>
-      </div>
-      <div class="col full-ft-speaker-box">
-
-        <div class="section">
-          <div id="speaker6Box" class="speakerBox">
-          </div>
-        </div>
-        <div class="section progressbar" id="speaker6Progressbar"></div>
-
-        <div class="section speaker-options-container">
-          <div class="speaker-options">
-            <div class="user-name-ft" id="speaker6Name">
-
-          </div>
-
-
-          <div class="vote-options">
-            <div class="speakerPoints-container">
-                      <div id="speaker6Points" class="speakerPoints">
-                          0
-                        </div>
-                      </div>
-          <div class="upvotebutton-container" id="upvote-bounce6">
-                        <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
-                      </div>
-                    </div>
-          </div>
-        </div>
-
       </div>
     </div>
+    <% end %>
+  </div>
 
 
 
 
         <div class="section firetalktopbar-container">
           <div class="float-left rounds-left">
-        <span class="rounds-left">ROUND:</span>
+        <span class="rounds-left">Round:</span>
         <span id="roundNumber" class="">
-          <strong>
           1
-        </strong>
         </span>
       </div>
 
-      <h4 class="time-center" style="color:#e60000;">
-        <span>
-          TIME:
+      <h4 class="time-center">
+        <span class="">
+          Time:
         </span>
         <span id="clock">
           60
@@ -224,7 +81,7 @@
       </h4>
 
       <div class="float-right votes-left">
-        <span class="">YOUR VOTES LEFT:</span>
+        <span class="">Your Votes Left:</span>
         <span id="pointsLeft" class="">
           0
         </span>
@@ -238,13 +95,11 @@
             <em><%= @firetalk.description %></em>
             </br></br>
             participants:
-          </br>
-            <%= @users[0].firstname %>
-          </br>
-            <%= @users[1].firstname %>
-          </br>
-            <%= @users[2].firstname %>
-          </br>
+            <% @users.each do |user| %>
+              </br>
+              <%= user.firstname %>
+            <% end %>
+
           </div>
         </div>
   </div>
@@ -279,6 +134,7 @@ var token = "<%= j @tok_token %>";
 var myEmail = "<%= j @user.email %>"
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
 var isDebater = "<%= @is_debater %>"
+var isOwner = "<%= @is_owner %>"
 var firetalkGoing = false;
 var playersAlive = [];
 
@@ -609,6 +465,12 @@ session.on(
       );
     }
     totalSessions[parseInt(debatersJson[emailAndPoints[1]])] = newSession;
+    if (totalSessions.length == debatersJson.length) {
+      // show firetalk button
+      if (isOwner) {
+        $('#startFiretalk').show();
+      }
+    }
   }
 );
 
@@ -897,9 +759,12 @@ session.on(
   <%= javascript_tag do %>
   var currentSpeakerIndex = 0;
   window.onload = function() {
+    // make it visible when totalSessions is full length
     $('#startFiretalk').on('click', function() {
       startFiretalk();
     });
+    $('#startFiretalk').hide();
+    alert("loaded");
   };
 
   function startFiretalk() {

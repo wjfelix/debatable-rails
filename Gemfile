@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 # gem 'aws-sdk'
+gem 'chosen-rails'
 # faye rack server for JavaScript
 gem 'faye'
 # Thin webserver for faye async
@@ -35,12 +36,15 @@ gem 'sdoc', '~> 0.4.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
 
+gem 'bundler'
+
 gem 'bootstrap-sass', '3.2.0.0'
 
 gem 'searchbing'
 
-
 gem 'pg'
+
+gem 'pry'
 
 
 # Use Capistrano for deployment

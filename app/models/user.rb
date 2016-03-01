@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 	before_create :validate_code
+	before_create :save_fullname
 	has_many :debates
 	has_many :firetalks
 	has_many :debate_users
@@ -18,5 +19,9 @@ class User < ActiveRecord::Base
 		if self.validation_code.nil? || self.validation_code.blank
 			self.validation_code = SecureRandom.urlsafe_base64.to_s
 		end
+	end
+
+	def save_fullname
+		self.fullname = self.firstname + " " + self.lastname
 	end
 end

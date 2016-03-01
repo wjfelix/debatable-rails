@@ -1,4 +1,5 @@
-/* html5reset.css - 01/11/2011 */
+/* html5reset.css - 01/11/2011
+*/
 
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -676,6 +677,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#27486b', end
 
 
 .firetalktopbar-container {
+	border-width: 2px;
+	border-style: solid;
+	border-color: #f2f2f2;
+	background-color: #ffffff;
   max-width: 1000px;
   width: 50%;
   margin: 0 auto;
@@ -957,9 +962,14 @@ display: inline-block;
 }
 
 .firetalk-title{
+	background-color: #ffffff;
+	border-style: solid;
+	border-color: #f2f2f2;
+	border-width: 2px;
+	padding: 10px;
 	margin: 5px auto 5px auto;
-  width: 30%;
-  padding: 10px;
+	border-radius: 3px;
+  width: 30%
 }
 
 .start-ft{
@@ -974,6 +984,10 @@ display: inline-block;
 
 
 .ft-info-container{
+  border-width: 2px;
+  border-style: solid;
+  border-color: #f2f2f2;
+  background-color: #ffffff;
   max-width: 1000px;
   width: 50%;
   margin: 0 auto;
@@ -1343,6 +1357,10 @@ flex-direction: column;
   }
 
   .ft-info-container{
+    border-width: 2px;
+  	border-style: solid;
+  	border-color: #f2f2f2;
+  	background-color: #ffffff;
     max-width: 1000px;
     width: 100%;
     margin: 0 auto;
@@ -1428,6 +1446,14 @@ flex-direction: column;
 
   #navbar-right{
     margin-right: 30px;
+  }
+
+
+  #center-col{
+
+    background-color: #d9d9d9;
+    padding-top: 40px;
+    min-height: 100%;
   }
 
 
@@ -1638,7 +1664,7 @@ flex-direction: column;
     height: 125px;
   }
 }
-
+gggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
 @media only screen and (max-width: 415px){
   .center-col-shadow{
     max-width: 310px;

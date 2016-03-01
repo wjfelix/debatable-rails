@@ -25,20 +25,23 @@ Rails.application.configure do
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
-  config.assets.debug = false
+  config.assets.debug = true
 
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
-  config.assets.precompile += %w( fade.js )
+  config.assets.precompile += %w( token-input-facebook.css )
+  config.assets.precompile += %w( token-input-mac.css )
+  config.assets.precompile += %w( token-input.css )
+
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
   # Force SSL
   config.force_ssl = true
-  
+
   # Mailer Host
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp

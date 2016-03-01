@@ -4,6 +4,15 @@ require 'securerandom'
 class UsersController < ApplicationController
   include BCrypt
 
+  def index
+    if (session[:user_id])
+      @users = User.where.not(:id => session[:user_id])
+      respond_to do |format|
+        format.json {render :json => @users.where("lower(fullname) like ?", "%#{params[:q].downcase}%")}
+      end
+    end
+  end
+
   def new
     @user = User.new
   end
@@ -54,11 +63,11 @@ class UsersController < ApplicationController
 
   def validate_email
     user = User.find_by_validation_code(params[:user_id])
-
     if user
-      worked = false
-      sql = "UPDATE users SET is_validated = 1 WHERE id = #{user.id}"
-      worked = ActiveRecord::Base.connection.execute(sql)
+      # CHANGE TO OMMIT PASSWORD
+      #params[:user].delete(:password) if params[:password].blank?
+      sql = "UPDATE users SET is_validated = 't' WHERE id = #{user.id}"
+      ActiveRecord::Base.connection.execute(sql)
       flash[:success] = true
       flash[:message] = "E-mail successfully verified!"
       redirect_to login_path

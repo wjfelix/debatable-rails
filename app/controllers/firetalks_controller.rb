@@ -8,10 +8,13 @@ class FiretalksController < ApplicationController
   #before_filter :store_route
 
   def new
-    @user = User.find(params[:user_id])
-    @firetalk = Firetalk.new
-    2.times do
+    if (session[:user_id].to_s == params[:user_id].to_s)
+      @user = User.find(params[:user_id])
+      @firetalk = Firetalk.new
       @firetalk.firetalk_debaters.build
+    else
+      @user = User.find(session[:user_id])
+      redirect_to new_user_firetalk_path(@user)
     end
   end
 
@@ -21,19 +24,15 @@ class FiretalksController < ApplicationController
 
     #adding ourselves (owner)
     @owner = @firetalk.firetalk_debaters.build(:firetalk_id => @firetalk.id, :email => @user.email, :user_id => @user.id)
-    @owner.save
-    @firetalk.firetalk_debaters.each do |firetalk_debater|
-      user = User.find_by_email(firetalk_debater.email)
-      if !user
-        flash[:success] = false
-        flash[:message] = "Failed to create Firetalk, no such user"
-        #redirect_to new_user_firetalk_path
-      elsif user.id
-        firetalk_debater.user_id = user.id
+    user_ids = params[:firetalk][:user_tokens].split(",")
+    user_ids.each do |user_id|
+      user = User.find(user_id) if user_id && user_id != ""
+      if user
+        @firetalk.firetalk_debaters.build(:firetalk_id => @firetalk.id, :email => user.email, :user_id => user_id)
       end
     end
 
-    if @firetalk.save
+    if @firetalk.save!(firetalk_params)
       flash[:success] = true
       flash[:message] = "Successfully created new Firetalk!"
 
@@ -42,7 +41,6 @@ class FiretalksController < ApplicationController
       end
       redirect_to user_firetalk_path(:id => @firetalk.id)
     else
-      flash[:success] = false
       flash[:message] = "Failed to create Firetalk"
       redirect_to new_user_firetalk_path
     end
@@ -57,6 +55,7 @@ class FiretalksController < ApplicationController
     @user = User.find(session[:user_id])
     @my_firetalk_debater = FiretalkDebater.where(:user_id => @user.id, :firetalk_id => @firetalk.id)
     @is_debater = false;
+    @is_owner = @firetalk.user_id == session[:user_id]
     if (session[:user_id] == @user.id)
       @is_debater = true;
     else
@@ -99,8 +98,7 @@ class FiretalksController < ApplicationController
 
   private
   def firetalk_params
-    params.require(:firetalk).permit(:topic, :name, :description, :user_id,
-                                      :firetalk_debaters_attributes => [:email])
+    params.require(:firetalk).permit(:topic, :name, :description, :user_id, :user_tokens)
   end
 
   def config_opentok
