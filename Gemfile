@@ -16,6 +16,9 @@ gem 'rails', '4.1.8'
 gem 'mysql2'
 #, '0.3.20'
 
+gem 'eventmachine'
+#gem 'thin', :github => 'krzcho/thin', :branch => 'master'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
