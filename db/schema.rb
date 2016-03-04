@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226214227) do
+ActiveRecord::Schema.define(version: 20160304033817) do
 
   create_table "categories", force: true do |t|
     t.string   "category_name", null: false
@@ -85,6 +85,17 @@ ActiveRecord::Schema.define(version: 20160226214227) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "category_id"
+  end
+
+  create_table "invites", force: true do |t|
+    t.string   "email"
+    t.string   "from"
+    t.string   "message"
+    t.string   "path"
+    t.boolean  "is_seen",    default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "moderator_invites", force: true do |t|
