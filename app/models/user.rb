@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
 	has_many :debate_users
 	has_many :firetalk_users
 	has_many :posts
-	has_many :debater_invites
+
+	has_many :invites
 	has_many :moderator_invites
 	has_many :notifications
 

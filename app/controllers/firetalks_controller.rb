@@ -25,10 +25,18 @@ class FiretalksController < ApplicationController
     #adding ourselves (owner)
     @owner = @firetalk.firetalk_debaters.build(:firetalk_id => @firetalk.id, :email => @user.email, :user_id => @user.id)
     user_ids = params[:firetalk][:user_tokens].split(",")
+
+    @users_to_invite = []
+
     user_ids.each do |user_id|
       user = User.find(user_id) if user_id && user_id != ""
       if user
         @firetalk.firetalk_debaters.build(:firetalk_id => @firetalk.id, :email => user.email, :user_id => user_id)
+        # add a new debater_invite to the user
+        @users_to_invite.push(User.find(user_id));
+      else
+        flash[:message] = "Failed to create Firetalk"
+        redirect_to new_user_firetalk_path
       end
     end
 
@@ -39,6 +47,14 @@ class FiretalksController < ApplicationController
       @firetalk.firetalk_debaters.each do |firetalk_debater|
         UserMailer.send_firetalk_invite(@firetalk, firetalk_debater).deliver
       end
+
+      @users_to_invite.each do |user|
+        invite = user.invites.build(:email => user.email, :from => @user.email,
+                          :message => "#{@user.firstname} has challeneged you to a firetalk!",
+                          :path => user_firetalk_path(:id => @firetalk.id, :user_id => @user.id))
+        invite.save!
+      end
+
       redirect_to user_firetalk_path(:id => @firetalk.id)
     else
       flash[:message] = "Failed to create Firetalk"
