@@ -43,3 +43,17 @@ $(function() {
     propertyToSearch: 'fullname'
   });
 });
+
+this.InvitePoller = {
+  poll: function() {
+    return setTimeout(this.request, 5000);
+  },
+  request: function() {
+    return $.get('/invites');
+  }
+};
+jQuery(function() {
+  if ($('#invitesContainer').length > 0) {
+    return InvitePoller.poll();
+  }
+});

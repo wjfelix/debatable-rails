@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_filter :store_location
+  before_filter :grab_invites
 
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.
@@ -18,5 +19,12 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     session[:previous_url] || root_path
+  end
+
+  def grab_invites
+    if (session[:user_id])
+      @user = User.find(session[:user_id])
+      @invites = @user.invites
+    end
   end
 end
