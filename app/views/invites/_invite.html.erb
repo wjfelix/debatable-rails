@@ -1,2 +1,27 @@
-<%= "#{invite.message} from #{invite.from}" %>
-<%= link_to "Join!", invite.path, {:method => 'get'} %>
+<div class="invite" data-value="<%= invite.id %>">
+  <script>
+  /*
+  this.onclick = function() {
+    alert($(this).attr('class'));
+    $.ajax({
+      type: "POST",
+      url: "/invites/" + $(this).attr('data-value'),
+      data: {invite: {is_seen: false, id: $(this).data('value')}}
+    }).done(function(msg) {
+      alert("Data Saved" + msg);
+    });
+  };
+  */
+  </script>
+<% if invite.is_seen %>
+  <div class="seenInvite">
+    <%= "#{invite.message} from #{invite.from}" %>
+    <%= link_to "Join!", invite.path, {:method => 'get'} %>
+  </div>
+<% else %>
+  <div class="unseenInvite">
+    <%= "#{invite.message} from #{invite.from}" %>
+    <%= link_to "Join!", invite.path, {:method => 'get'} %>
+  </div>
+<% end %>
+</div>

@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get '/users', to: 'users#index'
 
   get '/invites', to: 'application#grab_invites'
+  put '/invites', to: 'invites#update'
 
   resources :users do
     get :validate_email
