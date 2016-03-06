@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :store_location
   before_filter :grab_invites
+  before_filter :grab_new_topic
 
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.
@@ -26,5 +27,21 @@ class ApplicationController < ActionController::Base
       @user = User.find(session[:user_id])
       @invites = @user.invites
     end
+  end
+
+  def grab_new_topic
+    # set @topic
+    @topic = "Test Topic!!!!"
+
+    # get the topic of the day!!
+    response = HTTParty.get('http://www.google.com/trends/hottrends/atom/feed')
+    xml_doc  = Nokogiri::XML(response)
+    @topics = []
+    xml_doc.xpath('//title').each do |char_element|
+      if (char_element.text != 'Hot Trends')
+        @topics.push(char_element.text)
+      end
+    end
+    #@topic = @topics[0]
   end
 end
