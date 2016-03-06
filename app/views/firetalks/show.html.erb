@@ -451,8 +451,103 @@ session.on(
     // totalSessions puts people in the right order by speaker number
 
     // RECONNECTING LOGIC
-    if (emailAndPoints[1] == myEmail) {
-      alert("me");
+    if (emailAndPoints[0] != myEmail) {
+      // someone new connected (presume we already exist in our proper boxes)
+      var totalSpeakersFunction = function() {
+        var highest = 0;
+        for (var email in debatersJson) {
+          if (debatersJson[email] > lowest) {
+            highest = debatersJson[email];
+          }
+        }
+        return highest;
+      }
+
+      totalSpeakers = totalSpeakersFunction;
+
+      debatersJson[emailAndPoints[0]] = totalSpeakers + 1;
+
+      // append new video feed etc.
+      /*
+      <div class="center-vids">
+        <% @users.each_with_index do |user, index| %>
+        <div class="col  full-ft-speaker-box">
+          <div class="section">
+            <div id="speaker<%= index + 1 %>Box" class="speakerBox">
+            </div>
+          </div>
+
+          <div class="section progressbar" id="speaker<%= index + 1 %>Progressbar"></div>
+
+          <div class="section speaker-options-container">
+            <div class="speaker-options">
+
+              <div class="user-name-ft" id="speaker<%= index + 1 %>Name">
+                <%= @users[index].firstname %>
+              </div>
+
+              <div class="vote-options">
+                <div class="speakerPoints-container">
+                  <div id="speaker<%= index + 1 %>Points" class="speakerPoints">
+                    0
+                  </div>
+                </div>
+
+                <!-- CHANGE BOUNCE1??? -->
+                <div class="upvotebutton-container" id="upvote-bounce1">
+                  <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+      */
+      var mainContainer = document.querySelector("center-vids");
+      var col = document.createElement("div");
+      col.classList.add("col");
+      col.classList.add("full-ft-speaker-box");
+
+      var section = document.createElement("div");
+      section.classList.add("section");
+
+      var speakerBox = document.createElement("div");
+      speakerBox.id = "speaker" + totalSpeakers + 1 + "Box";
+      section.appendChild(speakerBox);
+      col.appendChild(section);
+
+      var speakerProgressBar = document.createElement("div");
+      speakerProgressBar.classList.add("section");
+      speakerProgressBar.classList.add("progressbarprogressbar");
+      speakerProgressBar.id = "speaker" + totalSpeakers + 1 + "Progressbar";
+      col.appendChild(speakerProgressBar);
+
+      var optionsContainer = document.createElement("div");
+      optionsContainer.classList.add("section");
+      optionsContainer.classList.add("speaker-options-containerspeaker-options-container");
+      var speakerOptions = document.createElement("div");
+      speakerOptions.classList.add("speaker-options");
+      var speakerName = document.createElement("div");
+      speakerName.classList.add("user-name-ft");
+      speakerName.id = "speaker" + totalSpeakers + 1 + "Name";
+      speakerName.innerHTML = emailAndPoints[0];
+      speakerOptions.appendChild(speakerName);
+      var voteOptions = document.createElement("div");
+      voteOptions.classList.add("vote-options");
+      var speakerPointsContainer = document.createElement("div");
+      speakerPointsContainer.classList.add("speakerPoints-container");
+      var points = document.createElement("div");
+      points.classList.add("speakerPoints");
+      points.id = "speaker" + totalSpeakers + 1 + "Points";
+      points.innerHTML = 0;
+      speakerPointsContainer.appendChild(points);
+
+
+
+
+
+
     }
     var newSession = event;
 
