@@ -451,8 +451,7 @@ session.on(
     // totalSessions puts people in the right order by speaker number
 
     // RECONNECTING LOGIC
-    if (emailAndPoints[0] != myEmail) {
-      alert(emailAndPoints[0]);
+    if (emailAndPoints[1] != myEmail) {
       location.reload();
       // someone new connected (presume we already exist in our proper boxes)
       var totalSpeakersFunction = function() {
