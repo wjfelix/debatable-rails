@@ -29,6 +29,9 @@ Rails.application.routes.draw do
   get '/invites', to: 'application#grab_invites'
   put '/invites', to: 'invites#update'
 
+  get '/join_random_firetalk', to: 'random_firetalks#join'
+  get '/watch_random_firetalk', to: 'random_firetalks#watch'
+
   resources :users do
     get :validate_email
     resources :debates
