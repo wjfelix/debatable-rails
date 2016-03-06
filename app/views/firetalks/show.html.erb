@@ -452,6 +452,7 @@ session.on(
 
     // RECONNECTING LOGIC
     if (emailAndPoints[0] != myEmail) {
+      location.reload();
       // someone new connected (presume we already exist in our proper boxes)
       var totalSpeakersFunction = function() {
         var highest = 0;
@@ -462,7 +463,7 @@ session.on(
         }
         return highest;
       }
-
+      /*
       totalSpeakers = totalSpeakersFunction;
 
       debatersJson[emailAndPoints[0]] = totalSpeakers + 1;
@@ -504,6 +505,7 @@ session.on(
         <% end %>
       </div>
       */
+      /*
       var mainContainer = document.querySelector("center-vids");
       var col = document.createElement("div");
       col.classList.add("col");
@@ -542,12 +544,7 @@ session.on(
       points.id = "speaker" + totalSpeakers + 1 + "Points";
       points.innerHTML = 0;
       speakerPointsContainer.appendChild(points);
-
-
-
-
-
-
+      */
     }
     var newSession = event;
 
