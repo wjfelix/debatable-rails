@@ -129,14 +129,16 @@
 
 <%= javascript_tag do %>
 
+var isPublic = "<%= @is_public %>";
+
 var pointsLeft = 5;
 var apiKey = '45241592';
 var sessionId = "<%= j @firetalk.tok_session_id %>";
 var token = "<%= j @tok_token %>";
 var myEmail = "<%= j @user.email %>"
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
-var isDebater = "<%= @is_debater %>"
-var isOwner = "<%= @is_owner %>"
+var isDebater = "<%= @is_debater %>";
+var isOwner = "<%= @is_owner %>";
 var firetalkGoing = false;
 var playersAlive = [];
 
@@ -160,7 +162,15 @@ var publisher;
 var speakerNumber;
 var publisherOptions = {width: '100%', height: '100%'};
 
+if (isPublic) {
+  // do a bunch of polling logic where we modify json debaters n stuff
+  // might be tricky
+
+}
+
 function sessionConnectedHandler(event) {
+  // add javascript that modifies json debaters and adds the new window...
+
   var myDiv = document.createElement('div');
   speakerNumber = parseInt(debatersJson[myEmail] + 1);
   publisher = OT.initPublisher(apiKey, myDiv, publisherOptions);
@@ -441,6 +451,9 @@ session.on(
     // totalSessions puts people in the right order by speaker number
 
     // RECONNECTING LOGIC
+    if (emailAndPoints[1] == myEmail) {
+      alert("me");
+    }
     var newSession = event;
 
     if (firetalkGoing) {
