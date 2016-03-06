@@ -465,8 +465,6 @@ session.on(
           }
         }
       );
-      alert("connected new");
-      location.reload();
     }
     totalSessions[parseInt(debatersJson[emailAndPoints[1]])] = newSession;
     if (totalSessions.length == debatersJson.length) {
@@ -475,6 +473,8 @@ session.on(
         $('#startFiretalk').show();
       }
     }
+    alert("connected new");
+    location.reload();
   }
 );
 
