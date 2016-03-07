@@ -460,7 +460,7 @@ session.on(
       function getTotalSpeakers() {
         var highest = 0;
         for (var email in debatersJson) {
-          if (debatersJson[email] > lowest) {
+          if (debatersJson[email] > highest) {
             highest = debatersJson[email];
           }
         }
