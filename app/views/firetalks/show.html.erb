@@ -481,28 +481,28 @@ session.on(
         var container = document.getElementById("center-vids-container");
         container.innerHTML += '<div class="col  full-ft-speaker-box">' +
                   '<div class="section">' +
-                    '<div id="speaker' + debatersJson[userEmail] + 1 + 'Box" class="speakerBox">' +
+                    '<div id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Box" class="speakerBox">' +
                     '</div>' +
                   '</div>' +
 
-                  '<div class="section progressbar" id="speaker' + debatersJson[userEmail] + 1 + 'Progressbar"></div>' +
+                  '<div class="section progressbar" id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Progressbar"></div>' +
 
                   '<div class="section speaker-options-container">' +
                     '<div class="speaker-options">' +
 
-                      '<div class="user-name-ft" id="speaker' + debatersJson[userEmail] + 1 + 'Name">' +
+                      '<div class="user-name-ft" id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Name">' +
                       userEmail +
                       '</div>' +
 
                       '<div class="vote-options">' +
                         '<div class="speakerPoints-container">' +
-                          '<div id="speaker' + debatersJson[userEmail] + 1 + 'Points" class="speakerPoints">' +
+                          '<div id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Points" class="speakerPoints">' +
                             0 +
                           '</div>' +
                         '</div>' +
 
                         '<!-- CHANGE BOUNCE1??? -->' +
-                        '<div class="upvotebutton-container" id="upvote-bounce' + debatersJson[userEmail] + 1 + '">' +
+                        '<div class="upvotebutton-container" id="upvote-bounce' + parseInt(debatersJson[userEmail] + 1) + '">' +
                           '<%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>' +
                         '</div>' +
                       '</div>' +
