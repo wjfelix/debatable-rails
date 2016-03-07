@@ -230,7 +230,7 @@ $('#upvote-bounce1').click(function() {
     session.signal(
       {
         data: totalSessions[0].connection.connectionId,
-        type: "voteSpeakerOne"
+        type: "voteSpeaker1"
       },
       function(error) {
         if (error) {
@@ -246,7 +246,7 @@ $('#upvote-bounce2').click(function() {
     session.signal(
       {
         data:  totalSessions[1].connection.connectionId,
-        type: "voteSpeakerTwo"
+        type: "voteSpeaker2"
       },
       function(error) {
         if (error) {
@@ -263,7 +263,7 @@ $('#upvote-bounce3').click(function() {
     session.signal(
       {
         data:  totalSessions[2].connection.connectionId,
-        type: "voteSpeakerThree"
+        type: "voteSpeaker3"
       },
       function(error) {
         if (error) {
@@ -280,7 +280,7 @@ $('#upvote-bounce4').click(function() {
     session.signal(
       {
         data:  totalSessions[3].connection.connectionId,
-        type: "voteSpeakerFour"
+        type: "voteSpeaker4"
       },
       function(error) {
         if (error) {
@@ -297,7 +297,7 @@ $('#upvote-bounce5').click(function() {
     session.signal(
       {
         data:  totalSessions[4].connection.connectionId,
-        type: "voteSpeakerFive"
+        type: "voteSpeaker5"
       },
       function(error) {
         if (error) {
@@ -314,7 +314,7 @@ $('#upvote-bounce6').click(function() {
     session.signal(
       {
         data:  totalSessions[5].connection.connectionId,
-        type: "voteSpeakerSix"
+        type: "voteSpeaker6"
       },
       function(error) {
         if (error) {
@@ -360,7 +360,7 @@ session.on(
 
 // Listener SpeakerOneUpvote
 session.on(
-  "signal:voteSpeakerOne", function(event) {
+  "signal:voteSpeaker1", function(event) {
     var newPoints = incrementStream(event.data);
     $('#speaker1Points').html(newPoints);
   }
@@ -368,35 +368,35 @@ session.on(
 
 // Listener SpeakerTwoUpvote
 session.on(
-  "signal:voteSpeakerTwo", function(event) {
+  "signal:voteSpeaker2", function(event) {
     var newPoints = incrementStream(event.data);
     $('#speaker2Points').html(newPoints);
   }
 );
 
 session.on(
-  "signal:voteSpeakerThree", function(event) {
+  "signal:voteSpeaker3", function(event) {
     var newPoints = incrementStream(event.data);
     $('#speaker3Points').html(newPoints);
   }
 );
 
 session.on(
-  "signal:voteSpeakerFour", function(event) {
+  "signal:voteSpeaker4", function(event) {
     var newPoints = incrementStream(event.data);
     $('#speaker4Points').html(newPoints);
   }
 );
 
 session.on(
-  "signal:voteSpeakerFive", function(event) {
+  "signal:voteSpeaker5", function(event) {
     var newPoints = incrementStream(event.data);
     $('#speaker5Points').html(newPoints);
   }
 );
 
 session.on(
-  "signal:voteSpeakerSix", function(event) {
+  "signal:voteSpeaker6", function(event) {
     var newPoints = incrementStream(event.data);
     $('#speaker6Points').html(newPoints);
   }
@@ -518,7 +518,7 @@ session.on(
                     session.signal(
                       {
                         data: totalSessions[0].connection.connectionId,
-                        type: "voteSpeakerOne"
+                        type: "voteSpeaker" + parseInt(debatersJson[userEmail] + 1)
                       },
                       function(error) {
                         if (error) {
