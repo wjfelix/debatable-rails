@@ -513,7 +513,7 @@ session.on(
                 '</div>';
                 // bind element to points;
                 $('#upvote-bounce' + parseInt(debatersJson[userEmail] + 1)).click(function() {
-                  if (hasPointsLeft() && speakerNumber != 1) {
+                  if (hasPointsLeft() && speakerNumber != parseInt(debatersJson[userEmail] + 1)) {
                     decrementVote();
                     session.signal(
                       {
