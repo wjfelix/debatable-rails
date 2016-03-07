@@ -27,7 +27,7 @@
   </div>
 </div>
 
-  <div class="center-vids">
+  <div class="center-vids" id="center-vids-container">
     <% @users.each_with_index do |user, index| %>
     <div class="col  full-ft-speaker-box">
       <div class="section">
@@ -471,7 +471,7 @@ session.on(
 
       // append new video feed etc.
       if (document.getElementById("speaker" + totalSpeakers + 1 + "Box") == null) {
-        var container = document.querySelector("center-vids");
+        var container = document.getElementById("center-vids-container");
         container.innerHTML += '<div class="col  full-ft-speaker-box">' +
                   '<div class="section">' +
                     '<div id="speaker' + totalSpeakers + 1 + 'Box" class="speakerBox">' +
