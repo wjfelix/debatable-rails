@@ -11,7 +11,7 @@ class RandomFiretalksController < ApplicationController
     # get all public firetalks who are not in progress with current topic
     # if no firetalks, make a new one
     @user = User.find(session[:user_id])
-    @firetalks = Firetalk.where(:public => true, :in_progress => false, :topic => @topic, :full => false)
+    @firetalks = Firetalk.where(:is_public => true, :in_progress => false, :topic => @topic, :full => false)
     if @firetalks.any?
       # join random one
       @firetalk = @firetalks.sample
@@ -26,7 +26,7 @@ class RandomFiretalksController < ApplicationController
       end
     else
       # make new one
-      @firetalk = Firetalk.new(:topic => @topic, :user_id => @user.id, :name => "Test Firetalk!", :public  => true)
+      @firetalk = Firetalk.new(:topic => @topic, :user_id => @user.id, :name => "Test Firetalk!", :is_public  => true)
       if @firetalk.save
         @firetalk.firetalk_debaters.create!(:email => @user.email, :user_id => @user.id, :firetalk_id => @firetalk.id)
         redirect_to user_firetalk_path(@user, @firetalk)
@@ -36,7 +36,7 @@ class RandomFiretalksController < ApplicationController
   end
 
   def watch
-    # go to firetalk as spectator which is public and in progress
+    # go to firetalk as spectator which is is_public and in progress
   end
 
   private
