@@ -455,7 +455,9 @@ session.on(
     if (emailAndPoints[1] != myEmail) {
       //location.reload();
       // someone new connected (presume we already exist in our proper boxes)
-      var totalSpeakersFunction = function() {
+      var totalSpeakersFunction = getTotalSpeakers();
+
+      function getTotalSpeakers() {
         var highest = 0;
         for (var email in debatersJson) {
           if (debatersJson[email] > lowest) {
