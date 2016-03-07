@@ -452,7 +452,7 @@ session.on(
 
 
     // new/old person (not us)
-    if (emailAndPoints[1] != myEmail) {
+    if (emailAndPoints[1] != myEmail && !debatersJson.hasOwnProperty(emailAndPoints[1]) ) {
       var userEmail = emailAndPoints[1];
       //location.reload();
       // someone new connected (presume we already exist in our proper boxes)
