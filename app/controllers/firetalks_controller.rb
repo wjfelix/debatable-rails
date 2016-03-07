@@ -106,7 +106,7 @@ class FiretalksController < ApplicationController
         @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :subscriber)
       end
       format.html
-      format.json { render json: @my_firetalk_debater }
+      format.json { render json: @firetalk_json }
     end
   end
 

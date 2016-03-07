@@ -455,21 +455,20 @@ session.on(
     if (emailAndPoints[1] != myEmail) {
       //location.reload();
       // someone new connected (presume we already exist in our proper boxes)
-      var totalSpeakersFunction = getTotalSpeakers();
+      // grab new debatersJson hash with GET
 
-      function getTotalSpeakers() {
-        var highest = 0;
-        for (var email in debatersJson) {
-          if (debatersJson[email] > highest) {
-            highest = debatersJson[email];
-          }
+      $.ajax({
+        type: "GET",
+        url: "/users/" + "<%= j @firetalk.user_id >" + "firetalks/" + "<%= j @firetalk.id %>",
+        dataType: "json",
+        success: function(data) {
+          alert(data);
         }
-        return highest;
-      }
+      });
 
       totalSpeakers = totalSpeakersFunction;
 
-      debatersJson[emailAndPoints[1]] = totalSpeakers;
+      //debatersJson[emailAndPoints[1]] = totalSpeakers;
 
       // append new video feed etc.
       if (document.getElementById("speaker" + totalSpeakers + 1 + "Box") == null) {
