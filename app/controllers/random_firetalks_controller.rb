@@ -18,6 +18,9 @@ class RandomFiretalksController < ApplicationController
       if !FiretalkDebater.where(:user_id => @user.id, :firetalk_id => @firetalk.id).any?
         @firetalk.firetalk_debaters.build(:email => @user.email, :user_id => @user.id, :firetalk_id => @firetalk.id)
       end
+      if @firetalk.firetalk_debaters.length == 6
+        @firetalk.full = true
+      end
       if @firetalk.save!
         redirect_to user_firetalk_path(:id => @firetalk.id, :user_id => @firetalk.user_id)
       end
