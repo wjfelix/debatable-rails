@@ -113,6 +113,11 @@ class FiretalksController < ApplicationController
   def join
   end
 
+  def destroy
+    @firetalk = Firetalk.find(params[:id])
+    @firetalk.destroy!
+  end
+
   private
   def firetalk_params
     params.require(:firetalk).permit(:topic, :name, :description, :user_id, :user_tokens)
