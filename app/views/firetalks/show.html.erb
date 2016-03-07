@@ -987,6 +987,18 @@ session.on(
             });
             clearInterval(timer);
             timer = null;
+
+            // delete firetalk here so we no longer circulate it in the public sphere
+            if (isPublic) {
+              $.ajax({
+                type: "POST",
+                url: "/users/<%= @firetalk.user_id %>/firetalks/<%= @firetalk.id>>",      //"/slot_allocations/" + slotallocation_id,
+                data: {"_method":"delete"},
+                complete: function(){
+                  alert("deleted firetalk!");
+                }
+            });
+            }
           }
           else {
             // unmute first person in list
