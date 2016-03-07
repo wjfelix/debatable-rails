@@ -478,6 +478,7 @@ session.on(
       // append new video feed etc.
       // If the email doesn't exist in the json (new person) and it isn't my email (don't republish ourself!)
       if (userEmail != myEmail && !debatersJson[userEmail]) {
+        alert("publishing " + userEmail);
         updateDebatersJson(event.connection.data);
         var container = document.getElementById("center-vids-container");
         container.innerHTML += '<div class="col  full-ft-speaker-box">' +
