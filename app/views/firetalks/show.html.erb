@@ -462,6 +462,7 @@ session.on(
         type: "GET",
         url: "/users/" + "<%= @firetalk.user_id %>" + "/firetalks/" + "<%= @firetalk.id %>",
         dataType: "json",
+        async: false,
         success: function(data) {
           debatersJson = JSON.parse(JSON.stringify(data));
         }
