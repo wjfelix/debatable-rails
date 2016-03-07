@@ -203,7 +203,6 @@ function subscribeToStreams(streams) {
 
     var connection = streams[i].connection;
     var email = connection.data.split("|")[1];
-    updateDebatersJson(connection.data);
     var newSpeakerNumber = parseInt(debatersJson[email]) + 1;
     document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
 
