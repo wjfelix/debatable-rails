@@ -448,8 +448,6 @@ function updateDebatersJson(email) {
 
   // JSON points email => Speaker number
   // totalSessions puts people in the right order by speaker number
-
-
   // new/old person (not us)
   if (emailAndPoints[1] != myEmail && !debatersJson.hasOwnProperty(emailAndPoints[1]) ) {
     var userEmail = emailAndPoints[1];
@@ -472,6 +470,7 @@ function updateDebatersJson(email) {
 session.on(
   "connectionCreated", function(event) {
     updateDebatersJson(event.connection.data);
+    var userEmail = event.connection.data.split("|")[1];
       // alert(userEmail);
       // alert(JSON.stringify(debatersJson));
 
