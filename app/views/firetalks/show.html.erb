@@ -203,7 +203,7 @@ function subscribeToStreams(streams) {
 
     var connection = streams[i].connection;
     var email = connection.data.split("|")[1];
-    batersJson(connection.data);
+    updateDebatersJson(connection.data);
     var newSpeakerNumber = parseInt(debatersJson[email]) + 1;
     document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
 
@@ -449,7 +449,7 @@ function updateDebatersJson(email) {
   // JSON points email => Speaker number
   // totalSessions puts people in the right order by speaker number
   // new/old person (not us)
-  if (emailAndPoints[1] != myEmail && !debatersJson.hasOwnProperty(emailAndPoints[1]) ) {
+  if (emailAndPoints[1] != myEmail && !debatersJson[emailAndPoints[1]] ) {
     var userEmail = emailAndPoints[1];
     //location.reload();
     // someone new connected (presume we already exist in our proper boxes)
