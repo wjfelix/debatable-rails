@@ -477,7 +477,7 @@ session.on(
       //debatersJson[emailAndPoints[1]] = totalSpeakers;
 
       // append new video feed etc.
-      if (userEmail != myEmail && !debatersJson[userEmail]) {
+      if (userEmail != myEmail && document.getElementById("speaker" + debatersJson[userEmail] + 1 + "Box") == null) {
         var container = document.getElementById("center-vids-container");
         container.innerHTML += '<div class="col  full-ft-speaker-box">' +
                   '<div class="section">' +
