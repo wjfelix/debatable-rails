@@ -463,7 +463,7 @@ session.on(
         url: "/users/" + "<%= @firetalk.user_id %>" + "/firetalks/" + "<%= @firetalk.id %>",
         dataType: "json",
         success: function(data) {
-          debatersJson = data;
+          debatersJson = JSON.parse(data);
         }
       });
       alert(userEmail);
