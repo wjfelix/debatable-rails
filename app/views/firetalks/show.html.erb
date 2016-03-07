@@ -444,7 +444,7 @@ function incrementStream(connectionId) {
 }
 
 function updateDebatersJson(email) {
-  var emailAndPoints = email.connection.data.split("|");
+  var emailAndPoints = email.split("|");
 
   // JSON points email => Speaker number
   // totalSessions puts people in the right order by speaker number
