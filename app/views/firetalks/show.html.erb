@@ -470,6 +470,7 @@ function updateDebatersJson(email) {
 session.on(
   "connectionCreated", function(event) {
     updateDebatersJson(event.connection.data);
+    var emailAndPoints = event.conection.data.split("|");
     var userEmail = event.connection.data.split("|")[1];
       // alert(userEmail);
       // alert(JSON.stringify(debatersJson));
