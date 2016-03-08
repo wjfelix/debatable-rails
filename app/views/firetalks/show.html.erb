@@ -17,11 +17,14 @@ jQuery(document).ready(function() {
 
 <div class="section" id="toppad">
 
-
   <!--======DESKTOP VIEW======-->
   <div class="col span_10_of_10" id="center-col">
     <div class="center-col-shadow">
     <div class="section">
+      <% if @public %>
+      <%= link_to 'Join Another Debate!', join_random_firetalk_path, {:method => 'GET'} %>
+      <%= link_to 'Watch Another Debate!', watch_random_firetalk_path, {:method => 'GET'}%>
+      <% end %>
       <div class="section firetalk-title centerhor">
         <h3>
           <%= @firetalk.name %>
@@ -197,7 +200,7 @@ function sessionConnectedHandler(event) {
 }
 
 function streamCreatedHandler(event) {
-    subscribeToStreams(event.streams);
+  subscribeToStreams(event.streams);
 }
 
 var options = {height: "100%", width: "100%"}
@@ -215,6 +218,7 @@ function subscribeToStreams(streams) {
     var connection = streams[i].connection;
     var email = connection.data.split("|")[1];
     var newSpeakerNumber = parseInt(debatersJson[email]) + 1;
+    updateDebatersJson(connection.data);
     document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
 
     // Subscribe to the stream
@@ -473,8 +477,9 @@ function updateDebatersJson(email) {
       url: "/users/" + "<%= @firetalk.user_id %>" + "/firetalks/" + "<%= @firetalk.id %>",
       dataType: "json",
       async: false,
-      success: function(data) {
-        debatersJson = JSON.parse(JSON.stringify(data));
+      complete: function(data) {
+        //.debatersJson = JSON.parse(JSON.stringify(data));
+        debatersJson = JSON.parse(JSON.stringify(data["responseJSON"]));
       }
     });
   }
@@ -561,6 +566,47 @@ session.on(
     }
   }
 );
+
+if (isPublic) {
+  session.on(
+    "connectionDestroyed", function(event) {
+      var dropEmail = event.connection.data.split("|")[1];
+      alert(dropEmail + " dropped");
+      if (debatersJson[dropEmail] != null) {
+        // speaker' + parseInt(debatersJson[userEmail] + 1) + 'Box
+        var dropSpeakerNumber = parseInt(debatersJson[dropEmail] + 1);
+        var dropSpeakerBox = document.getElementById("speaker" + dropSpeakerNumber + "Box");
+        var section = dropSpeakerBox.parentNode.parentNode;
+        section.parentNode.removeChild(section);
+        delete debatersJson[dropEmail];
+        // delete from total sessions as well?
+        // totalSessions[dropSpeakerNumber] = null;
+        setTimeout(function() {
+          var isConnected = false;
+          for (var i = 0; i < totalSessions.length; i++) {
+            if (totalSessions[i].connection.data.split("|")[1] == dropEmail) {
+              isConnected = true;
+            }
+          }
+          // if he still doesn't exist in our json, and isn't connected,
+          // delete from debaters list
+          if (debatersJson[dropEmail]) {
+            $.ajax({
+              url: "<%= firetalk_debaters_destroy_path %>",
+              type: 'POST',
+              data: {email: dropEmail, firetalk_id: "<%= @firetalk.id %>"},
+              async: false,
+              complete: function(event) {
+                alert("DELETED DEBATER");
+              }
+            });
+          }
+          // drop someone after 5 seconds if they don't come back
+        }, 20000);
+      }
+    }
+  );
+}
 
 function showPoints() {
   session.signal({
@@ -855,8 +901,7 @@ session.on(
         type: "PATCH",
         url: "<%= user_firetalk_path(:id => @firetalk.id, :user_id => @firetalk.user_id) %>",      //"/slot_allocations/" + slotallocation_id,
         data: {id: "<%= @firetalk.id %>", firetalk: {in_progress: true}},
-        complete: function() {
-          alert("updated firetalk!");
+        complete: function(event) {
         }
     });
 
