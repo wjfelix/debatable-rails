@@ -1,0 +1,2 @@
+module RandomFiretalksHelper
+end

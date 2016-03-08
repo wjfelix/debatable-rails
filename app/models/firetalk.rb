@@ -18,6 +18,13 @@ class Firetalk < ActiveRecord::Base
     #self.user_ids = ids.split(",")
   end
 
+  def random_firetalk(params)
+    self.user_id = params[:user_id]
+    self.topic = params[:topic]
+    self.tok_session_id = params[:tok_session_id]
+    self.name = "Random Firetalk!"
+  end
+
   private
   def save_tok_session_id
     opentok = OpenTok::OpenTok.new '45241592', 'b099560439c52ed195d79cb7c15fbae1d9b33f1e'

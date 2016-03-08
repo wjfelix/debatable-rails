@@ -71,6 +71,7 @@ class FiretalksController < ApplicationController
     @user = User.find(session[:user_id])
     @my_firetalk_debater = FiretalkDebater.where(:user_id => @user.id, :firetalk_id => @firetalk.id)
     @is_debater = false;
+    @public = @firetalk.public
     @is_owner = @firetalk.user_id == session[:user_id]
     if (session[:user_id] == @user.id)
       @is_debater = true;
@@ -105,7 +106,7 @@ class FiretalksController < ApplicationController
         @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :subscriber)
       end
       format.html
-      format.json { render json: @my_firetalk_debater }
+      format.json { render json: @firetalk_json }
     end
   end
 

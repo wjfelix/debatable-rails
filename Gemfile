@@ -1,5 +1,14 @@
 source 'http://rubygems.org'
 
+# Daily tasks
+gem 'whenever'
+
+#HTTP methods
+gem 'httparty'
+
+# parsing documents
+gem 'nokogiri'
+
 # gem 'aws-sdk'
 gem 'chosen-rails'
 # faye rack server for JavaScript

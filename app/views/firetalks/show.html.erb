@@ -27,30 +27,31 @@
   </div>
 </div>
 
-  <div class="center-vids">
+  <div class="center-vids" id="center-vids-container">
     <% @users.each_with_index do |user, index| %>
     <div class="col  full-ft-speaker-box">
       <div class="section">
-        <div id="speaker1Box" class="speakerBox">
+        <div id="speaker<%= index + 1 %>Box" class="speakerBox">
         </div>
       </div>
 
-      <div class="section progressbar" id="speaker1Progressbar"></div>
+      <div class="section progressbar" id="speaker<%= index + 1 %>Progressbar"></div>
 
       <div class="section speaker-options-container">
         <div class="speaker-options">
 
-          <div class="user-name-ft" id="speaker1Name">
+          <div class="user-name-ft" id="speaker<%= index + 1 %>Name">
             <%= @users[index].firstname %>
           </div>
 
           <div class="vote-options">
             <div class="speakerPoints-container">
-              <div id="speaker1Points" class="speakerPoints">
+              <div id="speaker<%= index + 1 %>Points" class="speakerPoints">
                 0
               </div>
             </div>
-            <div class="upvotebutton-container" id="upvote-bounce1">
+
+            <div class="upvotebutton-container" id="upvote-bounce<%= index + 1 %>">
               <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
             </div>
           </div>
@@ -127,14 +128,16 @@
 
 <%= javascript_tag do %>
 
+var isPublic = "<%= @is_public %>";
+
 var pointsLeft = 5;
 var apiKey = '45241592';
 var sessionId = "<%= j @firetalk.tok_session_id %>";
 var token = "<%= j @tok_token %>";
 var myEmail = "<%= j @user.email %>"
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
-var isDebater = "<%= @is_debater %>"
-var isOwner = "<%= @is_owner %>"
+var isDebater = "<%= @is_debater %>";
+var isOwner = "<%= @is_owner %>";
 var firetalkGoing = false;
 var playersAlive = [];
 
@@ -158,7 +161,15 @@ var publisher;
 var speakerNumber;
 var publisherOptions = {width: '100%', height: '100%'};
 
+if (isPublic) {
+  // do a bunch of polling logic where we modify json debaters n stuff
+  // might be tricky
+
+}
+
 function sessionConnectedHandler(event) {
+  // add javascript that modifies json debaters and adds the new window...
+
   var myDiv = document.createElement('div');
   speakerNumber = parseInt(debatersJson[myEmail] + 1);
   publisher = OT.initPublisher(apiKey, myDiv, publisherOptions);
@@ -213,106 +224,109 @@ function getPoints() {
 }
 
 // BROADCAST SIGNAL EVENTS
-$('#upvote-bounce1').click(function() {
-  if (hasPointsLeft() && speakerNumber != 1) {
-    decrementVote();
-    session.signal(
-      {
-        data: totalSessions[0].connection.connectionId,
-        type: "voteSpeakerOne"
-      },
-      function(error) {
-        if (error) {
-          alert(error.message);
+session.on(
+  "signal:bindButtons", function(event) {
+  $('#upvote-bounce1').click(function() {
+    if (hasPointsLeft() && speakerNumber != 1) {
+      decrementVote();
+      session.signal(
+        {
+          data: totalSessions[0].connection.connectionId,
+          type: "voteSpeaker1"
+        },
+        function(error) {
+          if (error) {
+            alert(error.message);
+          }
         }
-      }
-    );
-  }
-});
+      );
+    }
+  });
 
-$('#upvote-bounce2').click(function() {
-  if (hasPointsLeft() && speakerNumber != 2) {
-    session.signal(
-      {
-        data:  totalSessions[1].connection.connectionId,
-        type: "voteSpeakerTwo"
-      },
-      function(error) {
-        if (error) {
-          alert(error.message);
+  $('#upvote-bounce2').click(function() {
+    if (hasPointsLeft() && speakerNumber != 2) {
+      session.signal(
+        {
+          data:  totalSessions[1].connection.connectionId,
+          type: "voteSpeaker2"
+        },
+        function(error) {
+          if (error) {
+            alert(error.message);
+          }
         }
-      }
-    );
-    decrementVote();
-  }
-});
+      );
+      decrementVote();
+    }
+  });
 
-$('#upvote-bounce3').click(function() {
-  if (hasPointsLeft() && speakerNumber != 3) {
-    session.signal(
-      {
-        data:  totalSessions[2].connection.connectionId,
-        type: "voteSpeakerThree"
-      },
-      function(error) {
-        if (error) {
-          alert(error.message);
+  $('#upvote-bounce3').click(function() {
+    if (hasPointsLeft() && speakerNumber != 3) {
+      session.signal(
+        {
+          data:  totalSessions[2].connection.connectionId,
+          type: "voteSpeaker3"
+        },
+        function(error) {
+          if (error) {
+            alert(error.message);
+          }
         }
-      }
-    );
-    decrementVote();
-  }
-});
+      );
+      decrementVote();
+    }
+  });
 
-$('#upvote-bounce4').click(function() {
-  if (hasPointsLeft() && speakerNumber != 4) {
-    session.signal(
-      {
-        data:  totalSessions[3].connection.connectionId,
-        type: "voteSpeakerFour"
-      },
-      function(error) {
-        if (error) {
-          alert(error.message);
+  $('#upvote-bounce4').click(function() {
+    if (hasPointsLeft() && speakerNumber != 4) {
+      session.signal(
+        {
+          data:  totalSessions[3].connection.connectionId,
+          type: "voteSpeaker4"
+        },
+        function(error) {
+          if (error) {
+            alert(error.message);
+          }
         }
-      }
-    );
-    decrementVote();
-  }
-});
+      );
+      decrementVote();
+    }
+  });
 
-$('#upvote-bounce5').click(function() {
-  if (hasPointsLeft() && speakerNumber != 5) {
-    session.signal(
-      {
-        data:  totalSessions[4].connection.connectionId,
-        type: "voteSpeakerFive"
-      },
-      function(error) {
-        if (error) {
-          alert(error.message);
+  $('#upvote-bounce5').click(function() {
+    if (hasPointsLeft() && speakerNumber != 5) {
+      session.signal(
+        {
+          data:  totalSessions[4].connection.connectionId,
+          type: "voteSpeaker5"
+        },
+        function(error) {
+          if (error) {
+            alert(error.message);
+          }
         }
-      }
-    );
-    decrementVote();
-  }
-});
+      );
+      decrementVote();
+    }
+  });
 
-$('#upvote-bounce6').click(function() {
-  if (hasPointsLeft() && speakerNumber != 6) {
-    session.signal(
-      {
-        data:  totalSessions[5].connection.connectionId,
-        type: "voteSpeakerSix"
-      },
-      function(error) {
-        if (error) {
-          alert(error.message);
+  $('#upvote-bounce6').click(function() {
+    if (hasPointsLeft() && speakerNumber != 6) {
+      session.signal(
+        {
+          data:  totalSessions[5].connection.connectionId,
+          type: "voteSpeaker6"
+        },
+        function(error) {
+          if (error) {
+            alert(error.message);
+          }
         }
-      }
-    );
-    decrementVote();
-  }
+      );
+      decrementVote();
+    }
+  });
 });
 
 function hasPointsLeft() {
@@ -349,7 +363,7 @@ session.on(
 
 // Listener SpeakerOneUpvote
 session.on(
-  "signal:voteSpeakerOne", function(event) {
+  "signal:voteSpeaker1", function(event) {
     var newPoints = incrementStream(event.data);
     $('#speaker1Points').html(newPoints);
   }
@@ -357,35 +371,35 @@ session.on(
 
 // Listener SpeakerTwoUpvote
 session.on(
-  "signal:voteSpeakerTwo", function(event) {
+  "signal:voteSpeaker2", function(event) {
     var newPoints = incrementStream(event.data);
     $('#speaker2Points').html(newPoints);
   }
 );
 
 session.on(
-  "signal:voteSpeakerThree", function(event) {
+  "signal:voteSpeaker3", function(event) {
     var newPoints = incrementStream(event.data);
     $('#speaker3Points').html(newPoints);
   }
 );
 
 session.on(
-  "signal:voteSpeakerFour", function(event) {
+  "signal:voteSpeaker4", function(event) {
     var newPoints = incrementStream(event.data);
     $('#speaker4Points').html(newPoints);
   }
 );
 
 session.on(
-  "signal:voteSpeakerFive", function(event) {
+  "signal:voteSpeaker5", function(event) {
     var newPoints = incrementStream(event.data);
     $('#speaker5Points').html(newPoints);
   }
 );
 
 session.on(
-  "signal:voteSpeakerSix", function(event) {
+  "signal:voteSpeaker6", function(event) {
     var newPoints = incrementStream(event.data);
     $('#speaker6Points').html(newPoints);
   }
@@ -430,15 +444,77 @@ function incrementStream(connectionId) {
   return 0;
 }
 
+function updateDebatersJson(email) {
+  var emailAndPoints = email.split("|");
+
+  // JSON points email => Speaker number
+  // totalSessions puts people in the right order by speaker number
+  // new/old person (not us)
+  if (emailAndPoints[1] != myEmail && !debatersJson[emailAndPoints[1]] ) {
+    var userEmail = emailAndPoints[1];
+    //location.reload();
+    // someone new connected (presume we already exist in our proper boxes)
+    // grab new debatersJson hash with GET
+
+    $.ajax({
+      type: "GET",
+      url: "/users/" + "<%= @firetalk.user_id %>" + "/firetalks/" + "<%= @firetalk.id %>",
+      dataType: "json",
+      async: false,
+      success: function(data) {
+        debatersJson = JSON.parse(JSON.stringify(data));
+      }
+    });
+  }
+}
 // Get whoever connected and add to list
 session.on(
   "connectionCreated", function(event) {
     var emailAndPoints = event.connection.data.split("|");
+    var userEmail = event.connection.data.split("|")[1];
+      // alert(userEmail);
+      // alert(JSON.stringify(debatersJson));
 
-    // JSON points email => Speaker number
-    // totalSessions puts people in the right order by speaker number
+      //debatersJson[emailAndPoints[1]] = totalSpeakers;
 
-    // RECONNECTING LOGIC
+      // append new video feed etc.
+      // If the email doesn't exist in the json (new person) and it isn't my email (don't republish ourself!)
+      alert(debatersJson[userEmail]);
+      if (userEmail != myEmail && debatersJson[userEmail] == null) {
+        alert("publishing " + userEmail);
+        updateDebatersJson(event.connection.data);
+        var container = document.getElementById("center-vids-container");
+        container.innerHTML += '<div class="col  full-ft-speaker-box">' +
+                  '<div class="section">' +
+                    '<div id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Box" class="speakerBox">' +
+                    '</div>' +
+                  '</div>' +
+
+                  '<div class="section progressbar" id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Progressbar"></div>' +
+
+                  '<div class="section speaker-options-container">' +
+                    '<div class="speaker-options">' +
+
+                      '<div class="user-name-ft" id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Name">' +
+                      userEmail +
+                      '</div>' +
+
+                      '<div class="vote-options">' +
+                        '<div class="speakerPoints-container">' +
+                          '<div id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Points" class="speakerPoints">' +
+                            0 +
+                          '</div>' +
+                        '</div>' +
+
+                        '<!-- CHANGE BOUNCE1??? -->' +
+                        '<div class="upvotebutton-container" id="upvote-bounce'+ parseInt(debatersJson[userEmail] + 1) + '">' +
+                          '<%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>' +
+                        '</div>' +
+                      '</div>' +
+                    '</div>' +
+                  '</div>' +
+                '</div>';
+    }
     var newSession = event;
 
     if (firetalkGoing) {
@@ -761,10 +837,12 @@ session.on(
   window.onload = function() {
     // make it visible when totalSessions is full length
     $('#startFiretalk').on('click', function() {
+      session.signal({
+        type: "bindButtons"
+      });
       startFiretalk();
     });
-    $('#startFiretalk').hide();
-    alert("loaded");
+    //$('#startFiretalk').hide();
   };
 
   function startFiretalk() {
@@ -815,7 +893,13 @@ session.on(
       timer = setInterval(clockwork, 1000);
     }
 
-    var totalRounds = 6;
+    var key, count = 0;
+    for (key in debatersJson) {
+      if(debatersJson.hasOwnProperty(key)) {
+        count++;
+      }
+    }
+    var totalRounds = count;
     var currentRound = 1;
 
     // Firetalk logic function

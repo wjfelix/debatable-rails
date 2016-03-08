@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
   require 'searchbing'
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
-  
+
   def index
     if session[:user_id]
       redirect_to home_news_path

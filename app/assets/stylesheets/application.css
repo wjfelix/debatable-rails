@@ -1664,7 +1664,7 @@ flex-direction: column;
     height: 125px;
   }
 }
-gggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+
 @media only screen and (max-width: 415px){
   .center-col-shadow{
     max-width: 310px;
@@ -1676,4 +1676,12 @@ gggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
     width: 155px;
     height: 90px;
   }
+}
+
+.seenInvite {
+  background-color: gray;
+}
+
+.unseenInvite {
+  background-color: lightblue;
 }
