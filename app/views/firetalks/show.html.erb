@@ -10,7 +10,7 @@
 jQuery(document).ready(function() {
   setTimeout(function() {
     document.getElementById("loading").style.display = "none";
-  }, 2000);
+  }, 1000);
   }
 );
 </script>
@@ -207,6 +207,9 @@ var options = {height: "100%", width: "100%"}
 
 function subscribeToStreams(streams) {
   for (var i = 0; i < streams.length; i++) {
+    var connection = streams[i].connection;
+    updateDebatersJson(connection.data);
+
     // Make sure we don’t subscribe to ourself
     if (streams[i].connection.connectionId == session.connection.connectionId) {
       return;
@@ -215,10 +218,9 @@ function subscribeToStreams(streams) {
     var div = document.createElement('div');
     div.setAttribute('id', 'stream' + streams[i].streamId);
 
-    var connection = streams[i].connection;
     var email = connection.data.split("|")[1];
     var newSpeakerNumber = parseInt(debatersJson[email]) + 1;
-    updateDebatersJson(connection.data);
+    alert(email + " " + newSpeakerNumber);
     document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
 
     // Subscribe to the stream
@@ -355,7 +357,7 @@ session.on(
   "signal:winnerColor", function(event) {
     var email;
     for (var i = 0; i < totalSessions.length; i++) {
-      if (totalSessions[i].connection.connectionId == event.data) {
+      if (totalSessions[i] && totalSessions[i].connection.connectionId == event.data) {
         email = totalSessions[i].connection.data.split("|")[1];
       }
     }
@@ -451,7 +453,7 @@ session.on(
 // Stores the points of the connection locally and returns the value
 function incrementStream(connectionId) {
   for (var i = 0; i < totalSessions.length; i++) {
-    if (String(totalSessions[i].connection.connectionId) == String(connectionId)) {
+    if (totalSessions[i] && String(totalSessions[i].connection.connectionId) == String(connectionId)) {
       var data = totalSessions[i].connection.data.split("|");
       totalSessions[i].connection.data = parseInt(data[0]) + 1 + "|" + data[1];
       return parseInt(data[0]) + 1;
@@ -538,7 +540,9 @@ session.on(
 
       var pointsString = "";
       for (var i = 0; i < totalSessions.length; i++) {
-        pointsString += totalSessions[i].connection.data.split("|")[0] + "|";
+        if (totalSessions[i]) {
+          pointsString += totalSessions[i].connection.data.split("|")[0] + "|";
+        }
       }
       var index = parseInt(debatersJson[emailAndPoints[1]]);
       if (playersAlive[index] != null) {
@@ -571,23 +575,18 @@ if (isPublic) {
   session.on(
     "connectionDestroyed", function(event) {
       var dropEmail = event.connection.data.split("|")[1];
-      alert(dropEmail + " dropped");
       if (debatersJson[dropEmail] != null) {
         // speaker' + parseInt(debatersJson[userEmail] + 1) + 'Box
         var dropSpeakerNumber = parseInt(debatersJson[dropEmail] + 1);
         var dropSpeakerBox = document.getElementById("speaker" + dropSpeakerNumber + "Box");
         var section = dropSpeakerBox.parentNode.parentNode;
         section.parentNode.removeChild(section);
+        // bad way to do it totalSessions[parseInt(debatersJson[dropEmail])] = null;
+        totalSessions.splice(totalSessions.indexOf(event), 1);
         debatersJson[dropEmail] = null;
         // delete from total sessions as well?
         // totalSessions[dropSpeakerNumber] = null;
         setTimeout(function() {
-          var isConnected = false;
-          for (var i = 0; i < totalSessions.length; i++) {
-            if (totalSessions[i].connection.data.split("|")[1] == dropEmail) {
-              isConnected = true;
-            }
-          }
           // if he still doesn't exist in our json, and isn't connected,
           // delete from debaters list
           if (!debatersJson[dropEmail]) {
@@ -597,12 +596,21 @@ if (isPublic) {
               data: {email: dropEmail, firetalk_id: "<%= @firetalk.id %>"},
               async: false,
               complete: function(event) {
-                alert("DELETED DEBATER");
               }
             });
+
+            // now delete their position in the totalSessions array too
+            /*
+            var isConnected = false;
+            for (var i = 0; i < totalSessions.length; i++) {
+              if (totalSessions[i].connection.data.split("|")[1] == dropEmail) {
+                isConnected = true;
+              }
+            }
+            */
           }
-          // drop someone after 5 seconds if they don't come back
-        }, 5000);
+          // drop someone after 7 seconds if they don't come back
+        }, 7000);
       }
     }
   );
@@ -662,7 +670,7 @@ session.on(
   "signal:dropColor", function(event) {
     var email;
     for (var i = 0; i < totalSessions.length; i++) {
-      if (totalSessions[i].connection.connectionId == event.data) {
+      if (totalSessions[i] && totalSessions[i].connection.connectionId == event.data) {
         email = totalSessions[i].connection.data.split("|")[1];
       }
     }
@@ -704,7 +712,7 @@ session.on(
   "signal:adjustAudio", function(event) {
     var email;
     for (var i = 0; i < totalSessions.length; i++) {
-      if (totalSessions[i].connection.connectionId == event.data) {
+      if (totalSessions[i] && totalSessions[i].connection.connectionId == event.data) {
         email = totalSessions[i].connection.data.split("|")[1];
       }
     }
@@ -1159,7 +1167,7 @@ session.on(
       var lowestConnectionId = firstSpeakerAlive();
       var lowestConnection;
       for (var i = 0; i < totalSessions.length; i++) {
-        if (totalSessions[i].connection.connectionId == lowestConnectionId) {
+        if (totalSessions[i] && totalSessions[i].connection.connectionId == lowestConnectionId) {
           lowestConnection = totalSessions[i].connection;
         }
       }
