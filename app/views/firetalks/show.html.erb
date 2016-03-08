@@ -578,7 +578,7 @@ if (isPublic) {
         var dropSpeakerBox = document.getElementById("speaker" + dropSpeakerNumber + "Box");
         var section = dropSpeakerBox.parentNode.parentNode;
         section.parentNode.removeChild(section);
-        delete debatersJson[dropEmail];
+        debatersJson[dropEmail] = null;
         // delete from total sessions as well?
         // totalSessions[dropSpeakerNumber] = null;
         setTimeout(function() {
@@ -590,7 +590,7 @@ if (isPublic) {
           }
           // if he still doesn't exist in our json, and isn't connected,
           // delete from debaters list
-          if (debatersJson[dropEmail]) {
+          if (!debatersJson[dropEmail]) {
             $.ajax({
               url: "<%= firetalk_debaters_destroy_path %>",
               type: 'POST',
@@ -602,7 +602,7 @@ if (isPublic) {
             });
           }
           // drop someone after 5 seconds if they don't come back
-        }, 20000);
+        }, 5000);
       }
     }
   );
