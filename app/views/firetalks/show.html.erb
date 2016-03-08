@@ -992,7 +992,7 @@ session.on(
             if (isPublic) {
               $.ajax({
                 type: "POST",
-                url: "/users/<%= @firetalk.user_id %>/firetalks/<%= @firetalk.id %>>",      //"/slot_allocations/" + slotallocation_id,
+                url: "/users/<%= @firetalk.user_id %>/firetalks/<%= @firetalk.id %>",      //"/slot_allocations/" + slotallocation_id,
                 data: {"_method":"delete"},
                 complete: function(){
                   alert("deleted firetalk!");

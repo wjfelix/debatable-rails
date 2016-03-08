@@ -114,7 +114,6 @@ class FiretalksController < ApplicationController
   end
 
   def destroy
-    binding.pry
     @firetalk = Firetalk.find(params[:id])
     @firetalk.destroy!
   end
