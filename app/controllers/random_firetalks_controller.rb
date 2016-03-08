@@ -10,6 +10,11 @@ class RandomFiretalksController < ApplicationController
   def join
     # get all public firetalks who are not in progress with current topic
     # if no firetalks, make a new one
+    if (!session[:user_id])
+      flash[:message] = "Sign up to use this feature!"
+      redirect_to new_user_path and return
+    end
+
     @user = User.find(session[:user_id])
     @firetalks = Firetalk.where(:is_public => true, :in_progress => false, :topic => @topic, :full => false)
     if @firetalks.any?
@@ -37,6 +42,14 @@ class RandomFiretalksController < ApplicationController
 
   def watch
     # go to firetalk as spectator which is is_public and in progress
+    @firetalks = Firetalk.where(:is_public => true, :topic => @topic)
+    if @firetalks.any?
+      @firetalk = @firetalks.sample
+      redirect_to user_firetalk_path(:id => @firetalk.id, :user_id => @firetalk.user_id)
+    else
+      flash[:message] = "No users currently debating, click 'Go Debate'to start one!"
+      redirect_to root_path
+    end
   end
 
   private

@@ -1,7 +1,19 @@
+<div id="loading">
+  <%= render 'finding_firetalk.html.erb' %>
+</div>
+
 <script type="text/javascript" src="https://static.opentok.com/v2/js/opentok.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src='http://code.jquery.com/jquery-<version>[.min].js'></script>
 
+<script>
+jQuery(document).ready(function() {
+  setTimeout(function() {
+    document.getElementById("loading").style.display = "none";
+  }, 2000);
+  }
+);
+</script>
 
 <div class="section" id="toppad">
 
@@ -19,7 +31,7 @@
     </div>
 <div class="section">
     <div class="start-ft">
-    <% if @user.id == @firetalk.user_id %>
+    <% if @user && @user.id == @firetalk.user_id %>
     <button id="startFiretalk" class="button">
       Start Firetalk
     </button>
@@ -134,7 +146,7 @@ var pointsLeft = 5;
 var apiKey = '45241592';
 var sessionId = "<%= j @firetalk.tok_session_id %>";
 var token = "<%= j @tok_token %>";
-var myEmail = "<%= j @user.email %>"
+var myEmail = "<%= j @user.email if @user %>"
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
 var isDebater = "<%= @is_debater %>";
 var isOwner = "<%= @is_owner %>";
@@ -472,6 +484,7 @@ session.on(
   "connectionCreated", function(event) {
     var emailAndPoints = event.connection.data.split("|");
     var userEmail = event.connection.data.split("|")[1];
+    var firstName = event.connection.data.split("|")[2];
       // alert(userEmail);
       // alert(JSON.stringify(debatersJson));
 
@@ -479,9 +492,7 @@ session.on(
 
       // append new video feed etc.
       // If the email doesn't exist in the json (new person) and it isn't my email (don't republish ourself!)
-      alert(debatersJson[userEmail]);
       if (userEmail != myEmail && debatersJson[userEmail] == null) {
-        alert("publishing " + userEmail);
         updateDebatersJson(event.connection.data);
         var container = document.getElementById("center-vids-container");
         container.innerHTML += '<div class="col  full-ft-speaker-box">' +
@@ -496,7 +507,7 @@ session.on(
                     '<div class="speaker-options">' +
 
                       '<div class="user-name-ft" id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Name">' +
-                      userEmail +
+                      firstName +
                       '</div>' +
 
                       '<div class="vote-options">' +
@@ -514,6 +525,7 @@ session.on(
                     '</div>' +
                   '</div>' +
                 '</div>';
+          $('.firetalk-info').append(firstName);
     }
     var newSession = event;
 
@@ -837,6 +849,17 @@ session.on(
   window.onload = function() {
     // make it visible when totalSessions is full length
     $('#startFiretalk').on('click', function() {
+
+      // update firetalk to in_progress = true
+      $.ajax({
+        type: "PATCH",
+        url: "<%= user_firetalk_path(:id => @firetalk.id, :user_id => @firetalk.user_id) %>",      //"/slot_allocations/" + slotallocation_id,
+        data: {id: "<%= @firetalk.id %>", firetalk: {in_progress: true}},
+        complete: function() {
+          alert("updated firetalk!");
+        }
+    });
+
       session.signal({
         type: "bindButtons"
       });
@@ -987,18 +1010,6 @@ session.on(
             });
             clearInterval(timer);
             timer = null;
-
-            // delete firetalk here so we no longer circulate it in the public sphere
-            if (isPublic) {
-              $.ajax({
-                type: "POST",
-                url: "/users/<%= @firetalk.user_id %>/firetalks/<%= @firetalk.id %>",      //"/slot_allocations/" + slotallocation_id,
-                data: {"_method":"delete"},
-                complete: function(){
-                  alert("deleted firetalk!");
-                }
-            });
-            }
           }
           else {
             // unmute first person in list
