@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160306020805) do
+ActiveRecord::Schema.define(version: 20160307234852) do
 
   create_table "categories", force: true do |t|
     t.string   "category_name", null: false
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20160306020805) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "category_id"
-    t.boolean  "public",         default: false
+    t.boolean  "is_public",      default: false
     t.boolean  "in_progress",    default: false
     t.boolean  "full",           default: false
   end

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  post 'firetalk_debaters/destroy', to: 'firetalk_debaters#destroy'
+
   # Example resource route with sub-resources:
   #   resources :products do
   #     resources :comments, :sales

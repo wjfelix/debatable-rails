@@ -4,8 +4,9 @@ class FiretalksController < ApplicationController
   require 'json'
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
   before_filter :config_opentok, :except => [:index, :destroy]
-  before_filter :is_logged_in
+  before_filter :is_logged_in, :except => [:destroy, :update, :show]
   #before_filter :store_route
+  protect_from_forgery with: :null_session
 
   def new
     if (session[:user_id].to_s == params[:user_id].to_s)
@@ -65,20 +66,22 @@ class FiretalksController < ApplicationController
   def show
     @firetalk = Firetalk.find(params[:id])
     @firetalk_debaters = @firetalk.firetalk_debaters
+    @public = @firetalk.is_public
 
     @users = []
 
-    @user = User.find(session[:user_id])
-    @my_firetalk_debater = FiretalkDebater.where(:user_id => @user.id, :firetalk_id => @firetalk.id)
     @is_debater = false;
-    @public = @firetalk.public
-    @is_owner = @firetalk.user_id == session[:user_id]
-    if (session[:user_id] == @user.id)
-      @is_debater = true;
-    else
-      @firetalk_debaters.each do |debater|
-        if (session[:user_id] == debater.user_id)
-          @is_debater = true
+    if (session[:user_id])
+      @user = User.find(session[:user_id])
+      @my_firetalk_debater = FiretalkDebater.where(:user_id => @user.id, :firetalk_id => @firetalk.id)
+      @is_owner = @firetalk.user_id == session[:user_id]
+      if (session[:user_id] == @user.id)
+        @is_debater = true;
+      else
+        @firetalk_debaters.each do |debater|
+          if (session[:user_id] == debater.user_id)
+            @is_debater = true
+          end
         end
       end
     end
@@ -96,26 +99,42 @@ class FiretalksController < ApplicationController
       @firetalk_json = firetalk_debaters_hash.to_json
 
       # If owner
-      if @firetalk.user_id == @user.id
-        @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :moderator, :data => "0|#{@user.email}")
-      # If invited
-      elsif is_invited(@user.email)
-        @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :publisher, :data => "0|#{@user.email}")
-      # If voter
+      if (session[:user_id])
+        if @firetalk.user_id == @user.id
+          @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :moderator, :data => "0|#{@user.email}|#{@user.firstname}")
+        # If invited
+        elsif is_invited(@user.email)
+          @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :publisher, :data => "0|#{@user.email}|#{@user.firstname}")
+        # If voter
+        else
+          @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :subscriber)
+        end
       else
         @tok_token = @opentok.generate_token(@firetalk.tok_session_id, :role => :subscriber)
       end
+
       format.html
       format.json { render json: @firetalk_json }
     end
   end
 
+  def update
+    @firetalk = Firetalk.find(params[:id])
+    @firetalk.update(firetalk_params)
+    @firetalk.save!
+  end
+
   def join
+  end
+
+  def destroy
+    @firetalk = Firetalk.find(params[:id])
+    @firetalk.destroy!
   end
 
   private
   def firetalk_params
-    params.require(:firetalk).permit(:topic, :name, :description, :user_id, :user_tokens)
+    params.require(:firetalk).permit(:topic, :name, :description, :user_id, :user_tokens, :in_progress)
   end
 
   def config_opentok

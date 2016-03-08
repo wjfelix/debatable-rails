@@ -12,6 +12,10 @@
 		<%= flash[:message] %>
 		<% end %>
 	</div>
+	<h1>Todays topic:</h1>
+	<%= @topic %>
+	<%= link_to 'Go Debate!', join_random_firetalk_path, {:method => 'GET'} %>
+	<%= link_to 'Watch Debate!', watch_random_firetalk_path, {:method => 'GET'}%>
 <div class="home-header-container-1">
 				<div class="home-header">
 			<h1 class="centerhor">
