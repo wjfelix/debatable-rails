@@ -6,6 +6,7 @@ class FiretalksController < ApplicationController
   before_filter :config_opentok, :except => [:index, :destroy]
   before_filter :is_logged_in
   #before_filter :store_route
+  protect_from_forgery with: :null_session
 
   def new
     if (session[:user_id].to_s == params[:user_id].to_s)
