@@ -1,18 +1,12 @@
-<div id="loading">
-  <%= render 'finding_firetalk.html.erb' %>
-</div>
-
 <script type="text/javascript" src="https://static.opentok.com/v2/js/opentok.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src='http://code.jquery.com/jquery-<version>[.min].js'></script>
 
 <script>
-jQuery(document).ready(function() {
-  setTimeout(function() {
-    document.getElementById("loading").style.display = "none";
-  }, 2000);
-  }
-);
+// jQuery(document).ready(function() {
+//   //  document.getElementById("loading").style.display = "none";
+//   }
+// );
 </script>
 
 <div class="section" id="toppad">
@@ -24,6 +18,7 @@ jQuery(document).ready(function() {
       <% if @public %>
       <%= link_to 'Join Another Debate!', join_random_firetalk_path, {:method => 'GET'} %>
       <%= link_to 'Watch Another Debate!', watch_random_firetalk_path, {:method => 'GET'}%>
+      <%= link_to 'Host a private firetalk and add people!', new_user_firetalk_path, {:method => 'GET'} if @user %>
       <% end %>
       <div class="section firetalk-title centerhor">
         <h3>
@@ -129,6 +124,13 @@ jQuery(document).ready(function() {
 
 
 </div>
+<h7>TOTAL CONNECTED</h7>
+<div id="totalConnected"><%= @users.length %></div><div>/6</div>
+<%= image_tag 'http://loadinggif.com/images/image-selection/13.gif', :id => "loadingDebaters" %>
+
+<% if @is_owner %>
+<%= "You are the firetalk owner! Click 'Start Firetalk' when you and the debaters are ready to start!" %>
+<% end %>
 
 
 
@@ -176,11 +178,115 @@ var publisher;
 var speakerNumber;
 var publisherOptions = {width: '100%', height: '100%'};
 
-if (isPublic) {
-  // do a bunch of polling logic where we modify json debaters n stuff
-  // might be tricky
+session.on(
+  "connectionCreated", function(event) {
 
-}
+    // max number of debaters
+    if (parseInt(document.getElementById("totalConnected").innerHTML) == 3) {
+      document.getElementById("loadingDebaters").style.display = "none";
+
+      // update to is_full
+      // remove loading gif
+      $.ajax(
+        {
+          type: "PATCH",
+          url: "<%= user_firetalk_path(:id => @firetalk.id, :user_id => @firetalk.user_id) %>",      //"/slot_allocations/" + slotallocation_id,
+          data: {id: "<%= @firetalk.id %>", firetalk: {is_full: true}},
+          complete: function(event) {
+          }
+        }
+      );
+    }
+    var emailAndPoints = event.connection.data.split("|");
+    var userEmail = event.connection.data.split("|")[1];
+    var firstName = event.connection.data.split("|")[2];
+
+    // if the connectionCreated is a debater
+      // alert(userEmail);
+      // alert(JSON.stringify(debatersJson));
+
+      //debatersJson[emailAndPoints[1]] = totalSpeakers;
+
+      // append new video feed etc.
+      // If the email doesn't exist in the json (new person) and it isn't my email (don't republish ourself!)
+      if (isPublic) {
+        if (userEmail != myEmail && debatersJson[userEmail] == null) {
+          updateDebatersJson(event.connection.data);
+          if (debatersJson[userEmail] != null) {
+            var currentConnected = parseInt(document.getElementById("totalConnected").innerHTML);
+            document.getElementById("totalConnected").innerHTML = Object.keys(debatersJson).length;
+          }
+          var container = document.getElementById("center-vids-container");
+          // instead of appending to innerHTML, just show the hidden element
+          container.innerHTML += '<div class="col  full-ft-speaker-box">' +
+            '<div class="section">' +
+              '<div id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Box" class="speakerBox">' +
+              '</div>' +
+            '</div>' +
+
+            '<div class="section progressbar" id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Progressbar"></div>' +
+
+            '<div class="section speaker-options-container">' +
+              '<div class="speaker-options">' +
+
+                '<div class="user-name-ft" id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Name">' +
+                firstName +
+                '</div>' +
+
+                '<div class="vote-options">' +
+                  '<div class="speakerPoints-container">' +
+                    '<div id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Points" class="speakerPoints">' +
+                      0 +
+                    '</div>' +
+                  '</div>' +
+
+                  '<!-- CHANGE BOUNCE1??? -->' +
+                  '<div class="upvotebutton-container" id="upvote-bounce'+ parseInt(debatersJson[userEmail] + 1) + '">' +
+                    '<%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+        $('.firetalk-info').append(firstName);
+      }
+    }
+    var newSession = event;
+
+    if (firetalkGoing) {
+
+      var pointsString = "";
+      for (var i = 0; i < totalSessions.length; i++) {
+        if (totalSessions[i]) {
+          pointsString += totalSessions[i].connection.data.split("|")[0] + "|";
+        }
+      }
+      var index = parseInt(debatersJson[emailAndPoints[1]]);
+      if (playersAlive[index] != null) {
+        playersAlive[index] = newSession.connection.connectionId;
+        showPoints();
+      }
+      // update their points
+      session.signal({
+          type: "catchUpPoints",
+          to: newSession.connection,
+          data: pointsString
+        }, function(error) {
+          if (error) {
+            alert("could not tell player to reset points!" + error.message + error.code);
+          }
+        }
+      );
+    }
+    totalSessions[parseInt(debatersJson[emailAndPoints[1]])] = newSession;
+    if (totalSessions.length == debatersJson.length) {
+      // show firetalk button
+      if (isOwner) {
+        $('#startFiretalk').show();
+      }
+    }
+  }
+);
 
 function sessionConnectedHandler(event) {
   // add javascript that modifies json debaters and adds the new window...
@@ -191,6 +297,9 @@ function sessionConnectedHandler(event) {
   document.getElementById("speaker" + speakerNumber + "Box").appendChild(myDiv);
   if (isDebater) {
     session.publish(publisher);
+  }
+  else {
+    alert("SPECTATINGg");
   }
   var id = document.createTextNode(String(session.connection.connectionId));
   document.body.appendChild(id);
@@ -207,6 +316,9 @@ var options = {height: "100%", width: "100%"}
 
 function subscribeToStreams(streams) {
   for (var i = 0; i < streams.length; i++) {
+    var connection = streams[i].connection;
+    updateDebatersJson(connection.data);
+
     // Make sure we don’t subscribe to ourself
     if (streams[i].connection.connectionId == session.connection.connectionId) {
       return;
@@ -214,14 +326,61 @@ function subscribeToStreams(streams) {
     // Create the div to put the subscriber element in to
     var div = document.createElement('div');
     div.setAttribute('id', 'stream' + streams[i].streamId);
-
-    var connection = streams[i].connection;
     var email = connection.data.split("|")[1];
     var newSpeakerNumber = parseInt(debatersJson[email]) + 1;
-    updateDebatersJson(connection.data);
-    document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
+    //alert(document.getElementById("speaker" + newSpeakerNumber + "Box") != null + newSpeakerNumber + " exists");
 
-    // Subscribe to the stream
+    if (document.getElementById("speaker" + newSpeakerNumber + "Box") != null) {
+      document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
+    }
+    else {
+      $('#totalConnected').html(Object.keys(debatersJson).length);
+      if (parseInt(document.getElementById("totalConnected").innerHTML) == 3) {
+        document.getElementById("loadingDebaters").style.display = "none";
+      }
+      var userEmail = email;
+      var container = document.getElementById("center-vids-container");
+      // instead of appending to innerHTML, just show the hidden element
+      container.innerHTML += '<div class="col  full-ft-speaker-box">' +
+        '<div class="section">' +
+          '<div id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Box" class="speakerBox">' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="section progressbar" id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Progressbar"></div>' +
+
+        '<div class="section speaker-options-container">' +
+          '<div class="speaker-options">' +
+
+            '<div class="user-name-ft" id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Name">' +
+            userEmail +
+            '</div>' +
+
+            '<div class="vote-options">' +
+              '<div class="speakerPoints-container">' +
+                '<div id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Points" class="speakerPoints">' +
+                  0 +
+                '</div>' +
+              '</div>' +
+
+              '<!-- CHANGE BOUNCE1??? -->' +
+              '<div class="upvotebutton-container" id="upvote-bounce'+ parseInt(debatersJson[userEmail] + 1) + '">' +
+                '<%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+      document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
+    }
+
+    // var subscribeTimer = setInterval(function() {
+    //   if (document.getElementById("speaker" + newSpeakerNumber + "Box") != null) {
+    //     document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
+    //     clearInterval(subscribeTimer);
+    //     subscribeTimer = null;
+    //   }
+    // }, 4000);
     session.subscribe(streams[i], div.id, options);
   }
 }
@@ -355,7 +514,7 @@ session.on(
   "signal:winnerColor", function(event) {
     var email;
     for (var i = 0; i < totalSessions.length; i++) {
-      if (totalSessions[i].connection.connectionId == event.data) {
+      if (totalSessions[i] && totalSessions[i].connection.connectionId == event.data) {
         email = totalSessions[i].connection.data.split("|")[1];
       }
     }
@@ -451,7 +610,7 @@ session.on(
 // Stores the points of the connection locally and returns the value
 function incrementStream(connectionId) {
   for (var i = 0; i < totalSessions.length; i++) {
-    if (String(totalSessions[i].connection.connectionId) == String(connectionId)) {
+    if (totalSessions[i] && String(totalSessions[i].connection.connectionId) == String(connectionId)) {
       var data = totalSessions[i].connection.data.split("|");
       totalSessions[i].connection.data = parseInt(data[0]) + 1 + "|" + data[1];
       return parseInt(data[0]) + 1;
@@ -484,125 +643,62 @@ function updateDebatersJson(email) {
     });
   }
 }
-// Get whoever connected and add to list
-session.on(
-  "connectionCreated", function(event) {
-    var emailAndPoints = event.connection.data.split("|");
-    var userEmail = event.connection.data.split("|")[1];
-    var firstName = event.connection.data.split("|")[2];
-      // alert(userEmail);
-      // alert(JSON.stringify(debatersJson));
-
-      //debatersJson[emailAndPoints[1]] = totalSpeakers;
-
-      // append new video feed etc.
-      // If the email doesn't exist in the json (new person) and it isn't my email (don't republish ourself!)
-      if (userEmail != myEmail && debatersJson[userEmail] == null) {
-        updateDebatersJson(event.connection.data);
-        var container = document.getElementById("center-vids-container");
-        container.innerHTML += '<div class="col  full-ft-speaker-box">' +
-                  '<div class="section">' +
-                    '<div id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Box" class="speakerBox">' +
-                    '</div>' +
-                  '</div>' +
-
-                  '<div class="section progressbar" id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Progressbar"></div>' +
-
-                  '<div class="section speaker-options-container">' +
-                    '<div class="speaker-options">' +
-
-                      '<div class="user-name-ft" id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Name">' +
-                      firstName +
-                      '</div>' +
-
-                      '<div class="vote-options">' +
-                        '<div class="speakerPoints-container">' +
-                          '<div id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Points" class="speakerPoints">' +
-                            0 +
-                          '</div>' +
-                        '</div>' +
-
-                        '<!-- CHANGE BOUNCE1??? -->' +
-                        '<div class="upvotebutton-container" id="upvote-bounce'+ parseInt(debatersJson[userEmail] + 1) + '">' +
-                          '<%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>' +
-                        '</div>' +
-                      '</div>' +
-                    '</div>' +
-                  '</div>' +
-                '</div>';
-          $('.firetalk-info').append(firstName);
-    }
-    var newSession = event;
-
-    if (firetalkGoing) {
-
-      var pointsString = "";
-      for (var i = 0; i < totalSessions.length; i++) {
-        pointsString += totalSessions[i].connection.data.split("|")[0] + "|";
-      }
-      var index = parseInt(debatersJson[emailAndPoints[1]]);
-      if (playersAlive[index] != null) {
-        playersAlive[index] = newSession.connection.connectionId;
-        showPoints();
-      }
-      // update their points
-      session.signal({
-          type: "catchUpPoints",
-          to: newSession.connection,
-          data: pointsString
-        }, function(error) {
-          if (error) {
-            alert("could not tell player to reset points!" + error.message + error.code);
-          }
-        }
-      );
-    }
-    totalSessions[parseInt(debatersJson[emailAndPoints[1]])] = newSession;
-    if (totalSessions.length == debatersJson.length) {
-      // show firetalk button
-      if (isOwner) {
-        $('#startFiretalk').show();
-      }
-    }
-  }
-);
 
 if (isPublic) {
   session.on(
     "connectionDestroyed", function(event) {
       var dropEmail = event.connection.data.split("|")[1];
-      alert(dropEmail + " dropped");
       if (debatersJson[dropEmail] != null) {
+        var currentConnected = parseInt(document.getElementById("totalConnected").innerHTML);
+        document.getElementById("totalConnected").innerHTML = currentConnected - 1;
+        if (currentConnected - 1 == 2) {
+          document.getElementById("loadingDebaters").style.display = "";
+          $.ajax(
+            {
+              type: "PATCH",
+              url: "<%= user_firetalk_path(:id => @firetalk.id, :user_id => @firetalk.user_id) %>",      //"/slot_allocations/" + slotallocation_id,
+              data: {id: "<%= @firetalk.id %>", firetalk: {is_full: false}},
+              complete: function(event) {
+              }
+            }
+          );
+        }
         // speaker' + parseInt(debatersJson[userEmail] + 1) + 'Box
         var dropSpeakerNumber = parseInt(debatersJson[dropEmail] + 1);
         var dropSpeakerBox = document.getElementById("speaker" + dropSpeakerNumber + "Box");
         var section = dropSpeakerBox.parentNode.parentNode;
         section.parentNode.removeChild(section);
-        delete debatersJson[dropEmail];
+        // bad way to do it totalSessions[parseInt(debatersJson[dropEmail])] = null;
+        //totalSessions.splice(totalSessions.indexOf(event), 1);
+        totalSessions[parseInt(debatersJson[dropEmail])] = null;
+        debatersJson[dropEmail] = null;
         // delete from total sessions as well?
         // totalSessions[dropSpeakerNumber] = null;
         setTimeout(function() {
-          var isConnected = false;
-          for (var i = 0; i < totalSessions.length; i++) {
-            if (totalSessions[i].connection.data.split("|")[1] == dropEmail) {
-              isConnected = true;
-            }
-          }
           // if he still doesn't exist in our json, and isn't connected,
           // delete from debaters list
-          if (debatersJson[dropEmail]) {
+          if (!debatersJson[dropEmail]) {
             $.ajax({
               url: "<%= firetalk_debaters_destroy_path %>",
               type: 'POST',
               data: {email: dropEmail, firetalk_id: "<%= @firetalk.id %>"},
               async: false,
               complete: function(event) {
-                alert("DELETED DEBATER");
               }
             });
+
+            // now delete their position in the totalSessions array too
+            /*
+            var isConnected = false;
+            for (var i = 0; i < totalSessions.length; i++) {
+              if (totalSessions[i].connection.data.split("|")[1] == dropEmail) {
+                isConnected = true;
+              }
+            }
+            */
           }
-          // drop someone after 5 seconds if they don't come back
-        }, 20000);
+          // drop someone after 7 seconds if they don't come back
+        }, 10000);
       }
     }
   );
@@ -662,7 +758,7 @@ session.on(
   "signal:dropColor", function(event) {
     var email;
     for (var i = 0; i < totalSessions.length; i++) {
-      if (totalSessions[i].connection.connectionId == event.data) {
+      if (totalSessions[i] && totalSessions[i].connection.connectionId == event.data) {
         email = totalSessions[i].connection.data.split("|")[1];
       }
     }
@@ -704,7 +800,7 @@ session.on(
   "signal:adjustAudio", function(event) {
     var email;
     for (var i = 0; i < totalSessions.length; i++) {
-      if (totalSessions[i].connection.connectionId == event.data) {
+      if (totalSessions[i] && totalSessions[i].connection.connectionId == event.data) {
         email = totalSessions[i].connection.data.split("|")[1];
       }
     }
@@ -800,13 +896,15 @@ session.on(
     // reset the people who are still competing's points to 0
     for (var i = 0; i < array.length; i++) {
       for (var j = 0; j < totalSessions.length; j++) {
-        var connection = totalSessions[j].connection;
-        if (array[i] == connection.connectionId) {
-          data = connection.data.split("|");
-          email = data[1];
-          speakerIndex = parseInt(debatersJson[email]) + 1;
-          $('#speaker' + speakerIndex + 'Points').html(0);
-          connection.data = 0 + "|" + email;
+        if (totalSessions[j] != null) {
+          var connection = totalSessions[j].connection;
+          if (array[i] == connection.connectionId) {
+            data = connection.data.split("|");
+            email = data[1];
+            speakerIndex = parseInt(debatersJson[email]) + 1;
+            $('#speaker' + speakerIndex + 'Points').html(0);
+            connection.data = 0 + "|" + email;
+          }
         }
       }
     }
@@ -940,8 +1038,11 @@ session.on(
     // throughout the firetalk we will nullify the connections that are dropped
     // each round, and keep track of the next speaker (connectionId) in line
     for (var i = 0; i < totalSessions.length; i++) {
-      if (totalSessions[i]) {
+      if (totalSessions[i] != null) {
         playersAlive[i] = totalSessions[i].connection.connectionId;
+      }
+      else {
+        playersAlive[i] = null;
       }
     }
 
@@ -963,7 +1064,7 @@ session.on(
 
     var key, count = 0;
     for (key in debatersJson) {
-      if(debatersJson.hasOwnProperty(key)) {
+      if(debatersJson[key] != null) {
         count++;
       }
     }
@@ -1111,12 +1212,12 @@ session.on(
 
     function getNextSpeakerAlive(currentSpeaker) {
       for (var i = currentSpeaker; i < playersAlive.length; i++) {
-        if (playersAlive[i + 1]) {
+        if (playersAlive[i + 1] != null) {
           return i + 1;
         }
       }
       for (var i = 0; i < currentSpeaker; i++) {
-        if (playersAlive[i]) {
+        if (playersAlive[i] != null) {
           return i;
         }
       }
@@ -1159,7 +1260,7 @@ session.on(
       var lowestConnectionId = firstSpeakerAlive();
       var lowestConnection;
       for (var i = 0; i < totalSessions.length; i++) {
-        if (totalSessions[i].connection.connectionId == lowestConnectionId) {
+        if (totalSessions[i] && totalSessions[i].connection.connectionId == lowestConnectionId) {
           lowestConnection = totalSessions[i].connection;
         }
       }

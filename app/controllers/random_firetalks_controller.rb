@@ -45,6 +45,13 @@ class RandomFiretalksController < ApplicationController
     @firetalks = Firetalk.where(:is_public => true, :topic => @topic)
     if @firetalks.any?
       @firetalk = @firetalks.sample
+      if (session[:user_id])
+        @user = User.find(session[:user_id])
+        @firetalk_debaters = FiretalkDebater.where(:firetalk_id => @firetalk.id, :email => @user.email)
+        if @firetalk_debaters.any?
+          @firetalk_debaters[0].destroy!
+        end
+      end
       redirect_to user_firetalk_path(:id => @firetalk.id, :user_id => @firetalk.user_id)
     else
       flash[:message] = "No users currently debating, click 'Go Debate'to start one!"
