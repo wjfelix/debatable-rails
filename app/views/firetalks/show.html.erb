@@ -126,6 +126,7 @@
 </div>
 <h7>TOTAL CONNECTED</h7>
 <div id="totalConnected"><%= @users.length %></div><div>/6</div>
+<%= image_tag 'http://loadinggif.com/images/image-selection/13.gif', :id => "loadingDebaters" %>
 
 <% if @is_owner %>
 <%= "You are the firetalk owner! Click 'Start Firetalk' when you and the debaters are ready to start!" %>
@@ -181,8 +182,11 @@ session.on(
   "connectionCreated", function(event) {
 
     // max number of debaters
-    if (parseInt(document.getElementById("totalConnected").innerHTML) == 6) {
+    if (parseInt(document.getElementById("totalConnected").innerHTML) == 3) {
+      document.getElementById("loadingDebaters").style.display = "none";
+
       // update to is_full
+      // remove loading gif
       $.ajax(
         {
           type: "PATCH",
@@ -331,6 +335,9 @@ function subscribeToStreams(streams) {
     }
     else {
       $('#totalConnected').html(Object.keys(debatersJson).length);
+      if (parseInt(document.getElementById("totalConnected").innerHTML) == 3) {
+        document.getElementById("loadingDebaters").style.display = "none";
+      }
       var userEmail = email;
       var container = document.getElementById("center-vids-container");
       // instead of appending to innerHTML, just show the hidden element
@@ -644,7 +651,8 @@ if (isPublic) {
       if (debatersJson[dropEmail] != null) {
         var currentConnected = parseInt(document.getElementById("totalConnected").innerHTML);
         document.getElementById("totalConnected").innerHTML = currentConnected - 1;
-        if (currentConnected - 1 == 5) {
+        if (currentConnected - 1 == 2) {
+          document.getElementById("loadingDebaters").style.display = "";
           $.ajax(
             {
               type: "PATCH",
