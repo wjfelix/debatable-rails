@@ -2,30 +2,145 @@
 	<div class="col span_10_of_10 toppad">
     	<div class="center-col-shadow">
 
-			<div class="section home-section centerhor">
+
+
+
+    		<!--MAIN SECTION START-->
+
+			<div class="section home-container">
+
+
+				<div class="section home-section centerhor">
 			<% if !flash[:message].nil? %>
 		    <%= flash[:message] %>
 		    <% end %>
 			</div>
 
 
-			<div class="section home-hero-1 hero-1">
-			<div class="home-header-container-1">
-							<div class="home-header">
-						<h1 class="centerhor">
+
+						
+
+					<div class="bordered-box-container welcome-news">
+						<div class="">
+
+							<div  class="centerhor">
+						<h1>
 							<strong>
 								Welcome to Debatable <span>beta</span>!
 							</strong>
-							</h1>
-							Todays topic:
-							<%= @topic %>
-							<%= link_to 'Go Debate!', join_random_firetalk_path, {:method => 'GET'} %>
-							<%= link_to 'Watch Debate!', watch_random_firetalk_path, {:method => 'GET'}%>
+						</h1>
+					</div>
+					</br>
 						
 					</div>
-				</div>
+					</div>
+
+					<div class="bordered-box-container faqs-news">
+						<div class="bordered-box">
+
+
+					<div>
+							What's goin' on here?
+						</div>
+						</br>
+						<div>
+						
+							<em>
+								- Debatable is a live-video debating platform. We're here to help you
+								speak your mind and reach the community.
+							</em>
+						
+					</div>
+				</br>
+						<div>
+							What's a firetalk?
+						</div>
+					</br>
+						<div>
+							<em>
+								- A firetalk is an elimination-round debate game.
+								One can create a firetalk and invite their friends or
+								they could join a random firetalk with random users
+								and discuss the topic of the day!
+							</em>
+						</div>
+
+					</br>
+
+						<div>
+							How does a firetalk work?
+						</div>
+					</br>
+						<div>
+							<em>
+								- In each round, everyone gets to talk
+								once for 45 seconds, and you can talk about the topic in order to gain votes. The player at the end of each round that has the least amount of votes is eliminated. This continues until a winner is chosen!
+							</em>
+						</div>
+					</div>
+					</div>
+
+
+
+
+
+
+										<div class="bordered-box-container options-news">
+						<div class="bordered-box centerhor">
+
+							<div>
+								<em>
+							Todays topic:
+						</em>
+
+					</br>
+
+							<h3>
+							<%= @topic %>
+						</h3>
+
+
+						</div>
+
+
+						<hr>
+
+
+						<div>
+							<div>
+							<%= link_to 'Go Debate!', join_random_firetalk_path, {:class => "home-butts button", :method => 'GET'} %>
+						</div>
+
+							<em>
+								Discuss todays topic in a random firetalk!
+							</em>
+						</div>
+					</br>
+						<div>
+							<%= link_to 'Watch Debate!', watch_random_firetalk_path, {:class => "home-butts button", :method => 'GET'}%>
+						</div>
+							<em>
+								Watch a random firetalk!  
+
+							</em>
+
+
+						</div>
+					</div>
+
+
+
+
+							
+						
+					
 
 			</div>
+
+			<!--MAIN SECTION END-->
+
+
+
 		</div>
 	</div>
 </div>

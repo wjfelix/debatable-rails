@@ -1,309 +1,155 @@
 <div class="section">
 	<div class="col span_10_of_10 toppad">
-    <div class="center-col-shadow">
+    	<div class="center-col-shadow">
+
+
+
+
+    		<!--MAIN SECTION START-->
+
+			<div class="section home-container">
+
+
+				<div class="section home-section centerhor">
+			<% if !flash[:message].nil? %>
+		    <%= flash[:message] %>
+		    <% end %>
+			</div>
+
+
+
+						
+
+					<div class="bordered-box-container welcome-news">
+						<div class="">
+
+							<div  class="centerhor">
+						<h1>
+						
+								Welcome to Debatable <span>beta</span>!
+							
+						</h1>
+					</div>
+					</br>
+						
+					</div>
+					</div>
+
+					<div class="bordered-box-container faqs-news">
+						<div class="bordered-box">
+							<div class="centerhor" style="text-decoration:underline;">
+							FAQ
+						</div>
+					</br>
+					<div>
+						<strong>
+							What's goin' on here?
+						</strong>
+						</div>
+						</br>
+						<div>
+						
+							<em>
+								- Debatable is a live-video debating platform. We're here to help you
+								speak your mind and reach the community.
+							</em>
+						
+					</div>
+				</br>
+						<div>
+							<strong>
+							What's a firetalk?
+						</strong>
+						</div>
+					</br>
+						<div>
+							<em>
+								- A firetalk is an elimination-round debate game.
+								One can create a firetalk and invite their friends or
+								they could join a random firetalk with random users
+								and discuss the topic of the day!
+							</em>
+						</div>
+						</br>
+
+						<div>
+							<strong>
+							How does a firetalk work?
+						</strong>
+						</div>
+					</br>
+						<div>
+							<em>
+								- In each round, everyone gets to talk
+								once for 45 seconds, and you can talk about the topic in order to gain votes. The player at the end of each round that has the least amount of votes is eliminated. This continues until a winner is chosen!
+							</em>
+						</div>
+					</div>
+					</div>
 
 
 
 
 
-<div class="section home-hero-1 hero-1">
-	<div class="section home-section centerhor">
-	<% if !flash[:message].nil? %>
-		<%= flash[:message] %>
-		<% end %>
-	</div>
-	<h1>Todays topic:</h1>
-	<%= @topic %>
-	<%= link_to 'Go Debate!', join_random_firetalk_path, {:method => 'GET'} %>
-	<%= link_to 'Watch Debate!', watch_random_firetalk_path, {:method => 'GET'}%>
-<div class="home-header-container-1">
-				<div class="home-header">
-			<h1 class="centerhor">
-				<strong>
-					WELCOME TO DEBATABLE <span style="color:#0077e6;">beta</span>!
-				</strong>
-			</h1>
+
+					<div class="bordered-box-container options-news">
+						<div class="bordered-box centerhor">
+
+							<div>
+								<em>
+							Todays topic:
+						</em>
+
+					</br>
+
+							<h3>
+							<%= @topic %>
+						</h3>
+
+
+						</div>
+
+
+						<hr>
+
+
+						<div>
+							<div>
+							<%= link_to 'Go Debate!', join_random_firetalk_path, {:class => "home-butts button", :method => 'GET'} %>
+						</div>
+
+							<em>
+								Discuss todays topic in a random firetalk!
+							</em>
+						</div>
+					</br>
+						<div>
+							<%= link_to 'Watch Debate!', watch_random_firetalk_path, {:class => "home-butts button", :method => 'GET'}%>
+						</div>
+							<em>
+								Watch a random firetalk!  
+
+							</em>
+
+
+						</div>
+					</div>
+
+
+
+
+
+							
+						
+					
+
+			</div>
+
+			<!--MAIN SECTION END-->
+
+
+
 		</div>
 	</div>
-
-
-
-<div class="home-info-box-container-1">
-<div class="home-info-box bottom-marg">
-	<blockquote>
-		<h3>
-	OUR MISSION:
-</h3>
-</br>
-		<p>
-		Here at debatable, we want to give people the stage to share their opinions
-		 and be understood by their communities. Debatable is a live-video debating
-		  social media platform that bridges face to face conversation and social media interaction.
-		 </br>
-		</br>
-		<em>
-			- The Debatable Team
-		</em>
-	</p>
-</blockquote>
 </div>
 
-<div class="home-info-box">
-<h3>
-	Returning user?
-</h3>
-</br>
-	<%= button_to "Login", login_path, {:class => "home-butts button", :method => "get"} %>
-</br>
-</br>
-<h3>
-	Ready to join our community?
-</h3>
-</br>
-	<%= button_to "Signup", new_user_path, {:class => "home-butts button", :method => "get"} %>
-
-
-</div>
-</div>
-
-<div class="navdown-container">
-<div class="navdown">
-<a href="#whatwedo">
-	See what we're all about <%= image_tag("downarrow.svg") %>
-</a>
-</div>
-</div>
-
-<a name="whatwedo">
-</div>
-
-
-
-<!--
-<div class="section home-header-welcome home-section">
-
-
-	<div class="home-butts-container">
-		Welcome! Are you a returning user?
-<%= button_to "Login", login_path, {:class => "home-butts button", :method => "get"} %>
-</div>
-
-<div class="home-butts-container">
-Are you new? Signup now to try it out.
-<%= button_to "Signup", new_user_path, {:class => "home-butts button", :method => "get"} %>
-</div>
-</div>
-
--->
-
-<div class="section home-hero-2 hero-2">
-
-	<div class="home-header-container-2">
-					<div class="home-header">
-	<h1 class="centerhor">We're here to help you speak your mind.</h1>
-	</br>
-	(some features coming soon)
-</div>
-</div>
-
-</br>
-
-<div class="home-info-box-container-2">
-<div class="home-details-box">
-	<div class="details-item-container">
-	<div class="details-item-header">
-		<h3>
-			Debates
-		</h3>
-	</div>
-	<div class="details-item">
-		<blockquote>
-			Debate and discuss any topic face-to-face with whoever you want whether they live across the globe or across the nation.
-		</blockquote>
-	</div>
-</div>
-
-</br>
-
-<div class="details-item-container">
-<div class="details-item-header">
-	<h3>
-		Firetalk
-	</h3>
-</div>
-<div class="details-item">
-	<blockquote>
-		Battle your friends with your words as you fight through rounds of elimination in a fast-paced debatable game.
-	</blockquote>
-</div>
-</div>
-
-</br>
-
-<div class="details-item-container">
-<div class="details-item-header">
-	<h3>
-		Moderation
-	</h3>
-</div>
-<div class="details-item">
-	<blockquote>
-			With the option of adding a moderator, you will be able to ensure there is a neutral participant, as well as keep the discussion on-topic.
-	</blockquote>
-</div>
-</div>
-
-</br>
-
-<div class="details-item-container">
-<div class="details-item-header">
-	<h3>
-		Social Media
-	</h3>
-</div>
-<div class="details-item">
-	<blockquote>
-		Engage in a true social atmosphere centered on intelligent debate and discussion. Where every status update can turn into the next big debate or firetalk; debatable truly brings the town hall to the web.
-	</blockquote>
-</div>
-</div>
-
-</br>
-
-<div class="details-item-container">
-<div class="details-item-header">
-	<h3>
-		Share Debates
-	</h3>
-</div>
-<div class="details-item">
-	<blockquote>
-		Share debates on Facebook, Twitter, and other existing social media to show the world what you have been up to.
-	</blockquote>
-</div>
-</div>
-
-	</div>
-</div>
-</br>
-<div class="home-feedback-box">
-<em>
-	We need your feedback!
-		<%= link_to("Tell us how we're doing.", '/feedbacks/new') %>
-	</em>
-</div>
-
-	</div>
-
-
-
-
-
-	<div class="section home-hero-3">
-
-		<div class="home-team-whole-container">
-
-		<div class="home-team-container">
-
-		<div class="home-fb-box bottom-marg">
-
-
-		<div class="fb-page" data-href="https://www.facebook.com/debatablelive" data-small-header="false"
-		data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-
-		<div class="fb-xfbml-parse-ignore">
-			<blockquote cite="https://www.facebook.com/debatablelive">
-			<a href="https://www.facebook.com/debatablelive">
-				Debatable
-			</a>
-		</blockquote>
-		</div>
-		</div>
-	</br>
-</br>
-		<h3>
-			Questions?
-			</br>
-			Contact us at about@debatable.co
-		</h3>
-</div>
-
-
-
-	<div class="home-fb-box">
-		<h1 class="text-center">
-			The Team:
-		</h1>
-	</br>
-<div class="home-team-img">
-		<%= image_tag("debatableteampic.png", :class => "img-thumbnail img-responsive") %>
-	</div>
-</br>
-	<div class="details-item-container">
-	<div class="details-item-header">
-<h3>
-	William Felix
-</h3>
-</div>
-<div class="details-item">
-	<em>
-		Lead Designer and Co-Founder
-	</em>
-</div>
-</div>
-
-</br>
-
-<div class="details-item-container">
-<div class="details-item-header">
-<h3>
-Garrick Król
-</h3>
-</div>
-<div class="details-item">
-<em>
-Senior Developer and Co-Founder
-</em>
-</div>
-</div>
-
-</br>
-
-<div class="details-item-container">
-<div class="details-item-header">
-<h3>
-Brandon Prinz
-</h3>
-</div>
-<div class="details-item">
-<em>
-CEO and Co-Founder
-</em>
-</div>
-</div>
-
-</br>
-
-<div class="details-item-container">
-<div class="details-item-header">
-<h3>
-Dane Halvorson
-</h3>
-</div>
-<div class="details-item">
-<em>
-COO and Co-Founder
-</em>
-</div>
-</div>
-
-
-</div>
-
-</div>
-</div>
-
-
-</div>
-</div>
-</div>

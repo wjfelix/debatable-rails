@@ -9,24 +9,34 @@
 // );
 </script>
 
-<div class="section" id="toppad">
-
-  <div class="col span_10_of_10" id="center-col">
+<div class="section">
+  <div class="col span_10_of_10">
     <div class="center-col-shadow">
     <div class="section">
-      <% if @public %>
-      <%= link_to 'Join Another Debate!', join_random_firetalk_path, {:method => 'GET'} %>
-      <%= link_to 'Watch Another Debate!', watch_random_firetalk_path, {:method => 'GET'}%>
-      <%= link_to 'Host a private firetalk and add people!', new_user_firetalk_path, {:method => 'GET'} if @user %>
-      <% end %>
-      <div class="section firetalk-title centerhor">
+      </br>
+<div class="start-ft-container">
+<div class="start-ft">
+    if your video stream is not showing up, remember to allow your browser to share your microphone and/or camera.
+  </div>
+</div>
+
+      <div class="firetalk-title-container">
+        <div class="firetalk-title">
         <h3>
           <%= @firetalk.name %>
         </h3>
-
+      </div>
       </div>
     </div>
-<div class="section">
+<div class="start-ft-container">
+
+
+  <div class="start-ft">
+    <% if @is_owner %>
+<%= "You are the firetalk owner! Click 'Start Firetalk' when you and the debaters are ready to start!" %>
+<% end %>
+  </div>
+
     <div class="start-ft">
     <% if @user && @user.id == @firetalk.user_id %>
     <button id="startFiretalk" class="button">
@@ -34,13 +44,17 @@
     </button>
     <% end %>
   </div>
+
 </div>
+
+</br>
 
   <div class="center-vids" id="center-vids-container">
     <% @users.each_with_index do |user, index| %>
     <div class="col  full-ft-speaker-box">
       <div class="section">
         <div id="speaker<%= index + 1 %>Box" class="speakerBox">
+          
         </div>
       </div>
 
@@ -72,8 +86,8 @@
 
 
 
-
-        <div class="section firetalktopbar-container">
+<div class="bordered-box-container">
+        <div class="bordered-box ft-data-box">
           <div class="float-left rounds-left">
         <span class="rounds-left">Round:</span>
         <span id="roundNumber" class="">
@@ -97,13 +111,19 @@
         </span>
       </div>
     </div>
+  </div>
 
-
-        <div class="ft-info-container">
-          <div class="firetalk-info">
+        <div class="bordered-box-container">
+          <div class="bordered-box">
             <h3><em><%= @firetalk.topic %></em></h3>
             <em><%= @firetalk.description %></em>
-            </br></br>
+            </br>
+            <% if @public %>
+CONNECTED
+<div id="totalConnected" style="display:inline;"><%= @users.length %></div><div style="display:inline;">/6</div>
+
+<% end %>
+</br></br>
             participants:
             <% @users.each do |user| %>
               </br>
@@ -112,6 +132,34 @@
 
           </div>
         </div>
+      <% if @public %>
+
+<div class="public-options-container">
+  <div class="public-options">
+
+    <div class="public-options-item">
+
+      <%= link_to 'Join Another Debate!', join_random_firetalk_path, {:method => 'GET'} %>
+
+    </div>
+
+
+    <div class="public-options-item">
+      <%= link_to 'Watch Another Debate!', watch_random_firetalk_path, {:method => 'GET'}%>
+
+    </div>
+
+    <div class="public-options-item">
+      <%= link_to 'Host a private firetalk and add people!', new_user_firetalk_path, {:method => 'GET'} if @user %>
+
+    </div>
+
+
+</div> 
+</div> 
+
+
+      <% end %>
   </div>
 
 
@@ -123,23 +171,21 @@
 
 
 </div>
-<h7>TOTAL CONNECTED</h7>
-<div id="totalConnected"><%= @users.length %></div><div>/6</div>
-<%= image_tag 'http://loadinggif.com/images/image-selection/13.gif', :id => "loadingDebaters" %>
 
-<% if @is_owner %>
-<%= "You are the firetalk owner! Click 'Start Firetalk' when you and the debaters are ready to start!" %>
-<% end %>
-
+<div class="loading-container">
+            <div class="loading">
+          <%= image_tag 'loading.gif', :id => "loadingDebaters" %>
+        </div>
+        </div>
 
 
 
 
-<!================================-->
+<!--================================-->
 
-<!LOCAL JAVASCRIPT-->
+<!--LOCAL JAVASCRIPT-->
 
-<!================================-->
+<!--================================-->
 
 
 <%= javascript_tag do %>
