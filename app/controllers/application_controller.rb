@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 
   def grab_new_topic
     # set @topic
-    @topic = "TestTosdfsspic1"
+    @topic = "TestTosdfsspisc1"
 
     # get the topic of the day!!
     response = HTTParty.get('http://www.google.com/trends/hottrends/atom/feed')
