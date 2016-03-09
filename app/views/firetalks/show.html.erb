@@ -1,7 +1,3 @@
-<div id="loading">
-  <%= render 'finding_firetalk.html.erb' %>
-</div>
-
 <script type="text/javascript" src="https://static.opentok.com/v2/js/opentok.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src='http://code.jquery.com/jquery-<version>[.min].js'></script>
@@ -299,15 +295,22 @@ function subscribeToStreams(streams) {
     div.setAttribute('id', 'stream' + streams[i].streamId);
     var email = connection.data.split("|")[1];
     var newSpeakerNumber = parseInt(debatersJson[email]) + 1;
+    //alert(document.getElementById("speaker" + newSpeakerNumber + "Box") != null + newSpeakerNumber + " exists");
+
     if (document.getElementById("speaker" + newSpeakerNumber + "Box") != null) {
       document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
     }
     else {
-      setTimeout(function() {
-        document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
-      }, 5000);
+      location.reload();
     }
-    // Subscribe to the stream
+
+    // var subscribeTimer = setInterval(function() {
+    //   if (document.getElementById("speaker" + newSpeakerNumber + "Box") != null) {
+    //     document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
+    //     clearInterval(subscribeTimer);
+    //     subscribeTimer = null;
+    //   }
+    // }, 4000);
     session.subscribe(streams[i], div.id, options);
   }
 }
