@@ -1146,6 +1146,15 @@ session.on(
             // Do some winner logic
 
             var winningConnectionId = firstSpeakerAlive();
+            $.ajax(
+              {
+                type: "PATCH",
+                url: "<%= user_firetalk_path(:id => @firetalk.id, :user_id => @firetalk.user_id) %>",      //"/slot_allocations/" + slotallocation_id,
+                data: {id: "<%= @firetalk.id %>", firetalk: {finished: true}},
+                complete: function(event) {
+                }
+              }
+            );
             session.signal({
               type: "winnerColor",
               data: winningConnectionId
@@ -1156,6 +1165,8 @@ session.on(
             });
             clearInterval(timer);
             timer = null;
+
+
           }
           else {
             // unmute first person in list

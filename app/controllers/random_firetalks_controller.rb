@@ -16,7 +16,7 @@ class RandomFiretalksController < ApplicationController
     end
 
     @user = User.find(session[:user_id])
-    @firetalks = Firetalk.where(:is_public => true, :in_progress => false, :topic => @topic, :full => false)
+    @firetalks = Firetalk.where(:is_public => true, :in_progress => false, :topic => @topic, :full => false, :finished => false)
     if @firetalks.any?
       # join random one
       @firetalk = @firetalks.sample
@@ -42,7 +42,7 @@ class RandomFiretalksController < ApplicationController
 
   def watch
     # go to firetalk as spectator which is is_public and in progress
-    @firetalks = Firetalk.where(:is_public => true, :topic => @topic)
+    @firetalks = Firetalk.where(:is_public => true, :topic => @topic, :finished => false)
     if @firetalks.any?
       @firetalk = @firetalks.sample
       if (session[:user_id])
