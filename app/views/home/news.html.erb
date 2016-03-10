@@ -30,7 +30,6 @@
 									<%= "Debaters" %>
 										<% firetalk.firetalk_debaters.each do |debater| %>
 											<br />
-											<%= if debater && debater.user_id User.find(debater.user_id).firstname %>
 										<% end %>
 									<% end %>
 								<% end %>
