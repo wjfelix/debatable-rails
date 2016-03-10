@@ -20,6 +20,21 @@
 							<%= @topic %>
 							<%= link_to 'Go Debate!', join_random_firetalk_path, {:method => 'GET'} %>
 							<%= link_to 'Watch Debate!', watch_random_firetalk_path, {:method => 'GET'}%>
+							<div>
+								<% if @firetalks_in_progress %>
+									<% @firetalks_in_progress.each do |firetalk| %>
+									<%= link_to 'Watch Firetalk!', user_firetalk_path(:id => firetalk.id, :user_id => firetalk.user_id), {:method => 'GET'} %>
+									<% if !firetalk.full %>
+										<%= link_to 'Join Firetalk!', join_firetalk_path(:id => firetalk.id), {:method => 'GET'} %>
+									<% end %>
+									<%= "Debaters" %>
+										<% firetalk.firetalk_debaters.each do |debater| %>
+											<br />
+											<%= User.find(debater.user_id).firstname %>
+										<% end %>
+									<% end %>
+								<% end %>
+							</div>
 						</h1>
 					</div>
 				</div>

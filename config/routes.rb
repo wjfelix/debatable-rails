@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   get '/join_random_firetalk', to: 'random_firetalks#join'
   get '/watch_random_firetalk', to: 'random_firetalks#watch'
 
+  get '/join_firetalk', to: 'firetalks#join'
+
   resources :users do
     get :validate_email
     resources :debates

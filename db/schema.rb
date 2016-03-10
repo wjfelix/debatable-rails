@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307234852) do
+ActiveRecord::Schema.define(version: 20160310025907) do
 
   create_table "categories", force: true do |t|
     t.string   "category_name", null: false
@@ -88,6 +88,8 @@ ActiveRecord::Schema.define(version: 20160307234852) do
     t.boolean  "is_public",      default: false
     t.boolean  "in_progress",    default: false
     t.boolean  "full",           default: false
+    t.boolean  "finished",       default: false
+    t.integer  "connected",      default: 0
   end
 
   create_table "invites", force: true do |t|

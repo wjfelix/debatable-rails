@@ -16,6 +16,17 @@
 	<%= @topic %>
 	<%= link_to 'Go Debate!', join_random_firetalk_path, {:method => 'GET'} %>
 	<%= link_to 'Watch Debate!', watch_random_firetalk_path, {:method => 'GET'}%>
+	<%= "Firetalks going on right now!" %>
+	<div>
+		<% if @firetalks_in_progress %>
+		<% @firetalks_in_progress.each do |firetalk| %>
+			<%= "Debaters" %>
+			<% firetalk.firetalk_debaters.each do |debater| %>
+				<%= User.find(debater.user_id).firstname %>
+			<% end %>
+		<% end %>
+		<% end %>
+	</div>
 <div class="home-header-container-1">
 				<div class="home-header">
 			<h1 class="centerhor">

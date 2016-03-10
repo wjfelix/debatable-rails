@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-  OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
   require 'searchbing'
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
@@ -24,6 +23,7 @@ class HomeController < ApplicationController
       @user = User.find(session[:user_id])
       @bing_news = Bing.new('wQ4qB9R18dzlg2WTWasb2xoA/RRb9LzN5VfcbF197YI', 15, 'News')
       @news_items = @bing_news.search("")
+      @firetalks_in_progress = Firetalk.where(:finished => false)
     else
       flash[:message] = true
       flash[:message] = "You must be logged in to use this feature!"

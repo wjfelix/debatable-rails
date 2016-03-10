@@ -125,6 +125,22 @@ class FiretalksController < ApplicationController
   end
 
   def join
+    # get all public firetalks who are not in progress with current topic
+    # if no firetalks, make a new one
+    if (!session[:user_id])
+      flash[:message] = "Sign up to use this feature!"
+      redirect_to new_user_path and return
+    end
+
+    @user = User.find(session[:user_id])
+    @firetalk = Firetalk.find(params[:id])
+    @firetalk.firetalk_debaters.build(:email => @user.email, :user_id => @user.id, :firetalk_id => @firetalk.id)
+    if @firetalk.firetalk_debaters.length == 6
+      @firetalk.full = true
+    end
+    if @firetalk.save!
+      redirect_to user_firetalk_path(:id => @firetalk.id, :user_id => @firetalk.user_id)
+    end
   end
 
   def destroy
