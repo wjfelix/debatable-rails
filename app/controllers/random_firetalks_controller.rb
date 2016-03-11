@@ -31,7 +31,7 @@ class RandomFiretalksController < ApplicationController
       end
     else
       # make new one
-      @firetalk = Firetalk.new(:topic => @topic, :user_id => @user.id, :name => "Test Firetalk!", :is_public  => true)
+@firetalk = Firetalk.new(:topic => @topic, :user_id => @user.id, :name => "Topic of the day Firetalk!", :is_public  => true)
       if @firetalk.save
         @firetalk.firetalk_debaters.create!(:email => @user.email, :user_id => @user.id, :firetalk_id => @firetalk.id)
         redirect_to user_firetalk_path(@user, @firetalk)
