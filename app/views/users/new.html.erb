@@ -1,78 +1,66 @@
 <div class="section">
-	<div class="toppad col span_10_of_10">
-<div class="center-col-shadow">
+	<div class="col span_10_of_10">
+		<div class="center-col-shadow">
+			<div class="">
+				<div class="signin-box-container">
+					<div class="signin-box">
+						<div class="section centerhor">
+							<h1>Join our community!</h1>
+						</div>
+						<div class="section centerhor">
+							<em>Already have an account?
+								<%= link_to 'Login here.', login_path, {:method => 'GET'} %>
+							</em>
+						</div>
+							</br></br>
+						<div class="section centerhor">
+							<%= form_for(@user, :url => users_path(:protocol => 'https')) do |f| %>
+							First Name
+							</br>
+							<%= f.text_field(:firstname, {:placeholder => "First Name", :required => true, :class => "forms"}) %>
+							</br>
+							</br>
+							Last Name
+							</br>
+							<%= f.text_field(:lastname, {:placeholder => "Last Name", :required => true, :class => "forms"}) %>
+							</br>
+							</br>
+							Email
+							</br>
+							<%= f.text_field(:email, {:placeholder => "E-mail", :required => true, :class => "forms"}) %>
+							</br>
+							</br>
+							Create a Password
+							</br>
+							Must be 7 or more characters
+							</br>
+							<div>
+								<%= f.password_field(:password, {:placeholder => "Password", :required => true, :class => "forms"}) %>
+							</div>
+							</br>
+							Confirm Password
+							</br>
+							<div>
+							<%= f.password_field(:password_confirmation, {:placeholder => "Confirm Password", :required => true, :class => "forms"}) %>
+							</div>
+							</br>
+						</div>
+						<div class="section centerhor">
+							<%= f.submit("Create Account", :class => "button") %>
 
-	<div class="signin-hero">
-		<div class="signin-box-container">
-
-		<div class="signin-box">
-
-
-	<div class="section centerhor">
-		<h1>Join our community!</h1>
+							<% end %>
+							</br>
+						</div>
+						<div class="section centerhor notif">
+   							<em>
+ 								<% if !flash[:message].nil? %>
+   								<%= flash[:message] %>
+   								<% end %>
+ 							</em>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</br></br>
-
-<div class="section centerhor">
-<%= form_for(@user, :url => users_path(:protocol => 'https')) do |f| %>
-	<h3>First Name</h3>
-	</br>
-<%= f.text_field(:firstname, {:placeholder => "First Name", :required => true, :class => "forms"}) %>
-</br>
-</br>
-<h3>Last Name</h3>
-</br>
-<%= f.text_field(:lastname, {:placeholder => "Last Name", :required => true, :class => "forms"}) %>
-</br>
-</br>
-<h3>Email</h3>
-</br>
-<%= f.text_field(:email, {:placeholder => "E-mail", :required => true, :class => "forms"}) %>
-</br>
-</br>
-
-
-
-
-<h3>Create a Password</h3>
-<h3>Must be 7 or more characters</h3>
-</br>
-<div>
-<%= f.password_field(:password, {:placeholder => "Password", :required => true, :class => "forms"}) %>
-</div>
-</br>
-<h3>Confirm Password</h3>
-</br>
-<div>
-<%= f.password_field(:password_confirmation, {:placeholder => "Confirm Password", :required => true, :class => "forms"}) %>
-</div>
-</br>
-
-
-</div>
-
-<div class="section centerhor">
-
-<%= f.submit("Create Account", :class => "button") %>
-
-<% end %>
-<br>
-</div>
-
-<div class="section centerhor notif">
-   <em>
-  <% if !flash[:message].nil? %>
-   <%= flash[:message] %>
-   <% end %>
- </em>
- </div>
-
-
-</div>
-</div>
-</div>
-</div>
-
-
-</div>
 </div>

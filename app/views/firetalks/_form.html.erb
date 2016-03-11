@@ -3,7 +3,7 @@
 	<div class="toppad col span_10_of_10">
 <div class="center-col-shadow">
 
-	<div class="signin-hero">
+	<div class="">
 		<div class="signin-box-container">
 
 		<div class="signin-box">
@@ -21,7 +21,7 @@
   <%= f.hidden_field :user_id, :value => @user.id %>
 
 
-  <h3 class="centerhor">Topic</h3>
+ Topic
   </br>
   <div class="centerhor">
 
@@ -29,7 +29,7 @@
 
 </div>
 </br>
-  <h3 class="centerhor">Title</h3>
+Title
   </br>
   <div class="centerhor">
 
@@ -37,9 +37,8 @@
 
    </div>
    </br>
-  </br>
 
-  <h3 class="centerhor">Description</h3>
+  Description
   </br>
   <div class="centerhor">
 
@@ -50,22 +49,16 @@
 
 </br>
 
-  <h3 class="centerhor">Invite Debaters</h3>
-  </br>
-
-
-
-
   <div class="centerhor">
-
-
-  </div>
-
   <!--%= f.label :user_ids, "Debaters" %-->
   <!--%= f.collection_select :user_ids, User.order(:fullname), :id, :fullname, {}, {:multiple => true} %-->
 
-	<%= f.label :user_tokens, "Users" %>
-	<%= f.text_area :user_tokens, :id => 'user_tokens' %>
+  <%= f.label :user_tokens, "Invite Debaters" %>
+  <%= f.text_area :user_tokens, :id => 'user_tokens', :class => "forms" %>
+
+  </div>
+
+
 
 </div>
 

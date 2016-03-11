@@ -3,45 +3,66 @@
 <script src='http://code.jquery.com/jquery-<version>[.min].js'></script>
 
 <script>
-// jQuery(document).ready(function() {
-//   //  document.getElementById("loading").style.display = "none";
-//   }
-// );
+$(document).ready(function(){
+    $("#x-out").click(function(){
+        $(".start-ft").remove("#x-out-whole");
+    });
+    $("#x-out-2").click(function(){
+        $(".start-ft").remove("#x-out-item");
+    });
+});
 </script>
 
-<div class="section" id="toppad">
-
-  <!--======DESKTOP VIEW======-->
-  <div class="col span_10_of_10" id="center-col">
+<div class="section">
+  <div class="col span_10_of_10">
     <div class="center-col-shadow">
     <div class="section">
-      <% if @public %>
-      <%= link_to 'Join Another Debate!', join_random_firetalk_path, {:method => 'GET'} %>
-      <%= link_to 'Watch Another Debate!', watch_random_firetalk_path, {:method => 'GET'}%>
-      <%= link_to 'Host a private firetalk and add people!', new_user_firetalk_path, {:method => 'GET'} if @user %>
-      <% end %>
-      <div class="section firetalk-title centerhor">
+      </br>
+<div class="start-ft-container">
+<div class="start-ft" id="x-out-whole">
+    if your video stream is not showing up, remember to allow your browser to share your microphone and/or camera.
+    
+  </div>
+<div class="start-ft" id="x-out-whole">
+  <%= image_tag 'x-button.png', :id => "x-out" %>
+</div>
+</div>
+      <div class="firetalk-title-container">
+        <div class="firetalk-title  span-bar">
         <h3>
           <%= @firetalk.name %>
         </h3>
-
+      </div>
       </div>
     </div>
-<div class="section">
-    <div class="start-ft">
+
+<div class="start-ft-container">
+
+
+  <div class="start-ft" id="x-out-item">
+    <% if @is_owner %>
+  You are the firetalk owner! Click 'Start Firetalk' when you and the debaters are ready to start!
+<% end %>
+  </div>
+
+    <div class="start-ft" id="x-out-2">
     <% if @user && @user.id == @firetalk.user_id %>
     <button id="startFiretalk" class="button">
       Start Firetalk
     </button>
     <% end %>
   </div>
+
 </div>
+
+</br>
 
   <div class="center-vids" id="center-vids-container">
     <% @users.each_with_index do |user, index| %>
     <div class="col  full-ft-speaker-box">
       <div class="section">
         <div id="speaker<%= index + 1 %>Box" class="speakerBox">
+          
         </div>
       </div>
 
@@ -73,8 +94,8 @@
 
 
 
-
-        <div class="section firetalktopbar-container">
+<div class="bordered-box-container">
+        <div class="span-bar ft-data-box">
           <div class="float-left rounds-left">
         <span class="rounds-left">Round:</span>
         <span id="roundNumber" class="">
@@ -98,49 +119,80 @@
         </span>
       </div>
     </div>
-
-
-        <div class="ft-info-container">
-          <div class="firetalk-info">
-            <h3><em><%= @firetalk.topic %></em></h3>
-            <em><%= @firetalk.description %></em>
-            </br></br>
-            participants:
-            <% @users.each do |user| %>
-              </br>
-              <%= user.firstname %>
-            <% end %>
-
-          </div>
-        </div>
   </div>
 
+        <div class="bordered-box-container">
+          <div class="span-bar full-width">
+            <div class="ft-description-container">
+            <div class="ft-description">
+
+              <div class="centerhor desc-item">
+                <h3><em><%= @firetalk.topic %></em></h3>
+                <em><%= @firetalk.description %></em>
+              </div>
+
+              <div class="centerhor desc-item">
+                <% if @public %>
+                CONNECTED
+                <div id="totalConnected" style="display:inline;"><%= @users.length %></div><div style="display:inline;">/6
+                </div>
+                <% end %>
+              </div>
+                                        </br></br>
+              
+              <div class="centerhor desc-item">
+                participants:
+                <% @users.each do |user| %>
+                                        </br>
+                <%= user.firstname %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+            <% if @public %>
+
+            <div class="public-options-container">
+              <div class="public-options">
+
+                  <div class="public-options-item">
+                    <%= link_to 'Join Another Debate!', join_random_firetalk_path, {:method => 'GET', :class => "public-options-link"} %>
+                  </div>
+                  
+                  <div class="public-options-item">
+                    <%= link_to 'Watch Another Debate!', watch_random_firetalk_path, {:method => 'GET', :class => "public-options-link"} %>
+                  </div>
+
+                  <div class="public-options-item">
+                      <%= link_to 'Host a private firetalk and add people!', new_user_firetalk_path, {:method => 'GET', :class => "public-options-link"} if @user %>
+                  </div>
+              </div> 
+            </div> 
+            <% end %>
+          </div>
+        </div>
+
+
+
+
+
 
 </div>
 
+<div class="loading-container">
+            <div class="loading">
+          <%= image_tag 'loading.gif', :id => "loadingDebaters" %>
+        </div>
+        </div>
 
 
 
 
+<!--================================-->
 
-</div>
-<h7>TOTAL CONNECTED</h7>
-<div id="totalConnected"><%= @users.length %></div><div>/6</div>
-<%= image_tag 'http://loadinggif.com/images/image-selection/13.gif', :id => "loadingDebaters" %>
+<!--LOCAL JAVASCRIPT-->
 
-<% if @is_owner %>
-<%= "You are the firetalk owner! Click 'Start Firetalk' when you and the debaters are ready to start!" %>
-<% end %>
-
-
-
-
-
-<!================================-->
-
-<!LOCAL JAVASCRIPT-->
-
-<!================================-->
+<!--================================-->
 
 
 <%= javascript_tag do %>

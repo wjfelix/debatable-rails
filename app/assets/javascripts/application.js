@@ -57,3 +57,7 @@ jQuery(function() {
     return InvitePoller.poll();
   }
 });
+
+$("#x-out").click(function(){
+  $(".start-ft").remove("#x-out-whole");
+});
