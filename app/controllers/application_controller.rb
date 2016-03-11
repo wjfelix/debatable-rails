@@ -1,5 +1,3 @@
-  require 'Nokogiri'
-  require 'open-uri'
 
 class ApplicationController < ActionController::Base
 
