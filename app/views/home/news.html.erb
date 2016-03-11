@@ -38,10 +38,14 @@
 
 					<div class="bordered-box-container faqs-news">
 						<div class="bordered-box">
-
-
+													<div class="centerhor" style="text-decoration:underline;">
+							FAQ
+						</div>
+					</br>
 					<div>
+						<strong>
 							What's goin' on here?
+						</strong>
 						</div>
 						</br>
 						<div>
@@ -54,7 +58,9 @@
 					</div>
 				</br>
 						<div>
+							<strong>
 							What's a firetalk?
+						</strong>
 						</div>
 					</br>
 						<div>
@@ -65,11 +71,12 @@
 								and discuss the topic of the day!
 							</em>
 						</div>
-
-					</br>
+						</br>
 
 						<div>
+							<strong>
 							How does a firetalk work?
+						</strong>
 						</div>
 					</br>
 						<div>
@@ -78,74 +85,103 @@
 								once for 45 seconds, and you can talk about the topic in order to gain votes. The player at the end of each round that has the least amount of votes is eliminated. This continues until a winner is chosen!
 							</em>
 						</div>
-					</div>
-					</div>
-
-
-
-
-
-
-										<div class="bordered-box-container options-news">
-						<div class="bordered-box centerhor">
-
-							<div>
-								<em>
-							Todays topic:
-						</em>
-
-					</br>
-
-							<h3>
-							<%= @topic %>
-						</h3>
-
-
-						</div>
-
-
-						<hr>
-
+						</br>
 
 						<div>
-							<div>
-							<%= link_to 'Go Debate!', join_random_firetalk_path, {:class => "home-butts button", :method => 'GET'} %>
+							<strong>
+							How should one use Debatable?
+						</strong>
 						</div>
+					</br>
+						<div>
+							<em>
+								- While this website works on nearly any device, we do not support iOS.
+								To experience Debatable to its fullest extend, use our site on a laptop
+								or desktop. Not only will you have a larger screen than a mobile device,
+								but you will more than likely also experience better quality video and audio.
+							</em>
+						</div>
+
+					</div>
+					</div>
+
+
+				<div class="bordered-box-container options-news">
+					<div class="bordered-box centerhor">
+						<div>
+							<em>
+							Todays topic:
+							</em>
+							</br>
+							<h3>
+							<%= @topic %>
+							</h3>
+						</div>
+
+							<hr>
+
+						<div>
 
 							<em>
 								Discuss todays topic in a random firetalk!
 							</em>
+							</br>
+							</br>
+							<div>
+							<%= link_to 'Go Debate!', join_random_firetalk_path, {:class => "home-butts button", :method => 'GET'} %>
+						</div>
+
 						</div>
 					</br>
-						<div>
-							<%= link_to 'Watch Debate!', watch_random_firetalk_path, {:class => "home-butts button", :method => 'GET'}%>
-						</div>
+
 							<em>
 								Watch a random firetalk!  
 
 							</em>
+							</br>
+							</br>
+						<div>
+							<%= link_to 'Watch Debate!', watch_random_firetalk_path, {:class => "home-butts button", :method => 'GET'}%>
+						</div>
 
-								<div>
+						</br>
+							<div class="active-ft-container">
+							<div class="active-ft-label">
+								Join an active firetalk!
+							</div>
+
+								<div class="active-firetalks">
 								<% if @firetalks_in_progress %>
 									<% @firetalks_in_progress.each do |firetalk| %>
-									<%= link_to 'Watch Firetalk!', user_firetalk_path(:id => firetalk.id, :user_id => firetalk.user_id), {:method => 'GET'} %>
+									<div class="active-ft-item-container">
+										<div class="active-ft-link-container">
+									<div class="active-ft-link">
+									<%= link_to 'Watch Firetalk!', user_firetalk_path(:id => firetalk.id, :user_id => firetalk.user_id), {:class => "ft-link", :method => 'GET'} %>
+								</div>
 									<% if !firetalk.full %>
-										<%= link_to 'Join Firetalk!', join_firetalk_path(:id => firetalk.id), {:method => 'GET'} %>
-									<% end %>
-									<%= "Debaters" %>
-										<% firetalk.firetalk_debaters.each do |debater| %>
-											<br />
-										<% end %>
+									<div class="active-ft-link">
+										<%= link_to 'Join Firetalk!', join_firetalk_path(:id => firetalk.id), {:class => "ft-link", :method => 'GET'} %><% end %>
+									</div>
+								</div>
+									
+									<div class="active-ft-debaters-container">
+									<div class="active-ft-debaters-label">
+										debaters:
+									</div>
+									<div class="active-ft-debaters-item">
+										<% firetalk.firetalk_debaters.each do |debater| %><% end %>
+									</div>
+								</div>
+								</div>
+										
 									<% end %>
 								<% end %>
 							</div>
+						</div>
 
 
 						</div>
 					</div>
-
-
-
 
 							
 						

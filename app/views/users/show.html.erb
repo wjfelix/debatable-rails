@@ -1,14 +1,13 @@
 <div class="section">
-	<div class="col span_10_of_10 toppad">
+	<div class="col span_10_of_10">
     <div class="center-col-shadow">
       <div class="prof-container">
         <div class="prof">
 
-
 <div class="user-info-box-container">
   <div class="user-info-box">
     <!-- Here is where the user information will be printed -->
-
+      <div class="user-info-content">
       <div class="user-info-name">
         <h3>
           <%= @user.firstname %>
@@ -34,6 +33,7 @@
         <%= nav_link("Reset Password", change_password_path, :method => "get") %>
         <% end %>
       </div>
+    </div>
 
 </div>
 </div>
@@ -51,10 +51,20 @@ it will render the corresponding partials:
   FiretalkDebater: /firetalk_debaters/_firetalk_debater.html.erb
   and so on for debates and posts
 -->
+
+
 <div class="user-activity-container">
 
+  <div class="bordered-box-container">
+    <div class="bordered-box">
 
 
+<div class="user-activity-box-container">
+  <div class="centerhor">
+    <h3>
+  Recent activity
+</h3>
+</div>
   <div class="user-activity-box">
     <% @total.each do |obj| %>
       <% if obj %>
@@ -71,8 +81,12 @@ it will render the corresponding partials:
 </div>
 </br>
 
+</div>
+</div>
 
 </div>
+</div>
+
 </div>
 
 

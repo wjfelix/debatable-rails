@@ -3,10 +3,14 @@
 <script src='http://code.jquery.com/jquery-<version>[.min].js'></script>
 
 <script>
-// jQuery(document).ready(function() {
-//   //  document.getElementById("loading").style.display = "none";
-//   }
-// );
+$(document).ready(function(){
+    $("#x-out").click(function(){
+        $(".start-ft").remove("#x-out-whole");
+    });
+    $("#x-out-2").click(function(){
+        $(".start-ft").remove("#x-out-item");
+    });
+});
 </script>
 
 <div class="section">
@@ -15,29 +19,33 @@
     <div class="section">
       </br>
 <div class="start-ft-container">
-<div class="start-ft">
+<div class="start-ft" id="x-out-whole">
     if your video stream is not showing up, remember to allow your browser to share your microphone and/or camera.
+    
   </div>
+<div class="start-ft" id="x-out-whole">
+  <%= image_tag 'x-button.png', :id => "x-out" %>
 </div>
-
+</div>
       <div class="firetalk-title-container">
-        <div class="firetalk-title">
+        <div class="firetalk-title  span-bar">
         <h3>
           <%= @firetalk.name %>
         </h3>
       </div>
       </div>
     </div>
+
 <div class="start-ft-container">
 
 
-  <div class="start-ft">
+  <div class="start-ft" id="x-out-item">
     <% if @is_owner %>
-<%= "You are the firetalk owner! Click 'Start Firetalk' when you and the debaters are ready to start!" %>
+  You are the firetalk owner! Click 'Start Firetalk' when you and the debaters are ready to start!
 <% end %>
   </div>
 
-    <div class="start-ft">
+    <div class="start-ft" id="x-out-2">
     <% if @user && @user.id == @firetalk.user_id %>
     <button id="startFiretalk" class="button">
       Start Firetalk
@@ -87,7 +95,7 @@
 
 
 <div class="bordered-box-container">
-        <div class="bordered-box ft-data-box">
+        <div class="span-bar ft-data-box">
           <div class="float-left rounds-left">
         <span class="rounds-left">Round:</span>
         <span id="roundNumber" class="">
@@ -114,56 +122,55 @@
   </div>
 
         <div class="bordered-box-container">
-          <div class="bordered-box">
-            <h3><em><%= @firetalk.topic %></em></h3>
-            <em><%= @firetalk.description %></em>
-            </br>
+          <div class="span-bar full-width">
+            <div class="ft-description-container">
+            <div class="ft-description">
+
+              <div class="centerhor desc-item">
+                <h3><em><%= @firetalk.topic %></em></h3>
+                <em><%= @firetalk.description %></em>
+              </div>
+
+              <div class="centerhor desc-item">
+                <% if @public %>
+                CONNECTED
+                <div id="totalConnected" style="display:inline;"><%= @users.length %></div><div style="display:inline;">/6
+                </div>
+                <% end %>
+              </div>
+                                        </br></br>
+              
+              <div class="centerhor desc-item">
+                participants:
+                <% @users.each do |user| %>
+                                        </br>
+                <%= user.firstname %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
             <% if @public %>
-CONNECTED
-<div id="totalConnected" style="display:inline;"><%= @users.length %></div><div style="display:inline;">/6</div>
 
-<% end %>
-</br></br>
-            participants:
-            <% @users.each do |user| %>
-              </br>
-              <%= user.firstname %>
+            <div class="public-options-container">
+              <div class="public-options">
+
+                  <div class="public-options-item">
+                    <%= link_to 'Join Another Debate!', join_random_firetalk_path, {:method => 'GET', :class => "public-options-link"} %>
+                  </div>
+                  
+                  <div class="public-options-item">
+                    <%= link_to 'Watch Another Debate!', watch_random_firetalk_path, {:method => 'GET', :class => "public-options-link"} %>
+                  </div>
+
+                  <div class="public-options-item">
+                      <%= link_to 'Host a private firetalk and add people!', new_user_firetalk_path, {:method => 'GET', :class => "public-options-link"} if @user %>
+                  </div>
+              </div> 
+            </div> 
             <% end %>
-
           </div>
         </div>
-      <% if @public %>
-
-<div class="public-options-container">
-  <div class="public-options">
-
-    <div class="public-options-item">
-
-      <%= link_to 'Join Another Debate!', join_random_firetalk_path, {:method => 'GET'} %>
-
-    </div>
-
-
-    <div class="public-options-item">
-      <%= link_to 'Watch Another Debate!', watch_random_firetalk_path, {:method => 'GET'}%>
-
-    </div>
-
-    <div class="public-options-item">
-      <%= link_to 'Host a private firetalk and add people!', new_user_firetalk_path, {:method => 'GET'} if @user %>
-
-    </div>
-
-
-</div> 
-</div> 
-
-
-      <% end %>
-  </div>
-
-
-</div>
 
 
 
