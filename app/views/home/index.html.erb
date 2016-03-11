@@ -20,8 +20,10 @@
 
 						
 
+
 					<div class="bordered-box-container welcome-news">
 						<div class="">
+
 
 							<div  class="centerhor">
 						<h1>
@@ -130,6 +132,15 @@
 								Watch a random firetalk!  
 
 							</em>
+							<div>
+		<% if @firetalks_in_progress %>
+		<% @firetalks_in_progress.each do |firetalk| %>
+			<%= "Debaters" %>
+			<% firetalk.firetalk_debaters.each do |debater| %>
+			<% end %>
+		<% end %>
+		<% end %>
+	</div>
 
 
 						</div>

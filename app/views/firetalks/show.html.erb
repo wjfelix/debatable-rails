@@ -227,7 +227,7 @@ session.on(
   "connectionCreated", function(event) {
 
     // max number of debaters
-    if (parseInt(document.getElementById("totalConnected").innerHTML) == 3) {
+    if (parseInt(document.getElementById("totalConnected").innerHTML) == 6) {
       document.getElementById("loadingDebaters").style.display = "none";
 
       // update to is_full
@@ -344,7 +344,7 @@ function sessionConnectedHandler(event) {
     session.publish(publisher);
   }
   else {
-    alert("SPECTATINGg");
+  //  alert("SPECTATINGg");
   }
   var id = document.createTextNode(String(session.connection.connectionId));
   document.body.appendChild(id);
@@ -374,14 +374,15 @@ function subscribeToStreams(streams) {
     var email = connection.data.split("|")[1];
     var newSpeakerNumber = parseInt(debatersJson[email]) + 1;
     //alert(document.getElementById("speaker" + newSpeakerNumber + "Box") != null + newSpeakerNumber + " exists");
-    $('#totalConnected').html(Object.keys(debatersJson).length);
-    if (parseInt(document.getElementById("totalConnected").innerHTML) == 3) {
-      document.getElementById("loadingDebaters").style.display = "none";
-    }
+
     if (document.getElementById("speaker" + newSpeakerNumber + "Box") != null) {
       document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
     }
     else {
+      $('#totalConnected').html(Object.keys(debatersJson).length);
+      if (parseInt(document.getElementById("totalConnected").innerHTML) == 6) {
+        document.getElementById("loadingDebaters").style.display = "none";
+      }
       var userEmail = email;
       var container = document.getElementById("center-vids-container");
       // instead of appending to innerHTML, just show the hidden element
@@ -445,7 +446,6 @@ function getPoints() {
 // BROADCAST SIGNAL EVENTS
 session.on(
   "signal:bindButtons", function(event) {
-    document.getElementById("loadingDebaters").style.display = "none";
   $('#upvote-bounce1').click(function() {
     if (hasPointsLeft() && speakerNumber != 1) {
       decrementVote();
@@ -696,7 +696,7 @@ if (isPublic) {
       if (debatersJson[dropEmail] != null) {
         var currentConnected = parseInt(document.getElementById("totalConnected").innerHTML);
         document.getElementById("totalConnected").innerHTML = currentConnected - 1;
-        if (currentConnected - 1 == 2) {
+        if (currentConnected - 1 == 5) {
           document.getElementById("loadingDebaters").style.display = "";
           $.ajax(
             {
@@ -1191,6 +1191,15 @@ session.on(
             // Do some winner logic
 
             var winningConnectionId = firstSpeakerAlive();
+            $.ajax(
+              {
+                type: "PATCH",
+                url: "<%= user_firetalk_path(:id => @firetalk.id, :user_id => @firetalk.user_id) %>",      //"/slot_allocations/" + slotallocation_id,
+                data: {id: "<%= @firetalk.id %>", firetalk: {finished: true}},
+                complete: function(event) {
+                }
+              }
+            );
             session.signal({
               type: "winnerColor",
               data: winningConnectionId
@@ -1201,6 +1210,8 @@ session.on(
             });
             clearInterval(timer);
             timer = null;
+
+
           }
           else {
             // unmute first person in list
