@@ -205,7 +205,8 @@ var pointsLeft = 5;
 var apiKey = '45241592';
 var sessionId = "<%= j @firetalk.tok_session_id %>";
 var token = "<%= j @tok_token %>";
-var myEmail = "<%= j @user.email if @user %>"
+var myEmail = "<%= j @user.email if @user %>";
+var myName = "<%= j @user.firstname if @user %>";
 var debatersJson = JSON.parse("<%= j @firetalk_json.to_s.html_safe %>");
 var isDebater = "<%= @is_debater %>";
 var isOwner = "<%= @is_owner %>";
@@ -274,7 +275,7 @@ session.on(
         newDebaterSpeakerNumber = parseInt(debatersJson[userEmail] + 1);
         // make the first child element visible?
         $('.firetalk-info').append(firstName);
-        $('speaker' + newDebaterSpeakerNumber + "name").append(firstName);
+        $('#speaker' + newDebaterSpeakerNumber + "Name").html(firstName);
       }
 
       var newSession = event;
@@ -326,9 +327,10 @@ function sessionConnectedHandler(event) {
     session.publish(publisher);
     document.getElementById("speaker" + speakerNumber + "Box").appendChild(myDiv);
     document.getElementById("speaker" + speakerNumber + "Box").parentNode.parentNode.style.visibility = "";
+    $('#speaker' + speakerNumber + "Name").html(myName);
   }
   else {
-  //  alert("SPECTATINGg");
+    alert("SPECTATING");
   }
   var id = document.createTextNode(String(session.connection.connectionId));
   document.body.appendChild(id);
@@ -367,6 +369,7 @@ function subscribeToStreams(streams) {
     // instead of appending to innerHTML, just show the hidden element
     if (document.getElementById("speaker" + newSpeakerNumber + "Box").parentNode.parentNode.style.visibility = "hidden") {
       document.getElementById("speaker" + newSpeakerNumber + "Box").parentNode.parentNode.style.visibility = "";
+      $('#speaker' + newSpeakerNumber + "Name").html(connection.data.split("|")[2]);
     }
     document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
     session.subscribe(streams[i], div.id, options);
