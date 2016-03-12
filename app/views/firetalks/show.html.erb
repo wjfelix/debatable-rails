@@ -21,7 +21,7 @@ $(document).ready(function(){
 <div class="start-ft-container">
 <div class="start-ft" id="x-out-whole">
     if your video stream is not showing up, remember to allow your browser to share your microphone and/or camera.
-    
+
   </div>
 <div class="start-ft" id="x-out-whole">
   <%= image_tag 'x-button.png', :id => "x-out" %>
@@ -58,38 +58,40 @@ $(document).ready(function(){
 </br>
 
   <div class="center-vids" id="center-vids-container">
-    <% @users.each_with_index do |user, index| %>
-    <div class="col  full-ft-speaker-box">
-      <div class="section">
-        <div id="speaker<%= index + 1 %>Box" class="speakerBox">
-          
-        </div>
+  <!--
+  -->
+  <% (1..6).each do |i| %>
+  <div class="col  full-ft-speaker-box" style="visibility: hidden;">
+    <div class="section">
+      <div id="speaker<%= i %>Box" class="speakerBox">
+
       </div>
+    </div>
 
-      <div class="section progressbar" id="speaker<%= index + 1 %>Progressbar"></div>
+    <div class="section progressbar" id="speaker<%= i %>Progressbar"></div>
 
-      <div class="section speaker-options-container">
-        <div class="speaker-options">
+    <div class="section speaker-options-container">
+      <div class="speaker-options">
 
-          <div class="user-name-ft" id="speaker<%= index + 1 %>Name">
-            <%= @users[index].firstname %>
+        <div class="user-name-ft" id="speaker<%= i %>Name">
+          <!-- FIRSTNAME WILL BE ADDED LATER IN CONNECT EVENT -->
+        </div>
+
+        <div class="vote-options">
+          <div class="speakerPoints-container">
+            <div id="speaker<%= i %>Points" class="speakerPoints">
+              0
+            </div>
           </div>
 
-          <div class="vote-options">
-            <div class="speakerPoints-container">
-              <div id="speaker<%= index + 1 %>Points" class="speakerPoints">
-                0
-              </div>
-            </div>
-
-            <div class="upvotebutton-container" id="upvote-bounce<%= index + 1 %>">
-              <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
-            </div>
+          <div class="upvotebutton-container" id="upvote-bounce<%= i %>">
+            <%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>
           </div>
         </div>
       </div>
     </div>
-    <% end %>
+  </div>
+  <% end %>
   </div>
 
 
@@ -139,7 +141,7 @@ $(document).ready(function(){
                 <% end %>
               </div>
                                         </br></br>
-              
+
               <div class="centerhor desc-item">
                 participants:
                 <% @users.each do |user| %>
@@ -158,7 +160,7 @@ $(document).ready(function(){
                   <div class="public-options-item">
                     <%= link_to 'Join Another Debate!', join_random_firetalk_path, {:method => 'GET', :class => "public-options-link"} %>
                   </div>
-                  
+
                   <div class="public-options-item">
                     <%= link_to 'Watch Another Debate!', watch_random_firetalk_path, {:method => 'GET', :class => "public-options-link"} %>
                   </div>
@@ -166,8 +168,8 @@ $(document).ready(function(){
                   <div class="public-options-item">
                       <%= link_to 'Host a private firetalk and add people!', new_user_firetalk_path, {:method => 'GET', :class => "public-options-link"} if @user %>
                   </div>
-              </div> 
-            </div> 
+              </div>
+            </div>
             <% end %>
           </div>
         </div>
@@ -234,6 +236,7 @@ session.on(
   "connectionCreated", function(event) {
 
     // max number of debaters
+
     if (parseInt(document.getElementById("totalConnected").innerHTML) == 6) {
       document.getElementById("loadingDebaters").style.display = "none";
 
@@ -249,11 +252,12 @@ session.on(
         }
       );
     }
-    var emailAndPoints = event.connection.data.split("|");
-    var userEmail = event.connection.data.split("|")[1];
-    var firstName = event.connection.data.split("|")[2];
 
-    // if the connectionCreated is a debater
+    if (event.connection.data) {
+      var emailAndPoints = event.connection.data.split("|");
+      var userEmail = event.connection.data.split("|")[1];
+      var firstName = event.connection.data.split("|")[2];
+      // if the connectionCreated is a debater
       // alert(userEmail);
       // alert(JSON.stringify(debatersJson));
 
@@ -261,80 +265,51 @@ session.on(
 
       // append new video feed etc.
       // If the email doesn't exist in the json (new person) and it isn't my email (don't republish ourself!)
-      if (isPublic) {
-        if (userEmail != myEmail && debatersJson[userEmail] == null) {
-          updateDebatersJson(event.connection.data);
-          if (debatersJson[userEmail] != null) {
-            var currentConnected = parseInt(document.getElementById("totalConnected").innerHTML);
-            document.getElementById("totalConnected").innerHTML = Object.keys(debatersJson).length;
-          }
-          var container = document.getElementById("center-vids-container");
-          // instead of appending to innerHTML, just show the hidden element
-          container.innerHTML += '<div class="col  full-ft-speaker-box">' +
-            '<div class="section">' +
-              '<div id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Box" class="speakerBox">' +
-              '</div>' +
-            '</div>' +
-
-            '<div class="section progressbar" id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Progressbar"></div>' +
-
-            '<div class="section speaker-options-container">' +
-              '<div class="speaker-options">' +
-
-                '<div class="user-name-ft" id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Name">' +
-                firstName +
-                '</div>' +
-
-                '<div class="vote-options">' +
-                  '<div class="speakerPoints-container">' +
-                    '<div id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Points" class="speakerPoints">' +
-                      0 +
-                    '</div>' +
-                  '</div>' +
-
-                  '<!-- CHANGE BOUNCE1??? -->' +
-                  '<div class="upvotebutton-container" id="upvote-bounce'+ parseInt(debatersJson[userEmail] + 1) + '">' +
-                    '<%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>' +
-                  '</div>' +
-                '</div>' +
-              '</div>' +
-            '</div>' +
-          '</div>';
+      if (debatersJson[userEmail] == null) {
+        updateDebatersJson(event.connection.data);
+        if (debatersJson[userEmail] != null) {
+          var currentConnected = parseInt(document.getElementById("totalConnected").innerHTML);
+          document.getElementById("totalConnected").innerHTML = Object.keys(debatersJson).length;
+        }
+        newDebaterSpeakerNumber = parseInt(debatersJson[userEmail] + 1);
+        // make the first child element visible?
         $('.firetalk-info').append(firstName);
+        $('speaker' + newDebaterSpeakerNumber + "name").append(firstName);
       }
-    }
-    var newSession = event;
 
-    if (firetalkGoing) {
+      var newSession = event;
 
-      var pointsString = "";
-      for (var i = 0; i < totalSessions.length; i++) {
-        if (totalSessions[i]) {
-          pointsString += totalSessions[i].connection.data.split("|")[0] + "|";
-        }
-      }
-      var index = parseInt(debatersJson[emailAndPoints[1]]);
-      if (playersAlive[index] != null) {
-        playersAlive[index] = newSession.connection.connectionId;
-        showPoints();
-      }
-      // update their points
-      session.signal({
-          type: "catchUpPoints",
-          to: newSession.connection,
-          data: pointsString
-        }, function(error) {
-          if (error) {
-            alert("could not tell player to reset points!" + error.message + error.code);
+      if (firetalkGoing) {
+
+        var pointsString = "";
+        for (var i = 0; i < totalSessions.length; i++) {
+          if (totalSessions[i]) {
+            pointsString += totalSessions[i].connection.data.split("|")[0] + "|";
           }
         }
-      );
-    }
-    totalSessions[parseInt(debatersJson[emailAndPoints[1]])] = newSession;
-    if (totalSessions.length == debatersJson.length) {
-      // show firetalk button
-      if (isOwner) {
-        $('#startFiretalk').show();
+        var index = parseInt(debatersJson[emailAndPoints[1]]);
+        if (playersAlive[index] != null) {
+          playersAlive[index] = newSession.connection.connectionId;
+          showPoints();
+        }
+        // update their points
+        session.signal({
+            type: "catchUpPoints",
+            to: newSession.connection,
+            data: pointsString
+          }, function(error) {
+            if (error) {
+              alert("could not tell player to reset points!" + error.message + error.code);
+            }
+          }
+        );
+      }
+      totalSessions[parseInt(debatersJson[emailAndPoints[1]])] = newSession;
+      if (totalSessions.length == debatersJson.length) {
+        // show firetalk button
+        if (isOwner) {
+          $('#startFiretalk').show();
+        }
       }
     }
   }
@@ -346,9 +321,11 @@ function sessionConnectedHandler(event) {
   var myDiv = document.createElement('div');
   speakerNumber = parseInt(debatersJson[myEmail] + 1);
   publisher = OT.initPublisher(apiKey, myDiv, publisherOptions);
-  document.getElementById("speaker" + speakerNumber + "Box").appendChild(myDiv);
+
   if (isDebater) {
     session.publish(publisher);
+    document.getElementById("speaker" + speakerNumber + "Box").appendChild(myDiv);
+    document.getElementById("speaker" + speakerNumber + "Box").parentNode.parentNode.style.visibility = "";
   }
   else {
   //  alert("SPECTATINGg");
@@ -380,59 +357,18 @@ function subscribeToStreams(streams) {
     div.setAttribute('id', 'stream' + streams[i].streamId);
     var email = connection.data.split("|")[1];
     var newSpeakerNumber = parseInt(debatersJson[email]) + 1;
-    //alert(document.getElementById("speaker" + newSpeakerNumber + "Box") != null + newSpeakerNumber + " exists");
 
-    if (document.getElementById("speaker" + newSpeakerNumber + "Box") != null) {
-      document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
+    $('#totalConnected').html(Object.keys(debatersJson).length);
+    if (parseInt(document.getElementById("totalConnected").innerHTML) == 6) {
+      document.getElementById("loadingDebaters").style.display = "none";
     }
-    else {
-      $('#totalConnected').html(Object.keys(debatersJson).length);
-      if (parseInt(document.getElementById("totalConnected").innerHTML) == 6) {
-        document.getElementById("loadingDebaters").style.display = "none";
-      }
-      var userEmail = email;
-      var container = document.getElementById("center-vids-container");
-      // instead of appending to innerHTML, just show the hidden element
-      container.innerHTML += '<div class="col  full-ft-speaker-box">' +
-        '<div class="section">' +
-          '<div id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Box" class="speakerBox">' +
-          '</div>' +
-        '</div>' +
-
-        '<div class="section progressbar" id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Progressbar"></div>' +
-
-        '<div class="section speaker-options-container">' +
-          '<div class="speaker-options">' +
-
-            '<div class="user-name-ft" id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Name">' +
-            userEmail +
-            '</div>' +
-
-            '<div class="vote-options">' +
-              '<div class="speakerPoints-container">' +
-                '<div id="speaker' + parseInt(debatersJson[userEmail] + 1) + 'Points" class="speakerPoints">' +
-                  0 +
-                '</div>' +
-              '</div>' +
-
-              '<!-- CHANGE BOUNCE1??? -->' +
-              '<div class="upvotebutton-container" id="upvote-bounce'+ parseInt(debatersJson[userEmail] + 1) + '">' +
-                '<%= image_tag("upvotebutton.svg", :class => "upvotebutton")%>' +
-              '</div>' +
-            '</div>' +
-          '</div>' +
-        '</div>' +
-      '</div>';
-      document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
+    var userEmail = email;
+    var container = document.getElementById("center-vids-container");
+    // instead of appending to innerHTML, just show the hidden element
+    if (document.getElementById("speaker" + newSpeakerNumber + "Box").parentNode.parentNode.style.visibility = "hidden") {
+      document.getElementById("speaker" + newSpeakerNumber + "Box").parentNode.parentNode.style.visibility = "";
     }
-
-    // var subscribeTimer = setInterval(function() {
-    //   if (document.getElementById("speaker" + newSpeakerNumber + "Box") != null) {
-    //     document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
-    //     clearInterval(subscribeTimer);
-    //     subscribeTimer = null;
-    //   }
-    // }, 4000);
+    document.getElementById("speaker" + newSpeakerNumber + "Box").appendChild(div);
     session.subscribe(streams[i], div.id, options);
   }
 }
@@ -719,7 +655,7 @@ if (isPublic) {
         var dropSpeakerNumber = parseInt(debatersJson[dropEmail] + 1);
         var dropSpeakerBox = document.getElementById("speaker" + dropSpeakerNumber + "Box");
         var section = dropSpeakerBox.parentNode.parentNode;
-        section.parentNode.removeChild(section);
+        section.style.visibility = "hidden";
         // bad way to do it totalSessions[parseInt(debatersJson[dropEmail])] = null;
         //totalSessions.splice(totalSessions.indexOf(event), 1);
         totalSessions[parseInt(debatersJson[dropEmail])] = null;
@@ -1036,7 +972,6 @@ session.on(
     }
   }
 );
-
 <% end %>
 
 <% if session[:user_id].to_s == params[:user_id].to_s %>
