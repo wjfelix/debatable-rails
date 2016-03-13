@@ -654,11 +654,13 @@ if (isPublic) {
             }
           );
         }
+
         // speaker' + parseInt(debatersJson[userEmail] + 1) + 'Box
         var dropSpeakerNumber = parseInt(debatersJson[dropEmail] + 1);
         var dropSpeakerBox = document.getElementById("speaker" + dropSpeakerNumber + "Box");
         var section = dropSpeakerBox.parentNode.parentNode;
         section.style.visibility = "hidden";
+        $('#speaker' + dropSpeakerNumber + 'Points').css('visibility', 'hidden');
         // bad way to do it totalSessions[parseInt(debatersJson[dropEmail])] = null;
         //totalSessions.splice(totalSessions.indexOf(event), 1);
         totalSessions[parseInt(debatersJson[dropEmail])] = null;
@@ -688,8 +690,8 @@ if (isPublic) {
             }
             */
           }
-          // drop someone after 7 seconds if they don't come back
-        }, 10000);
+          // drop someone after 3 seconds if they don't come back
+        }, 8000);
       }
     }
   );
@@ -923,7 +925,10 @@ session.on(
   "signal:showPoints", function(event) {
     var points = $('.speakerPoints');
     for (var i = 0; i < points.length; i++) {
-      points[i].style.visibility = 'visible';
+      var jqueryPoints = $(points[i]);
+      if (jqueryPoints.parents().eq(4).css('visibility') != "hidden") {
+        points[i].style.visibility = 'visible';
+      }
     }
   }
 );
