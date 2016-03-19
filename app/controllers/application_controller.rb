@@ -45,6 +45,6 @@ class ApplicationController < ActionController::Base
         @topics.push(char_element.text)
       end
     end
-    #@topic = @topics[0]
+    @topic = @topics[0]
   end
 end
