@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
 
   def grab_new_topic
     # set @topic
-    @topic = "Two Party Political System in America"
+    @topic = "Founders of Debatable"
 
     # get the topic of the day!!
     response = HTTParty.get('http://www.google.com/trends/hottrends/atom/feed')
