@@ -110,7 +110,7 @@ $(document).ready(function(){
           Time:
         </span>
         <span id="clock">
-          35
+          45
         </span>
       </h4>
 
@@ -786,7 +786,7 @@ session.on(
 
 session.on(
   "signal:resetTimer", function(event) {
-  $('#clock').html("35");
+  $('#clock').html("45");
 });
 
 session.on(
@@ -839,7 +839,7 @@ function startLoadingBar(speakerIndex) {
   speakerBar.appendChild(timeLeftBar);
 
   var total = 100;
-  seconds = 35;
+  seconds = 45;
 
 
   // interval = total seconds * 10 / 2 (or 3 or 4 depending on how far we wanna go)
@@ -849,7 +849,7 @@ function startLoadingBar(speakerIndex) {
     //this will be a function of time??
     var currentTime = parseInt($('#clock').text(), 10);
 
-    if (currentTime == 35) {
+    if (currentTime == 45) {
       // 100, 100 = 10 sec total
       // green to yellow
       colorFade("tickingBar", "background", "00cc00", "ffff00", 200, 15);
@@ -865,7 +865,7 @@ function startLoadingBar(speakerIndex) {
       total = 50;
     }
     else if (currentTime == Math.round(seconds / 4)) {
-      total = 35;
+      total = 45;
     }
 
     if (currentTime == 0 || total == 0) {
