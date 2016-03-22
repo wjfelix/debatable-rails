@@ -4,7 +4,6 @@ class DebateUsersController < ApplicationController
   before_filter :find_debate
   def new
     @debate_user = DebateUser.new
-
   end
 
   def create

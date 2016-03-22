@@ -51,4 +51,4 @@ production:
   <<: *default
   database: debatable-rails_production
   username: root
-  password: sucksforyou2
+  password: PomfPoniesEveryday 
