@@ -73,6 +73,7 @@ class FiretalksController < ApplicationController
     @is_debater = false;
     if (session[:user_id])
       @user = User.find(session[:user_id])
+      @my_name = @user.firstname
       @my_firetalk_debater = FiretalkDebater.where(:user_id => @user.id, :firetalk_id => @firetalk.id)
       @is_owner = @firetalk.user_id == session[:user_id]
       if (session[:user_id] == @user.id)

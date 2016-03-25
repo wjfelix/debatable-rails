@@ -36,6 +36,9 @@ Rails.application.routes.draw do
 
   get '/join_firetalk', to: 'firetalks#join'
 
+  get '/firetalk_message', to: 'firetalk_messages#new'
+  post '/firetalk_message', to: 'firetalk_messages#create'
+
   resources :users do
     get :validate_email
     resources :debates

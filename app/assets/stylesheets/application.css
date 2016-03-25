@@ -140,7 +140,7 @@ body {
 }
 
 textarea{
- 
+
 }
 
 
@@ -495,7 +495,7 @@ center-col-shadow{
   border-radius: 8px;
   padding: 20px;
 
- 
+
 
 }
 
@@ -512,7 +512,7 @@ center-col-shadow{
 .options-news{
   width: 30%;
   display: inline-block;
-  max-width: ;
+  /**max-width: ;**/
 }
 
 .home-container{

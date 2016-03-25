@@ -18,8 +18,6 @@
 # Ignore database config
 /config/database.yml
 /*.scss
-Gemfile
-app/controllers/firetalks_controller.rb
 
 
 

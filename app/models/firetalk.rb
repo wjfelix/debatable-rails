@@ -7,6 +7,7 @@ class Firetalk < ActiveRecord::Base
   #attr_accessible :user_ids
   belongs_to :user
   has_many :firetalk_debaters
+  has_many :firetalk_messages
   has_many :users, :through => :firetalk_debaters
 
   accepts_nested_attributes_for :firetalk_debaters

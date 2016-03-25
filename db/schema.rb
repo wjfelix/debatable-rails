@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160310025907) do
+ActiveRecord::Schema.define(version: 20160322022539) do
 
   create_table "categories", force: true do |t|
     t.string   "category_name", null: false
@@ -74,6 +74,14 @@ ActiveRecord::Schema.define(version: 20160310025907) do
     t.datetime "updated_at"
     t.integer  "firetalk_id"
     t.integer  "user_id"
+  end
+
+  create_table "firetalk_messages", force: true do |t|
+    t.string   "name"
+    t.string   "content",     default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "firetalk_id"
   end
 
   create_table "firetalks", force: true do |t|
